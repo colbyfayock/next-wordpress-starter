@@ -10,6 +10,11 @@ yarn create next-app -e https://github.com/colbyfayock/next-wordpress-starter
 npx create-next-app -e https://github.com/colbyfayock/next-wordpress-starter
 ```
 
+Add an `.env.local` file to the root with the following:
+```
+WORDPRESS_HOST="[host]"
+```
+
 ## Getting Started
 
 First, run the development server:
