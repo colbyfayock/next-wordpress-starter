@@ -1,41 +1,52 @@
 import Head from 'next/head';
 import styles from 'styles/Home.module.scss';
 
-import { getPosts } from 'lib/posts';
+import { getPosts, sanitizeExcerpt } from 'lib/posts';
+import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
+import Section from 'components/Section';
 
 export default function Home({ posts }) {
+  const { metadata = {} } = useSite();
+  const { name, description } = metadata;
+
   return (
     <Layout displayNav={false}>
       <Head>
-        <title>Create Next App</title>
+        <title>name</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1 className={styles.title}>
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
+      <Section>
+        <h1 className={styles.title} dangerouslySetInnerHTML={{
+          __html: name
+        }} />
 
-      <p className={styles.description}>
-        Filled with sample content from <a href="http://fillerama.io/">fillerama.io</a> for your viewing pleasure.
-      </p>
+        <p className={styles.description} dangerouslySetInnerHTML={{
+          __html: description
+        }} />
+      </Section>
 
-      <ul className={styles.grid}>
-        {posts.map(post => {
-          const { id, title, excerpt, slug } = post;
-          return (
-            <li key={`${id}-${slug}`} className={styles.card}>
-              <a href={`/posts/${slug}`}>
-                <h3>{ title?.rendered }</h3>
-                <div dangerouslySetInnerHTML={{
-                  __html: excerpt?.rendered
-                }} />
-              </a>
-            </li>
-          )
-        })}
-      </ul>
+      <Section>
+        <ul className={styles.posts}>
+          {posts.map(post => {
+            const { id, title, excerpt, slug } = post;
+            return (
+              <li key={`${id}-${slug}`} className={styles.card}>
+                <a href={`/posts/${slug}`}>
+                  <h3 dangerouslySetInnerHTML={{
+                    __html: title?.rendered
+                  }} />
+                  <div dangerouslySetInnerHTML={{
+                    __html: excerpt && sanitizeExcerpt(excerpt.rendered)
+                  }} />
+                </a>
+              </li>
+            )
+          })}
+        </ul>
+      </Section>
     </Layout>
   )
 }

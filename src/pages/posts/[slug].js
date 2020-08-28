@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import { Helmet } from 'react-helmet';
 import styles from 'styles/Post.module.scss';
 
 import { getPostBySlug, getPosts } from 'lib/posts';
 
 import Layout from 'components/Layout';
+import Section from 'components/Section';
 
 export default function Post({ post }) {
   const router = useRouter()
@@ -14,17 +15,19 @@ export default function Post({ post }) {
 
   return (
     <Layout>
-      <Head>
+      <Helmet>
         <title>{ title?.rendered }</title>
-      </Head>
+      </Helmet>
 
-      <h1 className={styles.title} dangerouslySetInnerHTML={{
-        __html: title?.rendered
-      }} />
+      <Section>
+        <h1 className={styles.title} dangerouslySetInnerHTML={{
+          __html: title?.rendered
+        }} />
 
-      <div className={styles.content} dangerouslySetInnerHTML={{
-        __html: content?.rendered
-      }} />
+        <div className={styles.content} dangerouslySetInnerHTML={{
+          __html: content?.rendered
+        }} />
+      </Section>
     </Layout>
   )
 }

@@ -14,14 +14,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: $color-gray-400;
     font-size: 1.2rem;
     font-weight: bold;
-    color: $color-gray-400;
+    text-decoration: none;
     border-bottom: solid 2px transparent;
 
     &:hover {
       color: $color-primary;
-      border-bottom: solid 2px $color-primary;
     }
 
   }
