@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from 'styles/Home.module.scss';
 
 import { getPosts, sanitizeExcerpt } from 'lib/posts';
@@ -14,11 +13,6 @@ export default function Home({ posts }) {
 
   return (
     <Layout displayNav={false}>
-      <Head>
-        <title>name</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <Header>
         <h1 className={styles.title} dangerouslySetInnerHTML={{
           __html: name
