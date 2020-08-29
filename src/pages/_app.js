@@ -4,7 +4,7 @@ import SiteContext from 'context/site-context';
 
 import { getSiteMetadata } from 'lib/site';
 
-function MyApp({ Component, pageProps, siteMetadata }) {
+function App({ Component, pageProps, siteMetadata }) {
   return (
     <SiteContext.Provider value={{ metadata: siteMetadata }}>
       <Component {...pageProps} />
@@ -12,10 +12,10 @@ function MyApp({ Component, pageProps, siteMetadata }) {
   );
 }
 
-MyApp.getInitialProps = async function () {
+App.getInitialProps = async function () {
   return {
     siteMetadata: await getSiteMetadata()
   }
 }
 
-export default MyApp;
+export default App;

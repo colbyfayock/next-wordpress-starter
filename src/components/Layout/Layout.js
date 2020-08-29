@@ -7,18 +7,24 @@ import Nav from 'components/Nav';
 import Footer from 'components/Footer';
 
 const Layout = ({ children, displayNav = true }) => {
-  const { metadata = {} } = useSite();
+  const { homepage, metadata = {} } = useSite();
   const { name } = metadata;
 
+  const pageTitle = name;
+
   const helmetSettings = {
-    defaultTitle: name,
-    titleTemplate: `%s - ${name}`
+    defaultTitle: pageTitle,
+    titleTemplate: `%s - ${pageTitle}`
   }
 
   return (
     <div className={styles.container}>
       <Helmet {...helmetSettings}>
         <link rel="icon" href="/favicon.ico" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:url" content={homepage} />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content={pageTitle} />
       </Helmet>
 
       { displayNav && <Nav />}

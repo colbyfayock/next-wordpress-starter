@@ -20,9 +20,9 @@ export async function getPostBySlug(slug) {
  * getPosts
  */
 
-export async function getPosts() {
+export async function getPosts({ perPage = 100 } = {}) {
   const request = new WpRequest({
-    route: ROUTE_POSTS
+    route: `${ROUTE_POSTS}?per_page=${perPage}`
   });
 
   const posts = await request.fetch();

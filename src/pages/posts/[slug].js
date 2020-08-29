@@ -1,23 +1,32 @@
+import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import styles from 'styles/Post.module.scss';
 
 import { getPostBySlug, getPosts } from 'lib/posts';
+import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
 import Section from 'components/Section';
 
 export default function Post({ post }) {
-  const router = useRouter()
+  const router = useRouter();
+  const { homepage } = useSite();
 
   const { slug } = router.query;
   const { title, content } = post;
 
+  const pageTitle = title?.rendered;
+  const route = path.join(homepage, '/posts/', slug);
+
   return (
     <Layout>
       <Helmet>
-        <title>{ title?.rendered }</title>
+        <title>{ pageTitle }</title>
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:url" content={route} />
+        <meta property="og:type" content="article" />
       </Helmet>
 
       <Header>

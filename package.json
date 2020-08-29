@@ -1,5 +1,6 @@
 {
   "name": "next-wordpress-starter",
+  "homepage": "https://next-wordpress-starter.netlify.app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +10,7 @@
   },
   "dependencies": {
     "next": "9.5.2",
+    "path": "^0.12.7",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-helmet": "^6.1.0",
