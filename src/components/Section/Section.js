@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from './Section.module.scss';
 
 const Section = ({ children }) => {
