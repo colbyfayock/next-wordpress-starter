@@ -5,6 +5,7 @@ import styles from 'styles/Post.module.scss';
 import { getPostBySlug, getPosts } from 'lib/posts';
 
 import Layout from 'components/Layout';
+import Header from 'components/Header';
 import Section from 'components/Section';
 
 export default function Post({ post }) {
@@ -19,11 +20,13 @@ export default function Post({ post }) {
         <title>{ title?.rendered }</title>
       </Helmet>
 
-      <Section>
+      <Header>
         <h1 className={styles.title} dangerouslySetInnerHTML={{
           __html: title?.rendered
         }} />
+      </Header>
 
+      <Section>
         <div className={styles.content} dangerouslySetInnerHTML={{
           __html: content?.rendered
         }} />

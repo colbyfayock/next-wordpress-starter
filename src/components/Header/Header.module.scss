@@ -1,0 +1,15 @@
+@import "styles/components/_container";
+
+.header {
+
+  margin-bottom: 5rem;
+
+  p {
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+  }
+
+}

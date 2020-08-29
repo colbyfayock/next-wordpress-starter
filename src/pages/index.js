@@ -5,6 +5,7 @@ import { getPosts, sanitizeExcerpt } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
+import Header from 'components/Header';
 import Section from 'components/Section';
 
 export default function Home({ posts }) {
@@ -18,7 +19,7 @@ export default function Home({ posts }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Section>
+      <Header>
         <h1 className={styles.title} dangerouslySetInnerHTML={{
           __html: name
         }} />
@@ -26,7 +27,7 @@ export default function Home({ posts }) {
         <p className={styles.description} dangerouslySetInnerHTML={{
           __html: description
         }} />
-      </Section>
+      </Header>
 
       <Section>
         <ul className={styles.posts}>
