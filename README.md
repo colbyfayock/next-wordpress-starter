@@ -12,7 +12,6 @@ npx create-next-app -e https://github.com/colbyfayock/next-wordpress-starter
 
 Add an `.env.local` file to the root with the following:
 
-
 ## 🚀 Getting Started
 
 ### Environment
@@ -55,6 +54,17 @@ This project aims to take advantage of as many built-in WordPress features by de
 
 * Site Title: Used for the homepage header as well as the default meta title
 * Tagline: Used on the homepage for the header subtitle
+
+### Images
+
+By default, this Starter doesn't provide any mechanisms for dealing with image content from WordPress. The images are linked to "as is", meaning if the image is uploaded via the WordPress interface, the image will be served from WordPress.
+
+To serve the images statically, you have a few options.
+
+#### Jetpack
+By enabling the Image Accelerator from Jetpack, your images will automatically be served statically and cached via the wp.com CDN. This feature comes free with the basic installation of Jetpack, requiring only that you connect the WordPress site to the Jetpack service.
+
+[Jetpack CDN](https://jetpack.com/features/design/content-delivery-network/)
 
 ## Learn More About Next.js
 
