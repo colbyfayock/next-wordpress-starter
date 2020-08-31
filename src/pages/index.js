@@ -22,7 +22,9 @@ export default function Home({ posts }) {
           __html: description
         }} />
       </Header>
-
+<img src="http://54.243.240.9/wp-content/uploads/2020/08/fry-cheer.png" />
+<img src="http://54.243.240.9/wp-content/uploads/2020/08/fry-cheer.png" />
+<img src={require('../../public/vercel.svg')} />
       <Section>
         <ul className={styles.posts}>
           {posts.map(post => {

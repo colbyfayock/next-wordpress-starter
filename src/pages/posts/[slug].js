@@ -1,6 +1,7 @@
 import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
+import ReactHtmlParser from 'react-html-parser';
 import styles from 'styles/Post.module.scss';
 
 import { getPostBySlug, getPosts } from 'lib/posts';
@@ -30,15 +31,21 @@ export default function Post({ post }) {
       </Helmet>
 
       <Header>
-        <h1 className={styles.title} dangerouslySetInnerHTML={{
-          __html: title?.rendered
-        }} />
+        <h1 className={styles.title}>{ ReactHtmlParser(title?.rendered) }</h1>
       </Header>
 
       <Section>
-        <div className={styles.content} dangerouslySetInnerHTML={{
-          __html: content?.rendered
-        }} />
+        <div className={styles.content}>{ ReactHtmlParser(content?.rendered, {
+          transform: (node) => {
+            if ( node.name !== 'img' ) return;
+            const { attribs = {} } = node;
+            const { src, srcset  } = attribs;
+
+            const srctemp = 'images/wp-content/2020/08/fry-cheer.png';
+
+            return <img {...attribs} data-wordpress src={srctemp} srcset=""  />
+          }
+        }) }</div>
       </Section>
     </Layout>
   )
