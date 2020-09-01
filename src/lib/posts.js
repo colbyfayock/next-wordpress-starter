@@ -11,7 +11,7 @@ export async function getPostBySlug(slug) {
     route: `${ROUTE_POSTS}?slug=${slug}`
   });
 
-  const post = await request.fetch();
+  const { data: post } = await request.fetch();
 
   return post && post[0];
 }
@@ -20,16 +20,55 @@ export async function getPostBySlug(slug) {
  * getPosts
  */
 
-export async function getPosts({ perPage = 100 } = {}) {
+export async function getPosts({ perPage = 100, page = 1, query = {} } = {}) {
+  const params = [
+    `per_page=${perPage}`,
+    `page=${page}`
+  ];
+
+  Object.keys(query).forEach(key => {
+    params.push(`${key}=${query[key]}`);
+  })
+
   const request = new WpRequest({
-    route: `${ROUTE_POSTS}?per_page=${perPage}`
+    route: `${ROUTE_POSTS}?${params.join('&')}`
   });
 
-  const posts = await request.fetch();
+  const { data: posts, headers } = await request.fetch();
 
-  return posts;
+  const pages = headers['x-wp-totalpages'];
+
+  return {
+    posts,
+    perPage,
+    currentPage: page,
+    totalPages: parseInt(pages)
+  };
 }
 
+/**
+ * getAllPosts
+ */
+
+export async function getAllPosts(options) {
+  const { posts, totalPages } = await getPosts(options);
+  const indexedArray = [...new Array(totalPages - 1)];
+
+  const remainingPosts = await Promise.all(indexedArray.map(async (p, index) => {
+    const pageIndex = index + 2;
+    const { posts, totalPages } = await getPosts({
+      ...options,
+      page: pageIndex
+    });
+    return posts;
+  }));
+
+  const allPosts = [...posts, ...remainingPosts.flat()];
+
+  return {
+    posts: allPosts
+  };
+}
 
 /**
  * sanitizeExcerpt

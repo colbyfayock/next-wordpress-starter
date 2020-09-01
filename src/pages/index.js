@@ -8,7 +8,7 @@ import Header from 'components/Header';
 import Section from 'components/Section';
 
 export default function Home({ posts }) {
-  const { metadata = {} } = useSite();
+  const { metadata = {}, searchIndex } = useSite();
   const { name, description } = metadata;
 
   return (
@@ -42,15 +42,28 @@ export default function Home({ posts }) {
           })}
         </ul>
       </Section>
+      <Section>
+        <h2>Test Search Index</h2>
+        <ul>
+          {searchIndex.map(({ id, title }) => {
+            return (
+              <li key={id}>
+                { title?.rendered }
+              </li>
+            )
+          })}
+        </ul>
+      </Section>
     </Layout>
   )
 }
 
 
 export async function getStaticProps() {
+  const { posts } = await getPosts();
   return {
     props: {
-      posts: await getPosts()
+      posts
     }
   }
 }

@@ -1,7 +1,18 @@
 class Request {
   async fetch() {
     const response = await fetch(this.url);
-    return await response.json();
+    const data = await response.json();
+    const headers = {};
+
+    for (let [key, value] of response.headers) {
+      headers[key] = value;
+    }
+
+
+    return {
+      headers,
+      data
+    };
   }
 }
 

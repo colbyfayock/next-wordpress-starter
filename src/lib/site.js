@@ -5,9 +5,11 @@ import WpRequest from 'models/wp-request';
  */
 
 export async function getSiteMetadata() {
-  const request = new WpRequest();
+  const request = new WpRequest({
+    route: '?_fields=name,description'
+  });
 
-  const data = await request.fetch();
+  const { data } = await request.fetch();
 
   return data;
 }
