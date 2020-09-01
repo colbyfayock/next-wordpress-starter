@@ -28,7 +28,7 @@ export async function getPosts({ perPage = 100, page = 1, query = {} } = {}) {
 
   Object.keys(query).forEach(key => {
     params.push(`${key}=${query[key]}`);
-  })
+  });
 
   const request = new WpRequest({
     route: `${ROUTE_POSTS}?${params.join('&')}`

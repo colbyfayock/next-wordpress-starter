@@ -4,12 +4,9 @@ import SiteContext from 'context/site-context';
 import { getSiteMetadata } from 'lib/site';
 import { getAllPosts } from 'lib/posts';
 
-import searchIndex from 'data/search.json';
-
-function App({ Component, pageProps, siteMetadata, searchIndex }) {
+function App({ Component, pageProps, siteMetadata }) {
   const context = {
-    metadata: siteMetadata,
-    searchIndex
+    metadata: siteMetadata
   }
   return (
     <SiteContext.Provider value={context}>
@@ -19,15 +16,8 @@ function App({ Component, pageProps, siteMetadata, searchIndex }) {
 }
 
 App.getInitialProps = async function () {
-  const { posts } = await getAllPosts({
-    query: {
-      _fields: 'id,slug,title,date'
-    }
-  });
-
   return {
-    siteMetadata: await getSiteMetadata(),
-    searchIndex: posts
+    siteMetadata: await getSiteMetadata()
   }
 }
 

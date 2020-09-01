@@ -8,7 +8,6 @@ class Request {
       headers[key] = value;
     }
 
-
     return {
       headers,
       data

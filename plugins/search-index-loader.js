@@ -4,7 +4,7 @@ const { getOptions } = require('loader-utils');
 
 const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
 
-const DEFAULT_OUTPUT_DIRECTORY = './src/data';
+const DEFAULT_OUTPUT_DIRECTORY = './public';
 const DEFAULT_OUTPUT_NAME = 'search.json';
 
 module.exports = function(content, map, meta) {

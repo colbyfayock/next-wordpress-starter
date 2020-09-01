@@ -6,7 +6,7 @@ module.exports = function indexSearch(nextConfig = {}) {
     webpack(config, options) {
 
       config.module.rules.push({
-        test: /.*/,
+        test: /pages\/index\.js/,
         use: [
           {
             loader: require.resolve('./search-index-loader'),

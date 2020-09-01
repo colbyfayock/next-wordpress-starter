@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import styles from 'styles/Home.module.scss';
 
 import { getPosts, sanitizeExcerpt } from 'lib/posts';
@@ -8,8 +9,17 @@ import Header from 'components/Header';
 import Section from 'components/Section';
 
 export default function Home({ posts }) {
-  const { metadata = {}, searchIndex } = useSite();
+  const { metadata = {} } = useSite();
   const { name, description } = metadata;
+
+  useEffect(() => {
+    async function run() {
+      const data = await fetch('/search.json');
+      const index = await data.json();
+      console.log('index', index);
+    }
+    run();
+  }, [])
 
   return (
     <Layout displayNav={false}>
@@ -37,18 +47,6 @@ export default function Home({ posts }) {
                     __html: excerpt && sanitizeExcerpt(excerpt.rendered)
                   }} />
                 </a>
-              </li>
-            )
-          })}
-        </ul>
-      </Section>
-      <Section>
-        <h2>Test Search Index</h2>
-        <ul>
-          {searchIndex.map(({ id, title }) => {
-            return (
-              <li key={id}>
-                { title?.rendered }
               </li>
             )
           })}
