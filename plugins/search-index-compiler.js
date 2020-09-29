@@ -4,8 +4,6 @@ const { promiseToWriteFile, mkdirp } = require('./util');
 
 const PLUGIN_NAME = 'SearchIndex';
 const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
-const DEFAULT_OUTPUT_DIRECTORY = './public';
-const DEFAULT_OUTPUT_NAME = 'search.json';
 
 class SearchIndexWebpackPlugin {
 
@@ -14,11 +12,7 @@ class SearchIndexWebpackPlugin {
   }
 
   async index(compilation, options) {
-    const {
-      host,
-      outputDirectory = DEFAULT_OUTPUT_DIRECTORY,
-      outputName = DEFAULT_OUTPUT_NAME
-    } = options;
+    const { host, outputDirectory, outputName } = options;
 
     if ( typeof host !== 'string' ) {
       throw new Error(`Failed to compile search index: invalid host type ${typeof host}`);
@@ -51,13 +45,7 @@ class SearchIndexWebpackPlugin {
   }
 
   apply(compiler) {
-    // Runs on build (next build)
-
-    compiler.hooks.run.tap(PLUGIN_NAME, async (compilation) => await this.index(compilation, this.options));
-
-    // Runs on develop (next dev)
-
-    compiler.hooks.watchRun.tap(PLUGIN_NAME, async (compilation) => await this.index(compilation, this.options));
+    compiler.hooks.beforeCompile.tap(PLUGIN_NAME, async (compilation) => await this.index(compilation, this.options));
   }
 
 }

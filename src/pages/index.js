@@ -8,13 +8,17 @@ import Layout from 'components/Layout';
 import Header from 'components/Header';
 import Section from 'components/Section';
 
+import searchIndex from 'public/wp-search.json';
+
 export default function Home({ posts }) {
   const { metadata = {} } = useSite();
   const { name, description } = metadata;
 
+  console.log('searchIndex', searchIndex)
+
   useEffect(() => {
     async function run() {
-      const data = await fetch('/search.json');
+      const data = await fetch('/wp-search.json');
       const index = await data.json();
       console.log('index', index);
     }
