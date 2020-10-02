@@ -9,8 +9,7 @@
     "dev": "next dev",
     "format": "yarn prettier --config ./config/prettier.config.js --write .",
     "format:nopath": "yarn prettier --config ./config/prettier.config.js --write",
-    "lint": "yarn lint:js",
-    "lint:js": "yarn prettier --config ./config/prettier.config.js --check .",
+    "lint": "yarn prettier --config ./config/prettier.config.js --check .",
     "start": "next start"
   },
   "husky": {
