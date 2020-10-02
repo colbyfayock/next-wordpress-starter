@@ -4,6 +4,7 @@ import styles from './Layout.module.scss';
 import useSite from 'hooks/use-site';
 
 import Nav from 'components/Nav';
+import Main from 'components/Main';
 import Footer from 'components/Footer';
 
 const Layout = ({ children, displayNav = true }) => {
@@ -29,7 +30,7 @@ const Layout = ({ children, displayNav = true }) => {
 
       {displayNav && <Nav />}
 
-      <main className={styles.main}>{children}</main>
+      <Main>{children}</Main>
 
       <Footer />
     </div>

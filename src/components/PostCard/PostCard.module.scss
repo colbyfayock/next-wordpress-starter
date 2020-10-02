@@ -1,0 +1,50 @@
+@import "styles/settings/__settings";
+
+.postCard {
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+
+  a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      h3 {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+.postCardTitle {
+  margin: 0 0 1em 0;
+  font-size: 1.5em;
+}
+
+.postCardContent {
+  font-size: 1.25em;
+  margin: 0;
+
+  p {
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.postCardMetadata {
+  color: $color-gray-600;
+  list-style: none;
+  padding: 0;
+  margin: 1.2em 0;
+
+  li {
+    display: inline-block;
+  }
+}

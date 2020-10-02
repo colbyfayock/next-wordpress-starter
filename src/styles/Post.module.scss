@@ -19,3 +19,19 @@
     }
   }
 }
+
+.title {
+  margin-bottom: 0.5em;
+}
+
+.metadata {
+  color: $color-gray-600;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+
+  li {
+    display: inline-block;
+  }
+}
