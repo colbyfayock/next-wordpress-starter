@@ -23,33 +23,39 @@ export default function Post({ post }) {
   return (
     <Layout>
       <Helmet>
-        <title>{ pageTitle }</title>
+        <title>{pageTitle}</title>
         <meta property="og:title" content={pageTitle} />
         <meta property="og:url" content={route} />
         <meta property="og:type" content="article" />
       </Helmet>
 
       <Header>
-        <h1 className={styles.title} dangerouslySetInnerHTML={{
-          __html: title?.rendered
-        }} />
+        <h1
+          className={styles.title}
+          dangerouslySetInnerHTML={{
+            __html: title?.rendered,
+          }}
+        />
       </Header>
 
       <Section>
-        <div className={styles.content} dangerouslySetInnerHTML={{
-          __html: content?.rendered
-        }} />
+        <div
+          className={styles.content}
+          dangerouslySetInnerHTML={{
+            __html: content?.rendered,
+          }}
+        />
       </Section>
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps({ params = {} } = {}) {
   return {
     props: {
-      post: await getPostBySlug(params?.slug)
-    }
-  }
+      post: await getPostBySlug(params?.slug),
+    },
+  };
 }
 
 export async function getStaticPaths() {
@@ -57,17 +63,17 @@ export async function getStaticPaths() {
 
   const { posts } = await getPosts();
 
-  const paths = posts.map(post => {
+  const paths = posts.map((post) => {
     const { slug } = post;
     return {
       params: {
-        slug
-      }
-    }
+        slug,
+      },
+    };
   });
 
   return {
     paths,
-    fallback: false
+    fallback: false,
   };
 }

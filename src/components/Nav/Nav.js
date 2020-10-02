@@ -8,9 +8,9 @@ const Nav = () => {
 
   return (
     <nav className={styles.nav}>
-      <a href="/">{ name }</a>
+      <a href="/">{name}</a>
     </nav>
-  )
-}
+  );
+};
 
 export default Nav;

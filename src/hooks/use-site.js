@@ -12,6 +12,6 @@ export default function useSite() {
 
   return {
     ...site,
-    homepage
+    homepage,
   };
 }

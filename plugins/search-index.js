@@ -1,6 +1,6 @@
 const path = require('path');
 
-const SearchIndexWebpackPlugin = require("./search-index-compiler");
+const SearchIndexWebpackPlugin = require('./search-index-compiler');
 
 const DEFAULT_OUTPUT_DIRECTORY = './public';
 const DEFAULT_OUTPUT_NAME = 'wp-search.json';
@@ -11,19 +11,19 @@ module.exports = function indexSearch(nextConfig = {}) {
 
   return Object.assign({}, nextConfig, {
     webpack(config) {
-
-      if ( config.watchOptions ) {
+      if (config.watchOptions) {
         config.watchOptions.ignored.push(path.join('**', outputDirectory, outputName));
       }
 
-      config.plugins.push(new SearchIndexWebpackPlugin({
-        host: WORDPRESS_HOST,
-        outputDirectory,
-        outputName
-      }));
+      config.plugins.push(
+        new SearchIndexWebpackPlugin({
+          host: WORDPRESS_HOST,
+          outputDirectory,
+          outputName,
+        })
+      );
 
       return config;
-    }
+    },
   });
-
-}
+};

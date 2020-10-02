@@ -14,8 +14,8 @@ const Layout = ({ children, displayNav = true }) => {
 
   const helmetSettings = {
     defaultTitle: pageTitle,
-    titleTemplate: `%s - ${pageTitle}`
-  }
+    titleTemplate: `%s - ${pageTitle}`,
+  };
 
   return (
     <div className={styles.container}>
@@ -27,15 +27,13 @@ const Layout = ({ children, displayNav = true }) => {
         <meta property="og:site_name" content={pageTitle} />
       </Helmet>
 
-      { displayNav && <Nav />}
+      {displayNav && <Nav />}
 
-      <main className={styles.main}>
-        { children }
-      </main>
+      <main className={styles.main}>{children}</main>
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Layout;

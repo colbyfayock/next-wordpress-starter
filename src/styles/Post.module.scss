@@ -3,7 +3,6 @@
 @import "styles/components/_title";
 
 .content {
-
   font-size: 1.5rem;
 
   h2,
@@ -11,7 +10,6 @@
   h4,
   p,
   ul {
-
     &:first-child {
       margin-top: 0;
     }
@@ -19,7 +17,5 @@
     &:last-child {
       margin-bottom: 0;
     }
-
   }
-
 }
