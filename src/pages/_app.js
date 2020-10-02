@@ -6,8 +6,8 @@ import { getAllPosts } from 'lib/posts';
 
 function App({ Component, pageProps, siteMetadata }) {
   const context = {
-    metadata: siteMetadata
-  }
+    metadata: siteMetadata,
+  };
   return (
     <SiteContext.Provider value={context}>
       <Component {...pageProps} />
@@ -17,8 +17,8 @@ function App({ Component, pageProps, siteMetadata }) {
 
 App.getInitialProps = async function () {
   return {
-    siteMetadata: await getSiteMetadata()
-  }
-}
+    siteMetadata: await getSiteMetadata(),
+  };
+};
 
 export default App;

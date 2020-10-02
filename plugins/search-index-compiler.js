@@ -6,7 +6,6 @@ const PLUGIN_NAME = 'SearchIndex';
 const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
 
 class SearchIndexWebpackPlugin {
-
   constructor(options = {}) {
     this.options = options;
   }
@@ -14,7 +13,7 @@ class SearchIndexWebpackPlugin {
   async index(compilation, options) {
     const { host, outputDirectory, outputName } = options;
 
-    if ( typeof host !== 'string' ) {
+    if (typeof host !== 'string') {
       throw new Error(`Failed to compile search index: invalid host type ${typeof host}`);
     }
 
@@ -27,18 +26,18 @@ class SearchIndexWebpackPlugin {
       return {
         title: post.title.rendered,
         slug: post.slug,
-        date: post.date
-      }
+        date: post.date,
+      };
     });
 
     try {
       const indexJson = JSON.stringify({
         generated: Date.now(),
-        posts: index
+        posts: index,
       });
       mkdirp(outputDirectory);
       await promiseToWriteFile(outputLocation, indexJson);
-    } catch(e) {
+    } catch (e) {
       console.log(`Failed to index posts: ${e.message}`);
       throw e;
     }
@@ -47,7 +46,6 @@ class SearchIndexWebpackPlugin {
   apply(compiler) {
     compiler.hooks.beforeCompile.tap(PLUGIN_NAME, async (compilation) => await this.index(compilation, this.options));
   }
-
 }
 
 module.exports = SearchIndexWebpackPlugin;

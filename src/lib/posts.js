@@ -8,7 +8,7 @@ import WpRequest from 'models/wp-request';
 
 export async function getPostBySlug(slug) {
   const request = new WpRequest({
-    route: `${ROUTE_POSTS}?slug=${slug}`
+    route: `${ROUTE_POSTS}?slug=${slug}`,
   });
 
   const { data: post } = await request.fetch();
@@ -21,17 +21,14 @@ export async function getPostBySlug(slug) {
  */
 
 export async function getPosts({ perPage = 100, page = 1, query = {} } = {}) {
-  const params = [
-    `per_page=${perPage}`,
-    `page=${page}`
-  ];
+  const params = [`per_page=${perPage}`, `page=${page}`];
 
-  Object.keys(query).forEach(key => {
+  Object.keys(query).forEach((key) => {
     params.push(`${key}=${query[key]}`);
   });
 
   const request = new WpRequest({
-    route: `${ROUTE_POSTS}?${params.join('&')}`
+    route: `${ROUTE_POSTS}?${params.join('&')}`,
   });
 
   const { data: posts, headers } = await request.fetch();
@@ -42,7 +39,7 @@ export async function getPosts({ perPage = 100, page = 1, query = {} } = {}) {
     posts,
     perPage,
     currentPage: page,
-    totalPages: parseInt(pages)
+    totalPages: parseInt(pages),
   };
 }
 
@@ -54,19 +51,21 @@ export async function getAllPosts(options) {
   const { posts, totalPages } = await getPosts(options);
   const indexedArray = [...new Array(totalPages - 1)];
 
-  const remainingPosts = await Promise.all(indexedArray.map(async (p, index) => {
-    const pageIndex = index + 2;
-    const { posts, totalPages } = await getPosts({
-      ...options,
-      page: pageIndex
-    });
-    return posts;
-  }));
+  const remainingPosts = await Promise.all(
+    indexedArray.map(async (p, index) => {
+      const pageIndex = index + 2;
+      const { posts, totalPages } = await getPosts({
+        ...options,
+        page: pageIndex,
+      });
+      return posts;
+    })
+  );
 
   const allPosts = [...posts, ...remainingPosts.flat()];
 
   return {
-    posts: allPosts
+    posts: allPosts,
   };
 }
 
@@ -75,8 +74,8 @@ export async function getAllPosts(options) {
  */
 
 export function sanitizeExcerpt(excerpt) {
-  if ( typeof excerpt !== 'string' ) {
-    throw new Error(`Failed to sanitize excerpt: invalid type ${typeof excerpt}`)
+  if (typeof excerpt !== 'string') {
+    throw new Error(`Failed to sanitize excerpt: invalid type ${typeof excerpt}`);
   }
 
   let sanitized = excerpt;

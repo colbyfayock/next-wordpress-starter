@@ -46,14 +46,14 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 In order to avoid an additional configuration file, we take advantage of some built-in properties of `package.json` to configure some of the website properties.
 
-* homepage: Setting the `homepage` property will update instances where the full URL is required such as Open Graph tags
+- homepage: Setting the `homepage` property will update instances where the full URL is required such as Open Graph tags
 
 ### WordPress
 
 This project aims to take advantage of as many built-in WordPress features by default. Those include:
 
-* Site Title: Used for the homepage header as well as the default meta title
-* Tagline: Used on the homepage for the header subtitle
+- Site Title: Used for the homepage header as well as the default meta title
+- Tagline: Used on the homepage for the header subtitle
 
 ### Images
 
@@ -62,6 +62,7 @@ By default, this Starter doesn't provide any mechanisms for dealing with image c
 To serve the images statically, you have a few options.
 
 #### Jetpack
+
 By enabling the Image Accelerator from Jetpack, your images will automatically be served statically and cached via the wp.com CDN. This feature comes free with the basic installation of Jetpack, requiring only that you connect the WordPress site to the Jetpack service.
 
 [Jetpack CDN](https://jetpack.com/features/design/content-delivery-network/)

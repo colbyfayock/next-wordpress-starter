@@ -10,7 +10,7 @@ class Request {
 
     return {
       headers,
-      data
+      data,
     };
   }
 }

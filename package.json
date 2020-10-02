@@ -2,11 +2,23 @@
   "name": "next-wordpress-starter",
   "homepage": "https://next-wordpress-starter.netlify.app",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "author": "Colby Fayock <hello@colbyfayock.com>",
   "scripts": {
-    "dev": "next dev",
     "build": "next build && next export",
+    "dev": "next dev",
+    "format": "yarn prettier --config ./config/prettier.config.js --write .",
+    "format:nopath": "yarn prettier --config ./config/prettier.config.js --write",
+    "lint": "yarn prettier --config ./config/prettier.config.js --check .",
     "start": "next start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "yarn format:nopath"
   },
   "dependencies": {
     "loader-utils": "^2.0.0",
@@ -17,5 +29,17 @@
     "react-dom": "16.13.1",
     "react-helmet": "^6.1.0",
     "sass": "^1.26.10"
+  },
+  "devDependencies": {
+    "husky": ">=4",
+    "lint-staged": ">=10",
+    "prettier": "2.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colbyfayock/next-wordpress-starter"
+  },
+  "bugs": {
+    "url": "https://github.com/colbyfayock/next-wordpress-starter/issues"
   }
 }

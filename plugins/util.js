@@ -7,13 +7,13 @@ const fs = require('fs');
 function promiseToWriteFile(location, content) {
   return new Promise((resolve, reject) => {
     fs.writeFile(location, content, (err) => {
-      if ( err ) {
+      if (err) {
         reject(err);
         return;
       }
       resolve();
-    })
-  })
+    });
+  });
 }
 
 module.exports.promiseToWriteFile = promiseToWriteFile;
@@ -29,7 +29,7 @@ function mkdirp(directory) {
   split.forEach((dir) => {
     temp = `${temp}/${dir}`;
 
-    if (!fs.existsSync(temp) ) {
+    if (!fs.existsSync(temp)) {
       fs.mkdirSync(temp);
     }
   });
