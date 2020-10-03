@@ -61,6 +61,11 @@
     display: block;
   }
 
+  p {
+    line-height: 1.15;
+    margin: 0;
+  }
+
   ul {
     list-style: none;
     padding: 0;
@@ -73,5 +78,11 @@
     text-decoration: none;
     padding: 0.5em;
     margin: 0 -0.5em;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+      }
+    }
   }
 }
