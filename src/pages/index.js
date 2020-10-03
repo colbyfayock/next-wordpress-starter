@@ -17,7 +17,7 @@ export default function Home({ posts }) {
   const { name, description } = metadata;
 
   return (
-    <Layout displayNav={false}>
+    <Layout>
       <Header>
         <h1
           className={styles.title}

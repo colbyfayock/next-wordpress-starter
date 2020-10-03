@@ -2,7 +2,6 @@
 
 .nav {
   width: 100%;
-  height: 4em;
   border-bottom: 1px solid $color-gray-50;
   padding: 0 1rem;
 }
@@ -10,15 +9,26 @@
 .navSection {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  flex-direction: column;
   height: 100%;
   padding-top: 0;
   padding-bottom: 0;
   margin: 0;
+
+  @media (min-width: 480px) {
+    justify-content: space-between;
+    flex-direction: row;
+  }
 }
 
 .navName {
-  margin: 0;
+  flex-shrink: 0;
+  margin: 0.8em 0 0;
+
+  @media (min-width: 480px) {
+    margin-top: 0;
+  }
 
   a {
     display: flex;
@@ -37,13 +47,39 @@
 }
 
 .navSearch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  height: 100%;
-  padding: 1em;
-  margin-right: -1rem;
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+
+    @media (min-width: 480px) {
+      justify-content: flex-end;
+      margin-right: -1rem;
+    }
+  }
+
+  button {
+    font-size: 1.2em;
+    background: none;
+    padding: 1.045em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    svg {
+      fill: $color-gray-400;
+    }
+
+    &:focus {
+      svg {
+        fill: $color-primary;
+      }
+    }
+  }
 }
 
 .navSearchResults {
@@ -51,11 +87,17 @@
   position: absolute;
   top: 100%;
   right: 0;
-  width: 30em;
+  width: 100vw;
   background-color: white;
   padding: 1.5em;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   border-top: solid 5px $color-primary;
+  margin-right: -1rem;
+
+  @media (min-width: 480px) {
+    width: 30em;
+    margin-right: 0;
+  }
 
   [data-search-is-active="true"] & {
     display: block;
