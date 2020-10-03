@@ -4,9 +4,21 @@
   width: 100%;
   height: 4em;
   border-bottom: 1px solid $color-gray-50;
+  padding: 0 1rem;
+}
+
+.navSection {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+.navName {
+  margin: 0;
 
   a {
     display: flex;
@@ -21,5 +33,45 @@
     &:hover {
       color: $color-primary;
     }
+  }
+}
+
+.navSearch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  padding: 1em;
+  margin-right: -1rem;
+}
+
+.navSearchResults {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 30em;
+  background-color: white;
+  padding: 1.5em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-top: solid 5px $color-primary;
+
+  [data-search-is-active="true"] & {
+    display: block;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: -0.5em 0;
+  }
+
+  a {
+    display: block;
+    color: $color-gray-800;
+    text-decoration: none;
+    padding: 0.5em;
+    margin: 0 -0.5em;
   }
 }

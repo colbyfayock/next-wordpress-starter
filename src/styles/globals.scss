@@ -13,3 +13,11 @@ p {
   line-height: 1.6;
   margin: 1.2em 0;
 }
+
+input {
+  &[type="text"],
+  &[type="search"],
+  &[type="email"] {
+    padding: 0.5em 0.8em;
+  }
+}

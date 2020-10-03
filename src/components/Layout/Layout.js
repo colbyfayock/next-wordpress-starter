@@ -19,7 +19,7 @@ const Layout = ({ children, displayNav = true }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.layoutContainer}>
       <Helmet {...helmetSettings}>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={pageTitle} />

@@ -10,28 +10,15 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import PostCard from 'components/PostCard';
 
+import searchIndex from 'public/wp-search.json';
+
 import styles from 'styles/pages/Home.module.scss';
 
-export default function Home({ posts }) {
-  const { metadata = {} } = useSite();
-  const { name, description } = metadata;
-
+export default function TemplateArchive({ title = 'Archive', posts }) {
   return (
-    <Layout displayNav={false}>
+    <Layout>
       <Header>
-        <h1
-          className={styles.title}
-          dangerouslySetInnerHTML={{
-            __html: name,
-          }}
-        />
-
-        <p
-          className={styles.description}
-          dangerouslySetInnerHTML={{
-            __html: description,
-          }}
-        />
+        <h1 className={styles.title}>{title}</h1>
       </Header>
 
       <Section>
@@ -49,13 +36,4 @@ export default function Home({ posts }) {
       </Section>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const { posts } = await getPosts();
-  return {
-    props: {
-      posts,
-    },
-  };
 }

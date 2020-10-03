@@ -1,7 +1,5 @@
 @import "styles/settings/__settings";
 
-@import "styles/components/_title";
-
 .content {
   font-size: 1.5rem;
 
@@ -18,10 +16,6 @@
       margin-bottom: 0;
     }
   }
-}
-
-.title {
-  margin-bottom: 0.5em;
 }
 
 .metadata {
