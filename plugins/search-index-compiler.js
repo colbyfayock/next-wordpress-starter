@@ -1,4 +1,5 @@
 const path = require('path');
+const he = require('he');
 
 const { promiseToWriteFile, mkdirp } = require('./util');
 
@@ -23,8 +24,14 @@ class SearchIndexWebpackPlugin {
     const posts = await data.json();
 
     const index = posts.map((post = {}) => {
+      // We need to decode the title because we're using the
+      // rendered version which assumes this value will be used
+      // within the DOM
+
+      const title = he.decode(post.title.rendered);
+
       return {
-        title: post.title.rendered,
+        title,
         slug: post.slug,
         date: post.date,
       };

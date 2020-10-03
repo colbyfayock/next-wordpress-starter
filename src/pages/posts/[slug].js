@@ -11,7 +11,7 @@ import Header from 'components/Header';
 import Section from 'components/Section';
 import Container from 'components/Container';
 
-import styles from 'styles/Post.module.scss';
+import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post }) {
   const router = useRouter();

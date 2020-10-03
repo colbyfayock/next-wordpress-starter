@@ -13,3 +13,25 @@ p {
   line-height: 1.6;
   margin: 1.2em 0;
 }
+
+img {
+  max-width: 100%;
+}
+
+input {
+  &[type="text"],
+  &[type="search"],
+  &[type="email"] {
+    padding: 0.5em 0.8em;
+  }
+}
+
+.sr-only {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 0;
+  height: 0;
+}

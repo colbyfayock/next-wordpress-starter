@@ -2,11 +2,33 @@
 
 .nav {
   width: 100%;
-  height: 4em;
   border-bottom: 1px solid $color-gray-50;
+  padding: 0 1rem;
+}
+
+.navSection {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+
+  @media (min-width: 480px) {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+.navName {
+  flex-shrink: 0;
+  margin: 0.8em 0 0;
+
+  @media (min-width: 480px) {
+    margin-top: 0;
+  }
 
   a {
     display: flex;
@@ -20,6 +42,89 @@
 
     &:hover {
       color: $color-primary;
+    }
+  }
+}
+
+.navSearch {
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+
+    @media (min-width: 480px) {
+      justify-content: flex-end;
+      margin-right: -1rem;
+    }
+  }
+
+  button {
+    font-size: 1.2em;
+    background: none;
+    padding: 1.045em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    svg {
+      fill: $color-gray-400;
+    }
+
+    &:focus {
+      svg {
+        fill: $color-primary;
+      }
+    }
+  }
+}
+
+.navSearchResults {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100vw;
+  background-color: white;
+  padding: 1.5em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-top: solid 5px $color-primary;
+  margin-right: -1rem;
+
+  @media (min-width: 480px) {
+    width: 30em;
+    margin-right: 0;
+  }
+
+  [data-search-is-active="true"] & {
+    display: block;
+  }
+
+  p {
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: -0.5em 0;
+  }
+
+  a {
+    display: block;
+    color: $color-gray-800;
+    text-decoration: none;
+    padding: 0.5em;
+    margin: 0 -0.5em;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+      }
     }
   }
 }
