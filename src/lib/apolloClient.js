@@ -4,11 +4,13 @@ import { concatPagination } from '@apollo/client/utilities';
 
 let apolloClient;
 
+const WORDPRESS_HOST = process.env.WORDPRESS_HOST;
+
 function createApolloClient() {
   return new ApolloClient({
     ssrMode: typeof window === 'undefined',
     link: new HttpLink({
-      uri: 'http://eggheaddnd.local/graphql', // Server URL (must be absolute)
+      uri: `${WORDPRESS_HOST}/graphql`, // Server URL (must be absolute)
     }),
     cache: new InMemoryCache({
       typePolicies: {
