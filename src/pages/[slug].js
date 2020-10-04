@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
-import { getPageBySlug, getAllPages } from 'lib/pages';
+import { getPageById, getAllPages } from 'lib/pages';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -27,19 +27,14 @@ export default function Page({ page }) {
   return (
     <Layout>
       <Helmet>
-        <title>{pageTitle}</title>
-        <meta property="og:title" content={pageTitle} />
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
         <meta property="og:url" content={route} />
         <meta property="og:type" content="article" />
       </Helmet>
 
       <Header>
-        <h1
-          className={styles.title}
-          dangerouslySetInnerHTML={{
-            __html: title?.rendered,
-          }}
-        />
+        <h1 className={styles.title}>{title}</h1>
       </Header>
 
       <Content>
@@ -48,7 +43,7 @@ export default function Page({ page }) {
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{
-                __html: content?.rendered,
+                __html: content,
               }}
             />
           </Container>
@@ -58,10 +53,16 @@ export default function Page({ page }) {
   );
 }
 
-export async function getStaticProps({ params = {} } = {}) {
+export async function getStaticProps({ params = {} } = {}, ...rest) {
+  const { pages } = await getAllPages();
+
+  const id = pages.find(({ slug }) => slug === params.slug)?.id;
+
+  const { page } = await getPageById(id);
+
   return {
     props: {
-      page: await getPageBySlug(params?.slug),
+      page,
     },
   };
 }

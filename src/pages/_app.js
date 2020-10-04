@@ -1,14 +1,15 @@
-import 'styles/globals.scss';
-
 import { ApolloProvider } from '@apollo/client';
-import { useApollo } from 'lib/apolloClient';
+
 import SiteContext from 'context/site-context';
 import { getSiteMetadata } from 'lib/site';
 import { getAllPosts } from 'lib/posts';
 import { getNavigationPages } from 'lib/pages';
+import useApolloClient from 'hooks/use-apollo-client';
+
+import 'styles/globals.scss';
 
 function App({ Component, pageProps = {}, metadata, navigation }) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+  const apolloClient = useApolloClient(pageProps.initialApolloState);
 
   const context = {
     metadata,

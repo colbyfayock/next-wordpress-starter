@@ -1,4 +1,4 @@
-import { WP_API_ROUTE_POSTS } from 'data/wordpress';
+import { WP_API_ROUTE_POSTS } from 'data/routes';
 
 import WpRequest from 'models/wp-request';
 

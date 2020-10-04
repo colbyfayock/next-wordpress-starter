@@ -2,7 +2,7 @@ import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
-import { initializeApollo } from 'lib/apolloClient';
+import { initializeApollo } from 'lib/apollo-client';
 import { gql, useQuery, NetworkStatus } from '@apollo/client';
 import { getPostSlugs, getPostBySlug } from 'lib/postsql';
 

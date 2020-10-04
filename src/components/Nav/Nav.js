@@ -107,11 +107,7 @@ const Nav = () => {
             return (
               <li key={slug}>
                 <Link href={pagePathBySlug(slug)}>
-                  <a
-                    dangerouslySetInnerHTML={{
-                      __html: title.rendered,
-                    }}
-                  />
+                  <a>{title}</a>
                 </Link>
               </li>
             );

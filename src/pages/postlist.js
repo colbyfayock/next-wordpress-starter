@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { getPosts } from 'lib/posts';
-import { initializeApollo } from 'lib/apolloClient';
+import { initializeApollo } from 'lib/apollo-client';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
