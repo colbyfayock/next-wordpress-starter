@@ -1,5 +1,5 @@
 import { gql, useQuery, NetworkStatus } from '@apollo/client';
-import { initializeApollo } from 'lib/apolloClient';
+import { initializeApollo } from 'lib/apollo-client';
 
 const GET_ALL_SLUGS = gql`
   {

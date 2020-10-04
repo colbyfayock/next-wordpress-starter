@@ -7,7 +7,7 @@ import Nav from 'components/Nav';
 import Main from 'components/Main';
 import Footer from 'components/Footer';
 
-const Layout = ({ children, displayNav = true }) => {
+const Layout = ({ children }) => {
   const { homepage, metadata = {} } = useSite();
   const { name } = metadata;
 
@@ -28,7 +28,7 @@ const Layout = ({ children, displayNav = true }) => {
         <meta property="og:site_name" content={pageTitle} />
       </Helmet>
 
-      {displayNav && <Nav />}
+      <Nav />
 
       <Main>{children}</Main>
 

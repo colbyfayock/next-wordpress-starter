@@ -1,15 +1,16 @@
 import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
-import { format } from 'date-fns';
 
-import { getPostBySlug, getPosts } from 'lib/posts';
+import { getPostBySlug, getAllPosts } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
 import Section from 'components/Section';
 import Container from 'components/Container';
+import Content from 'components/Content';
+import Metadata from 'components/Metadata';
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -39,21 +40,21 @@ export default function Post({ post }) {
             __html: title?.rendered,
           }}
         />
-        <ul className={styles.metadata}>
-          <time dateTime={date}>{format(new Date(date), 'PPP')}</time>
-        </ul>
+        <Metadata className={styles.postMetadata} date={date} />
       </Header>
 
-      <Section>
-        <Container>
-          <div
-            className={styles.content}
-            dangerouslySetInnerHTML={{
-              __html: content?.rendered,
-            }}
-          />
-        </Container>
-      </Section>
+      <Content>
+        <Section>
+          <Container>
+            <div
+              className={styles.content}
+              dangerouslySetInnerHTML={{
+                __html: content?.rendered,
+              }}
+            />
+          </Container>
+        </Section>
+      </Content>
     </Layout>
   );
 }
@@ -69,7 +70,8 @@ export async function getStaticProps({ params = {} } = {}) {
 export async function getStaticPaths() {
   const routes = {};
 
-  const { posts } = await getPosts();
+  const { posts } = await getAllPosts();
+
   const paths = posts.map((post) => {
     const { slug } = post;
     return {
@@ -78,7 +80,7 @@ export async function getStaticPaths() {
       },
     };
   });
-  console.log(paths);
+
   return {
     paths,
     fallback: false,

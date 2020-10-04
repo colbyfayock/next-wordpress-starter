@@ -1,16 +1,21 @@
-import 'styles/globals.scss';
-
 import { ApolloProvider } from '@apollo/client';
-import { useApollo } from 'lib/apolloClient';
+
 import SiteContext from 'context/site-context';
 import { getSiteMetadata } from 'lib/site';
 import { getAllPosts } from 'lib/posts';
+import { getNavigationPages } from 'lib/pages';
+import useApolloClient from 'hooks/use-apollo-client';
 
-function App({ Component, pageProps = {}, siteMetadata }) {
-  const apolloClient = useApollo(pageProps.initialApolloState);
+import 'styles/globals.scss';
+
+function App({ Component, pageProps = {}, metadata, navigation }) {
+  const apolloClient = useApolloClient(pageProps.initialApolloState);
+
   const context = {
-    metadata: siteMetadata,
+    metadata,
+    navigation,
   };
+
   return (
     <ApolloProvider client={apolloClient}>
       <SiteContext.Provider value={context}>
@@ -22,7 +27,8 @@ function App({ Component, pageProps = {}, siteMetadata }) {
 
 App.getInitialProps = async function () {
   return {
-    siteMetadata: await getSiteMetadata(),
+    metadata: await getSiteMetadata(),
+    navigation: await getNavigationPages(),
   };
 };
 

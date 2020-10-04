@@ -1,36 +1,5 @@
 @import "styles/settings/__settings";
 
-.content {
-  font-size: 1.5rem;
-
-  h2,
-  h3,
-  h4,
-  p,
-  ul {
-    &:first-child {
-      margin-top: 0;
-    }
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-}
-
-.metadata {
-  color: $color-gray-600;
-  list-style: none;
+.postMetadata {
   text-align: center;
-  padding: 0;
-  margin: 0;
-
-  li {
-    display: inline-block;
-  }
 }

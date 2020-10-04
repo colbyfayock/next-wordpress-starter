@@ -1,3 +1,5 @@
+@import "styles/settings/__settings";
+
 * {
   box-sizing: border-box;
 }
@@ -12,6 +14,14 @@ body {
 p {
   line-height: 1.6;
   margin: 1.2em 0;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+a {
+  color: $color-primary;
 }
 
 img {

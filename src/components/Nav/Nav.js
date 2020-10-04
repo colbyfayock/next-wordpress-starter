@@ -4,6 +4,8 @@ import { FaSearch } from 'react-icons/fa';
 
 import useSite from 'hooks/use-site';
 import useSearch from 'hooks/use-search';
+import { postPathBySlug } from 'lib/posts';
+import { pagePathBySlug } from 'lib/pages';
 
 import Section from 'components/Section';
 
@@ -17,7 +19,7 @@ const Nav = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  const { metadata = {} } = useSite();
+  const { metadata = {}, navigation } = useSite();
   const { name } = metadata;
 
   const { query, results, search, clearSearch } = useSearch({
@@ -100,6 +102,17 @@ const Nav = () => {
         <p className={styles.navName}>
           <a href="/">{name}</a>
         </p>
+        <ul className={styles.navMenu}>
+          {navigation.map(({ slug, title = {} }) => {
+            return (
+              <li key={slug}>
+                <Link href={pagePathBySlug(slug)}>
+                  <a>{title}</a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
         <div className={styles.navSearch}>
           {searchVisibility === SEARCH_HIDDEN && (
             <button onClick={handleOnToggleSearch}>
@@ -124,7 +137,7 @@ const Nav = () => {
                     {results.map(({ slug, title }) => {
                       return (
                         <li key={slug}>
-                          <Link href={`/posts/${slug}`}>
+                          <Link href={postPathBySlug(slug)}>
                             <a>{title}</a>
                           </Link>
                         </li>
