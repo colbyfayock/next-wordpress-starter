@@ -17,9 +17,8 @@ export const ALL_POSTS_QUERY = gql`
 
 export default function PostList() {
   const { homepage } = useSite();
-  const getRoute = (slug) => path.join(homepage, '/posts/', slug);
 
-  const { loading, error, data, fetchMore, networkStatus } = useQuery(ALL_POSTS_QUERY, {
+  const { loading, error, data, networkStatus } = useQuery(ALL_POSTS_QUERY, {
     // Setting this value to true will make the component rerender when
     // the "networkStatus" changes, so we are able to know if it is fetching
     // more data
@@ -40,7 +39,7 @@ export default function PostList() {
           <li key={`post.id-${index}`}>
             <div>
               <span>{index + 1}. </span>
-              <Link href={`/posts${post.uri}`}>{post.title}</Link>
+              <Link href={`/postsql${post.uri}`}>{post.title}</Link>
             </div>
           </li>
         ))}
