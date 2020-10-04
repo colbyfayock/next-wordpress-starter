@@ -3,10 +3,12 @@ import 'styles/globals.scss';
 import SiteContext from 'context/site-context';
 import { getSiteMetadata } from 'lib/site';
 import { getAllPosts } from 'lib/posts';
+import { getNavigationPages } from 'lib/pages';
 
-function App({ Component, pageProps, siteMetadata }) {
+function App({ Component, pageProps, metadata, navigation }) {
   const context = {
-    metadata: siteMetadata,
+    metadata,
+    navigation,
   };
   return (
     <SiteContext.Provider value={context}>
@@ -17,7 +19,8 @@ function App({ Component, pageProps, siteMetadata }) {
 
 App.getInitialProps = async function () {
   return {
-    siteMetadata: await getSiteMetadata(),
+    metadata: await getSiteMetadata(),
+    navigation: await getNavigationPages(),
   };
 };
 

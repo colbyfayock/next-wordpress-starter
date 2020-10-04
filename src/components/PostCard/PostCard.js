@@ -1,7 +1,7 @@
-import { format } from 'date-fns';
-
 import ClassName from 'models/classname';
 import { sanitizeExcerpt } from 'lib/posts';
+
+import Metadata from 'components/Metadata';
 
 import styles from './PostCard.module.scss';
 
@@ -17,9 +17,7 @@ const PostCard = ({ post }) => {
             __html: title?.rendered,
           }}
         />
-        <ul className={styles.postCardMetadata}>
-          <time dateTime={date}>{format(new Date(date), 'PPP')}</time>
-        </ul>
+        <Metadata className={styles.postCardMetadata} date={date} />
         <div
           className={styles.postCardContent}
           dangerouslySetInnerHTML={{

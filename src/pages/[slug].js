@@ -1,28 +1,28 @@
 import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
+import { format } from 'date-fns';
 
-import { getPostBySlug, getAllPosts } from 'lib/posts';
+import { getPageBySlug, getAllPages } from 'lib/pages';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
+import Content from 'components/Content';
 import Section from 'components/Section';
 import Container from 'components/Container';
-import Content from 'components/Content';
-import Metadata from 'components/Metadata';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post }) {
+export default function Page({ page }) {
   const router = useRouter();
   const { homepage } = useSite();
 
   const { slug } = router.query;
-  const { title, content, date } = post;
+  const { title, content, date } = page;
 
   const pageTitle = title?.rendered;
-  const route = path.join(homepage, '/posts/', slug);
+  const route = path.join(homepage, '/', slug);
 
   return (
     <Layout>
@@ -40,7 +40,6 @@ export default function Post({ post }) {
             __html: title?.rendered,
           }}
         />
-        <Metadata className={styles.postMetadata} date={date} />
       </Header>
 
       <Content>
@@ -62,7 +61,7 @@ export default function Post({ post }) {
 export async function getStaticProps({ params = {} } = {}) {
   return {
     props: {
-      post: await getPostBySlug(params?.slug),
+      page: await getPageBySlug(params?.slug),
     },
   };
 }
@@ -70,10 +69,10 @@ export async function getStaticProps({ params = {} } = {}) {
 export async function getStaticPaths() {
   const routes = {};
 
-  const { posts } = await getAllPosts();
+  const { pages } = await getAllPages();
 
-  const paths = posts.map((post) => {
-    const { slug } = post;
+  const paths = pages.map((page) => {
+    const { slug } = page;
     return {
       params: {
         slug,
