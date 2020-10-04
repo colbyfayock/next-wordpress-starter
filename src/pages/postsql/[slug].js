@@ -1,16 +1,17 @@
 import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
+import { format } from 'date-fns';
+import { initializeApollo } from 'lib/apolloClient';
+import { gql, useQuery, NetworkStatus } from '@apollo/client';
+import { getPostSlugs, getPostBySlug } from 'lib/postsql';
 
-import { getPostBySlug, getAllPosts } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
 import Section from 'components/Section';
 import Container from 'components/Container';
-import Content from 'components/Content';
-import Metadata from 'components/Metadata';
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -19,42 +20,36 @@ export default function Post({ post }) {
   const { homepage } = useSite();
 
   const { slug } = router.query;
-  const { title, content, date } = post;
+  const { title, content, date } = post.data.postBy;
 
-  const pageTitle = title?.rendered;
   const route = path.join(homepage, '/posts/', slug);
 
   return (
     <Layout>
       <Helmet>
-        <title>{pageTitle}</title>
-        <meta property="og:title" content={pageTitle} />
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
         <meta property="og:url" content={route} />
         <meta property="og:type" content="article" />
       </Helmet>
 
       <Header>
-        <h1
-          className={styles.title}
-          dangerouslySetInnerHTML={{
-            __html: title?.rendered,
-          }}
-        />
-        <Metadata className={styles.postMetadata} date={date} />
+        <h1>{title}</h1>
+        <ul className={styles.metadata}>
+          <time dateTime={date}>{format(new Date(date), 'PPP')}</time>
+        </ul>
       </Header>
 
-      <Content>
-        <Section>
-          <Container>
-            <div
-              className={styles.content}
-              dangerouslySetInnerHTML={{
-                __html: content?.rendered,
-              }}
-            />
-          </Container>
-        </Section>
-      </Content>
+      <Section>
+        <Container>
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{
+              __html: content,
+            }}
+          />
+        </Container>
+      </Section>
     </Layout>
   );
 }
@@ -68,19 +63,16 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const routes = {};
-
-  const { posts } = await getAllPosts();
-
-  const paths = posts.map((post) => {
-    const { slug } = post;
+  const response = await getPostSlugs();
+  const paths = response.data.posts.edges.map((post) => {
+    const { slug } = post.node;
     return {
       params: {
         slug,
       },
     };
   });
-  console.log(paths);
+
   return {
     paths,
     fallback: false,
