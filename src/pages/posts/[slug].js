@@ -70,9 +70,10 @@ export async function getStaticPaths() {
   const routes = {};
 
   const { posts } = await getPosts();
-
+  console.log(posts);
   const paths = posts.map((post) => {
     const { slug } = post;
+    console.log(slug);
     return {
       params: {
         slug,
