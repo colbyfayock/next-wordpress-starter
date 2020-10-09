@@ -58,6 +58,9 @@ This project aims to take advantage of as many built-in WordPress features by de
 - Site Title: Used for the homepage header as well as the default meta title
 - Tagline: Used on the homepage for the header subtitle
 
+There is some specific WordPress configuration required to allow for the best use of this starter.
+
+* [Exposing data without markup](./docs/exposing-data.md)
 ### Images
 
 By default, this Starter doesn't provide any mechanisms for dealing with image content from WordPress. The images are linked to "as is", meaning if the image is uploaded via the WordPress interface, the image will be served from WordPress.
