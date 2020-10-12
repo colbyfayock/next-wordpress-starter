@@ -13,6 +13,11 @@ export const QUERY_ALL_USERS = gql`
           }
           name
           slug
+          avatar {
+            height
+            width
+            url
+          }
         }
       }
     }
