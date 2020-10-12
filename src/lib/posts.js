@@ -81,11 +81,18 @@ export function sanitizeExcerpt(excerpt) {
  * mapPostData
  */
 
-export function mapPostData(post) {
+export function mapPostData(post = {}) {
+  const { author = {} } = post;
+  const { avatar = {} } = author?.node;
+
   return {
     ...post,
     author: {
-      ...post.author?.node,
+      ...author.node,
+      avatar: {
+        ...avatar,
+        url: avatar?.url.replace('http://', 'https://'),
+      },
     },
   };
 }
