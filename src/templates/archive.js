@@ -14,7 +14,9 @@ import searchIndex from 'public/wp-search.json';
 
 import styles from 'styles/templates/Archive.module.scss';
 
-export default function TemplateArchive({ title = 'Archive', posts }) {
+const DEFAULT_POST_OPTIONS = {};
+
+export default function TemplateArchive({ title = 'Archive', posts, postOptions = DEFAULT_POST_OPTIONS }) {
   return (
     <Layout>
       <Header>
@@ -28,7 +30,7 @@ export default function TemplateArchive({ title = 'Archive', posts }) {
             {posts.map((post) => {
               return (
                 <li key={post.slug}>
-                  <PostCard post={post} />
+                  <PostCard post={post} options={postOptions} />
                 </li>
               );
             })}

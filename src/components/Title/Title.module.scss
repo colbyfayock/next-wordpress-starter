@@ -1,0 +1,16 @@
+@import "styles/settings/__settings";
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+
+  img {
+    width: 1.4em;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 0.3em;
+  }
+}

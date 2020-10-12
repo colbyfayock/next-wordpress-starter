@@ -13,6 +13,18 @@ export const QUERY_ALL_POSTS = gql`
           modified
           postId
           slug
+          author {
+            node {
+              avatar {
+                height
+                width
+                url
+              }
+              id
+              name
+              slug
+            }
+          }
         }
       }
     }
@@ -31,6 +43,38 @@ export function getQueryPostBySlug(slug) {
         modified
         postId
         slug
+        author {
+          node {
+            avatar {
+              height
+              width
+              url
+            }
+            id
+            name
+            slug
+          }
+        }
+      }
+    }
+  `;
+}
+
+export function getQueryPostsByAuthorSlug(slug) {
+  return gql`
+    query {
+      posts(where: {authorName: "${slug}"}) {
+        edges {
+          node {
+            id
+            title
+            date
+            excerpt
+            modified
+            postId
+            slug
+          }
+        }
       }
     }
   `;

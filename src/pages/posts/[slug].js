@@ -19,7 +19,7 @@ export default function Post({ post }) {
   const { homepage } = useSite();
 
   const { slug } = router.query;
-  const { title, content, date } = post;
+  const { title, content, date, author } = post;
 
   const route = path.join(homepage, postPathBySlug(slug));
 
@@ -39,7 +39,7 @@ export default function Post({ post }) {
             __html: title,
           }}
         />
-        <Metadata className={styles.postMetadata} date={date} />
+        <Metadata className={styles.postMetadata} date={date} author={author} />
       </Header>
 
       <Content>
