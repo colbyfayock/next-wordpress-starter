@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { getPosts } from 'lib/posts';
+import { getAllPosts } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -14,7 +14,7 @@ import styles from 'styles/pages/Home.module.scss';
 
 export default function Home({ posts }) {
   const { metadata = {} } = useSite();
-  const { name, description } = metadata;
+  const { title, description } = metadata;
 
   return (
     <Layout>
@@ -22,7 +22,7 @@ export default function Home({ posts }) {
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{
-            __html: name,
+            __html: title,
           }}
         />
 
@@ -52,7 +52,7 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const { posts } = await getPosts();
+  const { posts } = await getAllPosts();
   return {
     props: {
       posts,

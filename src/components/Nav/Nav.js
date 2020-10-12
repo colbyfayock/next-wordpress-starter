@@ -20,7 +20,7 @@ const Nav = () => {
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
   const { metadata = {}, navigation } = useSite();
-  const { name } = metadata;
+  const { title } = metadata;
 
   const { query, results, search, clearSearch } = useSearch({
     maxResults: 5,
@@ -100,7 +100,9 @@ const Nav = () => {
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
         <p className={styles.navName}>
-          <a href="/">{name}</a>
+          <Link href="/">
+            <a>{title}</a>
+          </Link>
         </p>
         <ul className={styles.navMenu}>
           {navigation.map(({ slug, title = {} }) => {

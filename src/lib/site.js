@@ -1,15 +1,21 @@
-import WpRequest from 'models/wp-request';
+import { getApolloClient } from 'lib/apollo-client';
+
+import { QUERY_SITE_DATA } from 'data/site';
 
 /**
  * getSiteMetadata
  */
 
 export async function getSiteMetadata() {
-  const request = new WpRequest({
-    route: '?_fields=name,description',
+  const apolloClient = getApolloClient();
+
+  const data = await apolloClient.query({
+    query: QUERY_SITE_DATA,
   });
 
-  const { data } = await request.fetch();
+  const { generalSettings } = data?.data;
 
-  return data;
+  return {
+    ...generalSettings,
+  };
 }
