@@ -9,7 +9,7 @@ const Title = ({ className, title, thumbnail }) => {
 
   return (
     <div className={titleClassName.toString()}>
-      <img src={thumbnail.url} alt="" aria-hidden="true" />
+      {thumbnail && <img src={thumbnail.url} alt="" aria-hidden="true" />}
       <span>{title}</span>
     </div>
   );

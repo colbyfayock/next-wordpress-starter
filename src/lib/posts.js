@@ -2,7 +2,7 @@ import { getApolloClient } from 'lib/apollo-client';
 
 import { updateUserAvatar } from 'lib/users';
 
-import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug } from 'data/posts';
+import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug, getQueryPostsByCategoryId } from 'data/posts';
 
 /**
  * postPathBySlug
@@ -48,11 +48,33 @@ export async function getAllPosts(options) {
   };
 }
 
+/**
+ * getPostsByAuthorSlug
+ */
+
 export async function getPostsByAuthorSlug(slug) {
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
     query: getQueryPostsByAuthorSlug(slug),
+  });
+
+  const posts = data?.data.posts.edges.map(({ node = {} }) => node);
+
+  return {
+    posts: Array.isArray(posts) && posts.map(mapPostData),
+  };
+}
+
+/**
+ * getPostsByCategoryId
+ */
+
+export async function getPostsByCategoryId(categoryId) {
+  const apolloClient = getApolloClient();
+
+  const data = await apolloClient.query({
+    query: getQueryPostsByCategoryId(categoryId),
   });
 
   const posts = data?.data.posts.edges.map(({ node = {} }) => node);
@@ -102,6 +124,16 @@ export function mapPostData(post = {}) {
 
   if (data.author?.avatar) {
     data.author.avatar = updateUserAvatar(data.author.avatar);
+  }
+
+  // Clean up the categories to make them more easy to access
+
+  if (data.categories) {
+    data.categories = data.categories.edges.map(({ node }) => {
+      return {
+        ...node,
+      };
+    });
   }
 
   return data;

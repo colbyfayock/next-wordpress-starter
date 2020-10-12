@@ -5,26 +5,36 @@ export const QUERY_ALL_POSTS = gql`
     posts(first: 10000) {
       edges {
         node {
-          id
-          title
-          date
-          content
-          excerpt
-          modified
-          postId
-          slug
           author {
             node {
               avatar {
                 height
-                width
                 url
+                width
               }
               id
               name
               slug
             }
           }
+          id
+          categories {
+            edges {
+              node {
+                categoryId
+                id
+                name
+                slug
+              }
+            }
+          }
+          content
+          date
+          excerpt
+          modified
+          postId
+          title
+          slug
         }
       }
     }
@@ -35,23 +45,76 @@ export function getQueryPostBySlug(slug) {
   return gql`
     query {
       postBy(slug: "${slug}"){
-        id
-        title
-        date
-        content
-        excerpt
-        modified
-        postId
-        slug
         author {
           node {
             avatar {
               height
-              width
               url
+              width
             }
             id
             name
+            slug
+          }
+        }
+        id
+        categories {
+          edges {
+            node {
+              categoryId
+              id
+              name
+              slug
+            }
+          }
+        }
+        content
+        date
+        excerpt
+        modified
+        postId
+        title
+        slug
+      }
+    }
+  `;
+}
+
+export function getQueryPostsByCategoryId(categoryId) {
+  return gql`
+    query {
+      posts(where: { categoryId: ${categoryId} }) {
+        edges {
+          node {
+            author {
+              node {
+                avatar {
+                  height
+                  url
+                  width
+                }
+                id
+                name
+                slug
+              }
+            }
+            id
+            categories {
+              edges {
+                node {
+                  categoryId
+                  id
+                  name
+                  slug
+                }
+              }
+            }
+            content
+            date
+            excerpt
+            modified
+            postId
+            title
             slug
           }
         }
@@ -66,13 +129,23 @@ export function getQueryPostsByAuthorSlug(slug) {
       posts(where: {authorName: "${slug}"}) {
         edges {
           node {
-            id
-            title
+            categories {
+              edges {
+                node {
+                  categoryId
+                  id
+                  name
+                  slug
+                }
+              }
+            }
             date
             excerpt
+            id
             modified
             postId
             slug
+            title
           }
         }
       }

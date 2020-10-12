@@ -1,5 +1,10 @@
 @import "styles/settings/__settings";
 
+.archiveDescription {
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .sectionTitle {
   color: $color-gray-600;
   font-weight: normal;
@@ -14,7 +19,7 @@
   padding-left: 0;
   margin: -1rem 0;
 
-  li {
+  & > li {
     margin: 4em 0;
 
     &:first-child {

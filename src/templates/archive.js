@@ -16,11 +16,12 @@ import styles from 'styles/templates/Archive.module.scss';
 
 const DEFAULT_POST_OPTIONS = {};
 
-export default function TemplateArchive({ title = 'Archive', posts, postOptions = DEFAULT_POST_OPTIONS }) {
+export default function TemplateArchive({ title = 'Archive', description, posts, postOptions = DEFAULT_POST_OPTIONS }) {
   return (
     <Layout>
       <Header>
         <h1>{title}</h1>
+        {description && <p className={styles.archiveDescription}>{description}</p>}
       </Header>
 
       <Section>
