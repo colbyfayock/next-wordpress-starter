@@ -2,7 +2,7 @@ import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 
-import { getPostBySlug, getAllPosts } from 'lib/posts';
+import { postPathBySlug, getPostBySlug, getAllPosts } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -21,14 +21,13 @@ export default function Post({ post }) {
   const { slug } = router.query;
   const { title, content, date } = post;
 
-  const pageTitle = title?.rendered;
-  const route = path.join(homepage, '/posts/', slug);
+  const route = path.join(homepage, postPathBySlug(slug));
 
   return (
     <Layout>
       <Helmet>
-        <title>{pageTitle}</title>
-        <meta property="og:title" content={pageTitle} />
+        <title>{title}</title>
+        <meta property="og:title" content={title} />
         <meta property="og:url" content={route} />
         <meta property="og:type" content="article" />
       </Helmet>
@@ -37,7 +36,7 @@ export default function Post({ post }) {
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{
-            __html: title?.rendered,
+            __html: title,
           }}
         />
         <Metadata className={styles.postMetadata} date={date} />
@@ -49,7 +48,7 @@ export default function Post({ post }) {
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{
-                __html: content?.rendered,
+                __html: content,
               }}
             />
           </Container>
@@ -60,9 +59,10 @@ export default function Post({ post }) {
 }
 
 export async function getStaticProps({ params = {} } = {}) {
+  const { post } = await getPostBySlug(params?.slug);
   return {
     props: {
-      post: await getPostBySlug(params?.slug),
+      post,
     },
   };
 }

@@ -1,5 +1,5 @@
 import ClassName from 'models/classname';
-import { sanitizeExcerpt } from 'lib/posts';
+import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 
 import Metadata from 'components/Metadata';
 
@@ -10,18 +10,18 @@ const PostCard = ({ post }) => {
 
   return (
     <div className={styles.postCard}>
-      <a href={`/posts/${slug}`}>
+      <a href={postPathBySlug(slug)}>
         <h3
           className={styles.postCardTitle}
           dangerouslySetInnerHTML={{
-            __html: title?.rendered,
+            __html: title,
           }}
         />
         <Metadata className={styles.postCardMetadata} date={date} />
         <div
           className={styles.postCardContent}
           dangerouslySetInnerHTML={{
-            __html: excerpt && sanitizeExcerpt(excerpt.rendered),
+            __html: sanitizeExcerpt(excerpt),
           }}
         />
       </a>

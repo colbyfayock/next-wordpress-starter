@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { getPosts } from 'lib/posts';
+import { getAllPosts } from 'lib/posts';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -52,7 +52,7 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
-  const { posts } = await getPosts();
+  const { posts } = await getAllPosts();
   return {
     props: {
       posts,
