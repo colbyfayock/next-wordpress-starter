@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import ClassName from 'models/classname';
 import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 
@@ -10,23 +12,25 @@ const PostCard = ({ post }) => {
 
   return (
     <div className={styles.postCard}>
-      <a href={postPathBySlug(slug)}>
-        <h3
-          className={styles.postCardTitle}
-          dangerouslySetInnerHTML={{
-            __html: title,
-          }}
-        />
-        <Metadata className={styles.postCardMetadata} date={date} />
-        {excerpt && (
-          <div
-            className={styles.postCardContent}
+      <Link href={postPathBySlug(slug)}>
+        <a>
+          <h3
+            className={styles.postCardTitle}
             dangerouslySetInnerHTML={{
-              __html: sanitizeExcerpt(excerpt),
+              __html: title,
             }}
           />
-        )}
-      </a>
+          <Metadata className={styles.postCardMetadata} date={date} />
+          {excerpt && (
+            <div
+              className={styles.postCardContent}
+              dangerouslySetInnerHTML={{
+                __html: sanitizeExcerpt(excerpt),
+              }}
+            />
+          )}
+        </a>
+      </Link>
     </div>
   );
 };

@@ -100,7 +100,9 @@ const Nav = () => {
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
         <p className={styles.navName}>
-          <a href="/">{title}</a>
+          <Link href="/">
+            <a>{title}</a>
+          </Link>
         </p>
         <ul className={styles.navMenu}>
           {navigation.map(({ slug, title = {} }) => {
