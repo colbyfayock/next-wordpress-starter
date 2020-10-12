@@ -81,11 +81,29 @@ export function sanitizeExcerpt(excerpt) {
  * mapPostData
  */
 
-export function mapPostData(post) {
-  return {
-    ...post,
-    author: {
-      ...post.author?.node,
-    },
-  };
+export function mapPostData(post = {}) {
+  const data = { ...post };
+
+  // Clean up the author object to avoid someone having to look an extra
+  // level deeper into the node
+
+  if (data.author) {
+    data.author = {
+      ...data.author.node,
+    };
+  }
+
+  // The URL by default that comes from Gravatar / WordPress is not a secure
+  // URL. This ends up redirecting to https, but it gives mixed content warnings
+  // as the HTML shows it as http. Replace the url to avoid those warnings
+  // and provide a secure URL by default
+
+  if (data.author?.avatar) {
+    data.author.avatar = {
+      ...data.author.avatar,
+      url: data.author.avatar.url?.replace('http://', 'https://'),
+    };
+  }
+
+  return data;
 }
