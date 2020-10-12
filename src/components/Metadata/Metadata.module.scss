@@ -8,9 +8,17 @@
   padding: 0;
   margin: 0;
 
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  & > li {
+    margin: 0 0.8em;
+  }
+
   li {
     display: inline-block;
-    margin: 0 0.8em;
 
     &:first-child {
       margin-left: 0;
@@ -24,18 +32,21 @@
   p {
     margin: 0;
   }
-}
 
-.metadataAuthor {
   a {
     color: inherit;
     text-decoration: none;
-    margin-left: 0.2em;
 
     &:hover {
       color: $color-primary;
       text-decoration: underline;
     }
+  }
+}
+
+.metadataAuthor {
+  a {
+    margin-left: 0.2em;
   }
 
   address {
@@ -49,5 +60,20 @@
     height: auto;
     border-radius: 50%;
     margin-right: 0.5em;
+  }
+}
+
+.metadataCategories {
+  li {
+    &:after {
+      content: ", ";
+      margin-right: 0.4em;
+    }
+
+    &:last-child {
+      &:after {
+        content: none;
+      }
+    }
   }
 }

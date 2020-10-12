@@ -8,9 +8,9 @@ import Title from 'components/Title';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Category({ category, posts }) {
-  const { name } = category;
+  const { name, description } = category;
 
-  return <TemplateArchive title={<Title title={name} />} posts={posts} />;
+  return <TemplateArchive title={<Title title={name} />} description={description} posts={posts} />;
 }
 
 export async function getStaticProps({ params = {} } = {}) {
