@@ -8,7 +8,7 @@ import Metadata from 'components/Metadata';
 import styles from './PostCard.module.scss';
 
 const PostCard = ({ post, options = {} }) => {
-  const { id, title, excerpt, slug, date, author } = post;
+  const { id, title, excerpt, slug, date, author, categories } = post;
   const { excludeMetadata = [] } = options;
 
   const metadata = {};
@@ -19,6 +19,10 @@ const PostCard = ({ post, options = {} }) => {
 
   if (!excludeMetadata.includes('date')) {
     metadata.date = date;
+  }
+
+  if (!excludeMetadata.includes('categories')) {
+    metadata.categories = categories;
   }
 
   return (

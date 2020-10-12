@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { format } from 'date-fns';
 
+import { categoryPathBySlug } from 'lib/categories';
 import { authorPathBySlug } from 'lib/users';
 import ClassName from 'models/classname';
 
 import styles from './Metadata.module.scss';
 
-const Metadata = ({ className, author, date }) => {
+const Metadata = ({ className, author, date, categories }) => {
   const metadataClassName = new ClassName(styles.metadata);
 
   metadataClassName.addIf(className, className);
@@ -34,6 +35,16 @@ const Metadata = ({ className, author, date }) => {
           <time pubdate="pubdate" dateTime={date}>
             {format(new Date(date), 'PPP')}
           </time>
+        </li>
+      )}
+      {Array.isArray(categories) && (
+        <li>
+          <p title={categories.map(({ name }) => name).join(', ')}>
+            <Link href={categoryPathBySlug(categories[0].slug)}>
+              <a>{categories[0].name}</a>
+            </Link>
+            {categories.length > 1 && ' and more'}
+          </p>
         </li>
       )}
     </ul>
