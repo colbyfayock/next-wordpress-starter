@@ -1,5 +1,7 @@
 import { getApolloClient } from 'lib/apollo-client';
 
+import { updateUserAvatar } from 'lib/users';
+
 import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug } from 'data/posts';
 
 /**
@@ -99,10 +101,7 @@ export function mapPostData(post = {}) {
   // and provide a secure URL by default
 
   if (data.author?.avatar) {
-    data.author.avatar = {
-      ...data.author.avatar,
-      url: data.author.avatar.url?.replace('http://', 'https://'),
-    };
+    data.author.avatar = updateUserAvatar(data.author.avatar);
   }
 
   return data;
