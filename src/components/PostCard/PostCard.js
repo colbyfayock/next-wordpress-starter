@@ -7,8 +7,19 @@ import Metadata from 'components/Metadata';
 
 import styles from './PostCard.module.scss';
 
-const PostCard = ({ post }) => {
-  const { id, title, excerpt, slug, date } = post;
+const PostCard = ({ post, options = {} }) => {
+  const { id, title, excerpt, slug, date, author } = post;
+  const { excludeMetadata = [] } = options;
+
+  const metadata = {};
+
+  if (!excludeMetadata.includes('author')) {
+    metadata.author = author;
+  }
+
+  if (!excludeMetadata.includes('date')) {
+    metadata.date = date;
+  }
 
   return (
     <div className={styles.postCard}>
@@ -20,17 +31,17 @@ const PostCard = ({ post }) => {
               __html: title,
             }}
           />
-          <Metadata className={styles.postCardMetadata} date={date} />
-          {excerpt && (
-            <div
-              className={styles.postCardContent}
-              dangerouslySetInnerHTML={{
-                __html: sanitizeExcerpt(excerpt),
-              }}
-            />
-          )}
         </a>
       </Link>
+      <Metadata className={styles.postCardMetadata} {...metadata} />
+      {excerpt && (
+        <div
+          className={styles.postCardContent}
+          dangerouslySetInnerHTML={{
+            __html: sanitizeExcerpt(excerpt),
+          }}
+        />
+      )}
     </div>
   );
 };

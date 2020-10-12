@@ -1,6 +1,6 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { QUERY_ALL_POSTS, getQueryPostBySlug } from 'data/posts';
+import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug } from 'data/posts';
 
 /**
  * postPathBySlug
@@ -24,7 +24,7 @@ export async function getPostBySlug(slug) {
   const post = data?.data.postBy;
 
   return {
-    post,
+    post: [post].map(mapPostData)[0],
   };
 }
 
@@ -42,7 +42,21 @@ export async function getAllPosts(options) {
   const posts = data?.data.posts.edges.map(({ node = {} }) => node);
 
   return {
-    posts,
+    posts: Array.isArray(posts) && posts.map(mapPostData),
+  };
+}
+
+export async function getPostsByAuthorSlug(slug) {
+  const apolloClient = getApolloClient();
+
+  const data = await apolloClient.query({
+    query: getQueryPostsByAuthorSlug(slug),
+  });
+
+  const posts = data?.data.posts.edges.map(({ node = {} }) => node);
+
+  return {
+    posts: Array.isArray(posts) && posts.map(mapPostData),
   };
 }
 
@@ -61,4 +75,17 @@ export function sanitizeExcerpt(excerpt) {
   sanitized = sanitized.replace('....', '...');
 
   return sanitized;
+}
+
+/**
+ * mapPostData
+ */
+
+export function mapPostData(post) {
+  return {
+    ...post,
+    author: {
+      ...post.author?.node,
+    },
+  };
 }
