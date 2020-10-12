@@ -18,12 +18,14 @@ const PostCard = ({ post }) => {
           }}
         />
         <Metadata className={styles.postCardMetadata} date={date} />
-        <div
-          className={styles.postCardContent}
-          dangerouslySetInnerHTML={{
-            __html: sanitizeExcerpt(excerpt),
-          }}
-        />
+        {excerpt && (
+          <div
+            className={styles.postCardContent}
+            dangerouslySetInnerHTML={{
+              __html: sanitizeExcerpt(excerpt),
+            }}
+          />
+        )}
       </a>
     </div>
   );

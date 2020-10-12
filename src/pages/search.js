@@ -15,14 +15,5 @@ export default function Search() {
     });
   }, []);
 
-  const posts = results.map((result) => {
-    return {
-      ...result,
-      title: {
-        rendered: result.title,
-      },
-    };
-  });
-
-  return <TemplateArchive title="Search" posts={posts} />;
+  return <TemplateArchive title="Search" posts={results} />;
 }

@@ -12,17 +12,18 @@ import PostCard from 'components/PostCard';
 
 import searchIndex from 'public/wp-search.json';
 
-import styles from 'styles/pages/Home.module.scss';
+import styles from 'styles/templates/Archive.module.scss';
 
 export default function TemplateArchive({ title = 'Archive', posts }) {
   return (
     <Layout>
       <Header>
-        <h1 className={styles.title}>{title}</h1>
+        <h1>{title}</h1>
       </Header>
 
       <Section>
         <Container>
+          <h2 className={styles.sectionTitle}>Posts</h2>
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (
