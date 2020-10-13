@@ -23,6 +23,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "GuilleAngulo",
+      "name": "Guillermo Angulo",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50624358?v=4",
+      "profile": "http://guilleangulo.me",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
