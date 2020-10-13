@@ -101,7 +101,11 @@ const Nav = () => {
       <Section className={styles.navSection}>
         <p className={styles.navName}>
           <Link href="/">
-            <a>{title}</a>
+            <a
+              dangerouslySetInnerHTML={{
+                __html: title,
+              }}
+            />
           </Link>
         </p>
         <ul className={styles.navMenu}>
