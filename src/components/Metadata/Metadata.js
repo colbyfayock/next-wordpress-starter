@@ -43,7 +43,7 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
           </time>
         </li>
       )}
-      {Array.isArray(categories) && (
+      {Array.isArray(categories) && categories[0] && (
         <li className={styles.metadataCategories}>
           {compactCategories && (
             <p title={categories.map(({ name }) => name).join(', ')}>
