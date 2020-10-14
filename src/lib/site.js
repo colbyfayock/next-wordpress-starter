@@ -17,5 +17,22 @@ export async function getSiteMetadata() {
 
   return {
     ...generalSettings,
+    title: decodeHtmlEntities(generalSettings.title),
   };
+}
+
+export function decodeHtmlEntities(text) {
+  if (typeof text !== 'string') {
+    throw new Error(`Failed to decode HTML entity: invalid type ${typeof src}`);
+  }
+
+  let decoded = text;
+
+  const entities = {
+    '&amp;': '\u0026',
+    '&quot;': '\u0022',
+    '&#039;': '\u0027',
+  };
+
+  return decoded.replace(/&amp;|&quot;|&#039;/g, (char) => entities[char]);
 }
