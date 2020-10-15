@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import { format } from 'date-fns';
 
 import { categoryPathBySlug } from 'lib/categories';
 import { authorPathBySlug } from 'lib/users';
+import { formatDate } from 'lib/datetime';
 import ClassName from 'models/classname';
 
 import styles from './Metadata.module.scss';
@@ -39,7 +39,7 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
       {date && (
         <li>
           <time pubdate="pubdate" dateTime={date}>
-            {format(new Date(date), 'PPP')}
+            {formatDate(date)}
           </time>
         </li>
       )}

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 
 import { postPathBySlug, getPostBySlug, getAllPosts } from 'lib/posts';
+import { formatDate } from 'lib/datetime';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -19,7 +20,7 @@ export default function Post({ post }) {
   const { homepage } = useSite();
 
   const { slug } = router.query;
-  const { title, content, date, author, categories } = post;
+  const { title, content, date, author, categories, modified } = post;
 
   const route = path.join(homepage, postPathBySlug(slug));
 
@@ -64,6 +65,12 @@ export default function Post({ post }) {
           </Container>
         </Section>
       </Content>
+
+      <Section className={styles.postFooter}>
+        <Container>
+          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
+        </Container>
+      </Section>
     </Layout>
   );
 }
