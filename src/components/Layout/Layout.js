@@ -1,3 +1,5 @@
+import path from 'path';
+import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import styles from './Layout.module.scss';
 
@@ -8,6 +10,9 @@ import Main from 'components/Main';
 import Footer from 'components/Footer';
 
 const Layout = ({ children }) => {
+  const router = useRouter();
+  const { asPath } = router;
+
   const { homepage, metadata = {} } = useSite();
   const { title } = metadata;
 
@@ -21,7 +26,7 @@ const Layout = ({ children }) => {
       <Helmet {...helmetSettings}>
         <link rel="icon" href="/favicon.ico" />
         <meta property="og:title" content={title} />
-        <meta property="og:url" content={homepage} />
+        <meta property="og:url" content={path.join(homepage, asPath)} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={title} />
       </Helmet>

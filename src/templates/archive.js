@@ -16,12 +16,42 @@ import styles from 'styles/templates/Archive.module.scss';
 
 const DEFAULT_POST_OPTIONS = {};
 
-export default function TemplateArchive({ title = 'Archive', description, posts, postOptions = DEFAULT_POST_OPTIONS }) {
+export default function TemplateArchive({
+  title = 'Archive',
+  Title,
+  description,
+  posts,
+  postOptions = DEFAULT_POST_OPTIONS,
+}) {
+  const { metadata = {} } = useSite();
+  const { title: siteTitle } = metadata;
+
+  let metaDescription = `Read ${posts.length} posts from ${title} at ${siteTitle}.`;
+
+  if (description) {
+    metaDescription = `${metaDescription} ${description}`;
+  }
+
   return (
     <Layout>
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={metaDescription} />
+        <meta property="og:title" content={title} />
+      </Helmet>
+
       <Header>
-        <h1>{title}</h1>
-        {description && <p className={styles.archiveDescription}>{description}</p>}
+        <Container>
+          <h1>{Title || title}</h1>
+          {description && (
+            <p
+              className={styles.archiveDescription}
+              dangerouslySetInnerHTML={{
+                __html: description,
+              }}
+            />
+          )}
+        </Container>
       </Header>
 
       <Section>

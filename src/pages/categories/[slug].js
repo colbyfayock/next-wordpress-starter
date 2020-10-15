@@ -10,7 +10,7 @@ import styles from 'styles/pages/Post.module.scss';
 export default function Category({ category, posts }) {
   const { name, description } = category;
 
-  return <TemplateArchive title={<Title title={name} />} description={description} posts={posts} />;
+  return <TemplateArchive title={name} Title={<Title title={name} />} description={description} posts={posts} />;
 }
 
 export async function getStaticProps({ params = {} } = {}) {
