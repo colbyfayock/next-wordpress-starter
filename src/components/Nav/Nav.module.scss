@@ -165,6 +165,9 @@
     text-decoration: none;
     padding: 0.5em;
     margin: 0 -0.5em;
+    &:focus {
+      outline: 2px solid #0070f3;
+    }
 
     @media (hover: hover) {
       &:hover {

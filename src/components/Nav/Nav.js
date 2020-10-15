@@ -40,6 +40,7 @@ const Nav = () => {
     }
 
     addDocumentOnClick();
+    handleResultsRoving();
 
     // When the search box opens up, additionall find the search input and focus
     // on the element so someone can start typing right away
@@ -96,6 +97,43 @@ const Nav = () => {
     setSearchVisibility(SEARCH_VISIBLE);
   }
 
+  /**
+   * handleResultsRoving
+   */
+  function handleResultsRoving() {
+    const element = formRef.current;
+    element.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') {
+        //Prevent Window from Scrolling On ArrowDown
+        e.preventDefault();
+        //Check if Input FIeld Is Focused
+        if (document.activeElement.nodeName === 'INPUT') {
+          //Focus First Link In Search Result Box
+          document.activeElement.nextSibling.children[0].firstChild.firstChild.focus();
+          //Check If Next Result Exists
+        } else if (document.activeElement.parentElement.nextSibling) {
+          //Focus Next Result
+          document.activeElement.parentElement.nextSibling.firstChild.focus();
+        } else {
+          //If No Next Result Select First Result
+          document.activeElement.parentElement.parentElement.firstChild.firstChild.focus();
+        }
+      }
+      if (e.key === 'ArrowUp') {
+        //Prevent Window From Scrolling On ArrowUp
+        e.preventDefault();
+        //Check If Focus Element Is a Link & If Previous Result Exist
+        if (document.activeElement.nodeName === 'A' && document.activeElement.parentElement.previousSibling) {
+          //Focus Previous Result
+          document.activeElement.parentElement.previousSibling.firstChild.focus();
+        } else {
+          //If No Previous Result Select Last Result
+          document.activeElement.parentElement.parentElement.lastChild.firstChild.focus();
+        }
+      }
+    });
+  }
+
   return (
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
@@ -136,10 +174,10 @@ const Nav = () => {
               <div className={styles.navSearchResults}>
                 {results.length > 0 && (
                   <ul>
-                    {results.map(({ slug, title }) => {
+                    {results.map(({ slug, title }, index) => {
                       return (
                         <li key={slug}>
-                          <Link href={postPathBySlug(slug)}>
+                          <Link tabIndex={index} href={postPathBySlug(slug)}>
                             <a>{title}</a>
                           </Link>
                         </li>
