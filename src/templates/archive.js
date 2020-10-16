@@ -38,6 +38,7 @@ export default function TemplateArchive({
         <title>{title}</title>
         <meta name="description" content={metaDescription} />
         <meta property="og:title" content={title} />
+        <meta property="og:description" content={metaDescription} />
       </Helmet>
 
       <Header>

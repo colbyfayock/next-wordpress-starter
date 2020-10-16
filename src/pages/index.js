@@ -36,6 +36,7 @@ export default function Home({ posts }) {
 
       <Section>
         <Container>
+          <h2 className="sr-only">Posts</h2>
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (
