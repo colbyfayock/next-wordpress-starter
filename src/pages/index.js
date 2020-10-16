@@ -38,13 +38,15 @@ export default function Home({ posts }) {
         <Container>
           <h2 className="sr-only">Posts</h2>
           <ul className={styles.posts}>
-            {posts.map((post) => {
-              return (
-                <li key={post.slug}>
-                  <PostCard post={post} />
-                </li>
-              );
-            })}
+            {posts
+              .sort((post) => (post.isSticky ? -1 : 1))
+              .map((post) => {
+                return (
+                  <li key={post.slug}>
+                    <PostCard post={post} />
+                  </li>
+                );
+              })}
           </ul>
         </Container>
       </Section>

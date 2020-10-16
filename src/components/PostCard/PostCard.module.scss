@@ -1,6 +1,8 @@
 @import "styles/settings/__settings";
 
 .postCard {
+  position: relative;
+  padding: 1.2em;
   color: inherit;
   text-align: left;
   text-decoration: none;
@@ -16,6 +18,19 @@
         text-decoration: underline;
       }
     }
+  }
+}
+
+.postCardSticky {
+  border: solid 0.02em $color-gray-100;
+  border-radius: 1em;
+
+  svg {
+    position: absolute;
+    top: 1.2em;
+    right: 1em;
+    font-size: 1.15em;
+    color: $color-gray-300;
   }
 }
 

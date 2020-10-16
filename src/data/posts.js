@@ -45,6 +45,7 @@ export const QUERY_ALL_POSTS = gql`
           postId
           title
           slug
+          isSticky
         }
       }
     }
@@ -95,6 +96,7 @@ export function getQueryPostBySlug(slug) {
         postId
         title
         slug
+        isSticky
       }
     }
   `;
@@ -146,6 +148,7 @@ export function getQueryPostsByCategoryId(categoryId) {
             postId
             title
             slug
+            isSticky
           }
         }
       }
@@ -186,6 +189,7 @@ export function getQueryPostsByAuthorSlug(slug) {
             postId
             slug
             title
+            isSticky
           }
         }
       }
