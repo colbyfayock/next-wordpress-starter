@@ -40,7 +40,7 @@ const Nav = () => {
     }
 
     addDocumentOnClick();
-    handleResultsRoving();
+    addResultsRoving();
 
     // When the search box opens up, additionall find the search input and focus
     // on the element so someone can start typing right away
@@ -49,7 +49,10 @@ const Nav = () => {
 
     searchInput.focus();
 
-    return () => removeDocumentOnClick();
+    return () => {
+      removeResultsRoving();
+      removeDocumentOnClick();
+    };
   }, [searchVisibility]);
 
   /**
@@ -98,40 +101,47 @@ const Nav = () => {
   }
 
   /**
+   * addResultsRoving
+   */
+
+  function addResultsRoving() {
+    document.body.addEventListener('keydown', handleResultsRoving);
+  }
+
+  /**
+   * removeResultsRoving
+   */
+
+  function removeResultsRoving() {
+    document.body.removeEventListener('keydown', handleResultsRoving);
+  }
+
+  /**
    * handleResultsRoving
    */
-  function handleResultsRoving() {
-    const element = formRef.current;
-    element.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown') {
-        //Prevent Window from Scrolling On ArrowDown
-        e.preventDefault();
-        //Check if Input FIeld Is Focused
-        if (document.activeElement.nodeName === 'INPUT') {
-          //Focus First Link In Search Result Box
-          document.activeElement.nextSibling.children[0].firstChild.firstChild.focus();
-          //Check If Next Result Exists
-        } else if (document.activeElement.parentElement.nextSibling) {
-          //Focus Next Result
-          document.activeElement.parentElement.nextSibling.firstChild.focus();
-        } else {
-          //If No Next Result Select First Result
-          document.activeElement.parentElement.parentElement.firstChild.firstChild.focus();
-        }
+
+  function handleResultsRoving(e) {
+    const focusElement = document.activeElement;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (focusElement.nodeName === 'INPUT' && focusElement.nextSibling.children[0].nodeName !== 'P') {
+        focusElement.nextSibling.children[0].firstChild.firstChild.focus();
+      } else if (focusElement.parentElement.nextSibling) {
+        focusElement.parentElement.nextSibling.firstChild.focus();
+      } else {
+        focusElement.parentElement.parentElement.firstChild.firstChild.focus();
       }
-      if (e.key === 'ArrowUp') {
-        //Prevent Window From Scrolling On ArrowUp
-        e.preventDefault();
-        //Check If Focus Element Is a Link & If Previous Result Exist
-        if (document.activeElement.nodeName === 'A' && document.activeElement.parentElement.previousSibling) {
-          //Focus Previous Result
-          document.activeElement.parentElement.previousSibling.firstChild.focus();
-        } else {
-          //If No Previous Result Select Last Result
-          document.activeElement.parentElement.parentElement.lastChild.firstChild.focus();
-        }
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (focusElement.nodeName === 'A' && focusElement.parentElement.previousSibling) {
+        focusElement.parentElement.previousSibling.firstChild.focus();
+      } else {
+        focusElement.parentElement.parentElement.lastChild.firstChild.focus();
       }
-    });
+    }
   }
 
   return (

@@ -166,7 +166,7 @@
     padding: 0.5em;
     margin: 0 -0.5em;
     &:focus {
-      outline: 2px solid #0070f3;
+      outline: 2px solid $color-blue-500;
     }
 
     @media (hover: hover) {
