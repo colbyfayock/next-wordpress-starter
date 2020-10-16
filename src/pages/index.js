@@ -25,13 +25,15 @@ export default function Home({ posts }) {
             __html: title,
           }}
         />
-
+<b/>
+    <center>
         <p
           className={styles.description}
           dangerouslySetInnerHTML={{
             __html: description,
           }}
         />
+    <center/>
       </Header>
 
       <Section>
