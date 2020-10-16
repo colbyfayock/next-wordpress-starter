@@ -1,5 +1,4 @@
 import path from 'path';
-import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
@@ -15,21 +14,22 @@ import Container from 'components/Container';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Page({ page }) {
-  const router = useRouter();
-  const { homepage } = useSite();
+  const { metadata = {} } = useSite();
+  const { title: siteTitle } = metadata;
 
-  const { slug } = router.query;
   const { title, content, date } = page;
 
   const pageTitle = title?.rendered;
-  const route = path.join(homepage, '/', slug);
+
+  const metaDescription = `${title} on ${siteTitle}`;
 
   return (
     <Layout>
       <Helmet>
         <title>{title}</title>
+        <meta name="description" content={metaDescription} />
         <meta property="og:title" content={title} />
-        <meta property="og:url" content={route} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
       </Helmet>
 

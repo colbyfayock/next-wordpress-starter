@@ -5,19 +5,20 @@ export const QUERY_ALL_USERS = gql`
     users(first: 10000) {
       edges {
         node {
-          id
-          roles {
-            nodes {
-              name
-            }
-          }
-          name
-          slug
           avatar {
             height
             width
             url
           }
+          description
+          id
+          name
+          roles {
+            nodes {
+              name
+            }
+          }
+          slug
         }
       }
     }

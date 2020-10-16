@@ -7,13 +7,21 @@ import Title from 'components/Title';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Author({ user, posts }) {
-  const { name, avatar } = user;
+  const { name, avatar, description } = user;
 
   const postOptions = {
     excludeMetadata: ['author'],
   };
 
-  return <TemplateArchive title={<Title title={name} thumbnail={avatar} />} posts={posts} postOptions={postOptions} />;
+  return (
+    <TemplateArchive
+      title={name}
+      Title={<Title title={name} thumbnail={avatar} />}
+      description={description}
+      posts={posts}
+      postOptions={postOptions}
+    />
+  );
 }
 
 export async function getStaticProps({ params = {} } = {}) {

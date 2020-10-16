@@ -15,9 +15,24 @@ export async function getSiteMetadata() {
 
   const { generalSettings } = data?.data;
 
+  let language = generalSettings.language;
+
+  // It looks like the value of `language` when US English is set
+  // in WordPress is empty or "", meaning, we have to infer that
+  // if there's no value, it's English. On the other hand, if there
+  // is a code, we need to grab the 2char version of it to use ofr
+  // the HTML lang attribute
+
+  if (!language || language === '') {
+    language = 'en';
+  } else {
+    language = language.split('_')[0];
+  }
+
   return {
     ...generalSettings,
     title: decodeHtmlEntities(generalSettings.title),
+    language,
   };
 }
 
