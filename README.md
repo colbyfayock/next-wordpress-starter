@@ -21,6 +21,20 @@ WORDPRESS_HOST="http://wordpressite.com"
 
 ## 🚀 Getting Started
 
+### What is this and what does it include?
+
+The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience that can be deployed anywhere.
+
+The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
+* Top-level Page (https://next-wordpress-starter.netlify.app/docs/)
+* Post (https://next-wordpress-starter.netlify.app/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
+* All Posts (https://next-wordpress-starter.netlify.app/posts/)
+* Author (https://next-wordpress-starter.netlify.app/authors/colby/)
+* Search (Global navigation and https://next-wordpress-starter.netlify.app/search/?q=sit)
+* Category (https://next-wordpress-starter.netlify.app/categories/lorem/)
+
+Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/issues) for what's on deck!
+
 ### Requirements
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
