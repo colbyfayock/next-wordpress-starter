@@ -1,4 +1,4 @@
-import { getAllAuthors, getUserBySlug } from 'lib/users';
+import { getAllAuthors, getUserByNameSlug, userSlugByName } from 'lib/users';
 import { getPostsByAuthorSlug } from 'lib/posts';
 
 import TemplateArchive from 'templates/archive';
@@ -25,8 +25,8 @@ export default function Author({ user, posts }) {
 }
 
 export async function getStaticProps({ params = {} } = {}) {
-  const { user } = await getUserBySlug(params?.slug);
-  const { posts } = await getPostsByAuthorSlug(params?.slug);
+  const { user } = await getUserByNameSlug(params?.slug);
+  const { posts } = await getPostsByAuthorSlug(user?.slug);
   return {
     props: {
       user,
@@ -41,10 +41,10 @@ export async function getStaticPaths() {
   const { authors } = await getAllAuthors();
 
   const paths = authors.map((author) => {
-    const { slug } = author;
+    const { name } = author;
     return {
       params: {
-        slug,
+        slug: userSlugByName(name),
       },
     };
   });
