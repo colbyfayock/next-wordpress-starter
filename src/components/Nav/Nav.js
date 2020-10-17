@@ -40,6 +40,7 @@ const Nav = () => {
     }
 
     addDocumentOnClick();
+    addResultsRoving();
 
     // When the search box opens up, additionall find the search input and focus
     // on the element so someone can start typing right away
@@ -48,7 +49,10 @@ const Nav = () => {
 
     searchInput.focus();
 
-    return () => removeDocumentOnClick();
+    return () => {
+      removeResultsRoving();
+      removeDocumentOnClick();
+    };
   }, [searchVisibility]);
 
   /**
@@ -96,6 +100,50 @@ const Nav = () => {
     setSearchVisibility(SEARCH_VISIBLE);
   }
 
+  /**
+   * addResultsRoving
+   */
+
+  function addResultsRoving() {
+    document.body.addEventListener('keydown', handleResultsRoving);
+  }
+
+  /**
+   * removeResultsRoving
+   */
+
+  function removeResultsRoving() {
+    document.body.removeEventListener('keydown', handleResultsRoving);
+  }
+
+  /**
+   * handleResultsRoving
+   */
+
+  function handleResultsRoving(e) {
+    const focusElement = document.activeElement;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (focusElement.nodeName === 'INPUT' && focusElement.nextSibling.children[0].nodeName !== 'P') {
+        focusElement.nextSibling.children[0].firstChild.firstChild.focus();
+      } else if (focusElement.parentElement.nextSibling) {
+        focusElement.parentElement.nextSibling.firstChild.focus();
+      } else {
+        focusElement.parentElement.parentElement.firstChild.firstChild.focus();
+      }
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (focusElement.nodeName === 'A' && focusElement.parentElement.previousSibling) {
+        focusElement.parentElement.previousSibling.firstChild.focus();
+      } else {
+        focusElement.parentElement.parentElement.lastChild.firstChild.focus();
+      }
+    }
+  }
+
   return (
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
@@ -136,10 +184,10 @@ const Nav = () => {
               <div className={styles.navSearchResults}>
                 {results.length > 0 && (
                   <ul>
-                    {results.map(({ slug, title }) => {
+                    {results.map(({ slug, title }, index) => {
                       return (
                         <li key={slug}>
-                          <Link href={postPathBySlug(slug)}>
+                          <Link tabIndex={index} href={postPathBySlug(slug)}>
                             <a>{title}</a>
                           </Link>
                         </li>

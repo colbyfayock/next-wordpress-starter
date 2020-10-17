@@ -1,8 +1,7 @@
 import path from 'path';
-import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 
-import { postPathBySlug, getPostBySlug, getAllPosts } from 'lib/posts';
+import { getPostBySlug, getAllPosts } from 'lib/posts';
 import { formatDate } from 'lib/datetime';
 import useSite from 'hooks/use-site';
 
@@ -16,24 +15,24 @@ import Metadata from 'components/Metadata';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post }) {
-  const router = useRouter();
-  const { homepage } = useSite();
+  const { metadata } = useSite();
+  const { title: siteTitle } = metadata;
 
-  const { slug } = router.query;
-  const { title, content, date, author, categories, modified } = post;
-
-  const route = path.join(homepage, postPathBySlug(slug));
+  const { title, content, excerpt, date, author, categories, modified } = post;
 
   const metadataOptions = {
     compactCategories: false,
   };
 
+  const metaDescription = `Read ${title} at ${siteTitle}.`;
+
   return (
     <Layout>
       <Helmet>
         <title>{title}</title>
+        <meta name="description" content={metaDescription} />
         <meta property="og:title" content={title} />
-        <meta property="og:url" content={route} />
+        <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
       </Helmet>
 
