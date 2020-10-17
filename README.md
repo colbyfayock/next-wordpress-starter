@@ -22,7 +22,7 @@ WORDPRESS_HOST="http://wordpressite.com"
 ## 🚀 Getting Started
 
 ### Requirements
-* [WordPress](https://wordpress.org/) project
+* [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
 
 ### Environment
