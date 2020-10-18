@@ -46,7 +46,7 @@ Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/iss
 
 ### Environment
 
-This project makes use of WPGraphQL to query WordPress with GraphQL. In order to make that request to the appropriate endpoint, we need to set a environment variable to let Next.js know where to request the site information from.
+This project makes use of WPGraphQL to query WordPress with GraphQL. In order to make that request to the appropriate endpoint, we need to set an environment variable to let Next.js know where to request the site information from.
 
 Create a new file locally called `.env.local` and add the following:
 
@@ -74,11 +74,11 @@ The project should now be available at [http://localhost:3000](http://localhost:
 
 In order to avoid an additional configuration file, we take advantage of some built-in properties of `package.json` to configure parts of the website.
 
-- homepage: Setting the `homepage` property will update instances where the full URL is required such as Open Graph tags
+- homepage: Setting the `homepage` property will update instances where the full URL is required such as Open Graph tags.
 
 ### WordPress
 
-This project aims to take advantage of as many built-in WordPress features by default. Those include:
+This project aims to take advantage of as many built-in WordPress features by default. Those includes:
 
 - Site Title: Used for the homepage header as well as page metadata
 - Tagline: Used on the homepage for the header subtitle
