@@ -4,6 +4,7 @@ const he = require('he');
 const { promiseToWriteFile, mkdirp } = require('./util');
 
 const PLUGIN_NAME = 'SearchIndex';
+const INDEX_PAGE_COMPILATION_NAME = 'pages/index';
 const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
 
 class SearchIndexWebpackPlugin {
@@ -24,8 +25,15 @@ class SearchIndexWebpackPlugin {
 
     const postsUrl = `${host}${WORDPRESS_API_POSTS}`;
 
-    const data = await fetch(postsUrl);
-    const posts = await data.json();
+    let posts;
+
+    try {
+      const data = await fetch(postsUrl);
+      posts = await data.json();
+    } catch (e) {
+      console.log(`[${PLUGIN_NAME}] Failed to fetch posts from ${postsUrl}: ${e}`);
+      return;
+    }
 
     console.log(`[${PLUGIN_NAME}] Successfully fetched posts from ${postsUrl}`);
 
@@ -59,7 +67,22 @@ class SearchIndexWebpackPlugin {
   }
 
   apply(compiler) {
-    compiler.hooks.beforeCompile.tap(PLUGIN_NAME, async (compilation) => await this.index(compilation, this.options));
+    // We want this plugin to be able to run both during development mode and production
+    // mode, but we also only want it to compile once. We need a way to be able to detect
+    // some kind of identifier that will only be available once, where here we're using
+    // the `main` entry. When these are ran, we check if that's in the active compiler
+    // options and only run if it is
+
+    compiler.hooks.run.tap(PLUGIN_NAME, async (compiler) => {
+      if (!compiler.options.entry.main) return;
+      await this.index(compiler, this.options);
+    });
+
+    compiler.hooks.watchRun.tap(PLUGIN_NAME, async (compiler) => {
+      const entries = await compiler.options.entry();
+      if (!entries || !entries.main) return;
+      await this.index(compiler, this.options);
+    });
   }
 }
 

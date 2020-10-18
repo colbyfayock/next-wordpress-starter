@@ -11,6 +11,8 @@ module.exports = function indexSearch(nextConfig = {}) {
 
   return Object.assign({}, nextConfig, {
     webpack(config) {
+      // Ignore the search index in the filesystem to avoid a loop of changes
+
       if (config.watchOptions) {
         config.watchOptions.ignored.push(path.join('**', outputDirectory, outputName));
       }
