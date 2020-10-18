@@ -4,7 +4,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-Scaling WordPress with the power of Next.js and the static web!
+Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
 
 ## ⚡️ Quick Start
 
