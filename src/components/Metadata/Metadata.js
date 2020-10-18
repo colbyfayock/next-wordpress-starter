@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { categoryPathBySlug } from 'lib/categories';
-import { authorPathBySlug } from 'lib/users';
+import { authorPathByName } from 'lib/users';
 import { formatDate } from 'lib/datetime';
 import ClassName from 'models/classname';
 
@@ -30,7 +30,7 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
               alt="Author Avatar"
             />
             By{' '}
-            <Link href={authorPathBySlug(author.slug)}>
+            <Link href={authorPathByName(author.name)}>
               <a rel="author">{author.name}</a>
             </Link>
           </address>

@@ -1,5 +1,7 @@
 import { getApolloClient } from 'lib/apollo-client';
 
+import parameterize from 'parameterize';
+
 import { QUERY_ALL_USERS } from 'data/users';
 
 const ROLES_AUTHOR = ['author', 'administrator'];
@@ -24,6 +26,36 @@ export async function getUserBySlug(slug) {
   return {
     user,
   };
+}
+
+/**
+ * authorPathByName
+ */
+
+export function authorPathByName(name) {
+  return `/authors/${parameterize(name)}`;
+}
+
+/**
+ * getUserByNameSlug
+ */
+
+export async function getUserByNameSlug(name) {
+  const { users } = await getAllUsers();
+
+  const user = users.find((user) => parameterize(user.name) === name);
+
+  return {
+    user,
+  };
+}
+
+/**
+ * userSlugByName
+ */
+
+export function userSlugByName(name) {
+  return parameterize(name);
 }
 
 /**
