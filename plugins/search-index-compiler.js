@@ -4,7 +4,6 @@ const he = require('he');
 const { promiseToWriteFile, mkdirp } = require('./util');
 
 const PLUGIN_NAME = 'SearchIndex';
-const INDEX_PAGE_COMPILATION_NAME = 'pages/index';
 const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
 
 class SearchIndexWebpackPlugin {
