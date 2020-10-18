@@ -14,14 +14,20 @@ class SearchIndexWebpackPlugin {
   async index(compilation, options) {
     const { host, outputDirectory, outputName } = options;
 
-    if (typeof host !== 'string') {
-      throw new Error(`Failed to compile search index: invalid host type ${typeof host}`);
-    }
-
     const outputLocation = path.join(outputDirectory, outputName);
 
-    const data = await fetch(`${host}${WORDPRESS_API_POSTS}`);
+    console.log(`[${PLUGIN_NAME}] Compiling search index for ${host}; outputLocation: ${outputLocation}`);
+
+    if (typeof host !== 'string') {
+      throw new Error(`[${PLUGIN_NAME}] Failed to compile search index: invalid host type ${typeof host}`);
+    }
+
+    const postsUrl = `${host}${WORDPRESS_API_POSTS}`;
+
+    const data = await fetch(postsUrl);
     const posts = await data.json();
+
+    console.log(`[${PLUGIN_NAME}] Successfully fetched posts from ${postsUrl}`);
 
     const index = posts.map((post = {}) => {
       // We need to decode the title because we're using the
@@ -43,9 +49,11 @@ class SearchIndexWebpackPlugin {
         posts: index,
       });
       mkdirp(outputDirectory);
+      console.log(`[${PLUGIN_NAME}] Created directory ${outputDirectory}`);
       await promiseToWriteFile(outputLocation, indexJson);
+      console.log(`[${PLUGIN_NAME}] Successfully wrote index to ${outputLocation}`);
     } catch (e) {
-      console.log(`Failed to index posts: ${e.message}`);
+      console.log(`[${PLUGIN_NAME}] Failed to index posts: ${e.message}`);
       throw e;
     }
   }
