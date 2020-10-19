@@ -6,6 +6,16 @@ export const QUERY_ALL_PAGES = gql`
       edges {
         node {
           content
+          featuredImage {
+            node {
+              altText
+              caption
+              id
+              sizes
+              sourceUrl
+              srcSet
+            }
+          }
           id
           menuOrder
           slug
@@ -20,10 +30,21 @@ export function getQueryPageById(id) {
   return gql`
     query {
       page(id: "${id}") {
-        title
-        slug
-        menuOrder
         content
+        featuredImage {
+          node {
+            altText
+            caption
+            id
+            sizes
+            sourceUrl
+            srcSet
+          }
+        }
+        id
+        menuOrder
+        slug
+        title
       }
     }
   `;

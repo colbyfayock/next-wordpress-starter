@@ -10,6 +10,7 @@ import Header from 'components/Header';
 import Content from 'components/Content';
 import Section from 'components/Section';
 import Container from 'components/Container';
+import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -17,7 +18,7 @@ export default function Page({ page }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, date } = page;
+  const { title, content, date, featuredImage } = page;
 
   const pageTitle = title?.rendered;
 
@@ -34,6 +35,13 @@ export default function Page({ page }) {
       </Helmet>
 
       <Header>
+        {featuredImage && (
+          <FeaturedImage
+            {...featuredImage}
+            src={featuredImage.sourceUrl}
+            dangerouslySetInnerHTML={featuredImage.caption}
+          />
+        )}
         <h1 className={styles.title}>{title}</h1>
       </Header>
 

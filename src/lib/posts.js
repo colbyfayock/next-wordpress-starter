@@ -136,5 +136,11 @@ export function mapPostData(post = {}) {
     });
   }
 
+  // Clean up the featured image to make them more easy to access
+
+  if (data.featuredImage) {
+    data.featuredImage = data.featuredImage.node;
+  }
+
   return data;
 }

@@ -31,6 +31,16 @@ export const QUERY_ALL_POSTS = gql`
           content
           date
           excerpt
+          featuredImage {
+            node {
+              altText
+              caption
+              sourceUrl
+              srcSet
+              sizes
+              id
+            }
+          }
           modified
           postId
           title
@@ -71,6 +81,16 @@ export function getQueryPostBySlug(slug) {
         content
         date
         excerpt
+        featuredImage {
+          node {
+            altText
+            caption
+            sourceUrl
+            srcSet
+            sizes
+            id
+          }
+        }
         modified
         postId
         title
@@ -112,6 +132,16 @@ export function getQueryPostsByCategoryId(categoryId) {
             content
             date
             excerpt
+            featuredImage {
+              node {
+                altText
+                caption
+                id
+                sizes
+                sourceUrl
+                srcSet
+              }
+            }
             modified
             postId
             title
@@ -141,6 +171,16 @@ export function getQueryPostsByAuthorSlug(slug) {
             }
             date
             excerpt
+            featuredImage {
+              node {
+                altText
+                caption
+                id
+                sizes
+                sourceUrl
+                srcSet
+              }
+            }
             id
             modified
             postId

@@ -11,6 +11,7 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import Content from 'components/Content';
 import Metadata from 'components/Metadata';
+import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
@@ -18,7 +19,7 @@ export default function Post({ post }) {
   const { metadata } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, excerpt, date, author, categories, modified } = post;
+  const { title, content, excerpt, date, author, categories, modified, featuredImage } = post;
 
   const metadataOptions = {
     compactCategories: false,
@@ -37,6 +38,13 @@ export default function Post({ post }) {
       </Helmet>
 
       <Header>
+        {featuredImage && (
+          <FeaturedImage
+            {...featuredImage}
+            src={featuredImage.sourceUrl}
+            dangerouslySetInnerHTML={featuredImage.caption}
+          />
+        )}
         <h1
           className={styles.title}
           dangerouslySetInnerHTML={{

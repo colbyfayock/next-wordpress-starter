@@ -21,7 +21,7 @@ export async function getPageById(id) {
     query: getQueryPageById(id),
   });
 
-  const page = data?.data.page;
+  const page = [data?.data.page].map(mapPageData)[0];
 
   return {
     page,
@@ -39,7 +39,7 @@ export async function getAllPages(options) {
     query: QUERY_ALL_PAGES,
   });
 
-  const pages = data?.data.pages.edges.map(({ node = {} }) => node);
+  const pages = data?.data.pages.edges.map(({ node = {} }) => node).map(mapPageData);
 
   return {
     pages,
@@ -56,4 +56,20 @@ export async function getNavigationPages() {
   const navPages = pages.filter(({ menuOrder }) => menuOrder > 0);
 
   return navPages;
+}
+
+/**
+ * mapPageData
+ */
+
+export function mapPageData(page = {}) {
+  const data = { ...page };
+
+  // Clean up the featured image to make them more easy to access
+
+  if (data.featuredImage) {
+    data.featuredImage = data.featuredImage.node;
+  }
+
+  return data;
 }
