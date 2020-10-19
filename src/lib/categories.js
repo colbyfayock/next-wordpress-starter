@@ -47,3 +47,14 @@ export async function getCategoryBySlug(slug) {
     category,
   };
 }
+
+/**
+ * getCategories
+ */
+
+export async function getCategories({ count } = {}) {
+  const { categories } = await getAllCategories();
+  return {
+    categories: categories.slice(0, count),
+  };
+}

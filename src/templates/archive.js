@@ -8,6 +8,7 @@ import Layout from 'components/Layout';
 import Header from 'components/Header';
 import Section from 'components/Section';
 import Container from 'components/Container';
+import SectionTitle from 'components/SectionTitle';
 import PostCard from 'components/PostCard';
 
 import searchIndex from 'public/wp-search.json';
@@ -57,7 +58,7 @@ export default function TemplateArchive({
 
       <Section>
         <Container>
-          <h2 className={styles.sectionTitle}>Posts</h2>
+          <SectionTitle>Posts</SectionTitle>
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (

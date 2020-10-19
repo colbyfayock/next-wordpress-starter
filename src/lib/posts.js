@@ -1,6 +1,7 @@
 import { getApolloClient } from 'lib/apollo-client';
 
 import { updateUserAvatar } from 'lib/users';
+import { sortObjectsByDate } from 'lib/datetime';
 
 import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug, getQueryPostsByCategoryId } from 'data/posts';
 
@@ -81,6 +82,18 @@ export async function getPostsByCategoryId(categoryId) {
 
   return {
     posts: Array.isArray(posts) && posts.map(mapPostData),
+  };
+}
+
+/**
+ * getRecentPosts
+ */
+
+export async function getRecentPosts({ count }) {
+  const { posts } = await getAllPosts();
+  const sorted = sortObjectsByDate(posts);
+  return {
+    posts: sorted.slice(0, count),
   };
 }
 

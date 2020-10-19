@@ -3,30 +3,20 @@
 .metadata {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   color: $color-gray-600;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 -0.8em;
 
   ul {
     list-style: none;
     padding: 0;
+    margin: 0;
   }
 
   & > li {
-    margin: 0 0.8em;
-  }
-
-  li {
-    display: inline-block;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
+    margin: 0.8em;
   }
 
   p {
