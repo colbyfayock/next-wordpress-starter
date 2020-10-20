@@ -1,3 +1,4 @@
+conslole.log("Added new Footer");
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
