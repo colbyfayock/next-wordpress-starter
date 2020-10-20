@@ -1,0 +1,9 @@
+let result1 = reg.exec(str);
+// console.log(result1);
+// console.log(result1.input);
+// console.log(result1.index);
+
+ result1 = reg.exec(str);
+// console.log(result1);
+ result1 = reg.exec(str);
+// console.log(result1);
