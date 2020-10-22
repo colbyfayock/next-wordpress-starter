@@ -30,6 +30,12 @@ export const QUERY_ALL_PAGES = gql`
           }
           id
           menuOrder
+          parent {
+            node {
+              id
+              slug
+            }
+          }
           slug
           title
         }
@@ -67,6 +73,12 @@ export function getQueryPageById(id) {
         }
         id
         menuOrder
+        parent {
+          node {
+            id
+            slug
+          }
+        }
         slug
         title
       }

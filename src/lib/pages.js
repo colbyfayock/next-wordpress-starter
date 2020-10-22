@@ -65,10 +65,12 @@ export async function getNavigationPages() {
 export function mapPageData(page = {}) {
   const data = { ...page };
 
-  // Clean up the featured image to make them more easy to access
-
   if (data.featuredImage) {
     data.featuredImage = data.featuredImage.node;
+  }
+
+  if (data.parent) {
+    data.parent = data.parent.node;
   }
 
   if (data.children) {

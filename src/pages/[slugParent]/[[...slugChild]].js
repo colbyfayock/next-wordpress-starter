@@ -19,7 +19,6 @@ export default function Page({ page }) {
   const { title: siteTitle } = metadata;
 
   const { title, content, date, featuredImage, children, slug } = page;
-  console.log('page', page);
 
   const pageTitle = title?.rendered;
 
@@ -80,11 +79,29 @@ export default function Page({ page }) {
 }
 
 export async function getStaticProps({ params = {} } = {}, ...rest) {
-  console.log('params', params);
+  const { slugParent, slugChild } = params;
+
   const { pages } = await getAllPages();
 
-  const id = pages.find(({ slug }) => slug === params.slug)?.id;
-  console.log('id', id);
+  const id = pages.find(({ slug, parent }) => {
+    // If there's a child parameter, we need ot make sure we're matching
+    // both that we're on the right slug under the right parent
+
+    if (slugChild) {
+      // This logic only supports a 1 level deep slug, where we grab the
+      // last slug in the params and make sure it, and it's parent, matches
+      // our parameters.
+
+      const lastChild = slugChild[slugChild.length - 1];
+
+      return slug === lastChild && parent.slug === slugParent;
+    }
+
+    // If there's no child parameter, it's a top level page
+
+    return slug === slugParent;
+  })?.id;
+
   const { page } = await getPageById(id);
 
   return {
@@ -99,17 +116,41 @@ export async function getStaticPaths() {
 
   const { pages } = await getAllPages();
 
-  const paths = pages.map((page) => {
+  // The path matching with Next.js appears to want us to separately specify a top level route
+  // along with it's child routes in order for both to be available within a catch all.
+
+  // First we build the tpo level pages where we wouldnt have a secondary param
+
+  const parentPages = pages.map((page) => {
     const { slug, children } = page;
     return {
       params: {
-        slug,
-        child: children.map(({ slug }) => slug),
+        slugParent: slug,
+        slugChild: [],
       },
     };
   });
 
-  console.log('paths', paths);
+  // Find any pages that have children
+
+  const pagesWithChildren = pages.filter(({ children }) => Array.isArray(children) && children.length > 0);
+
+  // Then map through those pages to create an additional set of paths for our pages along
+  // with their child slugs
+
+  const childPages = pagesWithChildren.map((page) => {
+    const { slug, children } = page;
+    return {
+      params: {
+        slugParent: slug,
+        slugChild: children.map(({ slug }) => slug),
+      },
+    };
+  });
+
+  // Combine our paths before passing them through
+
+  const paths = [...parentPages, ...childPages];
 
   return {
     paths,
