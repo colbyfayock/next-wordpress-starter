@@ -1,8 +1,8 @@
-import path from 'path';
+import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
-import { getPageById, getAllPages } from 'lib/pages';
+import { getPageById, getAllPages, pagePathBySlug } from 'lib/pages';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -18,11 +18,14 @@ export default function Page({ page }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, date, featuredImage } = page;
+  const { title, content, date, featuredImage, children, slug } = page;
+  console.log('page', page);
 
   const pageTitle = title?.rendered;
 
   const metaDescription = `${title} on ${siteTitle}`;
+
+  const hasChildren = Array.isArray(children) && children.length > 0;
 
   return (
     <Layout>
@@ -54,6 +57,21 @@ export default function Page({ page }) {
                 __html: content,
               }}
             />
+            {hasChildren && (
+              <aside>
+                <ul>
+                  {children.map((child) => {
+                    return (
+                      <li key={child.id}>
+                        <Link href={pagePathBySlug(`${slug}/${child.slug}`)}>
+                          <a>{child.title}</a>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </aside>
+            )}
           </Container>
         </Section>
       </Content>
@@ -62,10 +80,11 @@ export default function Page({ page }) {
 }
 
 export async function getStaticProps({ params = {} } = {}, ...rest) {
+  console.log('params', params);
   const { pages } = await getAllPages();
 
   const id = pages.find(({ slug }) => slug === params.slug)?.id;
-
+  console.log('id', id);
   const { page } = await getPageById(id);
 
   return {
@@ -81,13 +100,16 @@ export async function getStaticPaths() {
   const { pages } = await getAllPages();
 
   const paths = pages.map((page) => {
-    const { slug } = page;
+    const { slug, children } = page;
     return {
       params: {
         slug,
+        child: children.map(({ slug }) => slug),
       },
     };
   });
+
+  console.log('paths', paths);
 
   return {
     paths,

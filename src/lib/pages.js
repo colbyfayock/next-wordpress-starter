@@ -71,5 +71,9 @@ export function mapPageData(page = {}) {
     data.featuredImage = data.featuredImage.node;
   }
 
+  if (data.children) {
+    data.children = data.children.edges.map(({ node }) => node);
+  }
+
   return data;
 }
