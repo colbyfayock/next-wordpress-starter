@@ -1,10 +1,9 @@
 const path = require('path');
 const he = require('he');
 
-const { promiseToWriteFile, mkdirp } = require('./util');
+const { promiseToWriteFile, mkdirp, getAllPosts } = require('./util');
 
 const PLUGIN_NAME = 'SearchIndex';
-const WORDPRESS_API_POSTS = '/wp-json/wp/v2/posts';
 
 class SearchIndexWebpackPlugin {
   constructor(options = {}) {
@@ -22,26 +21,14 @@ class SearchIndexWebpackPlugin {
       throw new Error(`[${PLUGIN_NAME}] Failed to compile search index: invalid host type ${typeof host}`);
     }
 
-    const postsUrl = `${host}${WORDPRESS_API_POSTS}`;
-
-    let posts;
-
-    try {
-      const data = await fetch(postsUrl);
-      posts = await data.json();
-    } catch (e) {
-      console.log(`[${PLUGIN_NAME}] Failed to fetch posts from ${postsUrl}: ${e}`);
-      return;
-    }
-
-    console.log(`[${PLUGIN_NAME}] Successfully fetched posts from ${postsUrl}`);
+    const posts = await getAllPosts(host, PLUGIN_NAME);
 
     const index = posts.map((post = {}) => {
       // We need to decode the title because we're using the
       // rendered version which assumes this value will be used
       // within the DOM
 
-      const title = he.decode(post.title.rendered);
+      const title = he.decode(post.title);
 
       return {
         title,
