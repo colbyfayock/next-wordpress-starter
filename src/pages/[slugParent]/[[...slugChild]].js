@@ -12,19 +12,20 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import FeaturedImage from 'components/FeaturedImage';
 
-import styles from 'styles/pages/Post.module.scss';
+import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, date, featuredImage, children, slug } = page;
+  const { title, slug, content, date, featuredImage, children, parent } = page;
 
   const pageTitle = title?.rendered;
 
   const metaDescription = `${title} on ${siteTitle}`;
 
   const hasChildren = Array.isArray(children) && children.length > 0;
+  const isChild = parent && parent.id;
 
   return (
     <Layout>
@@ -37,6 +38,16 @@ export default function Page({ page }) {
       </Helmet>
 
       <Header>
+        {isChild && (
+          <ul className={styles.breadcrumbs}>
+            <li>
+              <Link href={pagePathBySlug(parent.slug)}>
+                <a>{parent.title}</a>
+              </Link>
+            </li>
+            <li>{title}</li>
+          </ul>
+        )}
         {featuredImage && (
           <FeaturedImage
             {...featuredImage}
@@ -44,12 +55,12 @@ export default function Page({ page }) {
             dangerouslySetInnerHTML={featuredImage.caption}
           />
         )}
-        <h1 className={styles.title}>{title}</h1>
+        <h1>{title}</h1>
       </Header>
 
       <Content>
         <Section>
-          <Container>
+          <Container className={styles.pageContentContainer}>
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{
@@ -58,6 +69,9 @@ export default function Page({ page }) {
             />
             {hasChildren && (
               <aside>
+                <p className={styles.asideHeader}>
+                  <strong>{title}</strong>
+                </p>
                 <ul>
                   {children.map((child) => {
                     return (

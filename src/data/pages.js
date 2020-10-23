@@ -34,6 +34,9 @@ export const QUERY_ALL_PAGES = gql`
             node {
               id
               slug
+              ... on Page {
+                title
+              }
             }
           }
           slug
@@ -77,6 +80,9 @@ export function getQueryPageById(id) {
           node {
             id
             slug
+            ... on Page {
+              title
+            }
           }
         }
         slug
