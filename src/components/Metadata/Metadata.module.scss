@@ -55,6 +55,8 @@
 
 .metadataCategories {
   li {
+    display: inline-block;
+
     &:after {
       content: ", ";
       margin-right: 0.4em;
