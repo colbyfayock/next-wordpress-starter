@@ -1,4 +1,5 @@
 const withPlugins = require('next-compose-plugins');
+const { removeLastTrailingSlash } = require('./plugins/util');
 
 const indexSearch = require('./plugins/search-index');
 const feed = require('./plugins/feed');
@@ -11,6 +12,6 @@ module.exports = withPlugins([[indexSearch], [feed]], {
   trailingSlash: true,
 
   env: {
-    WORDPRESS_HOST: process.env.WORDPRESS_HOST,
+    WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
   },
 });

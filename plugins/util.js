@@ -236,6 +236,14 @@ function generateIndexSearch({ posts }) {
   return indexJson;
 }
 
+/**
+ * removeLastTrailingSlash
+ */
+
+function removeLastTrailingSlash(url) {
+  return url.replace(/\/$/, '');
+}
+
 module.exports = {
   createFile,
   promiseToWriteFile,
@@ -246,4 +254,5 @@ module.exports = {
   getFeedData,
   generateFeed,
   generateIndexSearch,
+  removeLastTrailingSlash
 };

@@ -51,3 +51,7 @@ export function decodeHtmlEntities(text) {
 
   return decoded.replace(/&amp;|&quot;|&#039;/g, (char) => entities[char]);
 }
+
+export function removeLastTrailingSlash(url) {
+  return url.replace(/\/$/, '');
+}
