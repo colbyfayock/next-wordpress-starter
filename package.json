@@ -36,6 +36,7 @@
     "react-dom": "16.13.1",
     "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
+    "rss": "^1.2.2",
     "sass": "^1.27.0",
     "style.css": "^1.0.0"
   },
