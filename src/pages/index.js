@@ -38,15 +38,13 @@ export default function Home({ posts }) {
         <Container>
           <h2 className="sr-only">Posts</h2>
           <ul className={styles.posts}>
-            {posts
-              .sort((post) => (post.isSticky ? -1 : 1))
-              .map((post) => {
-                return (
-                  <li key={post.slug}>
-                    <PostCard post={post} />
-                  </li>
-                );
-              })}
+            {posts.map((post) => {
+              return (
+                <li key={post.slug}>
+                  <PostCard post={post} />
+                </li>
+              );
+            })}
           </ul>
         </Container>
       </Section>
@@ -58,7 +56,7 @@ export async function getStaticProps() {
   const { posts } = await getAllPosts();
   return {
     props: {
-      posts,
+      posts: posts.sort((post) => (post.isSticky ? -1 : 1)),
     },
   };
 }
