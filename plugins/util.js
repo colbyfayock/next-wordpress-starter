@@ -254,5 +254,5 @@ module.exports = {
   getFeedData,
   generateFeed,
   generateIndexSearch,
-  removeLastTrailingSlash
+  removeLastTrailingSlash,
 };
