@@ -74,3 +74,9 @@ async function getAllPosts(host, process) {
 }
 
 module.exports.getAllPosts = getAllPosts;
+
+function removeLastTrailingSlash(url) {
+  return url.replace(/\/$/, '');
+}
+
+module.exports.removeLastTrailingSlash = removeLastTrailingSlash;

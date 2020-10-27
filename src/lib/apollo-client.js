@@ -1,9 +1,11 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { concatPagination } from '@apollo/client/utilities';
 
+import { removeLastTrailingSlash } from 'lib/site';
+
 let apolloClient;
 
-const WORDPRESS_HOST = process.env.WORDPRESS_HOST;
+const WORDPRESS_HOST = removeLastTrailingSlash(process.env.WORDPRESS_HOST);
 
 /**
  * createApolloClient
