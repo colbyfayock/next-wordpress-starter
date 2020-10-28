@@ -56,7 +56,7 @@ export async function getStaticProps() {
   const { posts } = await getAllPosts();
   return {
     props: {
-      posts,
+      posts: posts.sort((post) => (post.isSticky ? -1 : 1)),
     },
   };
 }
