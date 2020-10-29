@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { FaSearch } from 'react-icons/fa';
 
@@ -143,6 +143,27 @@ const Nav = () => {
       }
     }
   }
+
+  /**
+   * escFunction
+   */
+
+  // pressing esc while search is focused will close it
+
+  const escFunction = useCallback((event) => {
+    if (event.keyCode === 27) {
+      clearSearch();
+      setSearchVisibility(SEARCH_HIDDEN);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener('keydown', escFunction, false);
+
+    return () => {
+      document.removeEventListener('keydown', escFunction, false);
+    };
+  }, []);
 
   return (
     <nav className={styles.nav}>
