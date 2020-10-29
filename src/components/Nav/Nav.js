@@ -144,6 +144,12 @@ const Nav = () => {
     }
   }
 
+  /**
+   * escFunction
+   */
+
+  // pressing esc while search is focused will close it
+
   const escFunction = useCallback((event) => {
     if (event.keyCode === 27) {
       clearSearch();
