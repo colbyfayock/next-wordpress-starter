@@ -8,6 +8,10 @@ Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the stati
 
 ## ⚡️ Quick Start
 
+### Requirements
+* [WordPress](https://wordpress.org/)
+* [WPGraphQL](https://www.wpgraphql.com/)
+
 ```bash
 yarn create next-app -e https://github.com/colbyfayock/next-wordpress-starter
 # or
