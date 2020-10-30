@@ -2,6 +2,8 @@ const fs = require('fs');
 const he = require('he');
 const { gql, ApolloClient, InMemoryCache } = require('@apollo/client');
 const RSS = require('rss');
+const prettier = require('prettier');
+
 const config = require('../package.json');
 
 /**
@@ -78,6 +80,7 @@ async function getAllPosts(apolloClient, process) {
             postId
             slug
             date
+            modified
             author {
               node {
                 name
@@ -164,6 +167,47 @@ async function getSiteMetadata(apolloClient, process) {
 }
 
 /**
+ * getSitePages
+ */
+
+async function getPages(apolloClient, process) {
+  const query = gql`
+    {
+      pages(first: 10000) {
+        edges {
+          node {
+            slug
+            modified
+          }
+        }
+      }
+    }
+  `;
+
+  let pages = [];
+
+  try {
+    const data = await apolloClient.query({ query });
+    pages = [
+      ...data.data.pages.edges.map(({ node = {} }) => {
+        return {
+          slug: node.slug,
+          modified: node.modified,
+        };
+      }),
+    ];
+
+    console.log(`[${process}] Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
+  } catch (e) {
+    console.log(`[${process}] Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e}`);
+  } finally {
+    return {
+      pages,
+    };
+  }
+}
+
+/**
  * getFeedData
  */
 
@@ -174,6 +218,20 @@ async function getFeedData(apolloClient, process) {
   return {
     ...metadata,
     ...posts,
+  };
+}
+
+/**
+ * getFeedData
+ */
+
+async function getSitemapData(apolloClient, process) {
+  const posts = await getAllPosts(apolloClient, process);
+  const pages = await getPages(apolloClient, process);
+
+  return {
+    ...posts,
+    ...pages,
   };
 }
 
@@ -237,6 +295,100 @@ function generateIndexSearch({ posts }) {
 }
 
 /**
+ * getSitemapData
+ */
+
+function generateSitemap({ posts = [], pages = [] }) {
+  const { homepage = '' } = config;
+
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>${homepage}</loc>
+        <lastmod>${new Date().toISOString()}</lastmod>
+      </url>
+        ${pages
+          .map((page) => {
+            return `<url>
+                      <loc>${homepage}/${page.slug}</loc>
+                      <priority>0.3</priority>
+                      <lastmod>${new Date(page.modified).toISOString()}</lastmod>
+                    </url>
+                `;
+          })
+          .join('')}
+          ${posts
+            .map((post) => {
+              return `<url>
+                        <loc>${homepage}/posts/${post.slug}</loc>
+                        <lastmod>${new Date(post.modified).toISOString()}</lastmod>
+                      </url>
+                  `;
+            })
+            .join('')}
+    </urlset>
+    `;
+
+  const sitemapFormatted = prettier.format(sitemap, {
+    printWidth: 120,
+    parser: 'html',
+  });
+
+  return sitemapFormatted;
+}
+
+/**
+ * generateRobotsTxt
+ */
+
+async function generateRobotsTxt({ outputDirectory, outputName }) {
+  const { homepage = '' } = config;
+
+  try {
+    // Build sitemap URL at root directory
+    let sitemapUrl = new URL(outputName, homepage);
+
+    // Check if output directory is not root directory
+    if (outputDirectory !== './public') {
+      // Check if output directory is within './public' folder
+      if (outputDirectory.startsWith('./public')) {
+        // Update sitemap URL with new directory
+        sitemapUrl.pathname = resolvePublicPathname(outputDirectory, outputName);
+      } else {
+        throw new Error('Sitemap should be within ./public folder.');
+      }
+    }
+
+    // Robots content using sitemap final URL
+    const robots = `User-agent: *\nSitemap: ${sitemapUrl}`;
+
+    // Create robots.txt always at root directory
+    await createFile(robots, 'Robots.txt', './public', './public/robots.txt');
+  } catch (e) {
+    console.error(`[Robots.txt] Failed to create robots.txt: ${e.message}`);
+  }
+}
+
+/**
+ * resolvePathname
+ */
+
+function resolvePublicPathname(outputDirectory, outputName) {
+  const directory = outputDirectory.split('/');
+  const index = directory.indexOf('public');
+  const path = directory
+    .map((path, i) => {
+      // If actual folder is a 'public' direct subfolder and is not empty, add to pathname
+      if (i > index && path) {
+        return `/${path}`;
+      }
+    })
+    .join('');
+
+  return `${path}/${outputName}`;
+}
+
+/**
  * removeLastTrailingSlash
  */
 
@@ -254,5 +406,10 @@ module.exports = {
   getFeedData,
   generateFeed,
   generateIndexSearch,
+  getPages,
+  getSitemapData,
+  generateSitemap,
+  generateRobotsTxt,
   removeLastTrailingSlash,
+  resolvePublicPathname,
 };

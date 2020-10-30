@@ -35,3 +35,5 @@ yarn-error.log*
 
 public/wp-search.json
 public/feed.xml
+public/sitemap.xml
+public/robots.txt

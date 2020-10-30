@@ -25,6 +25,11 @@ class WebpackPlugin {
     const file = plugin.generate(data);
 
     await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation);
+
+    //If there is an aditional action to perform
+    if (!!plugin.postcreate) {
+      plugin.postcreate(plugin);
+    }
   }
 
   apply(compiler) {
