@@ -36,6 +36,8 @@ The hope is to build out as many features as we can to support what's typically 
 * Author (https://next-wordpress-starter.netlify.app/authors/colby/)
 * Search (Global navigation and https://next-wordpress-starter.netlify.app/search/?q=sit)
 * Category (https://next-wordpress-starter.netlify.app/categories/lorem/)
+* RSS (https://next-wordpress-starter.netlify.app/feed.xml)
+* Sitemap (https://next-wordpress-starter.netlify.app/sitemap.xml)
 
 Additionally, the theme is expected to be SEO friendly and performant out of the box, including:
 * Unique page titles
