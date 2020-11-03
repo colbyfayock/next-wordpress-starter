@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.5",
+    "canvas": "^2.6.1",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
     "fuse.js": "^6.4.2",

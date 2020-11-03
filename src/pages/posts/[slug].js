@@ -15,11 +15,13 @@ import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post }) {
-  const { metadata } = useSite();
+export default function Post({ post, socialImage }) {
+  const { metadata, homepage } = useSite();
   const { title: siteTitle } = metadata;
 
   const { title, content, excerpt, date, author, categories, modified, featuredImage, isSticky = false } = post;
+
+  console.log('socialImage', `${homepage}${socialImage}`);
 
   const metadataOptions = {
     compactCategories: false,
@@ -51,6 +53,7 @@ export default function Post({ post }) {
             __html: title,
           }}
         />
+        <img src={socialImage} />
         <Metadata
           className={styles.postMetadata}
           date={date}
@@ -85,9 +88,13 @@ export default function Post({ post }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { post } = await getPostBySlug(params?.slug);
+
+  const socialImage = `/images/${params?.slug}.png`;
+
   return {
     props: {
       post,
+      socialImage
     },
   };
 }
