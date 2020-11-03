@@ -29,6 +29,8 @@ export default function Post({ post, socialImage }) {
 
   const metaDescription = `Read ${title} at ${siteTitle}.`;
 
+  const socialsocialimage = `${homepage}${socialImage}`;
+
   return (
     <Layout>
       <Helmet>
@@ -37,6 +39,12 @@ export default function Post({ post, socialImage }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content={socialsocialimage} />
+        <meta property="og:image:secure_url" content={socialsocialimage} />
+        <meta property="og:image:width" content="2000" />
+        <meta property="og:image:height" content="1000" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:image" content={socialsocialimage} />
       </Helmet>
 
       <Header>
@@ -94,7 +102,7 @@ export async function getStaticProps({ params = {} } = {}) {
   return {
     props: {
       post,
-      socialImage
+      socialImage,
     },
   };
 }
