@@ -6,6 +6,8 @@ import TemplateArchive from 'templates/archive';
 
 export default function Search() {
   const { query, results, search } = useSearch();
+  const title = 'Search';
+  const slug = 'search';
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -14,5 +16,5 @@ export default function Search() {
     });
   }, []);
 
-  return <TemplateArchive title="Search" posts={results} />;
+  return <TemplateArchive title={title} posts={results} slug={slug} />;
 }
