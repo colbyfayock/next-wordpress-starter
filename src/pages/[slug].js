@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
 import { getPageById, getAllPages } from 'lib/pages';
+import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -18,7 +19,7 @@ export default function Page({ page }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, date, featuredImage } = page;
+  const { title, content, date, featuredImage, slug } = page;
 
   const pageTitle = title?.rendered;
 
@@ -33,6 +34,8 @@ export default function Page({ page }) {
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
       </Helmet>
+
+      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
 
       <Header>
         {featuredImage && (

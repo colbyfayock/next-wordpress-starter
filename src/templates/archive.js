@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { getPosts } from 'lib/posts';
+import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -23,6 +24,7 @@ export default function TemplateArchive({
   description,
   posts,
   postOptions = DEFAULT_POST_OPTIONS,
+  slug,
 }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
@@ -41,6 +43,8 @@ export default function TemplateArchive({
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
       </Helmet>
+
+      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
 
       <Header>
         <Container>

@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { getAllPosts } from 'lib/posts';
+import { WebsiteJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -18,6 +19,7 @@ export default function Home({ posts }) {
 
   return (
     <Layout>
+      <WebsiteJsonLd siteTitle={title} />
       <Header>
         <h1
           className={styles.title}

@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { getPostBySlug, getAllPosts } from 'lib/posts';
 import { formatDate } from 'lib/datetime';
+import { ArticleJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -36,6 +37,8 @@ export default function Post({ post }) {
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
       </Helmet>
+
+      <ArticleJsonLd post={post} siteTitle={siteTitle} />
 
       <Header>
         {featuredImage && (
