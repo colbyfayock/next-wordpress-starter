@@ -27,11 +27,11 @@ export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
     },
     headline: title,
     image: [featuredImage?.sourceUrl],
-    datePublished: dateModified ? datePublished.toISOString() : '',
+    datePublished: datePublished ? datePublished.toISOString() : '',
     dateModified: dateModified ? dateModified.toISOString() : datePublished.toISOString(),
     description: excerpt,
     keywords: [categories.map(({ name }) => `${name}`).join(', ')],
-    copyrightYear: dateModified ? datePublished.getFullYear() : '',
+    copyrightYear: datePublished ? datePublished.getFullYear() : '',
     author: {
       '@type': 'Person',
       name: author?.name,
