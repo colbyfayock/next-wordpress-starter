@@ -20,7 +20,7 @@ npx create-next-app -e https://github.com/colbyfayock/next-wordpress-starter
 
 Add an `.env.local` file to the root with the following:
 ```
-WORDPRESS_HOST="http://wordpressite.com"
+WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 ```
 
 ## 🚀 Getting Started
@@ -57,7 +57,7 @@ This project makes use of WPGraphQL to query WordPress with GraphQL. In order to
 Create a new file locally called `.env.local` and add the following:
 
 ```bash
-WORDPRESS_HOST="[host]"
+WORDPRESS_GRAPHQL_ENDPOINT="[WPGraphQL Endpoint]"
 ```
 
 Replace `[host]` with your the home URL of your WordPress instance.

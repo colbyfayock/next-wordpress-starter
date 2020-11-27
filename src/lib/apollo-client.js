@@ -5,7 +5,7 @@ import { removeLastTrailingSlash } from 'lib/site';
 
 let apolloClient;
 
-const WORDPRESS_HOST = removeLastTrailingSlash(process.env.WORDPRESS_HOST);
+const WORDPRESS_GRAPHQL_ENDPOINT = removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT);
 
 /**
  * createApolloClient
@@ -13,7 +13,7 @@ const WORDPRESS_HOST = removeLastTrailingSlash(process.env.WORDPRESS_HOST);
 
 export function _createApolloClient() {
   const link = new HttpLink({
-    uri: `${WORDPRESS_HOST}/graphql`,
+    uri: WORDPRESS_GRAPHQL_ENDPOINT,
   });
 
   const cache = new InMemoryCache({

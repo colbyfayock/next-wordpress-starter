@@ -8,17 +8,17 @@ class WebpackPlugin {
   }
 
   async index(compilation, options) {
-    const { host, plugin } = options;
+    const { url, plugin } = options;
 
     plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
 
     console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
-    if (typeof host !== 'string') {
-      throw new Error(`[${plugin.name}] Failed to compile: invalid host type ${typeof host}`);
+    if (typeof url !== 'string') {
+      throw new Error(`[${plugin.name}] Failed to compile: invalid url type ${typeof url}`);
     }
 
-    const apolloClient = createApolloClient(host);
+    const apolloClient = createApolloClient(url);
 
     const data = await plugin.getData(apolloClient, plugin.name);
 

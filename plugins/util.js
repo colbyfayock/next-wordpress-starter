@@ -59,9 +59,9 @@ function mkdirp(directory) {
  * createApolloClient
  */
 
-function createApolloClient(host) {
+function createApolloClient(url) {
   return new ApolloClient({
-    uri: `${host}/graphql`,
+    uri: url,
     cache: new InMemoryCache(),
   });
 }

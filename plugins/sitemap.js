@@ -15,7 +15,7 @@ module.exports = function sitemap(nextConfig = {}) {
     postcreate: generateRobotsTxt,
   };
 
-  const { WORDPRESS_HOST } = env;
+  const { WORDPRESS_GRAPHQL_ENDPOINT } = env;
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -25,7 +25,7 @@ module.exports = function sitemap(nextConfig = {}) {
 
       config.plugins.push(
         new WebpackPlugin({
-          host: WORDPRESS_HOST,
+          url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
         })
       );
