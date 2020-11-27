@@ -2,20 +2,29 @@ const path = require('path');
 
 const { createApolloClient, createFile } = require('./util');
 
+const DEFAULT_GRAPHQL_PATH = '/graphql';
+
 class WebpackPlugin {
   constructor(options = {}) {
     this.options = options;
   }
 
   async index(compilation, options) {
-    const { url, plugin } = options;
+    const { url, host, plugin } = options;
+    let endpoint = url;
+
+    if (!endpoint && host) {
+      endpoint = `${host}${DEFAULT_GRAPHQL_PATH}`;
+    }
 
     plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
 
     console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
-    if (typeof url !== 'string') {
-      throw new Error(`[${plugin.name}] Failed to compile: invalid url type ${typeof url}`);
+    if (typeof url !== 'string' && typeof host !== 'string') {
+      throw new Error(
+        `[${plugin.name}] Failed to compile: invalid url and host type: url ${typeof url}; host ${typeof host}`
+      );
     }
 
     const apolloClient = createApolloClient(url);

@@ -1,7 +1,7 @@
 const path = require('path');
 const { getSitemapData, generateSitemap, generateRobotsTxt } = require('./util');
 
-const WebpackPlugin = require('./plugin-compiler');
+const WebpackPluginCompiler = require('./plugin-compiler');
 
 module.exports = function sitemap(nextConfig = {}) {
   const { env, outputDirectory, outputName } = nextConfig;
@@ -15,7 +15,7 @@ module.exports = function sitemap(nextConfig = {}) {
     postcreate: generateRobotsTxt,
   };
 
-  const { WORDPRESS_GRAPHQL_ENDPOINT } = env;
+  const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -24,7 +24,8 @@ module.exports = function sitemap(nextConfig = {}) {
       }
 
       config.plugins.push(
-        new WebpackPlugin({
+        new WebpackPluginCompiler({
+          host: WORDPRESS_HOST,
           url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
         })

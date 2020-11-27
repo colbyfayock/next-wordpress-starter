@@ -14,7 +14,7 @@ module.exports = function feed(nextConfig = {}) {
     generate: generateFeed,
   };
 
-  const { WORDPRESS_GRAPHQL_ENDPOINT } = env;
+  const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -24,6 +24,7 @@ module.exports = function feed(nextConfig = {}) {
 
       config.plugins.push(
         new WebpackPluginCompiler({
+          host: WORDPRESS_HOST,
           url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
         })
