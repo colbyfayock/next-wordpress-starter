@@ -14,5 +14,6 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap]], {
 
   env: {
     WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
+    WORDPRESS_GRAPHQL_ENDPOINT: removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT),
   },
 });

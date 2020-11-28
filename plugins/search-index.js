@@ -1,7 +1,7 @@
 const path = require('path');
 const { getAllPosts, generateIndexSearch } = require('./util');
 
-const WebpackPlugin = require('./plugin-compiler');
+const WebpackPluginCompiler = require('./plugin-compiler');
 
 module.exports = function indexSearch(nextConfig = {}) {
   const { env, outputDirectory, outputName } = nextConfig;
@@ -14,7 +14,7 @@ module.exports = function indexSearch(nextConfig = {}) {
     generate: generateIndexSearch,
   };
 
-  const { WORDPRESS_HOST } = env;
+  const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -23,8 +23,9 @@ module.exports = function indexSearch(nextConfig = {}) {
       }
 
       config.plugins.push(
-        new WebpackPlugin({
+        new WebpackPluginCompiler({
           host: WORDPRESS_HOST,
+          url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
         })
       );

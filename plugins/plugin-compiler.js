@@ -2,23 +2,35 @@ const path = require('path');
 
 const { createApolloClient, createFile } = require('./util');
 
+const DEFAULT_GRAPHQL_PATH = '/graphql';
+
 class WebpackPlugin {
   constructor(options = {}) {
     this.options = options;
   }
 
   async index(compilation, options) {
-    const { host, plugin } = options;
+    const { url, host, plugin } = options;
+    let endpoint = url;
+
+    if (!endpoint && host) {
+      endpoint = `${host}${DEFAULT_GRAPHQL_PATH}`;
+    }
 
     plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
 
     console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
-    if (typeof host !== 'string') {
-      throw new Error(`[${plugin.name}] Failed to compile: invalid host type ${typeof host}`);
+    const hasUrl = typeof url === 'string';
+    const hasHost = typeof host === 'string';
+
+    if (!hasUrl && !hasHost) {
+      throw new Error(
+        `[${plugin.name}] Failed to compile: Plase check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
+      );
     }
 
-    const apolloClient = createApolloClient(host);
+    const apolloClient = createApolloClient(endpoint);
 
     const data = await plugin.getData(apolloClient, plugin.name);
 
