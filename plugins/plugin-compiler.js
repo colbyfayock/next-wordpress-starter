@@ -26,7 +26,7 @@ class WebpackPlugin {
 
     if (!hasUrl && !hasHost) {
       throw new Error(
-        `[${plugin.name}] Failed to compile: Plase check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
+        `[${plugin.name}] Failed to compile: Please check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
       );
     }
 
