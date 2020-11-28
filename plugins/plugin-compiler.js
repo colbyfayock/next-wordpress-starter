@@ -26,8 +26,8 @@ class WebpackPlugin {
         `[${plugin.name}] Failed to compile: invalid url and host type: url ${typeof url}; host ${typeof host}`
       );
     }
-
-    const apolloClient = createApolloClient(url);
+    console.log('endpoint', endpoint);
+    const apolloClient = createApolloClient(endpoint);
 
     const data = await plugin.getData(apolloClient, plugin.name);
 
