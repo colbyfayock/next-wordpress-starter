@@ -21,12 +21,15 @@ class WebpackPlugin {
 
     console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
-    if (typeof url !== 'string' && typeof host !== 'string') {
+    const hasUrl = typeof url === 'string';
+    const hasHost = typeof host === 'string';
+
+    if (!hasUrl && !hasHost) {
       throw new Error(
-        `[${plugin.name}] Failed to compile: invalid url and host type: url ${typeof url}; host ${typeof host}`
+        `[${plugin.name}] Failed to compile: Plase check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
       );
     }
-    console.log('endpoint', endpoint);
+
     const apolloClient = createApolloClient(endpoint);
 
     const data = await plugin.getData(apolloClient, plugin.name);
