@@ -4,7 +4,7 @@ const { getFeedData, generateFeed } = require('./util');
 const WebpackPluginCompiler = require('./plugin-compiler');
 
 module.exports = function feed(nextConfig = {}) {
-  const { env, outputDirectory, outputName } = nextConfig;
+  const { env, outputDirectory, outputName, verbose = false } = nextConfig;
 
   const plugin = {
     name: 'Feed',
@@ -27,6 +27,7 @@ module.exports = function feed(nextConfig = {}) {
           host: WORDPRESS_HOST,
           url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
+          verbose,
         })
       );
 

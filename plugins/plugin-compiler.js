@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { createApolloClient, createFile } = require('./util');
+const { createApolloClient, createFile, terminalColor } = require('./util');
 
 const DEFAULT_GRAPHQL_PATH = '/graphql';
 
@@ -10,37 +10,43 @@ class WebpackPlugin {
   }
 
   async index(compilation, options) {
-    const { url, host, plugin } = options;
+    const { url, host, plugin, verbose = false } = options;
     let endpoint = url;
 
     if (!endpoint && host) {
       endpoint = `${host}${DEFAULT_GRAPHQL_PATH}`;
     }
 
-    plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
+    try {
+      plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
 
-    console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
+      verbose && console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
-    const hasUrl = typeof url === 'string';
-    const hasHost = typeof host === 'string';
+      const hasUrl = typeof url === 'string';
+      const hasHost = typeof host === 'string';
 
-    if (!hasUrl && !hasHost) {
-      throw new Error(
-        `[${plugin.name}] Failed to compile: Please check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
-      );
-    }
+      if (!hasUrl && !hasHost) {
+        throw new Error(
+          `[${plugin.name}] Failed to compile: Please check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
+        );
+      }
 
-    const apolloClient = createApolloClient(endpoint);
+      const apolloClient = createApolloClient(endpoint);
 
-    const data = await plugin.getData(apolloClient, plugin.name);
+      const data = await plugin.getData(apolloClient, plugin.name, verbose);
 
-    const file = plugin.generate(data);
+      const file = plugin.generate(data);
 
-    await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation);
+      await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
 
-    //If there is an aditional action to perform
-    if (!!plugin.postcreate) {
-      plugin.postcreate(plugin);
+      //If there is an aditional action to perform
+      if (!!plugin.postcreate) {
+        plugin.postcreate(plugin);
+      }
+
+      !verbose && console.log(`Successfully created: ${terminalColor(plugin.outputName, 'info')}`);
+    } catch (e) {
+      console.error(`${terminalColor(e.message, 'error')}`);
     }
   }
 
