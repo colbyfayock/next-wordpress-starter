@@ -59,6 +59,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "thedavedavies",
+      "name": "Dave",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2972436?v=4",
+      "profile": "https://highaltitude.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
