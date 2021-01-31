@@ -16,8 +16,8 @@ import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post }) {
-  const { metadata } = useSite();
+export default function Post({ post, socialImage }) {
+  const { metadata, homepage } = useSite();
   const { title: siteTitle } = metadata;
 
   const { title, content, excerpt, date, author, categories, modified, featuredImage, isSticky = false } = post;
@@ -28,6 +28,8 @@ export default function Post({ post }) {
 
   const metaDescription = `Read ${title} at ${siteTitle}.`;
 
+  const socialsocialimage = `${homepage}${socialImage}`;
+
   return (
     <Layout>
       <Helmet>
@@ -36,6 +38,12 @@ export default function Post({ post }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
+        <meta property="og:image" content={socialsocialimage} />
+        <meta property="og:image:secure_url" content={socialsocialimage} />
+        <meta property="og:image:width" content="2000" />
+        <meta property="og:image:height" content="1000" />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:image" content={socialsocialimage} />
       </Helmet>
 
       <ArticleJsonLd post={post} siteTitle={siteTitle} />
@@ -54,6 +62,7 @@ export default function Post({ post }) {
             __html: title,
           }}
         />
+        <img src={socialImage} />
         <Metadata
           className={styles.postMetadata}
           date={date}
@@ -88,9 +97,13 @@ export default function Post({ post }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { post } = await getPostBySlug(params?.slug);
+
+  const socialImage = `/images/${params?.slug}.png`;
+
   return {
     props: {
       post,
+      socialImage,
     },
   };
 }
