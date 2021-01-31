@@ -27,8 +27,7 @@ export default function Post({ post, socialImage }) {
   };
 
   const metaDescription = `Read ${title} at ${siteTitle}.`;
-
-  const socialsocialimage = `${homepage}${socialImage}`;
+  const socialImageUrl = `${homepage}${socialImage}`;
 
   return (
     <Layout>
@@ -38,12 +37,12 @@ export default function Post({ post, socialImage }) {
         <meta property="og:title" content={title} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:type" content="article" />
-        <meta property="og:image" content={socialsocialimage} />
-        <meta property="og:image:secure_url" content={socialsocialimage} />
+        <meta property="og:image" content={socialImageUrl} />
+        <meta property="og:image:secure_url" content={socialImageUrl} />
         <meta property="og:image:width" content="2000" />
         <meta property="og:image:height" content="1000" />
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:image" content={socialsocialimage} />
+        <meta property="twitter:image" content={socialImageUrl} />
       </Helmet>
 
       <ArticleJsonLd post={post} siteTitle={siteTitle} />
@@ -62,7 +61,6 @@ export default function Post({ post, socialImage }) {
             __html: title,
           }}
         />
-        <img src={socialImage} />
         <Metadata
           className={styles.postMetadata}
           date={date}
