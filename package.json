@@ -21,16 +21,16 @@
     "*": "yarn format:nopath"
   },
   "dependencies": {
-    "@apollo/client": "^3.2.5",
+    "@apollo/client": "^3.3.7",
     "canvas": "^2.6.1",
     "date-fns": "^2.16.1",
     "dotenv": "^8.2.0",
-    "fuse.js": "^6.4.2",
+    "fuse.js": "^6.4.6",
     "graphql": "^15.4.0",
     "he": "^1.2.0",
     "loader-utils": "^2.0.0",
     "next": "9.5.5",
-    "next-compose-plugins": "^2.2.0",
+    "next-compose-plugins": "^2.2.1",
     "parameterize": "^1.0.0",
     "path": "^0.12.7",
     "react": "16.13.1",
@@ -38,7 +38,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^3.11.0",
     "rss": "^1.2.2",
-    "sass": "^1.27.0",
+    "sass": "^1.32.5",
     "style.css": "^1.0.0"
   },
   "devDependencies": {

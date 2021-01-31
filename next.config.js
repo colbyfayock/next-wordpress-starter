@@ -13,7 +13,12 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
 
   trailingSlash: true,
 
+  // By enabling verbose logging, it will provide additional output details for
+  // diagnostic purposes. By default is set to false.
+  //verbose: true,
+
   env: {
     WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
+    WORDPRESS_GRAPHQL_ENDPOINT: removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT),
   },
 });

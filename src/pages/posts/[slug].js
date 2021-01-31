@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { getPostBySlug, getAllPosts } from 'lib/posts';
 import { formatDate } from 'lib/datetime';
+import { ArticleJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -46,6 +47,8 @@ export default function Post({ post, socialImage }) {
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:image" content={socialsocialimage} />
       </Helmet>
+
+      <ArticleJsonLd post={post} siteTitle={siteTitle} />
 
       <Header>
         {featuredImage && (

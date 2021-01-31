@@ -41,3 +41,5 @@ yarn.lock
 .gitignore
 
 public
+
+.all-contributorsrc

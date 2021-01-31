@@ -10,15 +10,14 @@ const config = require('../package.json');
  * createFile
  */
 
-async function createFile(file, process, directory, location) {
+async function createFile(file, process, directory, location, verbose = false) {
   try {
     mkdirp(directory);
-    console.log(`[${process}] Created directory ${directory}`);
+    verbose && console.log(`[${process}] Created directory ${directory}`);
     await promiseToWriteFile(location, file);
-    console.log(`[${process}] Successfully wrote file to ${location}`);
+    verbose && console.log(`[${process}] Successfully wrote file to ${location}`);
   } catch (e) {
-    console.log(`[${process}] Failed to create file: ${e.message}`);
-    throw e;
+    throw new Error(`[${process}] Failed to create file: ${e.message}`);
   }
 }
 
@@ -59,9 +58,9 @@ function mkdirp(directory) {
  * createApolloClient
  */
 
-function createApolloClient(host) {
+function createApolloClient(url) {
   return new ApolloClient({
-    uri: `${host}/graphql`,
+    uri: url,
     cache: new InMemoryCache(),
   });
 }
@@ -70,7 +69,7 @@ function createApolloClient(host) {
  * getAllPosts
  */
 
-async function getAllPosts(apolloClient, process) {
+async function getAllPosts(apolloClient, process, verbose = false) {
   const query = gql`
     {
       posts(first: 10000) {
@@ -115,17 +114,15 @@ async function getAllPosts(apolloClient, process) {
       if (data.categories) {
         data.categories = data.categories.edges.map(({ node }) => node.name);
       }
-
       return data;
     });
 
-    console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
-  } catch (e) {
-    console.log(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e}`);
-  } finally {
+    verbose && console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
     return {
       posts,
     };
+  } catch (e) {
+    throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -133,7 +130,7 @@ async function getAllPosts(apolloClient, process) {
  * getSiteMetadata
  */
 
-async function getSiteMetadata(apolloClient, process) {
+async function getSiteMetadata(apolloClient, process, verbose = false) {
   const query = gql`
     {
       generalSettings {
@@ -156,13 +153,12 @@ async function getSiteMetadata(apolloClient, process) {
       metadata.language = metadata.language.split('_')[0];
     }
 
-    console.log(`[${process}] Successfully fetched metadata from ${apolloClient.link.options.uri}`);
-  } catch (e) {
-    console.log(`[${process}] Failed to fetch metadata from ${apolloClient.link.options.uri}: ${e}`);
-  } finally {
+    verbose && console.log(`[${process}] Successfully fetched metadata from ${apolloClient.link.options.uri}`);
     return {
       metadata,
     };
+  } catch (e) {
+    throw new Error(`[${process}] Failed to fetch metadata from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -170,7 +166,7 @@ async function getSiteMetadata(apolloClient, process) {
  * getSitePages
  */
 
-async function getPages(apolloClient, process) {
+async function getPages(apolloClient, process, verbose = false) {
   const query = gql`
     {
       pages(first: 10000) {
@@ -197,13 +193,12 @@ async function getPages(apolloClient, process) {
       }),
     ];
 
-    console.log(`[${process}] Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
-  } catch (e) {
-    console.log(`[${process}] Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e}`);
-  } finally {
+    verbose && console.log(`[${process}] Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
     return {
       pages,
     };
+  } catch (e) {
+    throw new Error(`[${process}] Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -211,9 +206,9 @@ async function getPages(apolloClient, process) {
  * getFeedData
  */
 
-async function getFeedData(apolloClient, process) {
-  const metadata = await getSiteMetadata(apolloClient, process);
-  const posts = await getAllPosts(apolloClient, process);
+async function getFeedData(apolloClient, process, verbose = false) {
+  const metadata = await getSiteMetadata(apolloClient, process, verbose);
+  const posts = await getAllPosts(apolloClient, process, verbose);
 
   return {
     ...metadata,
@@ -225,9 +220,9 @@ async function getFeedData(apolloClient, process) {
  * getFeedData
  */
 
-async function getSitemapData(apolloClient, process) {
-  const posts = await getAllPosts(apolloClient, process);
-  const pages = await getPages(apolloClient, process);
+async function getSitemapData(apolloClient, process, verbose = false) {
+  const posts = await getAllPosts(apolloClient, process, verbose);
+  const pages = await getPages(apolloClient, process, verbose);
 
   return {
     ...posts,
@@ -365,7 +360,7 @@ async function generateRobotsTxt({ outputDirectory, outputName }) {
     // Create robots.txt always at root directory
     await createFile(robots, 'Robots.txt', './public', './public/robots.txt');
   } catch (e) {
-    console.error(`[Robots.txt] Failed to create robots.txt: ${e.message}`);
+    throw new Error(`[Robots.txt] Failed to create robots.txt: ${e.message}`);
   }
 }
 
@@ -393,7 +388,27 @@ function resolvePublicPathname(outputDirectory, outputName) {
  */
 
 function removeLastTrailingSlash(url) {
+  if (typeof url !== 'string') return url;
   return url.replace(/\/$/, '');
+}
+
+/**
+ * terminalColor
+ */
+
+function terminalColor(text, level) {
+  switch (level) {
+    /** green */
+    case 'info':
+    default:
+      return `\x1b[32m${text}\x1b[0m`;
+    /** yellow */
+    case 'warn':
+      return `\x1b[33m${text}\x1b[0m`;
+    /** red */
+    case 'error':
+      return `\x1b[31m${text}\x1b[0m`;
+  }
 }
 
 module.exports = {
@@ -412,4 +427,5 @@ module.exports = {
   generateRobotsTxt,
   removeLastTrailingSlash,
   resolvePublicPathname,
+  terminalColor,
 };
