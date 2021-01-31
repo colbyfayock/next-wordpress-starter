@@ -1,46 +1,38 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return {
-      ...initialProps,
-      // See https://github.com/nfl/react-helmet#server-usage
-      helmet: Helmet.rewind(),
-    };
+// Via https://github.com/vercel/next.js/blob/canary/examples/with-react-helmet/pages/_document.js
+
+export default class MyDocument extends Document {
+  static async getInitialProps(...args) {
+    const documentProps = await super.getInitialProps(...args);
+    // see https://github.com/nfl/react-helmet#server-usage for more information
+    // 'head' was occupied by 'renderPage().head', we cannot use it
+    return { ...documentProps, helmet: Helmet.renderStatic() };
   }
 
+  // should render on <html>
   get helmetHtmlAttrComponents() {
     return this.props.helmet.htmlAttributes.toComponent();
   }
 
-  // get helmetHeadComponents () {
-  //   // remove htmlAttributes which is not for <head> but for <html>
-  //   console.log('this.props.helmet', this.props.helmet)
-  //   return ;
-  // }
+  // should render on <body>
+  get helmetBodyAttrComponents() {
+    return this.props.helmet.bodyAttributes.toComponent();
+  }
 
+  // should render on <head>
   get helmetHeadComponents() {
     return Object.keys(this.props.helmet)
-      .filter((el) => el !== 'htmlAttributes') // remove htmlAttributes which is not for <head> but for <html>
-      .map((el) => this.props.helmet[el].toComponent())
-      .filter((el) => Array.isArray(el) && el.length > 0);
+      .filter((el) => el !== 'htmlAttributes' && el !== 'bodyAttributes')
+      .map((el) => this.props.helmet[el].toComponent());
   }
 
   render() {
-    console.log('this.helmetHeadComponents', this.helmetHeadComponents);
     return (
       <Html {...this.helmetHtmlAttrComponents}>
-        <Head>
-          <Helmet
-            htmlAttributes={{ lang: 'en' }}
-            title="Hello next.js!"
-            meta={[{ name: 'viewport', content: 'width=device-width, initial-scale=1' }]}
-          />
-          {this.helmetHeadComponents}
-        </Head>
-        <body>
+        <Head>{this.helmetHeadComponents}</Head>
+        <body {...this.helmetBodyAttrComponents}>
           <Main />
           <NextScript />
         </body>
@@ -48,5 +40,3 @@ class MyDocument extends Document {
     );
   }
 }
-
-export default MyDocument;

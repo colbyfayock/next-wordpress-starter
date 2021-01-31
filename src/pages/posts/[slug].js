@@ -22,8 +22,6 @@ export default function Post({ post, socialImage }) {
 
   const { title, content, excerpt, date, author, categories, modified, featuredImage, isSticky = false } = post;
 
-  console.log('socialImage', `${homepage}${socialImage}`);
-
   const metadataOptions = {
     compactCategories: false,
   };

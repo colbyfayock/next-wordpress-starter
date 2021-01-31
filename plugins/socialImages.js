@@ -1,46 +1,93 @@
-const fs = require('fs')
-const path = require('path')
-const Canvas = require('canvas')
-const { getAllPosts } = require('./util');
+const fs = require('fs');
+const path = require('path');
+const fabric = require('fabric').fabric;
+const { getAllPosts, mkdirp } = require('./util');
 
-const WebpackPlugin = require('./plugin-compiler');
+const WebpackPluginCompiler = require('./plugin-compiler');
+
+const pkg = require('../package.json');
 
 module.exports = function sitemap(nextConfig = {}) {
-  const { env, outputDirectory = './public', outputName } = nextConfig;
+  const { env, outputDirectory = './public/images', outputName = '[slug].png', verbose = false } = nextConfig;
+
+  const width = 1012;
+  const height = 506;
+  const padding = 50;
+
+  const footerHeight = 50;
 
   const plugin = {
-    name: 'Sitemap',
-    outputDirectory: outputDirectory,
-    outputName: outputName || 'sitemap.jpg',
+    name: 'SocialImages',
+    outputDirectory,
+    outputName,
     getData: getAllPosts,
     generate: ({ posts = [] }) => {
+      // Make sure our directory exists before outputting the files
+
+      mkdirp(outputDirectory);
 
       posts.forEach((post) => {
         const { title, slug } = post;
 
-        var canvas = Canvas.createCanvas(2000, 1000);
-        var ctx = canvas.getContext('2d');
+        const canvas = new fabric.StaticCanvas(null, {
+          width,
+          height,
+          backgroundColor: 'white',
+        });
 
-        ctx.globalAlpha = 0.2;
+        const headlineWidth = (width / 3) * 2;
+        const headlineHeight = height - padding * 2 - footerHeight;
 
-        ctx.globalAlpha = 1;
-        ctx.font = 'normal 40px Impact, serif';
+        const headline = new fabric.Textbox(title, {
+          left: (width - headlineWidth) / 2,
+          top: height / 2 - footerHeight,
+          originY: 'center',
+          width: headlineWidth,
+          height: headlineHeight,
+          fill: '#303030',
+          fontFamily: 'Arial',
+          fontWeight: 600,
+          fontSize: 60,
+          lineHeight: 1,
+          textAlign: 'center',
+        });
 
-        ctx.translate(20, -40);
+        canvas.add(headline);
 
-        ctx.fillStyle = '#000';
-        ctx.fillText(title, 49, 99);
+        const homepage = pkg.homepage && pkg.homepage.replace(/http(s)?:\/\//, '');
 
+        if (homepage) {
+          const website = new fabric.Textbox(homepage, {
+            left: 0,
+            top: height - padding / 2 - footerHeight,
+            width,
+            height: footerHeight,
+            fill: '#303030',
+            fontFamily: 'Arial',
+            fontWeight: 600,
+            fontSize: 30,
+            textAlign: 'center',
+          });
 
-        canvas.createPNGStream().pipe(fs.createWriteStream(path.join(outputDirectory, 'images', `${slug}.png`)));
-      })
+          canvas.add(website);
+        }
 
+        canvas.renderAll();
 
-      console.log('posts', posts);
-    }
+        const outputPath = path.join(outputDirectory, outputName.replace('[slug]', slug));
+        const out = fs.createWriteStream(outputPath);
+        const stream = canvas.createPNGStream();
+
+        stream.on('data', function (chunk) {
+          out.write(chunk);
+        });
+      });
+
+      return false;
+    },
   };
 
-  const { WORDPRESS_HOST } = env;
+  const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;
 
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
@@ -49,9 +96,11 @@ module.exports = function sitemap(nextConfig = {}) {
       }
 
       config.plugins.push(
-        new WebpackPlugin({
+        new WebpackPluginCompiler({
           host: WORDPRESS_HOST,
+          url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
+          verbose,
         })
       );
 

@@ -37,7 +37,9 @@ class WebpackPlugin {
 
       const file = plugin.generate(data);
 
-      await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
+      if (file !== false) {
+        await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
+      }
 
       //If there is an aditional action to perform
       if (!!plugin.postcreate) {
