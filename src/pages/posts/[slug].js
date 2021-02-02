@@ -20,7 +20,7 @@ export default function Post({ post, socialImage }) {
   const { metadata, homepage } = useSite();
   const { title: siteTitle } = metadata;
 
-  const { title, content, excerpt, date, author, categories, modified, featuredImage, isSticky = false } = post;
+  const { title, content, excerpt, date, author, categories, modifiedGmt, featuredImage, isSticky = false } = post;
 
   const metadataOptions = {
     compactCategories: false,
@@ -86,7 +86,7 @@ export default function Post({ post, socialImage }) {
 
       <Section className={styles.postFooter}>
         <Container>
-          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
+          <p className={styles.postModified}>Last updated on {formatDate(modifiedGmt)}.</p>
         </Container>
       </Section>
     </Layout>
