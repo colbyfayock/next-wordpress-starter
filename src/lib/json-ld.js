@@ -8,10 +8,10 @@ import config from '../../package.json';
 
 export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
   const { homepage = '', faviconPath = '/favicon.ico' } = config;
-  const { title, slug, excerpt, date, author, categories, modifiedGMT, featuredImage } = post;
+  const { title, slug, excerpt, date, author, categories, modifiedGmt, featuredImage } = post;
   const path = postPathBySlug(slug);
   const datePublished = !!date && new Date(date);
-  const dateModified = !!modifiedGMT && new Date(modifiedGMT);
+  const dateModified = !!modifiedGmt && new Date(modifiedGmt);
 
   /** TODO - As image is a recommended field would be interesting to have a
    * default image in case there is no featuredImage comming from WP,
