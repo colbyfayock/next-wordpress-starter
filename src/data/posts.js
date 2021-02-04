@@ -42,6 +42,7 @@ export const QUERY_ALL_POSTS = gql`
             }
           }
           modified
+          modifiedGmt
           postId
           title
           slug
@@ -93,6 +94,7 @@ export function getQueryPostBySlug(slug) {
           }
         }
         modified
+        modifiedGmt
         postId
         title
         slug
@@ -145,6 +147,7 @@ export function getQueryPostsByCategoryId(categoryId) {
               }
             }
             modified
+            modifiedGmt
             postId
             title
             slug
@@ -186,6 +189,7 @@ export function getQueryPostsByAuthorSlug(slug) {
             }
             id
             modified
+            modifiedGmt
             postId
             slug
             title
