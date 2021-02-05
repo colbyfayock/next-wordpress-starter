@@ -1,7 +1,8 @@
-import path from 'path';
+import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import { getPostBySlug, getAllPosts } from 'lib/posts';
+import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
+import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
@@ -16,7 +17,7 @@ import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post, socialImage }) {
+export default function Post({ post, socialImage, relatedPosts }) {
   const { metadata, homepage } = useSite();
   const { title: siteTitle } = metadata;
 
@@ -28,6 +29,8 @@ export default function Post({ post, socialImage }) {
 
   const metaDescription = `Read ${title} at ${siteTitle}.`;
   const socialImageUrl = `${homepage}${socialImage}`;
+
+  const { posts: relatedPostsList, title: relatedPostsTitle } = relatedPosts;
 
   return (
     <Layout>
@@ -87,6 +90,29 @@ export default function Post({ post, socialImage }) {
       <Section className={styles.postFooter}>
         <Container>
           <p className={styles.postModified}>Last updated on {formatDate(modifiedGmt)}.</p>
+          {!!relatedPostsList.length && (
+            <div className={styles.relatedPosts}>
+              {relatedPostsTitle.name ? (
+                <span>
+                  More from{' '}
+                  <Link href={relatedPostsTitle.link}>
+                    <a>{relatedPostsTitle.name}</a>
+                  </Link>
+                </span>
+              ) : (
+                <span>More Posts</span>
+              )}
+              <ul>
+                {relatedPostsList.map((post) => (
+                  <li key={post.title}>
+                    <Link href={postPathBySlug(post.slug)}>
+                      <a>{post.title}</a>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </Container>
       </Section>
     </Layout>
@@ -98,10 +124,21 @@ export async function getStaticProps({ params = {} } = {}) {
 
   const socialImage = `/images/${params?.slug}.png`;
 
+  const { categories, postId } = post;
+  const category = categories.length && categories[0];
+  let { name, slug } = category;
+
   return {
     props: {
       post,
       socialImage,
+      relatedPosts: {
+        posts: await getRelatedPosts(category, postId),
+        title: {
+          name: name || null,
+          link: categoryPathBySlug(slug),
+        },
+      },
     },
   };
 }
