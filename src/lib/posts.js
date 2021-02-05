@@ -157,3 +157,23 @@ export function mapPostData(post = {}) {
 
   return data;
 }
+
+/**
+ * getRelatedPosts
+ */
+
+export async function getRelatedPosts(category, postId, count = 5) {
+  let relatedPosts = [];
+
+  if (!!category) {
+    const { posts } = await getPostsByCategoryId(category.categoryId);
+    const filtered = posts.filter(({ postId: id }) => id !== postId);
+    const sorted = sortObjectsByDate(filtered);
+    relatedPosts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
+  }
+
+  if (relatedPosts.length > count) {
+    return relatedPosts.slice(0, count);
+  }
+  return relatedPosts;
+}
