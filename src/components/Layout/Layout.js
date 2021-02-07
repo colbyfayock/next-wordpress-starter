@@ -40,6 +40,8 @@ const Layout = ({ children }) => {
         <meta property="og:url" content={path.join(homepage, asPath)} />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content={title} />
+
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </Helmet>
 
       <Nav />

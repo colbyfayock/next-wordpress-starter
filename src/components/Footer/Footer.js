@@ -65,6 +65,23 @@ const Footer = () => {
                   </ul>
                 </li>
               )}
+              <li>
+                <p className={styles.footerMenuTitle}>
+                  <strong>More</strong>
+                </p>
+                <ul className={styles.footerMenuItems}>
+                  <li>
+                    <Link href="/feed.xml">
+                      <a>RSS</a>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/sitemap.xml">
+                      <a>Sitemap</a>
+                    </Link>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </Container>
         </Section>
