@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
 import { getPageById, getAllPages, pagePathBySlug } from 'lib/pages';
+import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -37,6 +38,8 @@ export default function Page({ page }) {
         <meta property="og:type" content="article" />
       </Helmet>
 
+      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
+
       <Header>
         {isChild && (
           <ul className={styles.breadcrumbs}>
@@ -55,21 +58,26 @@ export default function Page({ page }) {
             dangerouslySetInnerHTML={featuredImage.caption}
           />
         )}
-        <h1>{title}</h1>
+        <h1 className={styles.title}>{title}</h1>
       </Header>
 
       <Content>
         <Section>
-          <Container className={styles.pageContentContainer}>
+          <Container>
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{
                 __html: content,
               }}
             />
-            {hasChildren && (
+          </Container>
+        </Section>
+
+        {hasChildren && (
+          <Section className={styles.sectionChildren}>
+            <Container>
               <aside>
-                <p className={styles.asideHeader}>
+                <p className={styles.childrenHeader}>
                   <strong>{title}</strong>
                 </p>
                 <ul>
@@ -84,9 +92,9 @@ export default function Page({ page }) {
                   })}
                 </ul>
               </aside>
-            )}
-          </Container>
-        </Section>
+            </Container>
+          </Section>
+        )}
       </Content>
     </Layout>
   );

@@ -1,4 +1,5 @@
 @import "styles/settings/__settings";
+@import "style.css";
 
 * {
   box-sizing: border-box;
@@ -32,6 +33,7 @@ input {
   &[type="text"],
   &[type="search"],
   &[type="email"] {
+    outline-offset: 0;
     padding: 0.5em 0.8em;
   }
 }

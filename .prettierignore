@@ -38,5 +38,8 @@ yarn-error.log*
 
 yarn.lock
 .prettierignore
+.gitignore
 
 public
+
+.all-contributorsrc

@@ -1,17 +1,17 @@
 const path = require('path');
-const { getAllPosts, generateIndexSearch } = require('./util');
+const { getFeedData, generateFeed } = require('./util');
 
 const WebpackPluginCompiler = require('./plugin-compiler');
 
-module.exports = function indexSearch(nextConfig = {}) {
+module.exports = function feed(nextConfig = {}) {
   const { env, outputDirectory, outputName, verbose = false } = nextConfig;
 
   const plugin = {
-    name: 'SearchIndex',
+    name: 'Feed',
     outputDirectory: outputDirectory || './public',
-    outputName: outputName || 'wp-search.json',
-    getData: getAllPosts,
-    generate: generateIndexSearch,
+    outputName: outputName || 'feed.xml',
+    getData: getFeedData,
+    generate: generateFeed,
   };
 
   const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;

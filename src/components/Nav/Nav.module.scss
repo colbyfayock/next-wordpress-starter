@@ -36,7 +36,7 @@
   }
 
   a {
-    color: $color-gray-400;
+    color: $color-gray-500;
     font-size: 1.2rem;
     font-weight: bold;
     text-decoration: none;
@@ -106,6 +106,10 @@
     }
   }
 
+  input {
+    font-size: 0.845em;
+  }
+
   button {
     font-size: 1.2em;
     background: none;
@@ -138,6 +142,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
   border-top: solid 5px $color-primary;
   margin-right: -1rem;
+  z-index: 999;
 
   @media (min-width: 480px) {
     width: 30em;

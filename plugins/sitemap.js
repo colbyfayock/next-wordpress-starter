@@ -1,17 +1,18 @@
 const path = require('path');
-const { getAllPosts, generateIndexSearch } = require('./util');
+const { getSitemapData, generateSitemap, generateRobotsTxt } = require('./util');
 
 const WebpackPluginCompiler = require('./plugin-compiler');
 
-module.exports = function indexSearch(nextConfig = {}) {
+module.exports = function sitemap(nextConfig = {}) {
   const { env, outputDirectory, outputName, verbose = false } = nextConfig;
 
   const plugin = {
-    name: 'SearchIndex',
+    name: 'Sitemap',
     outputDirectory: outputDirectory || './public',
-    outputName: outputName || 'wp-search.json',
-    getData: getAllPosts,
-    generate: generateIndexSearch,
+    outputName: outputName || 'sitemap.xml',
+    getData: getSitemapData,
+    generate: generateSitemap,
+    postcreate: generateRobotsTxt,
   };
 
   const { WORDPRESS_GRAPHQL_ENDPOINT, WORDPRESS_HOST } = env;

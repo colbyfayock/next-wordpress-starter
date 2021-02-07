@@ -1,23 +1,9 @@
 @import "styles/settings/__settings";
 
-.pageContentContainer {
-  display: flex;
-
-  & > div {
-    flex-grow: 1;
-  }
-
+.sectionChildren {
   aside {
-    flex-shrink: 0;
-    width: 15rem;
-    padding: 1.2rem 1.5rem;
-    border: solid 1px $color-gray-100;
-    border-radius: $border-radius-small;
-    margin-left: 2rem;
-    margin-right: -2rem;
-
     ul {
-      font-size: 0.7em;
+      font-size: 0.8em;
       list-style: none;
       padding-left: 0;
     }
@@ -36,7 +22,7 @@
   }
 }
 
-.asideHeader {
+.childrenHeader {
   font-size: 0.7em;
   padding-bottom: 0.4em;
   border-bottom: solid 1px $color-gray-100;
@@ -53,13 +39,27 @@
     margin-right: 0.5em;
 
     &:after {
-      content: ">";
+      content: "/";
       margin-left: 0.5em;
     }
 
     &:last-child {
+      font-weight: bold;
+
       &:after {
         content: none;
+      }
+    }
+  }
+
+  a {
+    color: $color-gray-800;
+    text-decoration: none;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+        text-decoration: underline;
       }
     }
   }
