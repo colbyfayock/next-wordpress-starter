@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
-import { getPageById, getAllPages, pagePathBySlug } from 'lib/pages';
+import { getPageByUri, getAllPages, pagePathBySlug } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
@@ -44,7 +44,7 @@ export default function Page({ page }) {
         {isChild && (
           <ul className={styles.breadcrumbs}>
             <li>
-              <Link href={pagePathBySlug(parent.slug)}>
+              <Link href={parent.uri}>
                 <a>{parent.title}</a>
               </Link>
             </li>
@@ -84,7 +84,7 @@ export default function Page({ page }) {
                   {children.map((child) => {
                     return (
                       <li key={child.id}>
-                        <Link href={pagePathBySlug(`${slug}/${child.slug}`)}>
+                        <Link href={child.uri}>
                           <a>{child.title}</a>
                         </Link>
                       </li>
@@ -103,28 +103,19 @@ export default function Page({ page }) {
 export async function getStaticProps({ params = {} } = {}, ...rest) {
   const { slugParent, slugChild } = params;
 
-  const { pages } = await getAllPages();
+  // We can use the URI to look up our page and subsequently its ID, so
+  // we can first contruct our URI from the page params
 
-  const id = pages.find(({ slug, parent }) => {
-    // If there's a child parameter, we need ot make sure we're matching
-    // both that we're on the right slug under the right parent
+  let pageUri = `/${slugParent}/`;
 
-    if (slugChild) {
-      // This logic only supports a 1 level deep slug, where we grab the
-      // last slug in the params and make sure it, and it's parent, matches
-      // our parameters.
+  // We only want to apply deeper paths to the URI if we actually have
+  // existing children
 
-      const lastChild = slugChild[slugChild.length - 1];
+  if (Array.isArray(slugChild) && slugChild.length > 0) {
+    pageUri = `${pageUri}${slugChild.join('/')}/`;
+  }
 
-      return slug === lastChild && parent.slug === slugParent;
-    }
-
-    // If there's no child parameter, it's a top level page
-
-    return slug === slugParent;
-  })?.id;
-
-  const { page } = await getPageById(id);
+  const { page } = await getPageByUri(pageUri);
 
   return {
     props: {
@@ -134,45 +125,22 @@ export async function getStaticProps({ params = {} } = {}, ...rest) {
 }
 
 export async function getStaticPaths() {
-  const routes = {};
-
   const { pages } = await getAllPages();
 
-  // The path matching with Next.js appears to want us to separately specify a top level route
-  // along with it's child routes in order for both to be available within a catch all.
+  // Take all the pages and create path params. The slugParent will always be
+  // the top level parent page, where the slugChild will be an array of the
+  // remaining segments to make up the path or URI
 
-  // First we build the tpo level pages where we wouldnt have a secondary param
+  const paths = pages.map(({ uri }) => {
+    const segments = uri.split('/').filter((seg) => seg !== '');
 
-  const parentPages = pages.map((page) => {
-    const { slug, children } = page;
     return {
       params: {
-        slugParent: slug,
-        slugChild: [],
+        slugParent: segments.shift(),
+        slugChild: segments,
       },
     };
   });
-
-  // Find any pages that have children
-
-  const pagesWithChildren = pages.filter(({ children }) => Array.isArray(children) && children.length > 0);
-
-  // Then map through those pages to create an additional set of paths for our pages along
-  // with their child slugs
-
-  const childPages = pagesWithChildren.map((page) => {
-    const { slug, children } = page;
-    return {
-      params: {
-        slugParent: slug,
-        slugChild: children.map(({ slug }) => slug),
-      },
-    };
-  });
-
-  // Combine our paths before passing them through
-
-  const paths = [...parentPages, ...childPages];
 
   return {
     paths,

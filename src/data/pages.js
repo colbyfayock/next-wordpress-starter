@@ -10,6 +10,7 @@ export const QUERY_ALL_PAGES = gql`
               node {
                 id
                 slug
+                uri
                 ... on Page {
                   id
                   title
@@ -34,6 +35,7 @@ export const QUERY_ALL_PAGES = gql`
             node {
               id
               slug
+              uri
               ... on Page {
                 title
               }
@@ -41,6 +43,7 @@ export const QUERY_ALL_PAGES = gql`
           }
           slug
           title
+          uri
         }
       }
     }
@@ -56,6 +59,7 @@ export function getQueryPageById(id) {
             node {
               id
               slug
+              uri
               ... on Page {
                 id
                 title
@@ -80,6 +84,7 @@ export function getQueryPageById(id) {
           node {
             id
             slug
+            uri
             ... on Page {
               title
             }
@@ -87,6 +92,55 @@ export function getQueryPageById(id) {
         }
         slug
         title
+        uri
+      }
+    }
+  `;
+}
+
+export function getQueryPageByUri(uri) {
+  return gql`
+    query {
+      pageBy(uri: "${uri}") {
+        children {
+          edges {
+            node {
+              id
+              slug
+              uri
+              ... on Page {
+                id
+                title
+              }
+            }
+          }
+        }
+        content
+        featuredImage {
+          node {
+            altText
+            caption
+            id
+            sizes
+            sourceUrl
+            srcSet
+          }
+        }
+        id
+        menuOrder
+        parent {
+          node {
+            id
+            slug
+            uri
+            ... on Page {
+              title
+            }
+          }
+        }
+        slug
+        title
+        uri
       }
     }
   `;
