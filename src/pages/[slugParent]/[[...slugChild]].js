@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 import { format } from 'date-fns';
 
-import { getPageByUri, getAllPages, pagePathBySlug } from 'lib/pages';
+import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
@@ -12,10 +12,11 @@ import Content from 'components/Content';
 import Section from 'components/Section';
 import Container from 'components/Container';
 import FeaturedImage from 'components/FeaturedImage';
+import Breadcrumbs from 'components/Breadcrumbs';
 
 import styles from 'styles/pages/Page.module.scss';
 
-export default function Page({ page }) {
+export default function Page({ page, breadcrumbs }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
 
@@ -26,7 +27,7 @@ export default function Page({ page }) {
   const metaDescription = `${title} on ${siteTitle}`;
 
   const hasChildren = Array.isArray(children) && children.length > 0;
-  const isChild = parent && parent.id;
+  const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0;
 
   return (
     <Layout>
@@ -41,16 +42,7 @@ export default function Page({ page }) {
       <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
 
       <Header>
-        {isChild && (
-          <ul className={styles.breadcrumbs}>
-            <li>
-              <Link href={parent.uri}>
-                <a>{parent.title}</a>
-              </Link>
-            </li>
-            <li>{title}</li>
-          </ul>
-        )}
+        {hasBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}
         {featuredImage && (
           <FeaturedImage
             {...featuredImage}
@@ -117,9 +109,19 @@ export async function getStaticProps({ params = {} } = {}, ...rest) {
 
   const { page } = await getPageByUri(pageUri);
 
+  // In order to show the proper breadcrumbs, we need to find the entire
+  // tree of pages. Rather than querying every segment, the query should
+  // be cached for all pages, so we can grab that and use it to create
+  // our trail
+
+  const { pages } = await getAllPages();
+
+  const breadcrumbs = getBreadcrumbsByUri(pageUri, pages);
+
   return {
     props: {
       page,
+      breadcrumbs,
     },
   };
 }

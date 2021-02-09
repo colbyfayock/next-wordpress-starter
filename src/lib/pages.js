@@ -97,3 +97,45 @@ export function mapPageData(page = {}) {
 
   return data;
 }
+
+/**
+ * getBreadcrumbsByUri
+ */
+
+export function getBreadcrumbsByUri(uri, pages) {
+  const breadcrumbs = [];
+  const uriSegments = uri.split('/').filter((segment) => segment !== '');
+
+  // We don't want to show the current page in the breadcrumbs, so pop off
+  // the last chunk before we start
+
+  uriSegments.pop();
+
+  // Work through each of the segments, popping off the last chunk and finding the related
+  // page to gather the metadata for the breadcrumbs
+
+  do {
+    const breadcrumb = pages.find((page) => page.uri === `/${uriSegments.join('/')}/`);
+
+    // If the breadcrumb is the active page, we want to pass udefined for the uri to
+    // avoid the breadcrumbs being rendered as a link, given it's the current page
+
+    if (breadcrumb) {
+      breadcrumbs.push({
+        id: breadcrumb.id,
+        title: breadcrumb.title,
+        uri: breadcrumb.uri,
+      });
+    }
+
+    uriSegments.pop();
+  } while (uriSegments.length > 0);
+
+  // When working through the segments, we're doing so from the lowest child to the parent
+  // which means the parent will be at the end of the array. We need to reverse to show
+  // the correct order for breadcrumbs
+
+  breadcrumbs.reverse();
+
+  return breadcrumbs;
+}

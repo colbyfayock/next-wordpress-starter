@@ -28,39 +28,3 @@
   border-bottom: solid 1px $color-gray-100;
   margin-top: 0;
 }
-
-.breadcrumbs {
-  display: flex;
-  list-style: none;
-  padding-left: 0;
-  margin: 0 0 2em;
-
-  li {
-    margin-right: 0.5em;
-
-    &:after {
-      content: "/";
-      margin-left: 0.5em;
-    }
-
-    &:last-child {
-      font-weight: bold;
-
-      &:after {
-        content: none;
-      }
-    }
-  }
-
-  a {
-    color: $color-gray-800;
-    text-decoration: none;
-
-    @media (hover: hover) {
-      &:hover {
-        color: $color-primary;
-        text-decoration: underline;
-      }
-    }
-  }
-}
