@@ -39,8 +39,6 @@ export async function getPageByUri(uri) {
     query: getQueryPageByUri(uri),
   });
 
-  console.log('data', data);
-
   const page = [data?.data.pageBy].map(mapPageData)[0];
 
   return {
