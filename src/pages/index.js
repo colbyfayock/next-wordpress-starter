@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { getAllPosts } from 'lib/posts';
+import { getAllPosts, sortStickyPosts } from 'lib/posts';
 import { WebsiteJsonLd } from 'lib/json-ld';
 import useSite from 'hooks/use-site';
 
@@ -58,7 +58,7 @@ export async function getStaticProps() {
   const { posts } = await getAllPosts();
   return {
     props: {
-      posts: posts.sort((post) => (post.isSticky ? -1 : 1)),
+      posts: sortStickyPosts(posts),
     },
   };
 }

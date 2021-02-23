@@ -15,6 +15,7 @@ import PostCard from 'components/PostCard';
 import searchIndex from 'public/wp-search.json';
 
 import styles from 'styles/templates/Archive.module.scss';
+import Pagination from '../components/Pagination/Pagination';
 
 const DEFAULT_POST_OPTIONS = {};
 
@@ -25,6 +26,7 @@ export default function TemplateArchive({
   posts,
   postOptions = DEFAULT_POST_OPTIONS,
   slug,
+  pagination,
 }) {
   const { metadata = {} } = useSite();
   const { title: siteTitle } = metadata;
@@ -72,6 +74,13 @@ export default function TemplateArchive({
               );
             })}
           </ul>
+          {pagination && (
+            <Pagination
+              currentPage={pagination?.currentPage}
+              pagesCount={pagination?.pagesCount}
+              basePath={pagination?.basePath}
+            />
+          )}
         </Container>
       </Section>
     </Layout>
