@@ -4,6 +4,8 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/24a546d8-e917-4e55-9e86-74bf437d651b/deploy-status)](https://app.netlify.com/sites/next-wordpress-starter/deploys)
+
 Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
 
 ## ⚡️ Quick Start
