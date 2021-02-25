@@ -1,7 +1,7 @@
 # Next.js WordPress Starter
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/24a546d8-e917-4e55-9e86-74bf437d651b/deploy-status)](https://app.netlify.com/sites/next-wordpress-starter/deploys)
@@ -122,6 +122,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://github.com/grische"><img src="https://avatars0.githubusercontent.com/u/2787581?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grische</b></sub></a><br /><a href="#tool-grische" title="Tools">🔧</a></td>
     <td align="center"><a href="https://github.com/jatin-rathee"><img src="https://avatars0.githubusercontent.com/u/44899844?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jatin Rathee</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=jatin-rathee" title="Code">💻</a></td>
     <td align="center"><a href="https://highaltitude.io/"><img src="https://avatars.githubusercontent.com/u/2972436?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dave</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=thedavedavies" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://bradgarropy.com"><img src="https://avatars.githubusercontent.com/u/11336745?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brad Garropy</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=bradgarropy" title="Code">💻</a></td>
   </tr>
 </table>
 
