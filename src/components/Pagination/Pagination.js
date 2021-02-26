@@ -18,11 +18,7 @@ const Pagination = ({ pagesCount, currentPage, basePath }) => {
   const hasNextPage = pagesCount > 1 && currentPage < pagesCount;
 
   const pages = useMemo(() => {
-    let pages = [];
-    for (let i = 1; i < pagesCount + 1; i++) {
-      pages.push(i);
-    }
-    return pages;
+    return [...new Array(pagesCount)].map((_, i) => i + 1);
   }, [pagesCount]);
 
   return (
@@ -33,10 +29,10 @@ const Pagination = ({ pagesCount, currentPage, basePath }) => {
         {hasNextPage && <link rel="next" href={`${homepage}${path}${currentPage + 1}`} />}
       </Helmet>
 
-      <div className={styles.nav}>
+      <nav className={styles.nav} role="navigation" aria-label="Pagination Navigation">
         {hasPreviousPage && (
           <Link href={`${path}${currentPage - 1}`}>
-            <a className={styles.prev} aria-label="Previous Posts">
+            <a className={styles.prev} aria-label="Goto Previous Page">
               <PreviousIcon /> Previous
             </a>
           </Link>
@@ -47,12 +43,14 @@ const Pagination = ({ pagesCount, currentPage, basePath }) => {
             const active = page === currentPage;
             return active ? (
               <li key={page}>
-                <span className={styles.active}>{page}</span>
+                <span className={styles.active} aria-label={`Current Page, Page ${page}`} aria-current="true">
+                  {page}
+                </span>
               </li>
             ) : (
               <li key={page}>
                 <Link href={`${path}${page}`}>
-                  <a aria-label={`Page ${page}`}>
+                  <a aria-label={`Goto Page ${page}`}>
                     <span>{page}</span>
                   </a>
                 </Link>
@@ -63,12 +61,12 @@ const Pagination = ({ pagesCount, currentPage, basePath }) => {
 
         {hasNextPage && (
           <Link href={`${path}${currentPage + 1}`}>
-            <a className={styles.next} aria-label="Next Posts">
+            <a className={styles.next} aria-label="Goto Next Page">
               Next <NextIcon />
             </a>
           </Link>
         )}
-      </div>
+      </nav>
     </>
   );
 };
