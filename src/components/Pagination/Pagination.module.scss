@@ -52,3 +52,9 @@
 .prev {
   margin-right: auto;
 }
+
+.dots {
+  display: flex;
+  align-self: flex-end;
+  margin: 0 0.2rem -0.2rem 0.2rem;
+}
