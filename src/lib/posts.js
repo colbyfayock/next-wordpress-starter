@@ -177,3 +177,52 @@ export async function getRelatedPosts(category, postId, count = 5) {
   }
   return relatedPosts;
 }
+
+/**
+ * sortStickyPosts
+ */
+
+export function sortStickyPosts(posts) {
+  return [...posts].sort((post) => (post.isSticky ? -1 : 1));
+}
+
+/**
+ * getPostsPerPage
+ */
+
+export function getPostsPerPage() {
+  // If POST_PER_PAGE is not defined, is set to 10 by default
+  return Number(process.env.POSTS_PER_PAGE) || 10;
+}
+
+/**
+ * getPageCount
+ */
+
+export function getPagesCount(posts) {
+  const postsPerPage = getPostsPerPage();
+  return Math.ceil(posts.length / postsPerPage);
+}
+
+/**
+ * getPaginatedPosts
+ */
+
+export async function getPaginatedPosts(currentPage = 1) {
+  const { posts } = await getAllPosts();
+  const postsPerPage = getPostsPerPage();
+  const pagesCount = getPagesCount(posts);
+  let page = Number(currentPage);
+  if (typeof page === 'undefined' || isNaN(page) || page > pagesCount) {
+    page = 1;
+  }
+  const offset = postsPerPage * (page - 1);
+  const sortedPosts = sortStickyPosts(posts);
+  return {
+    posts: sortedPosts.slice(offset, offset + postsPerPage),
+    pagination: {
+      currentPage: page,
+      pagesCount,
+    },
+  };
+}

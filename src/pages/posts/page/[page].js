@@ -1,6 +1,4 @@
-import { useEffect } from 'react';
-
-import { getPaginatedPosts } from 'lib/posts';
+import { getAllPosts, getPagesCount, getPaginatedPosts } from 'lib/posts';
 
 import TemplateArchive from 'templates/archive';
 
@@ -12,7 +10,7 @@ export default function Posts({ posts, pagination }) {
 }
 
 export async function getStaticProps({ params = {} } = {}) {
-  const { posts, pagination } = await getPaginatedPosts();
+  const { posts, pagination } = await getPaginatedPosts(params?.page);
   return {
     props: {
       posts,
@@ -21,5 +19,17 @@ export async function getStaticProps({ params = {} } = {}) {
         basePath: '/posts',
       },
     },
+  };
+}
+
+export async function getStaticPaths() {
+  const { posts } = await getAllPosts();
+  const pagesCount = getPagesCount(posts);
+  const paths = [...new Array(pagesCount)].map((_, i) => {
+    return { params: { page: String(i + 1) } };
+  });
+  return {
+    paths,
+    fallback: false,
   };
 }
