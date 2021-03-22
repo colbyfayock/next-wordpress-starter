@@ -21,7 +21,7 @@
     "*": "yarn format:nopath"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.11",
+    "@apollo/client": "^3.3.12",
     "date-fns": "^2.19.0",
     "dotenv": "^8.2.0",
     "fabric": "^4.3.1",
