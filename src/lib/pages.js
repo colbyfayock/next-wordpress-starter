@@ -1,6 +1,6 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { QUERY_ALL_PAGES, getQueryPageById, getQueryPageByUri } from 'data/pages';
+import { QUERY_ALL_PAGES, QUERY_PAGE_BY_URI } from 'data/pages';
 
 /**
  * pagePathBySlug
@@ -11,24 +11,6 @@ export function pagePathBySlug(slug) {
 }
 
 /**
- * getPageById
- */
-
-export async function getPageById(id) {
-  const apolloClient = getApolloClient();
-
-  const data = await apolloClient.query({
-    query: getQueryPageById(id),
-  });
-
-  const page = [data?.data.page].map(mapPageData)[0];
-
-  return {
-    page,
-  };
-}
-
-/**
  * getPageByUri
  */
 
@@ -36,7 +18,10 @@ export async function getPageByUri(uri) {
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
-    query: getQueryPageByUri(uri),
+    query: QUERY_PAGE_BY_URI,
+    variables: {
+      uri,
+    },
   });
 
   const page = [data?.data.pageBy].map(mapPageData)[0];

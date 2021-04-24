@@ -5,7 +5,7 @@ import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib
 import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
-import useSite from 'hooks/use-site';
+import { useSite } from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';

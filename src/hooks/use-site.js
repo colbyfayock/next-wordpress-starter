@@ -1,17 +1,35 @@
 import path from 'path';
-import { useContext } from 'react';
-
-import SiteContext from 'context/site-context';
+import { useContext, createContext } from 'react';
 
 import config from '../../package.json';
 
-export default function useSite() {
+export const SiteContext = createContext();
+
+/**
+ * useSiteContext
+ */
+
+export function useSiteContext({ metadata: pageMetadata, ...rest }) {
   const { homepage = '' } = config;
 
-  const site = useContext(SiteContext);
+  const { title, description } = pageMetadata;
+
+  const metadata = {
+    ...pageMetadata,
+  };
 
   return {
-    ...site,
+    ...rest,
     homepage,
+    metadata,
   };
+}
+
+/**
+ * useSite
+ */
+
+export function useSite() {
+  const site = useContext(SiteContext);
+  return site;
 }

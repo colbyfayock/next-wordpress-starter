@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { getPosts } from 'lib/posts';
 import { WebpageJsonLd } from 'lib/json-ld';
-import useSite from 'hooks/use-site';
+import { useSite } from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';

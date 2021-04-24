@@ -1,6 +1,6 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { QUERY_SITE_DATA } from 'data/site';
+import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 
 /**
  * getSiteMetadata
@@ -9,13 +9,25 @@ import { QUERY_SITE_DATA } from 'data/site';
 export async function getSiteMetadata() {
   const apolloClient = getApolloClient();
 
-  const data = await apolloClient.query({
-    query: QUERY_SITE_DATA,
-  });
+  let siteData;
+  let seoData;
 
-  const { generalSettings } = data?.data;
+  try {
+    siteData = await apolloClient.query({
+      query: QUERY_SITE_DATA,
+    });
+  } catch (e) {
+    console.log(`Failed to query site data: ${e.message}`);
+    throw e;
+  }
 
-  let language = generalSettings.language;
+  const { generalSettings } = siteData?.data;
+  let { title, description, language } = generalSettings;
+
+  const settings = {
+    title,
+    description,
+  };
 
   // It looks like the value of `language` when US English is set
   // in WordPress is empty or "", meaning, we have to infer that
@@ -24,17 +36,57 @@ export async function getSiteMetadata() {
   // the HTML lang attribute
 
   if (!language || language === '') {
-    language = 'en';
+    settings.language = 'en';
   } else {
-    language = language.split('_')[0];
+    settings.language = language.split('_')[0];
   }
 
-  return {
-    ...generalSettings,
-    title: decodeHtmlEntities(generalSettings.title),
-    language,
-  };
+  // If the SEO plugin is enabled, look up the data
+  // and apply it to the default settings
+
+  if (process.env.WORDPRESS_PLUGIN_SEO === true) {
+    try {
+      seoData = await apolloClient.query({
+        query: QUERY_SEO_DATA,
+      });
+    } catch (e) {
+      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
+      throw e;
+    }
+
+    const { webmaster, social } = seoData?.data?.seo;
+
+    if (social) {
+      settings.social = {};
+
+      Object.keys(social).forEach((key) => {
+        const { url } = social[key];
+        if (!url || key === '__typename') return;
+        settings.social[key] = url;
+      });
+    }
+
+    if (webmaster) {
+      settings.webmaster = {};
+
+      Object.keys(webmaster).forEach((key) => {
+        if (!webmaster[key] || key === '__typename') return;
+        settings.webmaster[key] = webmaster[key];
+      });
+    }
+  }
+
+  settings.title = decodeHtmlEntities(settings.title);
+
+  console.log('settings', settings);
+
+  return settings;
 }
+
+/**
+ * decodeHtmlEntities
+ */
 
 export function decodeHtmlEntities(text) {
   if (typeof text !== 'string') {
@@ -51,6 +103,10 @@ export function decodeHtmlEntities(text) {
 
   return decoded.replace(/&amp;|&quot;|&#039;/g, (char) => entities[char]);
 }
+
+/**
+ * removeLastTrailingSlash
+ */
 
 export function removeLastTrailingSlash(url) {
   if (typeof url !== 'string') return url;

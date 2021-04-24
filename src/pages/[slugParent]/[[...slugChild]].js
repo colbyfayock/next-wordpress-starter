@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
-import useSite from 'hooks/use-site';
+import { useSite } from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';

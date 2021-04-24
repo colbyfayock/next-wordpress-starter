@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import useSite from 'hooks/use-site';
+import { useSite } from 'hooks/use-site';
 import { getAllCategories, categoryPathBySlug } from 'lib/categories';
 import { WebpageJsonLd } from 'lib/json-ld';
 
