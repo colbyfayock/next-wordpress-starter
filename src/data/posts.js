@@ -53,150 +53,144 @@ export const QUERY_ALL_POSTS = gql`
   }
 `;
 
-export function getQueryPostBySlug(slug) {
-  return gql`
-    query {
-      postBy(slug: "${slug}"){
-        author {
+export const QUERY_POST_BY_SLUG = gql`
+  query PostBySlug($slug: String!) {
+    postBy(slug: $slug) {
+      author {
+        node {
+          avatar {
+            height
+            url
+            width
+          }
+          id
+          name
+          slug
+        }
+      }
+      id
+      categories {
+        edges {
           node {
-            avatar {
-              height
-              url
-              width
-            }
+            categoryId
             id
             name
             slug
           }
         }
-        id
-        categories {
-          edges {
+      }
+      content
+      date
+      excerpt
+      featuredImage {
+        node {
+          altText
+          caption
+          sourceUrl
+          srcSet
+          sizes
+          id
+        }
+      }
+      modified
+      modifiedGmt
+      postId
+      title
+      slug
+      isSticky
+    }
+  }
+`;
+
+export const QUERY_POSTS_BY_CATEGORY_ID = gql`
+  query PostsByCategoryId($categoryId: Int!) {
+    posts(where: { categoryId: $categoryId }) {
+      edges {
+        node {
+          author {
             node {
-              categoryId
+              avatar {
+                height
+                url
+                width
+              }
               id
               name
               slug
             }
           }
-        }
-        content
-        date
-        excerpt
-        featuredImage {
-          node {
-            altText
-            caption
-            sourceUrl
-            srcSet
-            sizes
-            id
-          }
-        }
-        modified
-        modifiedGmt
-        postId
-        title
-        slug
-        isSticky
-      }
-    }
-  `;
-}
-
-export function getQueryPostsByCategoryId(categoryId) {
-  return gql`
-    query {
-      posts(where: { categoryId: ${categoryId} }) {
-        edges {
-          node {
-            author {
+          id
+          categories {
+            edges {
               node {
-                avatar {
-                  height
-                  url
-                  width
-                }
+                categoryId
                 id
                 name
                 slug
               }
             }
-            id
-            categories {
-              edges {
-                node {
-                  categoryId
-                  id
-                  name
-                  slug
-                }
-              }
-            }
-            content
-            date
-            excerpt
-            featuredImage {
-              node {
-                altText
-                caption
-                id
-                sizes
-                sourceUrl
-                srcSet
-              }
-            }
-            modified
-            modifiedGmt
-            postId
-            title
-            slug
-            isSticky
           }
+          content
+          date
+          excerpt
+          featuredImage {
+            node {
+              altText
+              caption
+              id
+              sizes
+              sourceUrl
+              srcSet
+            }
+          }
+          modified
+          modifiedGmt
+          postId
+          title
+          slug
+          isSticky
         }
       }
     }
-  `;
-}
+  }
+`;
 
-export function getQueryPostsByAuthorSlug(slug) {
-  return gql`
-    query {
-      posts(where: {authorName: "${slug}"}) {
-        edges {
-          node {
-            categories {
-              edges {
-                node {
-                  categoryId
-                  id
-                  name
-                  slug
-                }
-              }
-            }
-            date
-            excerpt
-            featuredImage {
+export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
+  query PostByAuthorSlug($slug: String!) {
+    posts(where: { authorName: $slug }) {
+      edges {
+        node {
+          categories {
+            edges {
               node {
-                altText
-                caption
+                categoryId
                 id
-                sizes
-                sourceUrl
-                srcSet
+                name
+                slug
               }
             }
-            id
-            modified
-            modifiedGmt
-            postId
-            slug
-            title
-            isSticky
           }
+          date
+          excerpt
+          featuredImage {
+            node {
+              altText
+              caption
+              id
+              sizes
+              sourceUrl
+              srcSet
+            }
+          }
+          id
+          modified
+          modifiedGmt
+          postId
+          slug
+          title
+          isSticky
         }
       }
     }
-  `;
-}
+  }
+`;

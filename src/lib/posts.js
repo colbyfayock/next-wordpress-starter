@@ -3,7 +3,12 @@ import { getApolloClient } from 'lib/apollo-client';
 import { updateUserAvatar } from 'lib/users';
 import { sortObjectsByDate } from 'lib/datetime';
 
-import { QUERY_ALL_POSTS, getQueryPostBySlug, getQueryPostsByAuthorSlug, getQueryPostsByCategoryId } from 'data/posts';
+import {
+  QUERY_ALL_POSTS,
+  QUERY_POST_BY_SLUG,
+  QUERY_POSTS_BY_AUTHOR_SLUG,
+  QUERY_POSTS_BY_CATEGORY_ID,
+} from 'data/posts';
 
 /**
  * postPathBySlug
@@ -20,11 +25,22 @@ export function postPathBySlug(slug) {
 export async function getPostBySlug(slug) {
   const apolloClient = getApolloClient();
 
-  const data = await apolloClient.query({
-    query: getQueryPostBySlug(slug),
-  });
+  let postData;
+  let seoData;
 
-  const post = data?.data.postBy;
+  try {
+    postData = await apolloClient.query({
+      query: QUERY_POST_BY_SLUG,
+      variables: {
+        slug,
+      },
+    });
+  } catch (e) {
+    console.log(`Failed to query post data: ${e.message}`);
+    throw e;
+  }
+
+  const post = postData?.data.postBy;
 
   return {
     post: [post].map(mapPostData)[0],
@@ -56,11 +72,21 @@ export async function getAllPosts(options) {
 export async function getPostsByAuthorSlug(slug) {
   const apolloClient = getApolloClient();
 
-  const data = await apolloClient.query({
-    query: getQueryPostsByAuthorSlug(slug),
-  });
+  let postData;
 
-  const posts = data?.data.posts.edges.map(({ node = {} }) => node);
+  try {
+    postData = await apolloClient.query({
+      query: QUERY_POSTS_BY_AUTHOR_SLUG,
+      variables: {
+        slug,
+      },
+    });
+  } catch (e) {
+    console.log(`Failed to query post data: ${e.message}`);
+    throw e;
+  }
+
+  const posts = postData?.data.posts.edges.map(({ node = {} }) => node);
 
   return {
     posts: Array.isArray(posts) && posts.map(mapPostData),
@@ -74,11 +100,21 @@ export async function getPostsByAuthorSlug(slug) {
 export async function getPostsByCategoryId(categoryId) {
   const apolloClient = getApolloClient();
 
-  const data = await apolloClient.query({
-    query: getQueryPostsByCategoryId(categoryId),
-  });
+  let postData;
 
-  const posts = data?.data.posts.edges.map(({ node = {} }) => node);
+  try {
+    postData = await apolloClient.query({
+      query: QUERY_POSTS_BY_CATEGORY_ID,
+      variables: {
+        categoryId,
+      },
+    });
+  } catch (e) {
+    console.log(`Failed to query post data: ${e.message}`);
+    throw e;
+  }
+
+  const posts = postData?.data.posts.edges.map(({ node = {} }) => node);
 
   return {
     posts: Array.isArray(posts) && posts.map(mapPostData),
