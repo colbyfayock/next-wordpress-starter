@@ -51,7 +51,7 @@ export const QUERY_ALL_PAGES = gql`
 `;
 
 export const QUERY_PAGE_BY_URI = gql`
-  query Page($uri: String!) {
+  query PageByUri($uri: String!) {
     pageBy(uri: $uri) {
       children {
         edges {
@@ -97,7 +97,7 @@ export const QUERY_PAGE_BY_URI = gql`
 `;
 
 export const QUERY_PAGE_SEO_BY_URI = gql`
-  query Page($uri: String!) {
+  query PageSEOByUri($uri: String!) {
     pageBy(uri: $uri) {
       seo {
         canonical

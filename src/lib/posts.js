@@ -72,7 +72,7 @@ export async function getPostBySlug(slug) {
     // link along with the other metadata, but explicitly check if there's a custom one
     // in here by looking for the API's host in the provided canonical link
 
-    if (!seo.canonical.includes(apiHost)) {
+    if (seo.canonical && !seo.canonical.includes(apiHost)) {
       post.canonical = seo.canonical;
     }
 

@@ -113,7 +113,6 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     og: {
       url,
     },
-    twitter: {},
   };
 
   // Static Properties
@@ -132,40 +131,46 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   // Open Graph Properties
   // Loop through Open Graph properties that rely on a non-object value
 
-  const ogProperties = ['description', 'imageUrl', 'imageHeight', 'imageSecureUrl', 'imageWidth', 'title', 'type'];
+  if (pageMetadata.og) {
+    const ogProperties = ['description', 'imageUrl', 'imageHeight', 'imageSecureUrl', 'imageWidth', 'title', 'type'];
 
-  ogProperties.forEach((property) => {
-    const pageOg = pageMetadata.og?.[property];
-    const pageStatic = pageMetadata[property];
-    const defaultOg = defaultMetadata.og?.[property];
-    const defaultStatic = defaultMetadata[property];
-    const value = pageOg || pageStatic || defaultOg || defaultStatic;
+    ogProperties.forEach((property) => {
+      const pageOg = pageMetadata.og?.[property];
+      const pageStatic = pageMetadata[property];
+      const defaultOg = defaultMetadata.og?.[property];
+      const defaultStatic = defaultMetadata[property];
+      const value = pageOg || pageStatic || defaultOg || defaultStatic;
 
-    if (typeof value === 'undefined') return;
+      if (typeof value === 'undefined') return;
 
-    metadata.og[property] = value;
-  });
+      metadata.og[property] = value;
+    });
+  }
 
   // Twitter Properties
   // Loop through Twitter properties that rely on a non-object value
 
-  const twitterProperties = ['cardType', 'description', 'imageUrl', 'title', 'username'];
+  if (pageMetadata.twitter) {
+    metadata.twitter = {};
 
-  twitterProperties.forEach((property) => {
-    const pageTwitter = pageMetadata.twitter?.[property];
-    const pageOg = metadata.og[property];
-    const value = pageTwitter || pageOg;
+    const twitterProperties = ['cardType', 'description', 'imageUrl', 'title', 'username'];
 
-    if (typeof value === 'undefined') return;
+    twitterProperties.forEach((property) => {
+      const pageTwitter = pageMetadata.twitter?.[property];
+      const pageOg = metadata.og[property];
+      const value = pageTwitter || pageOg;
 
-    metadata.twitter[property] = value;
-  });
+      if (typeof value === 'undefined') return;
 
-  if (metadata.og.type === 'article') {
+      metadata.twitter[property] = value;
+    });
+  }
+
+  // Article Properties
+  // Loop through article properties that rely on a non-object value
+
+  if (metadata.og.type === 'article' && pageMetadata.article) {
     metadata.article = {};
-
-    // Article Properties
-    // Loop through article properties that rely on a non-object value
 
     const articleProperties = ['author', 'modifiedTime', 'publishedTime', 'publisher'];
 

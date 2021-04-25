@@ -196,7 +196,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
 `;
 
 export const QUERY_POST_SEO_BY_SLUG = gql`
-  query PostBySlug($slug: String!) {
+  query PostSEOBySlug($slug: String!) {
     postBy(slug: $slug) {
       seo {
         canonical

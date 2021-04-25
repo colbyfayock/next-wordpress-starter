@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 
 import { getPosts } from 'lib/posts';
 import { WebpageJsonLd } from 'lib/json-ld';
+import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
 
 import Layout from 'components/Layout';
@@ -22,40 +23,36 @@ const DEFAULT_POST_OPTIONS = {};
 export default function TemplateArchive({
   title = 'Archive',
   Title,
-  description,
   posts,
   postOptions = DEFAULT_POST_OPTIONS,
   slug,
+  metadata,
   pagination,
 }) {
-  const { metadata = {} } = useSite();
-  const { title: siteTitle } = metadata;
+  const { metadata: siteMetadata = {} } = useSite();
 
-  let metaDescription = `Read ${posts.length} posts from ${title} at ${siteTitle}.`;
-
-  if (description) {
-    metaDescription = `${metaDescription} ${description}`;
+  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+    metadata.title = `${title} - ${siteMetadata.title}`;
+    metadata.og.title = metadata.title;
+    metadata.twitter.title = metadata.title;
   }
+
+  const helmetSettings = helmetSettingsFromMetadata(metadata);
 
   return (
     <Layout>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
-      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
+      <WebpageJsonLd title={title} description={metadata.description} siteTitle={siteMetadata.title} slug={slug} />
 
       <Header>
         <Container>
           <h1>{Title || title}</h1>
-          {description && (
+          {metadata.description && (
             <p
               className={styles.archiveDescription}
               dangerouslySetInnerHTML={{
-                __html: description,
+                __html: metadata.description,
               }}
             />
           )}

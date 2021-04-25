@@ -1,14 +1,23 @@
 import { getAllAuthors, getUserByNameSlug, userSlugByName } from 'lib/users';
 import { getPostsByAuthorSlug } from 'lib/posts';
+import { AuthorJsonLd } from 'lib/json-ld';
+import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
-import { AuthorJsonLd } from 'lib/json-ld';
 
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Author({ user, posts }) {
-  const { name, avatar, description, slug } = user;
+  const { title, name, avatar, description, slug } = user;
+
+  const { metadata } = usePageMetadata({
+    metadata: {
+      ...user,
+      title,
+      description: description || user.og?.description || `Read ${posts.length} posts from ${name}`,
+    },
+  });
 
   const postOptions = {
     excludeMetadata: ['author'],
@@ -20,10 +29,10 @@ export default function Author({ user, posts }) {
       <TemplateArchive
         title={name}
         Title={<Title title={name} thumbnail={avatar} />}
-        description={description}
         posts={posts}
         postOptions={postOptions}
         slug={slug}
+        metadata={metadata}
       />
     </>
   );

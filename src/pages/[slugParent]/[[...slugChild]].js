@@ -4,8 +4,9 @@ import { format } from 'date-fns';
 
 import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
-import { useSite, usePageMetadata } from 'hooks/use-site';
 import { helmetSettingsFromMetadata } from 'lib/site';
+import useSite from 'hooks/use-site';
+import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
@@ -18,16 +19,22 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page, breadcrumbs }) {
-  const { title, description, slug, content, date, featuredImage, children, parent, og } = page;
+  const { title, description, slug, content, date, featuredImage, children, parent } = page;
 
   const { metadata: siteMetadata = {} } = useSite();
 
   const { metadata } = usePageMetadata({
     metadata: {
       ...page,
-      description: description || og?.description || `Read more about ${title}`,
+      description: description || page.og?.description || `Read more about ${title}`,
     },
   });
+
+  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+    metadata.title = `${title} - ${siteMetadata.title}`;
+    metadata.og.title = metadata.title;
+    metadata.twitter.title = metadata.title;
+  }
 
   const hasChildren = Array.isArray(children) && children.length > 0;
   const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0;

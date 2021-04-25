@@ -24,3 +24,32 @@ export const QUERY_ALL_USERS = gql`
     }
   }
 `;
+
+export const QUERY_ALL_USERS_SEO = gql`
+  {
+    users(first: 10000) {
+      edges {
+        node {
+          id
+          seo {
+            metaDesc
+            metaRobotsNofollow
+            metaRobotsNoindex
+            title
+            social {
+              youTube
+              wikipedia
+              twitter
+              soundCloud
+              pinterest
+              mySpace
+              linkedIn
+              instagram
+              facebook
+            }
+          }
+        }
+      }
+    }
+  }
+`;
