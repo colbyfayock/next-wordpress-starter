@@ -4,6 +4,9 @@ import { useRouter } from 'next/router';
 
 import config from '../../package.json';
 
+import { constructPageMetadata } from 'lib/site';
+import { removeLastTrailingSlash } from 'lib/util';
+
 export const SiteContext = createContext();
 
 /**
@@ -16,7 +19,7 @@ export function useSiteContext(data) {
   // Trim the trailing slash from the end of homepage to avoid
   // double // issues throughout the metadata
 
-  homepage = homepage.replace(/\/$/, '');
+  homepage = removeLastTrailingSlash(homepage);
 
   return {
     ...data,
@@ -50,127 +53,4 @@ export function usePageMetadata({ metadata: pageMetadata }) {
   return {
     metadata,
   };
-}
-
-/**
- * constructHelmetData
- */
-
-function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options = {}) {
-  const { router = {}, homepage = '' } = options;
-  const { asPath } = router;
-
-  const url = `${homepage}${asPath}`;
-  const pathname = new URL(url).pathname;
-  const canonical = pageMetadata.canonical || `${homepage}${pathname}`;
-
-  const metadata = {
-    canonical,
-    og: {
-      url,
-    },
-    twitter: {},
-  };
-
-  // Static Properties
-  // Loop through top level metadata properties that rely on a non-object value
-
-  const staticProperties = ['description', 'language', 'title'];
-
-  staticProperties.forEach((property) => {
-    const value = typeof pageMetadata[property] !== 'undefined' ? pageMetadata[property] : defaultMetadata[property];
-
-    if (typeof value === 'undefined') return;
-
-    metadata[property] = value;
-  });
-
-  // Open Graph Properties
-  // Loop through Open Graph properties that rely on a non-object value
-
-  const ogProperties = ['description', 'title', 'type'];
-
-  ogProperties.forEach((property) => {
-    const pageOg = pageMetadata.og?.[property];
-    const pageStatic = pageMetadata[property];
-    const defaultOg = defaultMetadata.og?.[property];
-    const defaultStatic = defaultMetadata[property];
-    const value = pageOg || pageStatic || defaultOg || defaultStatic;
-
-    if (typeof value === 'undefined') return;
-
-    metadata.og[property] = value;
-  });
-
-  // Twitter Properties
-  // Loop through Twitter properties that rely on a non-object value
-
-  const twitterProperties = ['description', 'title'];
-
-  twitterProperties.forEach((property) => {
-    const pageTwitter = pageMetadata.twitter?.[property];
-    const pageOg = metadata.og[property];
-    const value = pageTwitter || pageOg;
-
-    if (typeof value === 'undefined') return;
-
-    metadata.twitter[property] = value;
-  });
-
-  return metadata;
-}
-
-export function helmetSettingsFromMetadata(metadata = {}) {
-  const settings = {
-    title: metadata.title,
-    htmlAttributes: {
-      lang: metadata.language,
-    },
-    link: [
-      {
-        rel: 'canonical',
-        href: metadata.canonical,
-      },
-    ],
-    meta: [
-      {
-        name: 'description',
-        content: metadata.description,
-      },
-      {
-        property: 'og:title',
-        content: metadata.og.title,
-      },
-      {
-        property: 'og:description',
-        content: metadata.og.description,
-      },
-      {
-        property: 'og:url',
-        content: metadata.og.url,
-      },
-      {
-        property: 'og:type',
-        content: metadata.og.type,
-      },
-      {
-        property: 'twitter:title',
-        content: metadata.twitter?.title || metadata.title,
-      },
-      {
-        property: 'twitter:description',
-        content: metadata.twitter?.description || metadata.description,
-      },
-      {
-        property: 'article:modified_time',
-        content: metadata.og.modifiedTime,
-      },
-      {
-        property: 'article:published_time',
-        content: metadata.og.publishedTime,
-      },
-    ],
-  };
-
-  return settings;
 }

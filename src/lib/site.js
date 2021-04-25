@@ -1,5 +1,7 @@
 import { getApolloClient } from 'lib/apollo-client';
 
+import { decodeHtmlEntities, removeLastTrailingSlash } from 'lib/util';
+
 import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 
 /**
@@ -26,6 +28,7 @@ export async function getSiteMetadata() {
 
   const settings = {
     title,
+    siteTitle: title,
     description,
   };
 
@@ -81,6 +84,7 @@ export async function getSiteMetadata() {
         username: social.twitter.username,
         cardType: social.twitter.cardType,
       };
+
       settings.social.twitter = {
         url: `https://twitter.com/${settings.twitter.username}`,
       };
@@ -93,30 +97,149 @@ export async function getSiteMetadata() {
 }
 
 /**
- * decodeHtmlEntities
+ * constructHelmetData
  */
 
-export function decodeHtmlEntities(text) {
-  if (typeof text !== 'string') {
-    throw new Error(`Failed to decode HTML entity: invalid type ${typeof text}`);
-  }
+export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options = {}) {
+  const { router = {}, homepage = '' } = options;
+  const { asPath } = router;
 
-  let decoded = text;
+  const url = `${homepage}${asPath}`;
+  const pathname = new URL(url).pathname;
+  const canonical = pageMetadata.canonical || `${homepage}${pathname}`;
 
-  const entities = {
-    '&amp;': '\u0026',
-    '&quot;': '\u0022',
-    '&#039;': '\u0027',
+  const metadata = {
+    canonical,
+    og: {
+      url,
+    },
+    twitter: {},
   };
 
-  return decoded.replace(/&amp;|&quot;|&#039;/g, (char) => entities[char]);
+  // Static Properties
+  // Loop through top level metadata properties that rely on a non-object value
+
+  const staticProperties = ['description', 'language', 'title'];
+
+  staticProperties.forEach((property) => {
+    const value = typeof pageMetadata[property] !== 'undefined' ? pageMetadata[property] : defaultMetadata[property];
+
+    if (typeof value === 'undefined') return;
+
+    metadata[property] = value;
+  });
+
+  // Open Graph Properties
+  // Loop through Open Graph properties that rely on a non-object value
+
+  const ogProperties = ['description', 'title', 'type'];
+
+  ogProperties.forEach((property) => {
+    const pageOg = pageMetadata.og?.[property];
+    const pageStatic = pageMetadata[property];
+    const defaultOg = defaultMetadata.og?.[property];
+    const defaultStatic = defaultMetadata[property];
+    const value = pageOg || pageStatic || defaultOg || defaultStatic;
+
+    if (typeof value === 'undefined') return;
+
+    metadata.og[property] = value;
+  });
+
+  // Twitter Properties
+  // Loop through Twitter properties that rely on a non-object value
+
+  const twitterProperties = ['description', 'title'];
+
+  twitterProperties.forEach((property) => {
+    const pageTwitter = pageMetadata.twitter?.[property];
+    const pageOg = metadata.og[property];
+    const value = pageTwitter || pageOg;
+
+    if (typeof value === 'undefined') return;
+
+    metadata.twitter[property] = value;
+  });
+
+  return metadata;
 }
 
 /**
- * removeLastTrailingSlash
+ * helmetSettingsFromMetadata
  */
 
-export function removeLastTrailingSlash(url) {
-  if (typeof url !== 'string') return url;
-  return url.replace(/\/$/, '');
+export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
+  const { link = [], meta = [], setTitle = true } = options;
+
+  const settings = {
+    htmlAttributes: {
+      lang: metadata.language,
+    },
+  };
+
+  if (setTitle) {
+    settings.title = metadata.title;
+  }
+
+  settings.link = [
+    ...link,
+    {
+      rel: 'canonical',
+      href: metadata.canonical,
+    },
+  ].filter(({ href } = {}) => !!href);
+
+  settings.meta = [
+    ...meta,
+    {
+      name: 'description',
+      content: metadata.description,
+    },
+    {
+      property: 'og:title',
+      content: metadata.og?.title || metadata.title,
+    },
+    {
+      property: 'og:description',
+      content: metadata.og?.description || metadata.description,
+    },
+    {
+      property: 'og:url',
+      content: metadata.og?.url,
+    },
+    {
+      property: 'og:type',
+      content: metadata.og?.type || 'website',
+    },
+    {
+      property: 'og:site_name',
+      content: metadata.siteTitle,
+    },
+    {
+      property: 'twitter:title',
+      content: metadata.twitter?.title || metadata.og?.title || metadata.title,
+    },
+    {
+      property: 'twitter:description',
+      content: metadata.twitter?.description || metadata.og?.description || metadata.description,
+    },
+    {
+      property: 'twitter:site',
+      content: metadata.twitter?.username && `@${metadata.twitter.username}`,
+    },
+    {
+      property: 'twitter:card_type',
+      content: metadata.twitter?.cardType,
+    },
+    {
+      property: 'article:modified_time',
+      content: metadata.og?.modifiedTime,
+    },
+    {
+      property: 'article:published_time',
+      content: metadata.og?.publishedTime,
+    },
+  ].filter(({ content } = {}) => !!content);
+
+  return settings;
 }

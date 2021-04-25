@@ -4,7 +4,8 @@ import { format } from 'date-fns';
 
 import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
-import { useSite, usePageMetadata, helmetSettingsFromMetadata } from 'hooks/use-site';
+import { useSite, usePageMetadata } from 'hooks/use-site';
+import { helmetSettingsFromMetadata } from 'lib/site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
