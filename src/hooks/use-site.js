@@ -63,6 +63,7 @@ function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options 
     og: {
       url,
     },
+    twitter: {},
   };
 
   // Static Properties
@@ -93,6 +94,21 @@ function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options 
     if (typeof value === 'undefined') return;
 
     metadata.og[property] = value;
+  });
+
+  // Twitter Properties
+  // Loop through Twitter properties that rely on a non-object value
+
+  const twitterProperties = ['description', 'title'];
+
+  twitterProperties.forEach((property) => {
+    const pageTwitter = pageMetadata.twitter?.[property];
+    const pageOg = metadata.og[property];
+    const value = pageTwitter || pageOg;
+
+    if (typeof value === 'undefined') return;
+
+    metadata.twitter[property] = value;
   });
 
   return metadata;
@@ -130,6 +146,14 @@ export function helmetSettingsFromMetadata(metadata = {}) {
       {
         name: 'og:type',
         content: metadata.og.type,
+      },
+      {
+        name: 'twitter:title',
+        content: metadata.twitter.title,
+      },
+      {
+        name: 'twitter:description',
+        content: metadata.twitter.description,
       },
       {
         name: 'article:modified_time',
