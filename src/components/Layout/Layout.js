@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
 
   const { title, language, description, twitter } = metadata;
 
-  const url = path.join(homepage, asPath);
+  const url = `${homepage}${asPath}`;
 
   const helmetSettings = {
     defaultTitle: title,
@@ -66,32 +66,40 @@ const Layout = ({ children }) => {
         content: description,
       },
       {
-        name: 'og:title',
+        property: 'og:title',
         content: title,
       },
       {
-        name: 'og:description',
+        property: 'og:description',
         content: description,
       },
       {
-        name: 'og:url',
+        property: 'og:url',
         content: url,
       },
       {
-        name: 'og:type',
+        property: 'og:type',
         content: 'website',
       },
       {
-        name: 'og:site_name',
-        content: title,
+        property: 'og:site_name',
+        content: twitter?.title || title,
       },
       {
-        name: 'twitter:site',
-        content: `@${twitter.username}`,
+        property: 'twitter:title',
+        content: twitter?.description || description,
       },
       {
-        name: 'twitter:card_type',
-        content: twitter.cardType,
+        property: 'twitter:description',
+        content: description,
+      },
+      {
+        property: 'twitter:site',
+        content: `@${twitter?.username}`,
+      },
+      {
+        property: 'twitter:card_type',
+        content: twitter?.cardType,
       },
     ],
   };

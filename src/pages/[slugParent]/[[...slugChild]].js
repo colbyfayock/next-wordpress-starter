@@ -24,7 +24,7 @@ export default function Page({ page, breadcrumbs }) {
   const { metadata } = usePageMetadata({
     metadata: {
       title,
-      description: description || og.description || `Read more about ${title}`,
+      description: description || og?.description || `Read more about ${title}`,
       canonical,
       og,
       twitter,

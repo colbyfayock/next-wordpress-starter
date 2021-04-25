@@ -11,7 +11,13 @@ export const SiteContext = createContext();
  */
 
 export function useSiteContext(data) {
-  const { homepage = '' } = config;
+  let { homepage = '' } = config;
+
+  // Trim the trailing slash from the end of homepage to avoid
+  // double // issues throughout the metadata
+
+  homepage = homepage.replace(/\/$/, '');
+
   return {
     ...data,
     homepage,
@@ -54,9 +60,9 @@ function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options 
   const { router = {}, homepage = '' } = options;
   const { asPath } = router;
 
-  const url = path.join(homepage, asPath);
+  const url = `${homepage}${asPath}`;
   const pathname = new URL(url).pathname;
-  const canonical = pageMetadata.canonical || path.join(homepage, pathname);
+  const canonical = pageMetadata.canonical || `${homepage}${pathname}`;
 
   const metadata = {
     canonical,
@@ -132,35 +138,35 @@ export function helmetSettingsFromMetadata(metadata = {}) {
         content: metadata.description,
       },
       {
-        name: 'og:title',
+        property: 'og:title',
         content: metadata.og.title,
       },
       {
-        name: 'og:description',
+        property: 'og:description',
         content: metadata.og.description,
       },
       {
-        name: 'og:url',
+        property: 'og:url',
         content: metadata.og.url,
       },
       {
-        name: 'og:type',
+        property: 'og:type',
         content: metadata.og.type,
       },
       {
-        name: 'twitter:title',
-        content: metadata.twitter.title,
+        property: 'twitter:title',
+        content: metadata.twitter?.title || metadata.title,
       },
       {
-        name: 'twitter:description',
-        content: metadata.twitter.description,
+        property: 'twitter:description',
+        content: metadata.twitter?.description || metadata.description,
       },
       {
-        name: 'article:modified_time',
+        property: 'article:modified_time',
         content: metadata.og.modifiedTime,
       },
       {
-        name: 'article:published_time',
+        property: 'article:published_time',
         content: metadata.og.publishedTime,
       },
     ],
