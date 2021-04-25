@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 
 import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
-import { useSite } from 'hooks/use-site';
+import { useSite, usePageMetadata, helmetSettingsFromMetadata } from 'hooks/use-site';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
@@ -17,29 +17,34 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page, breadcrumbs }) {
-  const { metadata = {} } = useSite();
-  const { title: siteTitle } = metadata;
+  const { title, description, slug, canonical, content, date, featuredImage, children, parent, og } = page;
 
-  const { title, slug, content, date, featuredImage, children, parent } = page;
+  const { metadata: siteMetadata = {} } = useSite();
 
-  const pageTitle = title?.rendered;
-
-  const metaDescription = `${title} on ${siteTitle}`;
+  const { metadata } = usePageMetadata({
+    metadata: {
+      title,
+      description: description || og.description || `Read more about ${title}`,
+      canonical,
+      og,
+    },
+  });
 
   const hasChildren = Array.isArray(children) && children.length > 0;
   const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0;
 
+  const helmetSettings = helmetSettingsFromMetadata(metadata);
+
   return (
     <Layout>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
-      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
+      <WebpageJsonLd
+        title={metadata.title}
+        description={metadata.description}
+        siteTitle={siteMetadata.title}
+        slug={slug}
+      />
 
       <Header>
         {hasBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}

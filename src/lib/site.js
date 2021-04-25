@@ -75,11 +75,19 @@ export async function getSiteMetadata() {
         settings.webmaster[key] = webmaster[key];
       });
     }
+
+    if (social.twitter) {
+      settings.twitter = {
+        username: social.twitter.username,
+        cardType: social.twitter.cardType,
+      };
+      settings.social.twitter = {
+        url: `https://twitter.com/${settings.twitter.username}`,
+      };
+    }
   }
 
   settings.title = decodeHtmlEntities(settings.title);
-
-  console.log('settings', settings);
 
   return settings;
 }

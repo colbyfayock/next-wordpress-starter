@@ -14,12 +14,52 @@ const Layout = ({ children }) => {
   const { asPath } = router;
 
   const { homepage, metadata = {} } = useSite();
-  console.log('metadata', metadata);
-  const { title, language, description } = metadata;
+
+  const { title, language, description, twitter } = metadata;
+
+  const url = path.join(homepage, asPath);
 
   const helmetSettings = {
     defaultTitle: title,
-    titleTemplate: `%s - ${title}`,
+    titleTemplate: process.env.WORDPRESS_PLUGIN_SEO === true ? '%s' : `%s - ${title}`,
+    htmlAttributes: {
+      lang: language,
+    },
+    link: [
+      {
+        rel: 'alternate',
+        type: 'application/rss+xml',
+        href: '/feed.xml',
+      },
+      {
+        rel: 'canonical',
+        href: url,
+      },
+
+      // Favicon sizes and manifest generated via https://favicon.io/
+
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'manifest',
+        href: '/site.webmanifest',
+      },
+    ],
     meta: [
       {
         name: 'description',
@@ -35,7 +75,7 @@ const Layout = ({ children }) => {
       },
       {
         name: 'og:url',
-        content: path.join(homepage, asPath),
+        content: url,
       },
       {
         name: 'og:type',
@@ -45,22 +85,20 @@ const Layout = ({ children }) => {
         name: 'og:site_name',
         content: title,
       },
+      {
+        name: 'twitter:site',
+        content: `@${twitter.username}`,
+      },
+      {
+        name: 'twitter:card_type',
+        content: twitter.cardType,
+      },
     ],
   };
 
   return (
     <div className={styles.layoutContainer}>
-      <Helmet {...helmetSettings}>
-        <html lang={language} />
-
-        {/* Favicon sizes and manifest generated via https://favicon.io/ */}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
       <Nav />
 

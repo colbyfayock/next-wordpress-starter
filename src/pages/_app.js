@@ -12,7 +12,7 @@ import 'styles/globals.scss';
 
 function App({ Component, pageProps = {}, metadata, navigation, recentPosts, categories }) {
   const apolloClient = useApolloClient(pageProps.initialApolloState);
-  console.log('metadata', metadata);
+
   const site = useSiteContext({
     metadata,
     navigation,
