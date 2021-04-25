@@ -8,6 +8,7 @@ import {
   QUERY_POST_BY_SLUG,
   QUERY_POSTS_BY_AUTHOR_SLUG,
   QUERY_POSTS_BY_CATEGORY_ID,
+  QUERY_POST_SEO_BY_SLUG,
 } from 'data/posts';
 
 /**
@@ -24,6 +25,7 @@ export function postPathBySlug(slug) {
 
 export async function getPostBySlug(slug) {
   const apolloClient = getApolloClient();
+  const apiHost = new URL(process.env.WORDPRESS_HOST || process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let postData;
   let seoData;
@@ -40,10 +42,72 @@ export async function getPostBySlug(slug) {
     throw e;
   }
 
-  const post = postData?.data.postBy;
+  const post = [postData?.data.postBy].map(mapPostData)[0];
+
+  // If the SEO plugin is enabled, look up the data
+  // and apply it to the default settings
+
+  if (process.env.WORDPRESS_PLUGIN_SEO === true) {
+    try {
+      seoData = await apolloClient.query({
+        query: QUERY_POST_SEO_BY_SLUG,
+        variables: {
+          slug,
+        },
+      });
+    } catch (e) {
+      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
+      throw e;
+    }
+
+    const { seo = {} } = seoData?.data?.postBy;
+
+    post.title = seo.title;
+    post.description = seo.metaDesc;
+    post.readingTime = seo.readingTime;
+
+    // The SEO plugin by default includes a canonical link, but we don't want to use that
+    // because it includes the WordPress host, not the site host. We manage the canonical
+    // link along with the other metadata, but explicitly check if there's a custom one
+    // in here by looking for the API's host in the provided canonical link
+
+    if (!seo.canonical.includes(apiHost)) {
+      post.canonical = seo.canonical;
+    }
+
+    post.og = {
+      author: seo.opengraphAuthor,
+      description: seo.opengraphDescription,
+      image: seo.opengraphImage,
+      modifiedTime: seo.opengraphModifiedTime,
+      publishedTime: seo.opengraphPublishedTime,
+      publisher: seo.opengraphPublisher,
+      title: seo.opengraphTitle,
+      type: seo.opengraphType,
+    };
+
+    post.article = {
+      author: post.og.author,
+      modifiedTime: post.og.modifiedTime,
+      publishedTime: post.og.publishedTime,
+      publisher: post.og.publisher,
+    };
+
+    post.robots = {
+      nofollow: seo.metaRobotsNofollow,
+      noindex: seo.metaRobotsNoindex,
+    };
+
+    post.twitter = {
+      description: seo.twitterDescription,
+      image: seo.twitterImage,
+      title: seo.twitterTitle,
+    };
+  }
 
   return {
-    post: [post].map(mapPostData)[0],
+    post,
   };
 }
 

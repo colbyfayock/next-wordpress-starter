@@ -1,4 +1,4 @@
-import { useSite } from 'hooks/use-site';
+import useSite from 'hooks/use-site';
 import { getPaginatedPosts } from 'lib/posts';
 import { WebsiteJsonLd } from 'lib/json-ld';
 

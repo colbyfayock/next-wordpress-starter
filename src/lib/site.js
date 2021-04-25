@@ -132,7 +132,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   // Open Graph Properties
   // Loop through Open Graph properties that rely on a non-object value
 
-  const ogProperties = ['description', 'title', 'type'];
+  const ogProperties = ['description', 'imageUrl', 'imageHeight', 'imageSecureUrl', 'imageWidth', 'title', 'type'];
 
   ogProperties.forEach((property) => {
     const pageOg = pageMetadata.og?.[property];
@@ -149,7 +149,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   // Twitter Properties
   // Loop through Twitter properties that rely on a non-object value
 
-  const twitterProperties = ['description', 'title'];
+  const twitterProperties = ['cardType', 'description', 'imageUrl', 'title', 'username'];
 
   twitterProperties.forEach((property) => {
     const pageTwitter = pageMetadata.twitter?.[property];
@@ -160,6 +160,23 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
 
     metadata.twitter[property] = value;
   });
+
+  if (metadata.og.type === 'article') {
+    metadata.article = {};
+
+    // Article Properties
+    // Loop through article properties that rely on a non-object value
+
+    const articleProperties = ['author', 'modifiedTime', 'publishedTime', 'publisher'];
+
+    articleProperties.forEach((property) => {
+      const value = pageMetadata.article[property];
+
+      if (typeof value === 'undefined') return;
+
+      metadata.article[property] = value;
+    });
+  }
 
   return metadata;
 }
@@ -208,6 +225,22 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
       content: metadata.og?.url,
     },
     {
+      property: 'og:image',
+      content: metadata.og?.imageUrl,
+    },
+    {
+      property: 'og:image:secure_url',
+      content: metadata.og?.imageSecureUrl,
+    },
+    {
+      property: 'og:image:width',
+      content: metadata.og?.imageWidth,
+    },
+    {
+      property: 'og:image:height',
+      content: metadata.og?.imageHeight,
+    },
+    {
       property: 'og:type',
       content: metadata.og?.type || 'website',
     },
@@ -224,6 +257,10 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
       content: metadata.twitter?.description || metadata.og?.description || metadata.description,
     },
     {
+      property: 'twitter:image',
+      content: metadata.twitter?.imageUrl || metadata.og?.imageUrl,
+    },
+    {
       property: 'twitter:site',
       content: metadata.twitter?.username && `@${metadata.twitter.username}`,
     },
@@ -233,11 +270,11 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     },
     {
       property: 'article:modified_time',
-      content: metadata.og?.modifiedTime,
+      content: metadata.article?.modifiedTime,
     },
     {
       property: 'article:published_time',
-      content: metadata.og?.publishedTime,
+      content: metadata.article?.publishedTime,
     },
   ].filter(({ content } = {}) => !!content);
 

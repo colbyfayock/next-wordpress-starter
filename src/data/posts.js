@@ -194,3 +194,43 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
     }
   }
 `;
+
+export const QUERY_POST_SEO_BY_SLUG = gql`
+  query PostBySlug($slug: String!) {
+    postBy(slug: $slug) {
+      seo {
+        canonical
+        metaDesc
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphTitle
+        opengraphType
+        readingTime
+        title
+        twitterDescription
+        twitterTitle
+        twitterImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
+          }
+        }
+        opengraphImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            height
+            width
+          }
+        }
+      }
+    }
+  }
+`;

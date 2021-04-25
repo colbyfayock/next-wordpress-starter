@@ -1,10 +1,8 @@
 import path from 'path';
 import { useContext, createContext } from 'react';
-import { useRouter } from 'next/router';
 
 import config from '../../package.json';
 
-import { constructPageMetadata } from 'lib/site';
 import { removeLastTrailingSlash } from 'lib/util';
 
 export const SiteContext = createContext();
@@ -31,26 +29,7 @@ export function useSiteContext(data) {
  * useSite
  */
 
-export function useSite() {
+export default function useSite() {
   const site = useContext(SiteContext);
   return site;
-}
-
-/**
- * useHelmetSettings
- */
-
-export function usePageMetadata({ metadata: pageMetadata }) {
-  const { homepage, metadata: defaultMetadata, ...rest } = useContext(SiteContext);
-
-  const router = useRouter();
-
-  const metadata = constructPageMetadata(defaultMetadata, pageMetadata, {
-    homepage,
-    router,
-  });
-
-  return {
-    metadata,
-  };
 }

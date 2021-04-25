@@ -5,7 +5,9 @@ import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib
 import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
-import { useSite } from 'hooks/use-site';
+import { helmetSettingsFromMetadata } from 'lib/site';
+import useSite from 'hooks/use-site';
+import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
@@ -18,37 +20,48 @@ import FeaturedImage from 'components/FeaturedImage';
 import styles from 'styles/pages/Post.module.scss';
 
 export default function Post({ post, socialImage, relatedPosts }) {
-  const { metadata, homepage } = useSite();
-  const { title: siteTitle } = metadata;
+  const {
+    title,
+    description,
+    excerpt,
+    content,
+    date,
+    author,
+    categories,
+    modifiedGmt,
+    featuredImage,
+    og,
+    isSticky = false,
+  } = post;
 
-  const { title, content, excerpt, date, author, categories, modifiedGmt, featuredImage, isSticky = false } = post;
+  const { metadata: siteMetadata = {}, homepage } = useSite();
+
+  og.imageUrl = `${homepage}${socialImage}`;
+  og.imageSecureUrl = og.imageUrl;
+  og.imageWidth = 2000;
+  og.imageHeight = 1000;
+
+  const { metadata } = usePageMetadata({
+    metadata: {
+      ...post,
+      description: description || og?.description || `Read more about ${title}`,
+      og,
+    },
+  });
 
   const metadataOptions = {
     compactCategories: false,
   };
 
-  const metaDescription = `Read ${title} at ${siteTitle}.`;
-  const socialImageUrl = `${homepage}${socialImage}`;
-
   const { posts: relatedPostsList, title: relatedPostsTitle } = relatedPosts;
+
+  const helmetSettings = helmetSettingsFromMetadata(metadata);
 
   return (
     <Layout>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:type" content="article" />
-        <meta property="og:image" content={socialImageUrl} />
-        <meta property="og:image:secure_url" content={socialImageUrl} />
-        <meta property="og:image:width" content="2000" />
-        <meta property="og:image:height" content="1000" />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:image" content={socialImageUrl} />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
-      <ArticleJsonLd post={post} siteTitle={siteTitle} />
+      <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 
       <Header>
         {featuredImage && (
