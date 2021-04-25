@@ -35,6 +35,10 @@ export default function Post({ post, socialImage, relatedPosts }) {
 
   const { metadata: siteMetadata = {}, homepage } = useSite();
 
+  if (!post.og) {
+    post.og = {};
+  }
+
   post.og.imageUrl = `${homepage}${socialImage}`;
   post.og.imageSecureUrl = post.og.imageUrl;
   post.og.imageWidth = 2000;
@@ -43,7 +47,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
   const { metadata } = usePageMetadata({
     metadata: {
       ...post,
-      description: description || og?.description || `Read more about ${title}`,
+      description: description || post.og?.description || `Read more about ${title}`,
     },
   });
 

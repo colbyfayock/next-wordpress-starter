@@ -113,6 +113,7 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
     og: {
       url,
     },
+    twitter: {},
   };
 
   // Static Properties
@@ -151,8 +152,6 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
   // Loop through Twitter properties that rely on a non-object value
 
   if (pageMetadata.twitter) {
-    metadata.twitter = {};
-
     const twitterProperties = ['cardType', 'description', 'imageUrl', 'title', 'username'];
 
     twitterProperties.forEach((property) => {
