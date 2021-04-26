@@ -6,6 +6,7 @@ import useSite from 'hooks/use-site';
 import useSearch from 'hooks/use-search';
 import { postPathBySlug } from 'lib/posts';
 import { pagePathBySlug } from 'lib/pages';
+import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
 
 import Section from 'components/Section';
 
@@ -19,8 +20,13 @@ const Nav = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  const { metadata = {}, navigation } = useSite();
+  const { metadata = {}, menus } = useSite();
   const { title } = metadata;
+
+  const navigation = findMenuByLocation(menus, [
+    process.env.MENU_LOCATION_NAVIGATION,
+    MENU_LOCATION_NAVIGATION_DEFAULT,
+  ]);
 
   const { query, results, search, clearSearch } = useSearch({
     maxResults: 5,
@@ -174,12 +180,19 @@ const Nav = () => {
           </Link>
         </p>
         <ul className={styles.navMenu}>
-          {navigation.map(({ slug, title = {} }) => {
+          {navigation?.menuItems.map(({ id, path, label, title, target }) => {
             return (
-              <li key={slug}>
-                <Link href={pagePathBySlug(slug)}>
-                  <a>{title}</a>
-                </Link>
+              <li key={id}>
+                {!path.includes('http') && !target && (
+                  <Link href={path}>
+                    <a title={title}>{label}</a>
+                  </Link>
+                )}
+                {path.includes('http') && (
+                  <a href={path} title={title} target={target}>
+                    {label}
+                  </a>
+                )}
               </li>
             );
           })}

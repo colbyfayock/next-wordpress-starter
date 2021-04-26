@@ -18,6 +18,7 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
   // verbose: true,
 
   env: {
+    MENU_LOCATION_NAVIGATION: 'PRIMARY',
     WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
     WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
     WORDPRESS_GRAPHQL_ENDPOINT: removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT),
