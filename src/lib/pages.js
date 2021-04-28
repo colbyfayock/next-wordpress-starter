@@ -73,6 +73,9 @@ export async function getNavigationPages() {
 
   const navPages = pages.filter(({ menuOrder }) => menuOrder > 0);
 
+  // Order pages by menuOrder
+  navPages.sort((a, b) => parseFloat(a.menuOrder) - parseFloat(b.menuOrder));
+
   return navPages;
 }
 
