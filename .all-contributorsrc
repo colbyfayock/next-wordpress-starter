@@ -77,6 +77,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "ffabiosales",
+      "name": "Fábio Sales",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1392528?v=4",
+      "profile": "http://ffabiosales.github.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
