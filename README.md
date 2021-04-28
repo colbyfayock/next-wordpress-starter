@@ -48,7 +48,7 @@ Additionally, the theme is expected to be SEO friendly and performant out of the
 
 Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/issues) for what's on deck!
 
-Want something a little more _basic_? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter
+*Want something a little more **basic**? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter*
 
 ### Requirements
 * [WordPress](https://wordpress.org/)
