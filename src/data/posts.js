@@ -54,7 +54,7 @@ export const QUERY_ALL_POSTS = gql`
 `;
 
 export const QUERY_POST_BY_SLUG = gql`
-  query PostBySlug($slug: String!) {
+  query PostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG {
       author {
         node {
@@ -196,7 +196,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
 `;
 
 export const QUERY_POST_SEO_BY_SLUG = gql`
-  query PostSEOBySlug($slug: String!) {
+  query PostSEOBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       seo {
         canonical
