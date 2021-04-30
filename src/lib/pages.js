@@ -114,13 +114,13 @@ export async function getAllPages(options) {
 }
 
 /**
- * getNavigationPages
+ * getTopLevelPages
  */
 
-export async function getNavigationPages() {
+export async function getTopLevelPages() {
   const { pages } = await getAllPages();
 
-  const navPages = pages.filter(({ menuOrder }) => menuOrder > 0);
+  const navPages = pages.filter(({ parent }) => parent === null);
 
   // Order pages by menuOrder
   navPages.sort((a, b) => parseFloat(a.menuOrder) - parseFloat(b.menuOrder));

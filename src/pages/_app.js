@@ -4,20 +4,21 @@ import { SiteContext, useSiteContext } from 'hooks/use-site';
 
 import { getSiteMetadata } from 'lib/site';
 import { getRecentPosts } from 'lib/posts';
-import { getNavigationPages } from 'lib/pages';
+import { getTopLevelPages } from 'lib/pages';
 import { getCategories } from 'lib/categories';
+import { getAllMenus, createMenuFromPages, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
 import useApolloClient from 'hooks/use-apollo-client';
 
 import 'styles/globals.scss';
 
-function App({ Component, pageProps = {}, metadata, navigation, recentPosts, categories }) {
+function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
   const apolloClient = useApolloClient(pageProps.initialApolloState);
 
   const site = useSiteContext({
     metadata,
-    navigation,
     recentPosts,
     categories,
+    menus,
   });
 
   return (
@@ -38,11 +39,20 @@ App.getInitialProps = async function () {
     count: 5,
   });
 
+  const { menus } = await getAllMenus();
+
+  const defaultNavigation = createMenuFromPages({
+    locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
+    pages: await getTopLevelPages(),
+  });
+
+  menus.push(defaultNavigation);
+
   return {
     metadata: await getSiteMetadata(),
-    navigation: await getNavigationPages(),
     recentPosts,
     categories,
+    menus,
   };
 };
 
