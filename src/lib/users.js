@@ -73,7 +73,7 @@ export async function getAllUsers() {
       query: QUERY_ALL_USERS,
     });
   } catch (e) {
-    console.log(`Failed to query users data: ${e.message}`);
+    console.log(`[users][getAllUsers] Failed to query users data: ${e.message}`);
     throw e;
   }
 
@@ -88,7 +88,7 @@ export async function getAllUsers() {
         query: QUERY_ALL_USERS_SEO,
       });
     } catch (e) {
-      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log(`[users][getAllUsers] Failed to query SEO plugin: ${e.message}`);
       console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
       throw e;
     }
