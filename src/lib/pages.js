@@ -54,7 +54,7 @@ export async function getPageByUri(uri) {
 
     const { seo = {} } = seoData?.data?.pageBy;
 
-    page.title = seo.title;
+    page.metaTitle = seo.title;
     page.description = seo.metaDesc;
     page.readingTime = seo.readingTime;
 

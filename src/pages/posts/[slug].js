@@ -22,6 +22,7 @@ import styles from 'styles/pages/Post.module.scss';
 export default function Post({ post, socialImage, relatedPosts }) {
   const {
     title,
+    metaTitle,
     description,
     excerpt,
     content,
@@ -47,6 +48,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
   const { metadata } = usePageMetadata({
     metadata: {
       ...post,
+      title: metaTitle,
       description: description || post.og?.description || `Read more about ${title}`,
     },
   });

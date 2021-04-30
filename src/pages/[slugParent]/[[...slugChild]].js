@@ -19,13 +19,14 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page, breadcrumbs }) {
-  const { title, description, slug, content, date, featuredImage, children, parent } = page;
+  const { title, metaTitle, description, slug, content, date, featuredImage, children, parent } = page;
 
   const { metadata: siteMetadata = {} } = useSite();
 
   const { metadata } = usePageMetadata({
     metadata: {
       ...page,
+      title: metaTitle,
       description: description || page.og?.description || `Read more about ${title}`,
     },
   });

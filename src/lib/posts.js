@@ -63,8 +63,8 @@ export async function getPostBySlug(slug) {
 
     const { seo = {} } = seoData?.data?.postBy;
 
-    post.title = seo.title;
-    post.description = seo.metaDesc;
+    post.metaTitle = seo.title;
+    post.metaDescription = seo.metaDesc;
     post.readingTime = seo.readingTime;
 
     // The SEO plugin by default includes a canonical link, but we don't want to use that
