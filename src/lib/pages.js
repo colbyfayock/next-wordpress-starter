@@ -33,7 +33,7 @@ export async function getPageByUri(uri) {
     throw e;
   }
 
-  const page = [pageData?.data.pageBy].map(mapPageData)[0];
+  const page = [pageData?.data.page].map(mapPageData)[0];
 
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
@@ -52,7 +52,7 @@ export async function getPageByUri(uri) {
       throw e;
     }
 
-    const { seo = {} } = seoData?.data?.pageBy;
+    const { seo = {} } = seoData?.data?.page;
 
     page.metaTitle = seo.title;
     page.description = seo.metaDesc;

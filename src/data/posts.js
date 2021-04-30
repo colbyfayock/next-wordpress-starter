@@ -55,7 +55,7 @@ export const QUERY_ALL_POSTS = gql`
 
 export const QUERY_POST_BY_SLUG = gql`
   query PostBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG {
+    post(id: $slug, idType: SLUG) {
       author {
         node {
           avatar {

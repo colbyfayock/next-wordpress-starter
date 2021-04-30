@@ -42,7 +42,7 @@ export async function getPostBySlug(slug) {
     throw e;
   }
 
-  const post = [postData?.data.postBy].map(mapPostData)[0];
+  const post = [postData?.data.post].map(mapPostData)[0];
 
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
@@ -61,7 +61,7 @@ export async function getPostBySlug(slug) {
       throw e;
     }
 
-    const { seo = {} } = seoData?.data?.postBy;
+    const { seo = {} } = seoData?.data?.post;
 
     post.metaTitle = seo.title;
     post.metaDescription = seo.metaDesc;
