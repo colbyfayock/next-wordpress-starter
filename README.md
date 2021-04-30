@@ -1,7 +1,7 @@
 # Next.js WordPress Starter
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-9-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/24a546d8-e917-4e55-9e86-74bf437d651b/deploy-status)](https://app.netlify.com/sites/next-wordpress-starter/deploys)
@@ -48,6 +48,8 @@ Additionally, the theme is expected to be SEO friendly and performant out of the
 * Open Graph tags
 
 Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/issues) for what's on deck!
+
+*Want something a little more **basic**? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter*
 
 ### Requirements
 * [WordPress](https://wordpress.org/)
@@ -150,6 +152,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://bradgarropy.com"><img src="https://avatars.githubusercontent.com/u/11336745?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brad Garropy</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=bradgarropy" title="Code">💻</a></td>
+    <td align="center"><a href="http://ffabiosales.github.io"><img src="https://avatars.githubusercontent.com/u/1392528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fábio Sales</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=ffabiosales" title="Code">💻</a></td>
   </tr>
 </table>
 

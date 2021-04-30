@@ -29,7 +29,7 @@ export async function getPageByUri(uri) {
       },
     });
   } catch (e) {
-    console.log(`Failed to query page data: ${e.message}`);
+    console.log(`[pages][getPageByUri] Failed to query page data: ${e.message}`);
     throw e;
   }
 
@@ -47,7 +47,7 @@ export async function getPageByUri(uri) {
         },
       });
     } catch (e) {
-      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log(`[pages][getPageByUri] Failed to query SEO plugin: ${e.message}`);
       console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
       throw e;
     }
@@ -121,6 +121,9 @@ export async function getTopLevelPages() {
   const { pages } = await getAllPages();
 
   const navPages = pages.filter(({ parent }) => parent === null);
+
+  // Order pages by menuOrder
+  navPages.sort((a, b) => parseFloat(a.menuOrder) - parseFloat(b.menuOrder));
 
   return navPages;
 }

@@ -47,7 +47,7 @@ export async function getCategoryBySlug(slug) {
       },
     });
   } catch (e) {
-    console.log(`Failed to query category data: ${e.message}`);
+    console.log(`[categories][getCategoryBySlug] Failed to query category data: ${e.message}`);
     throw e;
   }
 
@@ -67,7 +67,7 @@ export async function getCategoryBySlug(slug) {
         },
       });
     } catch (e) {
-      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log(`[categories][getCategoryBySlug] Failed to query SEO plugin: ${e.message}`);
       console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
       throw e;
     }

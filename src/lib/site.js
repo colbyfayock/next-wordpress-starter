@@ -19,7 +19,7 @@ export async function getSiteMetadata() {
       query: QUERY_SITE_DATA,
     });
   } catch (e) {
-    console.log(`Failed to query site data: ${e.message}`);
+    console.log(`[site][getSiteMetadata] Failed to query site data: ${e.message}`);
     throw e;
   }
 
@@ -53,7 +53,7 @@ export async function getSiteMetadata() {
         query: QUERY_SEO_DATA,
       });
     } catch (e) {
-      console.log(`Failed to query SEO plugin: ${e.message}`);
+      console.log(`[site][getSiteMetadata] Failed to query SEO plugin: ${e.message}`);
       console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
       throw e;
     }
