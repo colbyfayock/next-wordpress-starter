@@ -20,7 +20,7 @@ export default function Search() {
   const { metadata } = usePageMetadata({
     metadata: {
       title,
-      description: `${results.length} results for ${query}`,
+      description: `${results.length} result${results.length !== 1 ? 's' : '' } ${query ? `for ${query}` : ''}`,
     },
   });
 
