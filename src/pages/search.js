@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import usePageMetadata from 'hooks/use-page-metadata';
 
 import useSearch from 'hooks/use-search';
 
@@ -16,5 +17,12 @@ export default function Search() {
     });
   }, []);
 
-  return <TemplateArchive title={title} posts={results} slug={slug} />;
+  const { metadata } = usePageMetadata({
+    metadata: {
+      title,
+      description: `${results.length} result${results.length !== 1 ? 's' : ''} ${query ? `for ${query}` : ''}`,
+    },
+  });
+
+  return <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />;
 }

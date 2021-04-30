@@ -18,6 +18,7 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
   // verbose: true,
 
   env: {
+    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
     WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
     WORDPRESS_GRAPHQL_ENDPOINT: removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT),
 
@@ -27,3 +28,15 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
     // POSTS_PER_PAGE: 10,
   },
 });
+
+/**
+ * parseEnv
+ * @description Helper function to check if a variable is defined and parse booelans
+ */
+
+function parseEnvValue(value, defaultValue) {
+  if (typeof value === 'undefined') return defaultValue;
+  if (value === true || value === 'true') return true;
+  if (value === false || value === 'false') return false;
+  return value;
+}

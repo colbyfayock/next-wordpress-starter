@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 
-import SiteContext from 'context/site-context';
+import { SiteContext, useSiteContext } from 'hooks/use-site';
+
 import { getSiteMetadata } from 'lib/site';
 import { getRecentPosts } from 'lib/posts';
 import { getNavigationPages } from 'lib/pages';
@@ -12,16 +13,16 @@ import 'styles/globals.scss';
 function App({ Component, pageProps = {}, metadata, navigation, recentPosts, categories }) {
   const apolloClient = useApolloClient(pageProps.initialApolloState);
 
-  const context = {
+  const site = useSiteContext({
     metadata,
     navigation,
     recentPosts,
     categories,
-  };
+  });
 
   return (
     <ApolloProvider client={apolloClient}>
-      <SiteContext.Provider value={context}>
+      <SiteContext.Provider value={site}>
         <Component {...pageProps} />
       </SiteContext.Provider>
     </ApolloProvider>

@@ -1,7 +1,7 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { concatPagination } from '@apollo/client/utilities';
 
-import { removeLastTrailingSlash } from 'lib/site';
+import { removeLastTrailingSlash } from 'lib/util';
 
 let apolloClient;
 

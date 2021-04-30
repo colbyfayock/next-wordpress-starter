@@ -50,98 +50,88 @@ export const QUERY_ALL_PAGES = gql`
   }
 `;
 
-export function getQueryPageById(id) {
-  return gql`
-    query {
-      page(id: "${id}") {
-        children {
-          edges {
-            node {
-              id
-              slug
-              uri
-              ... on Page {
-                id
-                title
-              }
-            }
-          }
-        }
-        content
-        featuredImage {
-          node {
-            altText
-            caption
-            id
-            sizes
-            sourceUrl
-            srcSet
-          }
-        }
-        id
-        menuOrder
-        parent {
+export const QUERY_PAGE_BY_URI = gql`
+  query PageByUri($uri: String!) {
+    pageBy(uri: $uri) {
+      children {
+        edges {
           node {
             id
             slug
             uri
             ... on Page {
+              id
               title
             }
           }
         }
-        slug
-        title
-        uri
       }
+      content
+      featuredImage {
+        node {
+          altText
+          caption
+          id
+          sizes
+          sourceUrl
+          srcSet
+        }
+      }
+      id
+      menuOrder
+      parent {
+        node {
+          id
+          slug
+          uri
+          ... on Page {
+            title
+          }
+        }
+      }
+      slug
+      title
+      uri
     }
-  `;
-}
+  }
+`;
 
-export function getQueryPageByUri(uri) {
-  return gql`
-    query {
-      pageBy(uri: "${uri}") {
-        children {
-          edges {
-            node {
-              id
-              slug
-              uri
-              ... on Page {
-                id
-                title
-              }
-            }
-          }
-        }
-        content
-        featuredImage {
-          node {
-            altText
-            caption
-            id
-            sizes
-            sourceUrl
-            srcSet
-          }
-        }
-        id
-        menuOrder
-        parent {
-          node {
-            id
-            slug
-            uri
-            ... on Page {
-              title
-            }
-          }
-        }
-        slug
+export const QUERY_PAGE_SEO_BY_URI = gql`
+  query PageSEOByUri($uri: String!) {
+    pageBy(uri: $uri) {
+      seo {
+        canonical
+        metaDesc
+        metaRobotsNofollow
+        metaRobotsNoindex
+        opengraphAuthor
+        opengraphDescription
+        opengraphModifiedTime
+        opengraphPublishedTime
+        opengraphPublisher
+        opengraphTitle
+        opengraphType
+        readingTime
         title
-        uri
+        twitterDescription
+        twitterTitle
+        twitterImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            width
+            height
+          }
+        }
+        opengraphImage {
+          altText
+          sourceUrl
+          mediaDetails {
+            height
+            width
+          }
+        }
       }
     }
-  `;
-}
+  }
+`;

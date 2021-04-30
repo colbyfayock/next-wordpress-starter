@@ -13,6 +13,7 @@ Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the stati
 ### Requirements
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
+* Environment variables (see below)
 
 ```bash
 yarn create next-app -e https://github.com/colbyfayock/next-wordpress-starter
@@ -32,12 +33,12 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience that can be deployed anywhere.
 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
-* Top-level Page (https://next-wordpress-starter.netlify.app/docs/)
-* Post (https://next-wordpress-starter.netlify.app/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
-* All Posts (https://next-wordpress-starter.netlify.app/posts/)
-* Author (https://next-wordpress-starter.netlify.app/authors/colby/)
-* Search (Global navigation and https://next-wordpress-starter.netlify.app/search/?q=sit)
-* Category (https://next-wordpress-starter.netlify.app/categories/lorem/)
+* Blog https://next-wordpress-starter.netlify.app
+* Pages (https://next-wordpress-starter.netlify.app/docs/)
+* Posts (https://next-wordpress-starter.netlify.app/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
+* Categories (https://next-wordpress-starter.netlify.app/categories/lorem/)
+* Authors (https://next-wordpress-starter.netlify.app/authors/colby/)
+* Search (Client side global navigation and https://next-wordpress-starter.netlify.app/search/?q=sit)
 * RSS (https://next-wordpress-starter.netlify.app/feed.xml)
 * Sitemap (https://next-wordpress-starter.netlify.app/sitemap.xml)
 
@@ -53,6 +54,7 @@ Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/iss
 ### Requirements
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
+* Environment variables (see below)
 
 ### Environment
 
@@ -64,7 +66,14 @@ Create a new file locally called `.env.local` and add the following:
 WORDPRESS_GRAPHQL_ENDPOINT="[WPGraphQL Endpoint]"
 ```
 
-Replace `[host]` with your the home URL of your WordPress instance.
+Replace the contents of the variable with your WPGraphQL endpoint. By default, it should resemble `[Your Host]/graphql`.
+
+#### All Environment Variables
+
+| Name                       | Required | Description                                   |
+| -------------------------- | -------- | --------------------------------------------- |
+| WORDPRESS_GRAPHQL_ENDPOINT | Yes      | Unique API key from your Applitools account   |
+| WORDPRESS_PLUGIN_SEO       | No       | Enables SEO plugin support (true, false)      |
 
 ### Development
 
@@ -84,21 +93,27 @@ The project should now be available at [http://localhost:3000](http://localhost:
 
 In order to avoid an additional configuration file, we take advantage of some built-in properties of `package.json` to configure parts of the website.
 
+| Name                       | Required | Description                                                        |
+| -------------------------- | -------- | ------------------------------------------------------------------ |
+| homepage                   | Yes      | Homepage or hostname used to construct full URLs (ex Open Graph)   |
+
 - homepage: Setting the `homepage` property will update instances where the full URL is required such as Open Graph tags
 
 ### WordPress
 
-This project aims to take advantage of as many built-in WordPress features by default. Those include:
+This project aims to take advantage of as many built-in WordPress features by default like a typical WordPress theme. Those include:
 
-- Site Title: Used for the homepage header as well as page metadata
-- Tagline: Used on the homepage for the header subtitle
-- Site Language: Used on the `<html>` tag to set the `lang` attribute
+| Name                       | Usage                                   |
+| -------------------------- | --------------------------------------- |
+| Site Language              | `lang` attribute on the `<html>` tag    |
+| Site Title                 | Homepage header, page metadata          |
+| Tagline                    | Homepage subtitle                       |
 
 There is some specific WordPress configuration required to allow for the best use of this starter.
 
 ### Images
 
-By default, this Starter doesn't provide any mechanisms for dealing with image content from WordPress. The images are linked to "as is", meaning if the image is uploaded via the WordPress interface, the image will be served from WordPress.
+This Starter doesn't currently provide any mechanisms for dealing with image content from WordPress. The images are linked to "as is", meaning if the image is uploaded via the WordPress interface, the image will be served from WordPress.
 
 To serve the images statically, you have a few options.
 
@@ -107,6 +122,16 @@ To serve the images statically, you have a few options.
 By enabling the Image Accelerator from Jetpack, your images will automatically be served statically and cached via the wp.com CDN. This feature comes free with the basic installation of Jetpack, requiring only that you connect the WordPress site to the Jetpack service.
 
 [Jetpack CDN](https://jetpack.com/features/design/content-delivery-network/)
+
+## 🔌 Plugins
+
+### Yoast SEO
+
+The Yoast SEO plugin is partially supported including most major features like metadata and open graph customization.
+
+### Requirements
+* Yoast SEO plugin
+* Add WPGraphQL SEO plugin
 
 ## Contributors ✨
 

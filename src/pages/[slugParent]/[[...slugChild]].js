@@ -4,7 +4,9 @@ import { format } from 'date-fns';
 
 import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
+import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
+import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';
 import Header from 'components/Header';
@@ -17,29 +19,38 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page, breadcrumbs }) {
-  const { metadata = {} } = useSite();
-  const { title: siteTitle } = metadata;
+  const { title, description, slug, content, date, featuredImage, children, parent } = page;
 
-  const { title, slug, content, date, featuredImage, children, parent } = page;
+  const { metadata: siteMetadata = {} } = useSite();
 
-  const pageTitle = title?.rendered;
+  const { metadata } = usePageMetadata({
+    metadata: {
+      ...page,
+      description: description || page.og?.description || `Read more about ${title}`,
+    },
+  });
 
-  const metaDescription = `${title} on ${siteTitle}`;
+  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+    metadata.title = `${title} - ${siteMetadata.title}`;
+    metadata.og.title = metadata.title;
+    metadata.twitter.title = metadata.title;
+  }
 
   const hasChildren = Array.isArray(children) && children.length > 0;
   const hasBreadcrumbs = Array.isArray(breadcrumbs) && breadcrumbs.length > 0;
 
+  const helmetSettings = helmetSettingsFromMetadata(metadata);
+
   return (
     <Layout>
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:type" content="article" />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
-      <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
+      <WebpageJsonLd
+        title={metadata.title}
+        description={metadata.description}
+        siteTitle={siteMetadata.title}
+        slug={slug}
+      />
 
       <Header>
         {hasBreadcrumbs && <Breadcrumbs breadcrumbs={breadcrumbs} />}

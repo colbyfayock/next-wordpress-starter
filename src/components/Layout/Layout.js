@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import styles from './Layout.module.scss';
 
 import useSite from 'hooks/use-site';
+import { helmetSettingsFromMetadata } from 'lib/site';
 
 import Nav from 'components/Nav';
 import Main from 'components/Main';
@@ -14,35 +15,56 @@ const Layout = ({ children }) => {
   const { asPath } = router;
 
   const { homepage, metadata = {} } = useSite();
-  const { title, language, description } = metadata;
+  const { twitter } = metadata;
+
+  if (!metadata.og) {
+    metadata.og = {};
+  }
+
+  metadata.og.url = `${homepage}${asPath}`;
 
   const helmetSettings = {
-    defaultTitle: title,
-    titleTemplate: `%s - ${title}`,
-  };
+    defaultTitle: metadata.title,
+    titleTemplate: process.env.WORDPRESS_PLUGIN_SEO === true ? '%s' : `%s - ${metadata.title}`,
+    ...helmetSettingsFromMetadata(metadata, {
+      setTitle: false,
+      link: [
+        {
+          rel: 'alternate',
+          type: 'application/rss+xml',
+          href: '/feed.xml',
+        },
 
-  const metaDescription = `${description} at ${title}`;
+        // Favicon sizes and manifest generated via https://favicon.io/
+
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '16x16',
+          href: '/favicon-16x16.png',
+        },
+        {
+          rel: 'icon',
+          type: 'image/png',
+          sizes: '32x32',
+          href: '/favicon-32x32.png',
+        },
+        {
+          rel: 'manifest',
+          href: '/site.webmanifest',
+        },
+      ],
+    }),
+  };
 
   return (
     <div className={styles.layoutContainer}>
-      <Helmet {...helmetSettings}>
-        <html lang={language} />
-        <meta name="description" content={metaDescription} />
-
-        {/* Favicon sizes and manifest generated via https://favicon.io/ */}
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={path.join(homepage, asPath)} />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content={title} />
-
-        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      </Helmet>
+      <Helmet {...helmetSettings} />
 
       <Nav />
 
