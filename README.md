@@ -30,7 +30,7 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 
 ### What is this and what does it include?
 
-The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party service dependencies that can be deployed anywhere. 
+The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party services that can be deployed anywhere. 
 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
 * Blog https://next-wordpress-starter.netlify.app
