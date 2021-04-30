@@ -68,12 +68,15 @@ WORDPRESS_GRAPHQL_ENDPOINT="[WPGraphQL Endpoint]"
 
 Replace the contents of the variable with your WPGraphQL endpoint. By default, it should resemble `[Your Host]/graphql`.
 
+*Note: environment variables can optionally be statically configured in next.config.js*
+
 #### All Environment Variables
 
-| Name                       | Required | Description                                   |
-| -------------------------- | -------- | --------------------------------------------- |
-| WORDPRESS_GRAPHQL_ENDPOINT | Yes      | Unique API key from your Applitools account   |
-| WORDPRESS_PLUGIN_SEO       | No       | Enables SEO plugin support (true, false)      |
+| Name                               | Required | Default | Description                                   |
+| ---------------------------------- | -------- | -       | --------------------------------------------- |
+| WORDPRESS_GRAPHQL_ENDPOINT         | Yes      | -       | Unique API key from your Applitools account   |
+| WORDPRESS_MENU_LOCATION_NAVIGATION | No       | PRIMARY | Configures header navigation Menu Location    |
+| WORDPRESS_PLUGIN_SEO               | No       | false   | Enables SEO plugin support (true, false)      |
 
 ### Development
 

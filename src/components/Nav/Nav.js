@@ -24,7 +24,7 @@ const Nav = () => {
   const { title } = metadata;
 
   const navigation = findMenuByLocation(menus, [
-    process.env.MENU_LOCATION_NAVIGATION,
+    process.env.WORDPRESS_MENU_LOCATION_NAVIGATION,
     MENU_LOCATION_NAVIGATION_DEFAULT,
   ]);
 

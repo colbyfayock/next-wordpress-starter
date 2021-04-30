@@ -18,10 +18,13 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
   // verbose: true,
 
   env: {
-    MENU_LOCATION_NAVIGATION: 'PRIMARY',
-    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
-    WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
     WORDPRESS_GRAPHQL_ENDPOINT: removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT),
+    WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
+    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
+
+    // TODO: remove and throw warning if used instead of WORDPRESS_GRAPHQL_ENDPOINT
+
+    WORDPRESS_HOST: removeLastTrailingSlash(process.env.WORDPRESS_HOST),
 
     // By default, the number of posts per page used in pagination is 10.
     // This can be modified by setting the variable POSTS_PER_PAGE to a
