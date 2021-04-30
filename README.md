@@ -47,6 +47,8 @@ Additionally, the theme is expected to be SEO friendly and performant out of the
 * Unique descriptions
 * Open Graph tags
 
+You can also optionally enable Yoast SEO plugin support to supercharge your SEO! (See below)
+
 Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/issues) for what's on deck!
 
 *Want something a little more **basic**? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter*
@@ -132,9 +134,11 @@ By enabling the Image Accelerator from Jetpack, your images will automatically b
 
 The Yoast SEO plugin is partially supported including most major features like metadata and open graph customization.
 
-### Requirements
+#### Requirements
 * Yoast SEO plugin
 * Add WPGraphQL SEO plugin
+
+To enable the plugin, configure `WORDPRESS_PLUGIN_SEO` to be `true` either as an environment variable or within next.config.js.
 
 ## Contributors ✨
 
