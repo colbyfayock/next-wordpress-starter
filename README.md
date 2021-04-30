@@ -74,11 +74,11 @@ Replace the contents of the variable with your WPGraphQL endpoint. By default, i
 
 #### All Environment Variables
 
-| Name                               | Required | Default | Description                                   |
-| ---------------------------------- | -------- | -       | --------------------------------------------- |
-| WORDPRESS_GRAPHQL_ENDPOINT         | Yes      | -       | Unique API key from your Applitools account   |
-| WORDPRESS_MENU_LOCATION_NAVIGATION | No       | PRIMARY | Configures header navigation Menu Location    |
-| WORDPRESS_PLUGIN_SEO               | No       | false   | Enables SEO plugin support (true, false)      |
+| Name                               | Required | Default | Description                                       |
+| ---------------------------------- | -------- | -       | ------------------------------------------------- |
+| WORDPRESS_GRAPHQL_ENDPOINT         | Yes      | -       | WordPress WPGraphQL endpoint (ex: host.com/graphl)|
+| WORDPRESS_MENU_LOCATION_NAVIGATION | No       | PRIMARY | Configures header navigation Menu Location        |
+| WORDPRESS_PLUGIN_SEO               | No       | false   | Enables SEO plugin support (true, false)          |
 
 ### Development
 
