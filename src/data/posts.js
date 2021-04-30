@@ -55,7 +55,7 @@ export const QUERY_ALL_POSTS = gql`
 
 export const QUERY_POST_BY_SLUG = gql`
   query PostBySlug($slug: String!) {
-    postBy(slug: $slug) {
+    post(id: $slug, idType: SLUG {
       author {
         node {
           avatar {
@@ -197,7 +197,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
 
 export const QUERY_POST_SEO_BY_SLUG = gql`
   query PostSEOBySlug($slug: String!) {
-    postBy(slug: $slug) {
+    post(id: $slug, idType: SLUG) {
       seo {
         canonical
         metaDesc
