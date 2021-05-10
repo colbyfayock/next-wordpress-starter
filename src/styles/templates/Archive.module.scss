@@ -1,0 +1,28 @@
+@import "styles/settings/__settings";
+
+.archiveDescription {
+  text-align: center;
+  font-size: 1.1em;
+  color: $color-gray-600;
+  max-width: 36em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.posts {
+  list-style: none;
+  padding-left: 0;
+  margin: -1rem 0;
+
+  & > li {
+    margin: 4em 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

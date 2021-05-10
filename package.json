@@ -1,0 +1,56 @@
+{
+  "name": "next-wordpress-starter",
+  "homepage": "https://next-wordpress-starter.netlify.app",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "Colby Fayock <hello@colbyfayock.com>",
+  "scripts": {
+    "build": "next build && next export",
+    "dev": "next dev",
+    "format": "yarn prettier --config ./config/prettier.config.js --write .",
+    "format:nopath": "yarn prettier --config ./config/prettier.config.js --write",
+    "lint": "yarn prettier --config ./config/prettier.config.js --check .",
+    "start": "next start"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "yarn format:nopath"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.16",
+    "date-fns": "^2.21.1",
+    "dotenv": "^8.2.0",
+    "fabric": "^4.4.0",
+    "fuse.js": "^6.4.6",
+    "graphql": "^15.5.0",
+    "he": "^1.2.0",
+    "loader-utils": "^2.0.0",
+    "next": "10.1.3",
+    "next-compose-plugins": "^2.2.1",
+    "parameterize": "^1.0.0",
+    "path": "^0.12.7",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-icons": "^4.2.0",
+    "rss": "^1.2.2",
+    "sass": "^1.32.11",
+    "style.css": "^1.0.0"
+  },
+  "devDependencies": {
+    "husky": "4.3.8",
+    "lint-staged": ">=10",
+    "prettier": "2.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/colbyfayock/next-wordpress-starter"
+  },
+  "bugs": {
+    "url": "https://github.com/colbyfayock/next-wordpress-starter/issues"
+  }
+}

@@ -1,0 +1,49 @@
+@import "styles/settings/__settings";
+@import "style.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, sans-serif;
+}
+
+p {
+  line-height: 1.6;
+  margin: 1.2em 0;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+a {
+  color: $color-primary;
+}
+
+img {
+  max-width: 100%;
+}
+
+input {
+  &[type="text"],
+  &[type="search"],
+  &[type="email"] {
+    outline-offset: 0;
+    padding: 0.5em 0.8em;
+  }
+}
+
+.sr-only {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 0;
+  height: 0;
+}

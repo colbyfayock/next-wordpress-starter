@@ -1,0 +1,25 @@
+@import "styles/settings/__settings";
+
+.description {
+  text-align: center;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.posts {
+  list-style: none;
+  padding-left: 0;
+  margin: -1rem 0;
+
+  & > li {
+    margin: 4em 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,76 @@
+@import "styles/settings/__settings";
+
+.metadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: $color-gray-600;
+  list-style: none;
+  padding: 0;
+  margin: 0 -0.8em;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  & > li {
+    margin: 0.8em;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      color: $color-primary;
+      text-decoration: underline;
+    }
+  }
+}
+
+.metadataAuthor {
+  a {
+    margin-left: 0.2em;
+  }
+
+  address {
+    display: flex;
+    align-items: center;
+    font-style: normal;
+  }
+
+  img {
+    width: 1.4em;
+    height: auto;
+    border-radius: 50%;
+    margin-right: 0.5em;
+  }
+}
+
+.metadataCategories {
+  li {
+    display: inline-block;
+
+    &:after {
+      content: ", ";
+      margin-right: 0.4em;
+    }
+
+    &:last-child {
+      &:after {
+        content: none;
+      }
+    }
+  }
+}
+
+.metadataSticky {
+  font-size: 1.15em;
+  color: $color-gray-300;
+}

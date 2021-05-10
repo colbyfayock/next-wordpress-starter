@@ -1,0 +1,28 @@
+@import "styles/settings/__settings";
+
+.postMetadata {
+  text-align: center;
+  justify-content: center;
+}
+
+.postFooter {
+  text-align: center;
+}
+
+.postModified {
+  color: $color-gray-500;
+  font-style: italic;
+  margin-bottom: 3rem;
+}
+
+.relatedPosts {
+  display: flex;
+  flex-direction: column;
+  span {
+    font-size: 1.2em;
+    margin-bottom: 0.4em;
+  }
+  ul {
+    list-style: none;
+  }
+}

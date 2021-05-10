@@ -1,0 +1,97 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "colbyfayock",
+      "name": "Colby Fayock",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/1045274?v=4",
+      "profile": "https://colbyfayock.com/newsletter",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "doingandlearning",
+      "name": "Kevin Cunningham",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8320213?v=4",
+      "profile": "http://www.kevincunningham.co.uk",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "GuilleAngulo",
+      "name": "Guillermo Angulo",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/50624358?v=4",
+      "profile": "http://guilleangulo.me",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "HeinSnyman",
+      "name": "Hein Snyman",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/22816814?v=4",
+      "profile": "http://www.heinsnyman.co.za",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "grische",
+      "name": "Grische",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2787581?v=4",
+      "profile": "https://github.com/grische",
+      "contributions": [
+        "tool"
+      ]
+    },
+    {
+      "login": "jatin-rathee",
+      "name": "Jatin Rathee",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/44899844?v=4",
+      "profile": "https://github.com/jatin-rathee",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "thedavedavies",
+      "name": "Dave",
+      "avatar_url": "https://avatars.githubusercontent.com/u/2972436?v=4",
+      "profile": "https://highaltitude.io/",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "bradgarropy",
+      "name": "Brad Garropy",
+      "avatar_url": "https://avatars.githubusercontent.com/u/11336745?v=4",
+      "profile": "https://bradgarropy.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "ffabiosales",
+      "name": "Fábio Sales",
+      "avatar_url": "https://avatars.githubusercontent.com/u/1392528?v=4",
+      "profile": "http://ffabiosales.github.io",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "next-wordpress-starter",
+  "projectOwner": "colbyfayock",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}

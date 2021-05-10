@@ -1,0 +1,183 @@
+@import "styles/settings/__settings";
+
+.nav {
+  width: 100%;
+  border-bottom: 1px solid $color-gray-100;
+  padding: 0 1rem;
+}
+
+.navSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+
+  @media (min-width: 480px) {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+.navName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 1;
+  margin: 0.8em 0 0;
+
+  @media (min-width: 480px) {
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+
+  a {
+    color: $color-gray-500;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: solid 2px transparent;
+
+    @media (min-width: 480px) {
+      padding: 0.5em;
+      margin-left: -0.5em;
+    }
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0 0.25em;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $color-gray-600;
+    font-size: 1.1em;
+    padding: 0.5em;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+}
+
+.navSearch {
+  flex-grow: 0;
+  margin-left: 1em;
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+
+    @media (min-width: 480px) {
+      justify-content: flex-end;
+      margin-right: -1rem;
+    }
+  }
+
+  input {
+    font-size: 0.845em;
+  }
+
+  button {
+    font-size: 1.2em;
+    background: none;
+    padding: 1.045em;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    svg {
+      fill: $color-gray-400;
+      transform: translateY(2px);
+    }
+
+    &:focus {
+      svg {
+        fill: $color-primary;
+      }
+    }
+  }
+}
+
+.navSearchResults {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100vw;
+  background-color: white;
+  padding: 1.5em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-top: solid 5px $color-primary;
+  margin-right: -1rem;
+  z-index: 999;
+
+  @media (min-width: 480px) {
+    width: 30em;
+    margin-right: 0;
+  }
+
+  [data-search-is-active="true"] & {
+    display: block;
+  }
+
+  p {
+    line-height: 1.15;
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: -0.5em 0;
+  }
+
+  a {
+    display: block;
+    color: $color-gray-800;
+    text-decoration: none;
+    padding: 0.5em;
+    margin: 0 -0.5em;
+    &:focus {
+      outline: 2px solid $color-blue-500;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+}
