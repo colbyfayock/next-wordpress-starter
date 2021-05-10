@@ -71,11 +71,14 @@
     &:last-child {
       margin-right: 0;
     }
+<<<<<<< HEAD
     &:hover {
       .navSubMenu {
         display: block;
       }
     }
+=======
+>>>>>>> 4192908c3dabf341ad5bd230f46409ce870aa385
   }
 
   a {
@@ -91,6 +94,7 @@
       }
     }
   }
+<<<<<<< HEAD
 
   .navSubMenu {
     background-color: #fff;
@@ -111,6 +115,8 @@
       }
     }
   }
+=======
+>>>>>>> 4192908c3dabf341ad5bd230f46409ce870aa385
 }
 
 .navSearch {

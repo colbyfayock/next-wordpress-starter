@@ -63,6 +63,7 @@ export function createMenuFromPages({ locations, pages }) {
 }
 
 /**
+<<<<<<< HEAD
  * parseHierarchicalMenu
  */
 export const parseHierarchicalMenu = (
@@ -82,6 +83,8 @@ export const parseHierarchicalMenu = (
 };
 
 /**
+=======
+>>>>>>> 4192908c3dabf341ad5bd230f46409ce870aa385
  * findMenuByLocation
  */
 
@@ -96,5 +99,9 @@ export function findMenuByLocation(menus, location) {
     menu = menus.find(({ locations }) => locations.includes(location.shift()));
   } while (!menu && location.length > 0);
 
+<<<<<<< HEAD
   return parseHierarchicalMenu(menu.menuItems);
+=======
+  return menu;
+>>>>>>> 4192908c3dabf341ad5bd230f46409ce870aa385
 }
