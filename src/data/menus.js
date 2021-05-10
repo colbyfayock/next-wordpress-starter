@@ -12,6 +12,7 @@ export const QUERY_ALL_MENUS = gql`
               node {
                 cssClasses
                 id
+                parentId
                 label
                 title
                 target

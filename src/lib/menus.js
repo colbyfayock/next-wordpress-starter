@@ -63,6 +63,25 @@ export function createMenuFromPages({ locations, pages }) {
 }
 
 /**
+ * parseHierarchicalMenu
+ */
+export const parseHierarchicalMenu = (
+  data = [],
+  { idKey = 'id', parentKey = 'parentId', childrenKey = 'children' } = {}
+) => {
+  const tree = [];
+  const childrenOf = {};
+  data.forEach((item) => {
+    const newItem = { ...item };
+    const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
+    childrenOf[id] = childrenOf[id] || [];
+    newItem[childrenKey] = childrenOf[id];
+    parentId ? (childrenOf[parentId] = childrenOf[parentId] || []).push(newItem) : tree.push(newItem);
+  });
+  return tree;
+};
+
+/**
  * findMenuByLocation
  */
 
@@ -77,5 +96,5 @@ export function findMenuByLocation(menus, location) {
     menu = menus.find(({ locations }) => locations.includes(location.shift()));
   } while (!menu && location.length > 0);
 
-  return menu;
+  return parseHierarchicalMenu(menu.menuItems);
 }

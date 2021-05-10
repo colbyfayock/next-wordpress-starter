@@ -71,6 +71,11 @@
     &:last-child {
       margin-right: 0;
     }
+    &:hover {
+      .navSubMenu {
+        display: block;
+      }
+    }
   }
 
   a {
@@ -83,6 +88,26 @@
     @media (hover: hover) {
       &:hover {
         color: $color-primary;
+      }
+    }
+  }
+
+  .navSubMenu {
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    padding: 0;
+    list-style: none;
+    padding: 0.5em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-left: -2.5em;
+    li {
+      a {
+        font-size: 1rem;
+        padding: 0.3em;
+      }
+      &:not(:last-child) {
+        // border-bottom: 1px solid $color-gray-100;
       }
     }
   }

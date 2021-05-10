@@ -180,7 +180,7 @@ const Nav = () => {
           </Link>
         </p>
         <ul className={styles.navMenu}>
-          {navigation?.menuItems.map(({ id, path, label, title, target }) => {
+          {navigation?.map(({ id, path, label, title, target, children }) => {
             return (
               <li key={id}>
                 {!path.includes('http') && !target && (
@@ -192,6 +192,27 @@ const Nav = () => {
                   <a href={path} title={title} target={target}>
                     {label}
                   </a>
+                )}
+
+                {children?.length > 0 && (
+                  <ul className={styles.navSubMenu}>
+                    {children.map(({ id, path, label, title, target, children }) => {
+                      return (
+                        <li key={id}>
+                          {!path.includes('http') && !target && (
+                            <Link href={path}>
+                              <a title={title}>{label}</a>
+                            </Link>
+                          )}
+                          {path.includes('http') && (
+                            <a href={path} title={title} target={target}>
+                              {label}
+                            </a>
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
                 )}
               </li>
             );
