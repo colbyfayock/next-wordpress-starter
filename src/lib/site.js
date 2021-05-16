@@ -1,6 +1,6 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { decodeHtmlEntities, removeLastTrailingSlash } from 'lib/util';
+import { decodeHtmlEntities, removeLastTrailingSlash, removeExtraSpaces } from 'lib/util';
 
 import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 
@@ -192,6 +192,8 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
 export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
   const { link = [], meta = [], setTitle = true } = options;
 
+  const sanitizedDescription = removeExtraSpaces(metadata.description);
+
   const settings = {
     htmlAttributes: {
       lang: metadata.language,
@@ -214,7 +216,7 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     ...meta,
     {
       name: 'description',
-      content: metadata.description,
+      content: sanitizedDescription,
     },
     {
       property: 'og:title',
@@ -222,7 +224,7 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     },
     {
       property: 'og:description',
-      content: metadata.og?.description || metadata.description,
+      content: metadata.og?.description || sanitizedDescription,
     },
     {
       property: 'og:url',
@@ -258,7 +260,7 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     },
     {
       property: 'twitter:description',
-      content: metadata.twitter?.description || metadata.og?.description || metadata.description,
+      content: metadata.twitter?.description || metadata.og?.description || sanitizedDescription,
     },
     {
       property: 'twitter:image',
