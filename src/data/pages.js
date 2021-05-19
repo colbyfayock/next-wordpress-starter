@@ -99,6 +99,7 @@ export const QUERY_PAGE_BY_URI = gql`
 export const QUERY_PAGE_SEO_BY_URI = gql`
   query PageSEOByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
+      id
       seo {
         canonical
         metaDesc

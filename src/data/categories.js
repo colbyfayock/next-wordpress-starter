@@ -37,6 +37,7 @@ export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
     categories(where: { slug: $slug }, first: 10000) {
       edges {
         node {
+          id
           seo {
             canonical
             metaDesc
