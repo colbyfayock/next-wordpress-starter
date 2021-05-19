@@ -1,3 +1,4 @@
+import NextApp from 'next/app';
 import { ApolloProvider } from '@apollo/client';
 
 import { SiteContext, useSiteContext } from 'hooks/use-site';
@@ -30,7 +31,9 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
   );
 }
 
-App.getInitialProps = async function () {
+App.getInitialProps = async function (appContext) {
+  const appProps = await NextApp.getInitialProps(appContext);
+
   const { posts: recentPosts } = await getRecentPosts({
     count: 5,
   });
@@ -49,6 +52,7 @@ App.getInitialProps = async function () {
   menus.push(defaultNavigation);
 
   return {
+    ...appProps,
     metadata: await getSiteMetadata(),
     recentPosts,
     categories,
