@@ -1,12 +1,9 @@
-import { getAllAuthors, getUserBySlug } from 'lib/users';
 import { getAllCategories, getCategoryBySlug } from 'lib/categories';
 import { getPostsByCategoryId } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
-
-import styles from 'styles/pages/Post.module.scss';
 
 export default function Category({ category, posts }) {
   const { name, description, slug } = category;
@@ -34,8 +31,6 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const routes = {};
-
   const { categories } = await getAllCategories();
 
   const paths = categories.map((category) => {

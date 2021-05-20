@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
@@ -58,7 +57,7 @@ export default function Categories({ categories }) {
   );
 }
 
-export async function getStaticProps({ params = {} } = {}) {
+export async function getStaticProps() {
   const { categories } = await getAllCategories();
 
   return {

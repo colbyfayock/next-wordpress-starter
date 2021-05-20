@@ -7,9 +7,7 @@
   "scripts": {
     "build": "next build && next export",
     "dev": "next dev",
-    "format": "yarn prettier --config ./config/prettier.config.js --write .",
-    "format:nopath": "yarn prettier --config ./config/prettier.config.js --write",
-    "lint": "yarn prettier --config ./config/prettier.config.js --check .",
+    "lint": "yarn eslint --fix",
     "start": "next start"
   },
   "husky": {
@@ -18,7 +16,8 @@
     }
   },
   "lint-staged": {
-    "*": "yarn format:nopath"
+    "**/*.js": "yarn lint",
+    "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
     "@apollo/client": "^3.3.18",
@@ -42,6 +41,11 @@
     "style.css": "^1.0.0"
   },
   "devDependencies": {
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "4.3.8",
     "lint-staged": ">=11.0.0",
     "prettier": "2.3.0"
