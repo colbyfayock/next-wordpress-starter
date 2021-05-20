@@ -1,6 +1,6 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { decodeHtmlEntities, removeLastTrailingSlash, removeExtraSpaces } from 'lib/util';
+import { decodeHtmlEntities, removeExtraSpaces } from 'lib/util';
 
 import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 

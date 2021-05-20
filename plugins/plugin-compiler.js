@@ -42,7 +42,7 @@ class WebpackPlugin {
       }
 
       //If there is an aditional action to perform
-      if (!!plugin.postcreate) {
+      if (plugin.postcreate) {
         plugin.postcreate(plugin);
       }
 

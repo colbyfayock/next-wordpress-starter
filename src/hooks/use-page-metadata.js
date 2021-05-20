@@ -6,7 +6,7 @@ import { SiteContext } from 'hooks/use-site';
 import { constructPageMetadata } from 'lib/site';
 
 export default function usePageMetadata({ metadata: pageMetadata }) {
-  const { homepage, metadata: defaultMetadata, ...rest } = useContext(SiteContext);
+  const { homepage, metadata: defaultMetadata } = useContext(SiteContext);
 
   const router = useRouter();
 

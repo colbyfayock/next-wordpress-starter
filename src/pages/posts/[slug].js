@@ -24,7 +24,6 @@ export default function Post({ post, socialImage, relatedPosts }) {
     title,
     metaTitle,
     description,
-    excerpt,
     content,
     date,
     author,
@@ -167,8 +166,6 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const routes = {};
-
   const { posts } = await getAllPosts();
 
   const paths = posts.map((post) => {

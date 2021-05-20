@@ -1,4 +1,3 @@
-import path from 'path';
 import { useContext, createContext } from 'react';
 
 import config from '../../package.json';

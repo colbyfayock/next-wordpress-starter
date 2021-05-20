@@ -5,7 +5,6 @@ import { FaSearch } from 'react-icons/fa';
 import useSite from 'hooks/use-site';
 import useSearch from 'hooks/use-search';
 import { postPathBySlug } from 'lib/posts';
-import { pagePathBySlug } from 'lib/pages';
 import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
 
 import Section from 'components/Section';
@@ -59,6 +58,7 @@ const Nav = () => {
       removeResultsRoving();
       removeDocumentOnClick();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchVisibility]);
 
   /**
@@ -161,6 +161,7 @@ const Nav = () => {
       clearSearch();
       setSearchVisibility(SEARCH_HIDDEN);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -169,6 +170,7 @@ const Nav = () => {
     return () => {
       document.removeEventListener('keydown', escFunction, false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -196,7 +198,7 @@ const Nav = () => {
 
                 {children?.length > 0 && (
                   <ul className={styles.navSubMenu}>
-                    {children.map(({ id, path, label, title, target, children }) => {
+                    {children.map(({ id, path, label, title, target }) => {
                       return (
                         <li key={id}>
                           {!path.includes('http') && !target && (

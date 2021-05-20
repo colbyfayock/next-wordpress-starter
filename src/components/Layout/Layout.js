@@ -1,4 +1,3 @@
-import path from 'path';
 import { useRouter } from 'next/router';
 import { Helmet } from 'react-helmet';
 import styles from './Layout.module.scss';
@@ -15,7 +14,6 @@ const Layout = ({ children }) => {
   const { asPath } = router;
 
   const { homepage, metadata = {} } = useSite();
-  const { twitter } = metadata;
 
   if (!metadata.og) {
     metadata.og = {};

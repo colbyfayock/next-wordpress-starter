@@ -15,6 +15,7 @@ export default function Search() {
     search({
       query: params.get('q'),
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { metadata } = usePageMetadata({
