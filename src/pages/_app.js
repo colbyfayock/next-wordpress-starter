@@ -8,13 +8,10 @@ import { getRecentPosts } from 'lib/posts';
 import { getTopLevelPages } from 'lib/pages';
 import { getCategories } from 'lib/categories';
 import { getAllMenus, createMenuFromPages, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
-import useApolloClient from 'hooks/use-apollo-client';
 
 import 'styles/globals.scss';
 
 function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
-  const apolloClient = useApolloClient(pageProps.initialApolloState);
-
   const site = useSiteContext({
     metadata,
     recentPosts,
@@ -23,11 +20,9 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
   });
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <SiteContext.Provider value={site}>
-        <Component {...pageProps} />
-      </SiteContext.Provider>
-    </ApolloProvider>
+    <SiteContext.Provider value={site}>
+      <Component {...pageProps} />
+    </SiteContext.Provider>
   );
 }
 

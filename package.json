@@ -7,7 +7,8 @@
   "scripts": {
     "build": "next build && next export",
     "dev": "next dev",
-    "lint": "yarn eslint --fix",
+    "format": "yarn lint --fix",
+    "lint": "eslint",
     "start": "next start"
   },
   "husky": {
@@ -16,7 +17,7 @@
     }
   },
   "lint-staged": {
-    "**/*.js": "yarn lint",
+    "**/*.js": "yarn format",
     "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
