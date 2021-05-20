@@ -115,7 +115,7 @@ export async function getPostBySlug(slug) {
  * getAllPosts
  */
 
-export async function getAllPosts(options) {
+export async function getAllPosts() {
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
@@ -208,7 +208,7 @@ export function sanitizeExcerpt(excerpt) {
 
   let sanitized = excerpt;
 
-  sanitized = sanitized.replace(/\s?\[\&hellip\;\]/, '...');
+  sanitized = sanitized.replace(/\s?\[&hellip;\]/, '...');
   sanitized = sanitized.replace('....', '...');
 
   return sanitized;
@@ -265,7 +265,7 @@ export function mapPostData(post = {}) {
 export async function getRelatedPosts(category, postId, count = 5) {
   let relatedPosts = [];
 
-  if (!!category) {
+  if (category) {
     const { posts } = await getPostsByCategoryId(category.categoryId);
     const filtered = posts.filter(({ postId: id }) => id !== postId);
     const sorted = sortObjectsByDate(filtered);

@@ -99,7 +99,7 @@ export async function getPageByUri(uri) {
  * getAllPages
  */
 
-export async function getAllPages(options) {
+export async function getAllPages() {
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({

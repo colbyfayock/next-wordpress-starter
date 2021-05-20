@@ -1,7 +1,5 @@
-import { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { getPosts } from 'lib/posts';
 import { WebpageJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
@@ -12,11 +10,9 @@ import Section from 'components/Section';
 import Container from 'components/Container';
 import SectionTitle from 'components/SectionTitle';
 import PostCard from 'components/PostCard';
-
-import searchIndex from 'public/wp-search.json';
+import Pagination from 'components/Pagination/Pagination';
 
 import styles from 'styles/templates/Archive.module.scss';
-import Pagination from '../components/Pagination/Pagination';
 
 const DEFAULT_POST_OPTIONS = {};
 

@@ -6,8 +6,6 @@ import usePageMetadata from 'hooks/use-page-metadata';
 import TemplateArchive from 'templates/archive';
 import Title from 'components/Title';
 
-import styles from 'styles/pages/Post.module.scss';
-
 export default function Author({ user, posts }) {
   const { title, name, avatar, description, slug } = user;
 
@@ -50,8 +48,6 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const routes = {};
-
   const { authors } = await getAllAuthors();
 
   const paths = authors.map((author) => {

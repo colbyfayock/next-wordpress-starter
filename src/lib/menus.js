@@ -8,7 +8,7 @@ export const MENU_LOCATION_NAVIGATION_DEFAULT = 'DEFAULT_NAVIGATION';
  * getAllMenus
  */
 
-export async function getAllMenus(options) {
+export async function getAllMenus() {
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({

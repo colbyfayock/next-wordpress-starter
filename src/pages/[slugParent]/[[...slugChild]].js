@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
-import { format } from 'date-fns';
 
-import { getPageByUri, getAllPages, pagePathBySlug, getBreadcrumbsByUri } from 'lib/pages';
+import { getPageByUri, getAllPages, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
@@ -19,7 +18,7 @@ import Breadcrumbs from 'components/Breadcrumbs';
 import styles from 'styles/pages/Page.module.scss';
 
 export default function Page({ page, breadcrumbs }) {
-  const { title, metaTitle, description, slug, content, date, featuredImage, children, parent } = page;
+  const { title, metaTitle, description, slug, content, featuredImage, children } = page;
 
   const { metadata: siteMetadata = {} } = useSite();
 
@@ -104,7 +103,7 @@ export default function Page({ page, breadcrumbs }) {
   );
 }
 
-export async function getStaticProps({ params = {} } = {}, ...rest) {
+export async function getStaticProps({ params = {} } = {}) {
   const { slugParent, slugChild } = params;
 
   // We can use the URI to look up our page and subsequently its ID, so
