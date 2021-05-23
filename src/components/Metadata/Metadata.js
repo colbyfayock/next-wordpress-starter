@@ -24,12 +24,14 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
       {author && (
         <li className={styles.metadataAuthor}>
           <address>
-            <img
-              width={author.avatar.width}
-              height={author.avatar.height}
-              src={author.avatar.url}
-              alt="Author Avatar"
-            />
+            {author.avatar && (
+              <img
+                width={author.avatar.width}
+                height={author.avatar.height}
+                src={author.avatar.url}
+                alt="Author Avatar"
+              />
+            )}
             By{' '}
             <Link href={authorPathByName(author.name)}>
               <a rel="author">{author.name}</a>
