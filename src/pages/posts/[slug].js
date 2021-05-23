@@ -144,7 +144,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
 export async function getStaticProps({ params = {} } = {}) {
   const { post } = await getPostBySlug(params?.slug);
 
-  const socialImage = `/images/${params?.slug}.png`;
+  const socialImage = `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`;
 
   const { categories, postId } = post;
   const category = categories.length && categories[0];

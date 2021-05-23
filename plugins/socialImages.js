@@ -8,7 +8,12 @@ const WebpackPluginCompiler = require('./plugin-compiler');
 const pkg = require('../package.json');
 
 module.exports = function sitemap(nextConfig = {}) {
-  const { env, outputDirectory = './public/images', outputName = '[slug].png', verbose = false } = nextConfig;
+  const {
+    env,
+    outputDirectory = `./public${nextConfig.env.OG_IMAGE_DIRECTORY}`,
+    outputName = '[slug].png',
+    verbose = false,
+  } = nextConfig;
 
   const width = 1012;
   const height = 506;
