@@ -10,7 +10,7 @@
     "dev": "next dev",
     "format": "yarn lint --fix",
     "lint": "eslint",
-    "start": "next start -p ${PORT}"
+    "start": "next start -p ${PORT:=3000}"
   },
   "husky": {
     "hooks": {
