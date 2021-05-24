@@ -140,6 +140,12 @@ The Yoast SEO plugin is partially supported including most major features like m
 
 To enable the plugin, configure `WORDPRESS_PLUGIN_SEO` to be `true` either as an environment variable or within next.config.js.
 
+## Sponsors
+
+WordPress hosting for the public-facing project provided by [WP Engine](https://wpengine.com/).
+
+<img width="315" height="60" src="https://user-images.githubusercontent.com/1045274/119288571-cb3ce480-bc16-11eb-9061-9cc264ca16de.jpg" alt="WP Engine Logo" />
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
