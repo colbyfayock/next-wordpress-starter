@@ -1,8 +1,6 @@
 const path = require('path');
 
-const { createApolloClient, createFile, terminalColor } = require('./util');
-
-const DEFAULT_GRAPHQL_PATH = '/graphql';
+const { createApolloClient, createFile, terminalColor, removeLastTrailingSlash } = require('./util');
 
 class WebpackPlugin {
   constructor(options = {}) {
@@ -10,12 +8,7 @@ class WebpackPlugin {
   }
 
   async index(compilation, options) {
-    const { url, host, plugin, verbose = false } = options;
-    let endpoint = url;
-
-    if (!endpoint && host) {
-      endpoint = `${host}${DEFAULT_GRAPHQL_PATH}`;
-    }
+    const { url, plugin, verbose = false } = options;
 
     try {
       plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
@@ -23,15 +16,14 @@ class WebpackPlugin {
       verbose && console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
 
       const hasUrl = typeof url === 'string';
-      const hasHost = typeof host === 'string';
 
-      if (!hasUrl && !hasHost) {
+      if (!hasUrl) {
         throw new Error(
-          `[${plugin.name}] Failed to compile: Please check that either WORDPRESS_GRAPHQL_ENDPOINT or WORDPRESS_HOST is set and configured properly.`
+          `[${plugin.name}] Failed to compile: Please check that WORDPRESS_GRAPHQL_ENDPOINT is set and configured in your environment. WORDPRESS_HOST is no longer supported by default.`
         );
       }
 
-      const apolloClient = createApolloClient(endpoint);
+      const apolloClient = createApolloClient(removeLastTrailingSlash(url));
 
       const data = await plugin.getData(apolloClient, plugin.name, verbose);
 

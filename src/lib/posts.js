@@ -25,7 +25,7 @@ export function postPathBySlug(slug) {
 
 export async function getPostBySlug(slug) {
   const apolloClient = getApolloClient();
-  const apiHost = new URL(process.env.WORDPRESS_HOST || process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
+  const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let postData;
   let seoData;

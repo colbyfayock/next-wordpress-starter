@@ -16,7 +16,7 @@ export function pagePathBySlug(slug) {
 
 export async function getPageByUri(uri) {
   const apolloClient = getApolloClient();
-  const apiHost = new URL(process.env.WORDPRESS_HOST || process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
+  const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let pageData;
   let seoData;
