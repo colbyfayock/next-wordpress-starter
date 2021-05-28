@@ -33,14 +33,14 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party services that can be deployed anywhere. 
 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
-* Blog https://next-wordpress-starter.netlify.app
-* Pages (https://next-wordpress-starter.netlify.app/docs/)
-* Posts (https://next-wordpress-starter.netlify.app/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
-* Categories (https://next-wordpress-starter.netlify.app/categories/lorem/)
-* Authors (https://next-wordpress-starter.netlify.app/authors/colby/)
-* Search (Client side global navigation and https://next-wordpress-starter.netlify.app/search/?q=sit)
-* RSS (https://next-wordpress-starter.netlify.app/feed.xml)
-* Sitemap (https://next-wordpress-starter.netlify.app/sitemap.xml)
+* Blog https://next-wordpress-starter.spacejelly.dev
+* Pages (https://next-wordpress-starter.spacejelly.dev/docs/)
+* Posts (https://next-wordpress-starter.spacejelly.dev/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
+* Categories (https://next-wordpress-starter.spacejelly.dev/categories/lorem/)
+* Authors (https://next-wordpress-starter.spacejelly.dev/authors/colby/)
+* Search (Client side global navigation and https://next-wordpress-starter.spacejelly.dev/search/?q=sit)
+* RSS (https://next-wordpress-starter.spacejelly.dev/feed.xml)
+* Sitemap (https://next-wordpress-starter.spacejelly.dev/sitemap.xml)
 
 Additionally, the theme is expected to be SEO friendly and performant out of the box, including:
 * Unique page titles
