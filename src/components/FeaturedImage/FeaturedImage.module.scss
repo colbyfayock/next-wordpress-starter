@@ -7,7 +7,7 @@
     position: relative;
     width: 100%;
     height: 0;
-    padding-top: percentage(math.div(400, 960));
+    padding-top: percentage(400 / 960);
   }
 
   img {
