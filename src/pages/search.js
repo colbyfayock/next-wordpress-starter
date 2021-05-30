@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import useSearch from 'hooks/use-search';
@@ -21,9 +22,16 @@ export default function Search() {
   const { metadata } = usePageMetadata({
     metadata: {
       title,
-      description: `${results.length} result${results.length !== 1 ? 's' : ''} ${query ? `for ${query}` : ''}`,
+      description: `Search results for ${query}`,
     },
   });
 
-  return <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />;
+  return (
+    <>
+      <Helmet>
+        <meta name="robots" content="noindex" />
+      </Helmet>
+      <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />
+    </>
+  );
 }

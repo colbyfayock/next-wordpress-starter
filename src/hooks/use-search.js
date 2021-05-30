@@ -1,34 +1,81 @@
-import { useState, useEffect } from 'react';
+import { useState, createContext, useContext, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
-import searchIndex from 'public/wp-search.json';
+import { getSearchData } from 'lib/search';
 
-const searchKeys = ['slug', 'title'];
+const SEARCH_KEYS = ['slug', 'title'];
 
-const fuse = new Fuse(searchIndex.posts, {
-  keys: searchKeys,
-  isCaseSensitive: false,
-});
+export const SearchContext = createContext();
 
-export default function useSearch({ defaultQuery, maxResults } = {}) {
+export const SearchProvider = (props) => {
+  const search = useSearchState();
+  return <SearchContext.Provider value={search} {...props} />;
+};
+
+export function useSearchState() {
+  const [state, setState] = useState('READY');
+  const [data, setData] = useState(null);
+
+  let client;
+
+  if (data) {
+    client = new Fuse(data.posts, {
+      keys: SEARCH_KEYS,
+      isCaseSensitive: false,
+    });
+  }
+
+  // On load, we want to immediately pull in the search index, which we're
+  // storing clientside and gets built at compile time
+
+  useEffect(() => {
+    (async function getData() {
+      setState('LOADING');
+
+      let searchData;
+
+      try {
+        searchData = await getSearchData();
+      } catch (e) {
+        setState('ERROR');
+        return;
+      }
+
+      setData(searchData);
+      setState('LOADED');
+    })();
+  }, []);
+
+  return {
+    state,
+    data,
+    client,
+  };
+}
+
+export default function useSearch({ defaultQuery = null, maxResults } = {}) {
+  const search = useContext(SearchContext);
+  const { client } = search;
+
   const [query, setQuery] = useState(defaultQuery);
-  let results = searchIndex.posts;
 
-  // If the defaultQuery argument changes, the hook should reflect
-  // that update and set that as the new state
+  let results = [];
 
-  useEffect(() => setQuery(defaultQuery), [defaultQuery]);
+  // If we have a query, make a search. Otherwise, don't modify the
+  // results to avoid passing back empty results
 
-  // If we have a query, make a search with fuse. Otherwise, don't
-  // modify the results to avoid passing back empty results
-
-  if (query) {
-    results = fuse.search(query).map(({ item }) => item);
+  if (client && query) {
+    results = client.search(query).map(({ item }) => item);
   }
 
   if (maxResults && results.length > maxResults) {
     results = results.slice(0, maxResults);
   }
+
+  // If the defaultQuery argument changes, the hook should reflect
+  // that update and set that as the new state
+
+  useEffect(() => setQuery(defaultQuery), [defaultQuery]);
 
   /**
    * handleSearch
@@ -43,10 +90,11 @@ export default function useSearch({ defaultQuery, maxResults } = {}) {
    */
 
   function handleClearSearch() {
-    setQuery(undefined);
+    setQuery(null);
   }
 
   return {
+    ...search,
     query,
     results,
     search: handleSearch,
