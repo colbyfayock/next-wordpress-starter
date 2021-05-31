@@ -22,7 +22,7 @@
     "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.18",
+    "@apollo/client": "^3.3.19",
     "date-fns": "^2.21.3",
     "dotenv": "^9.0.2",
     "fabric": "^4.5.0",
