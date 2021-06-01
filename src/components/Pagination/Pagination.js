@@ -11,7 +11,7 @@ const MAX_NUM_PAGES = 9;
 
 const { homepage = '' } = config;
 
-const Pagination = ({ pagesCount, currentPage, basePath }) => {
+const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) => {
   const path = `${basePath}/page/`;
 
   const hasPreviousPage = pagesCount > 1 && currentPage > 1;
@@ -48,7 +48,7 @@ const Pagination = ({ pagesCount, currentPage, basePath }) => {
   return (
     <>
       <Helmet>
-        {!hasPreviousPage && <link rel="canonical" href={`${homepage}${basePath}`} />}
+        {addCanonical && !hasPreviousPage && <link rel="canonical" href={`${homepage}${basePath}`} />}
         {hasPreviousPage && <link rel="prev" href={`${homepage}${path}${currentPage - 1}`} />}
         {hasNextPage && <link rel="next" href={`${homepage}${path}${currentPage + 1}`} />}
       </Helmet>
