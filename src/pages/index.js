@@ -48,6 +48,7 @@ export default function Home({ posts, pagination }) {
           </ul>
           {pagination && (
             <Pagination
+              addCanonical={false}
               currentPage={pagination?.currentPage}
               pagesCount={pagination?.pagesCount}
               basePath={pagination?.basePath}
