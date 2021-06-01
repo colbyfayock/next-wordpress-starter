@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@apollo/client@^3.3.18":
-  version "3.3.18"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.18.tgz#dc722576a88fddb5c3ae0bb03d5675e0bb7ec07e"
-  integrity sha512-SaJSda4V36/pnv7jkCBROBPwd3w/3TnG/Bd8oLESuNqm6ruXDHt067ow00Y2zz1AOL8SuOI9LXjmkr+FcTqnIQ==
+"@apollo/client@^3.3.19":
+  version "3.3.19"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.3.19.tgz#f1172dc9b9d7eae04c8940b047fd3b452ef92d2c"
+  integrity sha512-vzljWLPP0GwocfBhUopzDCUwsiaNTtii1eu8qDybAXqwj4/ZhnIM46c6dNQmnVcJpAIFRIsNCOxM4OlMDySJug==
   dependencies:
     "@graphql-typed-document-node/core" "^3.0.0"
     "@types/zen-observable" "^0.8.0"
@@ -1369,10 +1369,10 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fabric@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/fabric/-/fabric-4.4.0.tgz#2b73454008b8082f2d234c4637bdf645876c490c"
-  integrity sha512-mX6BZqssJjrT6LN1B4Wcmgm93NIlmKfPN5qTqon9wdDJgRAxPfrhfz2iT+QmDso9P8+s0qyLXFhuVpxOBBMHEw==
+fabric@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/fabric/-/fabric-4.5.0.tgz#fd2d1af7fa715d77ae61c264d89c4c0616d9ad3f"
+  integrity sha512-flad9Bs67l/2ko2Bcob6tIzvtnViLDUdWsFzbBc4icIvZG1+a7QJIpDyGuFHf3sQ0XRdezWwnzz4Oqp8RYveGw==
   optionalDependencies:
     canvas "^2.6.1"
     jsdom "^15.2.1"
@@ -3314,10 +3314,10 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.32.13:
-  version "1.32.13"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.32.13.tgz#8d29c849e625a415bce71609c7cf95e15f74ed00"
-  integrity sha512-dEgI9nShraqP7cXQH+lEXVf73WOPCse0QlFzSD8k+1TcOxCMwVXfQlr0jtoluZysQOyJGnfr21dLvYKDJq8HkA==
+sass@^1.34.0:
+  version "1.34.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.34.0.tgz#e46d5932d8b0ecc4feb846d861f26a578f7f7172"
+  integrity sha512-rHEN0BscqjUYuomUEaqq3BMgsXqQfkcMVR7UhscsAVub0/spUrZGBMxQXFS2kfiDsPLZw5yuU9iJEFNC2x38Qw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 

@@ -22,10 +22,10 @@
     "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.3.18",
+    "@apollo/client": "^3.3.19",
     "date-fns": "^2.21.3",
     "dotenv": "^9.0.2",
-    "fabric": "^4.4.0",
+    "fabric": "^4.5.0",
     "fuse.js": "^6.4.6",
     "graphql": "^15.5.0",
     "he": "^1.2.0",
@@ -39,7 +39,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.2.0",
     "rss": "^1.2.2",
-    "sass": "^1.32.13",
+    "sass": "^1.34.0",
     "style.css": "^1.0.0"
   },
   "devDependencies": {

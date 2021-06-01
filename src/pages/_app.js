@@ -1,7 +1,7 @@
 import NextApp from 'next/app';
-import { ApolloProvider } from '@apollo/client';
 
 import { SiteContext, useSiteContext } from 'hooks/use-site';
+import { SearchProvider } from 'hooks/use-search';
 
 import { getSiteMetadata } from 'lib/site';
 import { getRecentPosts } from 'lib/posts';
@@ -21,7 +21,9 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
 
   return (
     <SiteContext.Provider value={site}>
-      <Component {...pageProps} />
+      <SearchProvider>
+        <Component {...pageProps} />
+      </SearchProvider>
     </SiteContext.Provider>
   );
 }

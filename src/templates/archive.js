@@ -58,21 +58,25 @@ export default function TemplateArchive({
       <Section>
         <Container>
           <SectionTitle>Posts</SectionTitle>
-          <ul className={styles.posts}>
-            {posts.map((post) => {
-              return (
-                <li key={post.slug}>
-                  <PostCard post={post} options={postOptions} />
-                </li>
-              );
-            })}
-          </ul>
-          {pagination && (
-            <Pagination
-              currentPage={pagination?.currentPage}
-              pagesCount={pagination?.pagesCount}
-              basePath={pagination?.basePath}
-            />
+          {Array.isArray(posts) && (
+            <>
+              <ul className={styles.posts}>
+                {posts.map((post) => {
+                  return (
+                    <li key={post.slug}>
+                      <PostCard post={post} options={postOptions} />
+                    </li>
+                  );
+                })}
+              </ul>
+              {pagination && (
+                <Pagination
+                  currentPage={pagination?.currentPage}
+                  pagesCount={pagination?.pagesCount}
+                  basePath={pagination?.basePath}
+                />
+              )}
+            </>
           )}
         </Container>
       </Section>
