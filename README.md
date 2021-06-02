@@ -90,6 +90,22 @@ npm run dev
 
 The project should now be available at [http://localhost:3000](http://localhost:3000)!
 
+#### ESLint extension for Visual Studio Code
+
+It is possible to take advantage of this extension to improve the development experience.
+To set up the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) in Visual Studio Code add a new folder to the root `.vscode`. Inside add a file `settings.json` with the following content:
+
+```json
+{
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
+}
+```
+
+With this file ESLint will automatically fix and validate syntax errors and format the code on save (based on Prettier configuration).
+
 ## 🛠 Configuring Your Project
 
 ### package.json
