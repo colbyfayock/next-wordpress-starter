@@ -271,7 +271,7 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
       content: metadata.twitter?.username && `@${metadata.twitter.username}`,
     },
     {
-      property: 'twitter:card_type',
+      property: 'twitter:card',
       content: metadata.twitter?.cardType,
     },
     {
