@@ -146,6 +146,13 @@
     outline: none;
     cursor: pointer;
 
+    &[disabled] {
+      svg {
+        fill: $color-gray-200;
+        transition: fill 0.5s;
+      }
+    }
+
     svg {
       fill: $color-gray-400;
       transform: translateY(2px);
