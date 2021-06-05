@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.19",
-    "date-fns": "^2.21.3",
+    "date-fns": "^2.22.1",
     "dotenv": "^9.0.2",
     "fabric": "^4.5.0",
     "fuse.js": "^6.4.6",
