@@ -235,3 +235,11 @@ export const QUERY_POST_SEO_BY_SLUG = gql`
     }
   }
 `;
+
+export const QUERY_POST_PER_PAGE = gql`
+  query PostPerPage {
+    allSettings {
+      readingSettingsPostsPerPage
+    }
+  }
+`;
