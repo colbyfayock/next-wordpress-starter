@@ -5,6 +5,11 @@ import { getSearchData } from 'lib/search';
 
 const SEARCH_KEYS = ['slug', 'title'];
 
+export const SEARCH_STATE_LOADING = 'LOADING';
+export const SEARCH_STATE_READY = 'READY';
+export const SEARCH_STATE_ERROR = 'ERROR';
+export const SEARCH_STATE_LOADED = 'LOADED';
+
 export const SearchContext = createContext();
 
 export const SearchProvider = (props) => {
@@ -13,7 +18,7 @@ export const SearchProvider = (props) => {
 };
 
 export function useSearchState() {
-  const [state, setState] = useState('READY');
+  const [state, setState] = useState(SEARCH_STATE_READY);
   const [data, setData] = useState(null);
 
   let client;
@@ -30,19 +35,19 @@ export function useSearchState() {
 
   useEffect(() => {
     (async function getData() {
-      setState('LOADING');
+      setState(SEARCH_STATE_LOADING);
 
       let searchData;
 
       try {
         searchData = await getSearchData();
       } catch (e) {
-        setState('ERROR');
+        setState(SEARCH_STATE_ERROR);
         return;
       }
 
       setData(searchData);
-      setState('LOADED');
+      setState(SEARCH_STATE_LOADED);
     })();
   }, []);
 
