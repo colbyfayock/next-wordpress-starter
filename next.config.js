@@ -21,11 +21,6 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
     WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
     WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
 
-    // By default, the number of posts per page used in pagination is 10.
-    // This can be modified by setting the variable POSTS_PER_PAGE to a
-    // custom number.
-    // POSTS_PER_PAGE: 10,
-
     // The image directory for open graph images will be saved at the location above
     // with `public` prepended. By default, images will be saved at /public/images/og
     // and available at /images/og. If changing, make sure to update the .gitignore
