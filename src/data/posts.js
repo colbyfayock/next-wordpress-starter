@@ -42,7 +42,6 @@ export const QUERY_ALL_POSTS = gql`
             }
           }
           modified
-          modifiedGmt
           postId
           title
           slug
@@ -93,7 +92,6 @@ export const QUERY_POST_BY_SLUG = gql`
         }
       }
       modified
-      modifiedGmt
       postId
       title
       slug
@@ -144,7 +142,6 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
             }
           }
           modified
-          modifiedGmt
           postId
           title
           slug
@@ -184,7 +181,6 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
           }
           id
           modified
-          modifiedGmt
           postId
           slug
           title
