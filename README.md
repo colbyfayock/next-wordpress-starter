@@ -31,12 +31,12 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party services that can be deployed anywhere. 
 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
-* Blog https://next-wordpress-starter.spacejelly.dev
-* Pages (https://next-wordpress-starter.spacejelly.dev/docs/)
-* Posts (https://next-wordpress-starter.spacejelly.dev/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
-* Categories (https://next-wordpress-starter.spacejelly.dev/categories/lorem/)
-* Authors (https://next-wordpress-starter.spacejelly.dev/authors/colby/)
-* Search (Client side global navigation and https://next-wordpress-starter.spacejelly.dev/search/?q=sit)
+* Blog (https://next-wordpress-starter.spacejelly.dev)
+* Pages (https://next-wordpress-starter.spacejelly.dev/about/)
+* Posts (https://next-wordpress-starter.spacejelly.dev/posts/how-to-create-a-headless-wordpress-blog-with-next-js-wordpress-starter/)
+* Categories (https://next-wordpress-starter.spacejelly.dev/categories/tutorial/)
+* Authors (https://next-wordpress-starter.spacejelly.dev/authors/colby-fayock/)
+* Search (Client side global navigation and https://next-wordpress-starter.spacejelly.dev/search/?q=wordpress)
 * RSS (https://next-wordpress-starter.spacejelly.dev/feed.xml)
 * Sitemap (https://next-wordpress-starter.spacejelly.dev/sitemap.xml)
 
