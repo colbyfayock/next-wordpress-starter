@@ -33,7 +33,7 @@ The goal of this project is to take WordPress as a headless CMS and use Next.js 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
 * Blog https://next-wordpress-starter.spacejelly.dev
 * Pages (https://next-wordpress-starter.spacejelly.dev/docs/)
-* Posts (https://next-wordpress-starter.spacejelly.dev/posts/voluptas-in-nemo-eaque-tempora-sit-quisquam/)
+* Posts (https://next-wordpress-starter.spacejelly.dev/posts/how-to-create-a-headless-wordpress-blog-with-next-js-wordpress-starter/)
 * Categories (https://next-wordpress-starter.spacejelly.dev/categories/lorem/)
 * Authors (https://next-wordpress-starter.spacejelly.dev/authors/colby/)
 * Search (Client side global navigation and https://next-wordpress-starter.spacejelly.dev/search/?q=sit)
