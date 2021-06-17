@@ -3,8 +3,19 @@ const { getAllPosts, generateIndexSearch } = require('./util');
 
 const WebpackPluginCompiler = require('./plugin-compiler');
 
+class SearchIndexPlugin extends WebpackPluginCompiler {
+  constructor(options = {}) {
+    super(options);
+  }
+}
+
 module.exports = function indexSearch(nextConfig = {}) {
-  const { env, outputDirectory, outputName, verbose = false } = nextConfig;
+  const { env, outputDirectory, outputName, debug } = nextConfig;
+
+  // Reset properties to avoid shared configuration
+  if (Object.prototype.hasOwnProperty.call(nextConfig, 'outputDirectory')) nextConfig.outputDirectory = undefined;
+  if (Object.prototype.hasOwnProperty.call(nextConfig, 'outputName')) nextConfig.outputName = undefined;
+  if (Object.prototype.hasOwnProperty.call(nextConfig, 'debug')) nextConfig.debug = undefined;
 
   const plugin = {
     name: 'SearchIndex',
@@ -22,11 +33,21 @@ module.exports = function indexSearch(nextConfig = {}) {
         config.watchOptions.ignored.push(path.join('**', plugin.outputDirectory, plugin.outputName));
       }
 
+      if (debug) {
+        const regex = new RegExp(plugin.name);
+        if (!config.infrastructureLogging?.debug) {
+          config.infrastructureLogging = {
+            debug: [regex],
+          };
+        } else {
+          config.infrastructureLogging.debug.push(regex);
+        }
+      }
+
       config.plugins.push(
-        new WebpackPluginCompiler({
+        new SearchIndexPlugin({
           url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
-          verbose,
         })
       );
 

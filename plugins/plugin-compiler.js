@@ -1,6 +1,6 @@
 const path = require('path');
 
-const { createApolloClient, createFile, terminalColor, removeLastTrailingSlash } = require('./util');
+const { createApolloClient, createFile, removeLastTrailingSlash } = require('./util');
 
 class WebpackPlugin {
   constructor(options = {}) {
@@ -8,39 +8,39 @@ class WebpackPlugin {
   }
 
   async index(compilation, options) {
-    const { url, plugin, verbose = false } = options;
+    const { url, plugin } = options;
+    const logger = compilation.getInfrastructureLogger(plugin.name);
 
     try {
       plugin.outputLocation = path.join(plugin.outputDirectory, plugin.outputName);
-
-      verbose && console.log(`[${plugin.name}] Compiling file ${plugin.outputLocation}`);
+      logger.log(`Compiling file ${plugin.outputLocation}`);
 
       const hasUrl = typeof url === 'string';
 
       if (!hasUrl) {
         throw new Error(
-          `[${plugin.name}] Failed to compile: Please check that WORDPRESS_GRAPHQL_ENDPOINT is set and configured in your environment. WORDPRESS_HOST is no longer supported by default.`
+          `Failed to compile: Please check that WORDPRESS_GRAPHQL_ENDPOINT is set and configured in your environment. WORDPRESS_HOST is no longer supported by default.`
         );
       }
 
       const apolloClient = createApolloClient(removeLastTrailingSlash(url));
 
-      const data = await plugin.getData(apolloClient, plugin.name, verbose);
+      const data = await plugin.getData(apolloClient, logger);
 
-      const file = plugin.generate(data);
+      const file = plugin.generate(data, logger);
 
       if (file !== false) {
-        await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
+        await createFile(file, plugin.outputDirectory, plugin.outputLocation, logger);
       }
 
       //If there is an aditional action to perform
       if (plugin.postcreate) {
-        plugin.postcreate(plugin);
+        await plugin.postcreate(plugin, logger);
       }
 
-      !verbose && console.log(`Successfully created: ${terminalColor(plugin.outputName, 'info')}`);
+      logger.info(`Successfully created: ${plugin.outputName}`);
     } catch (e) {
-      console.error(`${terminalColor(e.message, 'error')}`);
+      logger.error(e.message);
     }
   }
 

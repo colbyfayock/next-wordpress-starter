@@ -10,14 +10,14 @@ const config = require('../package.json');
  * createFile
  */
 
-async function createFile(file, process, directory, location, verbose = false) {
+async function createFile(file, directory, location, logger) {
   try {
     mkdirp(directory);
-    verbose && console.log(`[${process}] Created directory ${directory}`);
+    logger.log(`Created directory ${directory}`);
     await promiseToWriteFile(location, file);
-    verbose && console.log(`[${process}] Successfully wrote file to ${location}`);
+    logger.log(`Successfully wrote file to ${location}`);
   } catch (e) {
-    throw new Error(`[${process}] Failed to create file: ${e.message}`);
+    throw new Error(`Failed to create file: ${e.message}`);
   }
 }
 
@@ -69,7 +69,7 @@ function createApolloClient(url) {
  * getAllPosts
  */
 
-async function getAllPosts(apolloClient, process, verbose = false) {
+async function getAllPosts(apolloClient, logger) {
   const query = gql`
     {
       posts(first: 10000) {
@@ -125,12 +125,12 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       return data;
     });
 
-    verbose && console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
+    logger.log(`Successfully fetched posts from ${apolloClient.link.options.uri}`);
     return {
       posts,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -138,7 +138,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
  * getSiteMetadata
  */
 
-async function getSiteMetadata(apolloClient, process, verbose = false) {
+async function getSiteMetadata(apolloClient, logger) {
   const query = gql`
     {
       generalSettings {
@@ -161,12 +161,12 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
       metadata.language = metadata.language.split('_')[0];
     }
 
-    verbose && console.log(`[${process}] Successfully fetched metadata from ${apolloClient.link.options.uri}`);
+    logger.log(`Successfully fetched metadata from ${apolloClient.link.options.uri}`);
     return {
       metadata,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch metadata from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`Failed to fetch metadata from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -174,7 +174,7 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
  * getSitePages
  */
 
-async function getPages(apolloClient, process, verbose = false) {
+async function getPages(apolloClient, logger) {
   const query = gql`
     {
       pages(first: 10000) {
@@ -201,12 +201,12 @@ async function getPages(apolloClient, process, verbose = false) {
       }),
     ];
 
-    verbose && console.log(`[${process}] Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
+    logger.log(`Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
     return {
       pages,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e.message}`);
   }
 }
 
@@ -214,9 +214,9 @@ async function getPages(apolloClient, process, verbose = false) {
  * getFeedData
  */
 
-async function getFeedData(apolloClient, process, verbose = false) {
-  const metadata = await getSiteMetadata(apolloClient, process, verbose);
-  const posts = await getAllPosts(apolloClient, process, verbose);
+async function getFeedData(apolloClient, logger) {
+  const metadata = await getSiteMetadata(apolloClient, logger);
+  const posts = await getAllPosts(apolloClient, logger);
 
   return {
     ...metadata,
@@ -228,9 +228,9 @@ async function getFeedData(apolloClient, process, verbose = false) {
  * getFeedData
  */
 
-async function getSitemapData(apolloClient, process, verbose = false) {
-  const posts = await getAllPosts(apolloClient, process, verbose);
-  const pages = await getPages(apolloClient, process, verbose);
+async function getSitemapData(apolloClient, logger) {
+  const posts = await getAllPosts(apolloClient, logger);
+  const pages = await getPages(apolloClient, logger);
 
   return {
     ...posts,
@@ -242,69 +242,81 @@ async function getSitemapData(apolloClient, process, verbose = false) {
  * generateFeed
  */
 
-function generateFeed({ posts = [], metadata = {} }) {
+function generateFeed({ posts = [], metadata = {} }, logger) {
   const { homepage = '' } = config;
 
-  const feed = new RSS({
-    title: metadata.title || '',
-    description: metadata.description,
-    site_url: homepage,
-    feed_url: `${homepage}/feed.xml`,
-    copyright: `${new Date().getFullYear()} ${metadata.title}`,
-    language: metadata.language,
-    pubDate: new Date(),
-  });
-
-  posts.map((post) => {
-    feed.item({
-      title: post.title,
-      guid: `${homepage}/posts/${post.slug}`,
-      url: `${homepage}/posts/${post.slug}`,
-      date: post.date,
-      description: post.excerpt,
-      author: post.author,
-      categories: post.categories || [],
+  try {
+    const feed = new RSS({
+      title: metadata.title || '',
+      description: metadata.description,
+      site_url: homepage,
+      feed_url: `${homepage}/feed.xml`,
+      copyright: `${new Date().getFullYear()} ${metadata.title}`,
+      language: metadata.language,
+      pubDate: new Date(),
     });
-  });
 
-  return feed.xml({ indent: true });
+    posts.map((post) => {
+      feed.item({
+        title: post.title,
+        guid: `${homepage}/posts/${post.slug}`,
+        url: `${homepage}/posts/${post.slug}`,
+        date: post.date,
+        description: post.excerpt,
+        author: post.author,
+        categories: post.categories || [],
+      });
+    });
+
+    logger.log(`File generated`);
+
+    return feed.xml({ indent: true });
+  } catch (e) {
+    throw new Error(`Failed to generate: ${e.message}`);
+  }
 }
 
 /**
  * generateIndexSearch
  */
 
-function generateIndexSearch({ posts }) {
-  const index = posts.map((post = {}) => {
-    // We need to decode the title because we're using the
-    // rendered version which assumes this value will be used
-    // within the DOM
+function generateIndexSearch({ posts }, logger) {
+  try {
+    const index = posts.map((post = {}) => {
+      // We need to decode the title because we're using the
+      // rendered version which assumes this value will be used
+      // within the DOM
 
-    const title = he.decode(post.title);
+      const title = he.decode(post.title);
 
-    return {
-      title,
-      slug: post.slug,
-      date: post.date,
-    };
-  });
+      return {
+        title,
+        slug: post.slug,
+        date: post.date,
+      };
+    });
 
-  const indexJson = JSON.stringify({
-    generated: Date.now(),
-    posts: index,
-  });
+    const indexJson = JSON.stringify({
+      generated: Date.now(),
+      posts: index,
+    });
 
-  return indexJson;
+    logger.log(`File generated`);
+    return indexJson;
+  } catch (e) {
+    throw new Error(`Failed to generate: ${e.message}`);
+  }
 }
 
 /**
  * getSitemapData
  */
 
-function generateSitemap({ posts = [], pages = [] }) {
-  const { homepage = '' } = config;
+function generateSitemap({ posts = [], pages = [] }, logger) {
+  try {
+    const { homepage = '' } = config;
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
       <url>
         <loc>${homepage}</loc>
@@ -332,19 +344,23 @@ function generateSitemap({ posts = [], pages = [] }) {
     </urlset>
     `;
 
-  const sitemapFormatted = prettier.format(sitemap, {
-    printWidth: 120,
-    parser: 'html',
-  });
+    const sitemapFormatted = prettier.format(sitemap, {
+      printWidth: 120,
+      parser: 'html',
+    });
 
-  return sitemapFormatted;
+    logger.log(`File generated`);
+    return sitemapFormatted;
+  } catch (e) {
+    throw new Error(`Failed to generate: ${e.message}`);
+  }
 }
 
 /**
  * generateRobotsTxt
  */
 
-async function generateRobotsTxt({ outputDirectory, outputName }) {
+async function generateRobotsTxt({ outputDirectory, outputName }, logger) {
   const { homepage = '' } = config;
 
   try {
@@ -366,9 +382,9 @@ async function generateRobotsTxt({ outputDirectory, outputName }) {
     const robots = `User-agent: *\nSitemap: ${sitemapUrl}`;
 
     // Create robots.txt always at root directory
-    await createFile(robots, 'Robots.txt', './public', './public/robots.txt');
+    await createFile(robots, './public', './public/robots.txt', logger);
   } catch (e) {
-    throw new Error(`[Robots.txt] Failed to create robots.txt: ${e.message}`);
+    throw new Error(`Failed to generate robots.txt: ${e.message}`);
   }
 }
 

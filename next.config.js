@@ -5,17 +5,15 @@ const feed = require('./plugins/feed');
 const sitemap = require('./plugins/sitemap');
 const socialImages = require('./plugins/socialImages');
 
+// By enabling plugin debug logging, it will provide additional output details for
+// diagnostic purposes. Is disabled by default.
+// e.g., [feed, { debug: true }],
 module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]], {
   // By default, Next.js removes the trailing slash. One reason this would be good
   // to include is by default, the `path` property of the router for the homepage
   // is `/` and by using that, would instantly create a redirect
 
   trailingSlash: true,
-
-  // By enabling verbose logging, it will provide additional output details for
-  // diagnostic purposes. By default is set to false.
-  // verbose: true,
-
   env: {
     WORDPRESS_GRAPHQL_ENDPOINT: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
     WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
