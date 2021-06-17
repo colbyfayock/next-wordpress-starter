@@ -9,7 +9,12 @@ module.exports = {
       version: 'detect',
     },
   },
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended',
+    'plugin:@next/next/recommended',
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
