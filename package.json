@@ -11,7 +11,7 @@
     "format": "yarn lint --fix",
     "format:no-path": "yarn lint:no-path --fix",
     "lint": "eslint .",
-    "lint:nopath": "eslint",
+    "lint:no-path": "eslint",
     "start": "next start -p ${PORT:=3000}"
   },
   "husky": {
