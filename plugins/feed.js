@@ -34,7 +34,7 @@ module.exports = function feed(nextConfig = {}) {
 
       if (debug) {
         const regex = new RegExp(plugin.name);
-        if (!config.infrastructureLogging?.debug) {
+        if (config.infrastructureLogging === undefined) {
           config.infrastructureLogging = {
             debug: [regex],
           };
