@@ -9,6 +9,7 @@ import {
   QUERY_POSTS_BY_AUTHOR_SLUG,
   QUERY_POSTS_BY_CATEGORY_ID,
   QUERY_POST_SEO_BY_SLUG,
+  QUERY_POST_PER_PAGE,
 } from 'data/posts';
 
 /**
@@ -301,18 +302,36 @@ export function sortStickyPosts(posts) {
  * getPostsPerPage
  */
 
-export function getPostsPerPage() {
-  // If POST_PER_PAGE is not defined, is set to 10 by default
-  return Number(process.env.POSTS_PER_PAGE) || 10;
+export async function getPostsPerPage() {
+  //If POST_PER_PAGE is defined at next.config.js
+  if (process.env.POSTS_PER_PAGE) {
+    console.warn(
+      'You are using the deprecated POST_PER_PAGE variable. Use your WordPress instance instead to set this value ("Settings" > "Reading" > "Blog pages show at most").'
+    );
+    return Number(process.env.POSTS_PER_PAGE);
+  }
+
+  try {
+    const apolloClient = getApolloClient();
+
+    const { data } = await apolloClient.query({
+      query: QUERY_POST_PER_PAGE,
+    });
+
+    return Number(data.allSettings.readingSettingsPostsPerPage);
+  } catch (e) {
+    console.log(`Failed to query post per page data: ${e.message}`);
+    throw e;
+  }
 }
 
 /**
  * getPageCount
  */
 
-export function getPagesCount(posts) {
-  const postsPerPage = getPostsPerPage();
-  return Math.ceil(posts.length / postsPerPage);
+export async function getPagesCount(posts, postsPerPage) {
+  const _postsPerPage = postsPerPage ?? (await getPostsPerPage());
+  return Math.ceil(posts.length / _postsPerPage);
 }
 
 /**
@@ -321,8 +340,8 @@ export function getPagesCount(posts) {
 
 export async function getPaginatedPosts(currentPage = 1) {
   const { posts } = await getAllPosts();
-  const postsPerPage = getPostsPerPage();
-  const pagesCount = getPagesCount(posts);
+  const postsPerPage = await getPostsPerPage();
+  const pagesCount = await getPagesCount(posts, postsPerPage);
   let page = Number(currentPage);
   if (typeof page === 'undefined' || isNaN(page) || page > pagesCount) {
     page = 1;

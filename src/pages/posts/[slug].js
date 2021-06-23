@@ -28,7 +28,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
     date,
     author,
     categories,
-    modifiedGmt,
+    modified,
     featuredImage,
     isSticky = false,
   } = post;
@@ -111,7 +111,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
 
       <Section className={styles.postFooter}>
         <Container>
-          <p className={styles.postModified}>Last updated on {formatDate(modifiedGmt)}.</p>
+          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
           {!!relatedPostsList.length && (
             <div className={styles.relatedPosts}>
               {relatedPostsTitle.name ? (
