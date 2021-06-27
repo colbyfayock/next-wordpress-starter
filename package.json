@@ -27,7 +27,7 @@
     "@apollo/client": "^3.3.20",
     "date-fns": "^2.22.1",
     "dotenv": "^10.0.0",
-    "fabric": "^4.5.0",
+    "fabric": "^4.5.1",
     "fuse.js": "^6.4.6",
     "graphql": "^15.5.0",
     "he": "^1.2.0",
