@@ -1611,10 +1611,10 @@ extsprintf@^1.2.0:
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
   integrity sha1-4mifjzVvrWLMplo6kcXfX5VRaS8=
 
-fabric@^4.5.0:
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/fabric/-/fabric-4.5.0.tgz#fd2d1af7fa715d77ae61c264d89c4c0616d9ad3f"
-  integrity sha512-flad9Bs67l/2ko2Bcob6tIzvtnViLDUdWsFzbBc4icIvZG1+a7QJIpDyGuFHf3sQ0XRdezWwnzz4Oqp8RYveGw==
+fabric@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/fabric/-/fabric-4.5.1.tgz#dcdc93caf257ee40dd4ab7ce60ce089873ea19c6"
+  integrity sha512-s0ywa4WQh/QortuhlVkWOj692udzwI8cYWcLTlel/Jbhk3gevyB0fF/Rvo9in/bGV0c4TFl3cMiu6+wYwpfxdQ==
   optionalDependencies:
     canvas "^2.6.1"
     jsdom "^15.2.1"
