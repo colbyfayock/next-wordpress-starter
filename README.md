@@ -154,6 +154,13 @@ The Yoast SEO plugin is partially supported including most major features like m
 
 To enable the plugin, configure `WORDPRESS_PLUGIN_SEO` to be `true` either as an environment variable or within next.config.js.
 
+## Bootstrapped with Next.js WordPress Starter
+
+Examples of websites that started off with Next.js WordPress Starter
+
+* [colbyfayock.com](https://colbyfayock.com/)
+* [spacejelly.dev](https://spacejelly.dev/)
+
 ## 💝 Sponsors
 
 WordPress hosting for the public-facing project provided by [WP Engine](https://wpengine.com/).
