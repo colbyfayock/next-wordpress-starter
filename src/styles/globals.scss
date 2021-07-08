@@ -47,3 +47,79 @@ input {
   width: 0;
   height: 0;
 }
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin: 0 0.25em;
+    position: relative;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+    &:hover {
+      background-color: $color-gray-100;
+
+      & > a {
+        color: $color-primary;
+      }
+
+      > .navSubMenu {
+        display: block;
+      }
+    }
+
+    .navSubMenu {
+      ul {
+        top: 0;
+        left: 100%;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    text-decoration: none;
+    color: $color-gray-600;
+    font-size: 1.1em;
+    padding: 0.5em;
+
+    @media (hover: hover) {
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .navSubMenu {
+    display: none;
+    padding: 0;
+    list-style: none;
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+
+    li {
+      background-color: $color-gray-100;
+      line-height: 30px;
+      border-bottom: #ccc 1px solid;
+      border-right: #ccc 1px solid;
+      width: 100%;
+      margin: 0;
+      a {
+        font-size: 1rem;
+        padding: 0.3em;
+      }
+    }
+  }
+}
