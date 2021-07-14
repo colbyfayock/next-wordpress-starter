@@ -7,7 +7,7 @@ const WebpackPluginCompiler = require('./plugin-compiler');
 
 const pkg = require('../package.json');
 
-module.exports = function sitemap(nextConfig = {}) {
+module.exports = function socialImages(nextConfig = {}) {
   const {
     env,
     outputDirectory = `./public${nextConfig.env.OG_IMAGE_DIRECTORY}`,
@@ -26,69 +26,72 @@ module.exports = function sitemap(nextConfig = {}) {
     outputDirectory,
     outputName,
     getData: getAllPosts,
-    generate: ({ posts = [] }) => {
-      // Make sure our directory exists before outputting the files
+    generate: function generateSocialImages({ posts = [] }) {
+      try {
+        // Make sure our directory exists before outputting the files
+        mkdirp(outputDirectory);
 
-      mkdirp(outputDirectory);
+        posts.forEach((post) => {
+          const { title, slug } = post;
 
-      posts.forEach((post) => {
-        const { title, slug } = post;
-
-        const canvas = new fabric.StaticCanvas(null, {
-          width,
-          height,
-          backgroundColor: 'white',
-        });
-
-        const headlineWidth = (width / 3) * 2;
-        const headlineHeight = height - padding * 2 - footerHeight;
-
-        const headline = new fabric.Textbox(title, {
-          left: (width - headlineWidth) / 2,
-          top: height / 2 - footerHeight,
-          originY: 'center',
-          width: headlineWidth,
-          height: headlineHeight,
-          fill: '#303030',
-          fontFamily: 'Arial',
-          fontWeight: 600,
-          fontSize: 60,
-          lineHeight: 1,
-          textAlign: 'center',
-        });
-
-        canvas.add(headline);
-
-        const homepage = pkg.homepage && pkg.homepage.replace(/http(s)?:\/\//, '');
-
-        if (homepage) {
-          const website = new fabric.Textbox(homepage, {
-            left: 0,
-            top: height - padding / 2 - footerHeight,
+          const canvas = new fabric.StaticCanvas(null, {
             width,
-            height: footerHeight,
+            height,
+            backgroundColor: 'white',
+          });
+
+          const headlineWidth = (width / 3) * 2;
+          const headlineHeight = height - padding * 2 - footerHeight;
+
+          const headline = new fabric.Textbox(title, {
+            left: (width - headlineWidth) / 2,
+            top: height / 2 - footerHeight,
+            originY: 'center',
+            width: headlineWidth,
+            height: headlineHeight,
             fill: '#303030',
-            fontFamily: 'Arial',
+            fontFamily: 'Arial, sans-serif',
             fontWeight: 600,
-            fontSize: 30,
+            fontSize: 60,
+            lineHeight: 1,
             textAlign: 'center',
           });
 
-          canvas.add(website);
-        }
+          canvas.add(headline);
 
-        canvas.renderAll();
+          const homepage = pkg.homepage && pkg.homepage.replace(/http(s)?:\/\//, '');
 
-        const outputPath = path.join(outputDirectory, outputName.replace('[slug]', slug));
-        const out = fs.createWriteStream(outputPath);
-        const stream = canvas.createPNGStream();
+          if (homepage) {
+            const website = new fabric.Textbox(homepage, {
+              left: 0,
+              top: height - padding / 2 - footerHeight,
+              width,
+              height: footerHeight,
+              fill: '#303030',
+              fontFamily: 'Arial, sans-serif',
+              fontWeight: 600,
+              fontSize: 30,
+              textAlign: 'center',
+            });
 
-        stream.on('data', function (chunk) {
-          out.write(chunk);
+            canvas.add(website);
+          }
+
+          canvas.renderAll();
+
+          const outputPath = path.join(outputDirectory, outputName.replace('[slug]', slug));
+          const out = fs.createWriteStream(outputPath);
+          const stream = canvas.createPNGStream();
+
+          stream.on('data', function (chunk) {
+            out.write(chunk);
+          });
         });
-      });
 
-      return false;
+        return false;
+      } catch (e) {
+        throw new Error(`[${this.name}] Failed to generate the images : ${e.message}`);
+      }
     },
   };
 
