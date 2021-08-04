@@ -51,9 +51,7 @@ export async function getCategoryBySlug(slug) {
     throw e;
   }
 
-  // Use the first category as we should only be matching 1 with the slug
-
-  const category = categoryData?.data.categories.edges.map(({ node = {} }) => node).map(mapCategoryData)[0];
+  const category = mapCategoryData(categoryData?.data.category);
 
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
@@ -72,7 +70,7 @@ export async function getCategoryBySlug(slug) {
       throw e;
     }
 
-    const { seo = {} } = seoData?.data?.categories.edges.map(({ node = {} }) => node)[0];
+    const { seo = {} } = seoData?.data?.category;
 
     category.title = seo.title;
     category.description = seo.metaDesc;
