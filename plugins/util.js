@@ -77,7 +77,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
           node {
             title
             excerpt
-            postId
+            databaseId
             slug
             date
             modified

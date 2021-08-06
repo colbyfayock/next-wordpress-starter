@@ -42,7 +42,7 @@ export const QUERY_ALL_POSTS = gql`
             }
           }
           modified
-          postId
+          databaseId
           title
           slug
           isSticky
@@ -92,7 +92,7 @@ export const QUERY_POST_BY_SLUG = gql`
         }
       }
       modified
-      postId
+      databaseId
       title
       slug
       isSticky
@@ -142,7 +142,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
             }
           }
           modified
-          postId
+          databaseId
           title
           slug
           isSticky
@@ -181,7 +181,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
           }
           id
           modified
-          postId
+          databaseId
           slug
           title
           isSticky
