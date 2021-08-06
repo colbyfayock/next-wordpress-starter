@@ -21,7 +21,7 @@ export const QUERY_ALL_POSTS = gql`
           categories {
             edges {
               node {
-                categoryId
+                databaseId
                 id
                 name
                 slug
@@ -71,7 +71,7 @@ export const QUERY_POST_BY_SLUG = gql`
       categories {
         edges {
           node {
-            categoryId
+            databaseId
             id
             name
             slug
@@ -121,7 +121,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
           categories {
             edges {
               node {
-                categoryId
+                databaseId
                 id
                 name
                 slug
@@ -160,7 +160,7 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
           categories {
             edges {
               node {
-                categoryId
+                databaseId
                 id
                 name
                 slug
