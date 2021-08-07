@@ -146,7 +146,7 @@ export async function getStaticProps({ params = {} } = {}) {
 
   const socialImage = `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`;
 
-  const { categories, postId } = post;
+  const { categories, databaseId: postId } = post;
   const category = categories.length && categories[0];
   let { name, slug } = category;
 

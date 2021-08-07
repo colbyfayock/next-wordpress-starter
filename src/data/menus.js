@@ -6,7 +6,6 @@ export const QUERY_ALL_MENUS = gql`
       edges {
         node {
           id
-          menuId
           menuItems {
             edges {
               node {
