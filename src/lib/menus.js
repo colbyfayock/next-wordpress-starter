@@ -93,9 +93,9 @@ export function findMenuByLocation(menus, location) {
   }
 
   do {
-    menu = menus.find(({ locations }) =>
-      locations.map((loc) => loc.toUpperCase()).includes(location.shift().toUpperCase())
-    );
+    menu = menus.find(function ({ locations }) {
+      return locations.map((loc) => loc.toUpperCase()).includes(location.shift().toUpperCase());
+    });
   } while (!menu && location.length > 0);
 
   return parseHierarchicalMenu(menu.menuItems);
