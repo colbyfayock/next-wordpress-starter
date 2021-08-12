@@ -98,5 +98,9 @@ export function findMenuByLocation(menus, location) {
     });
   } while (!menu && location.length > 0);
 
+  if (!menu) {
+    return null;
+  }
+
   return parseHierarchicalMenu(menu.menuItems);
 }
