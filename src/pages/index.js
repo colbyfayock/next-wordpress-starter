@@ -20,7 +20,6 @@ export default function Home({ posts, pagination }) {
       <WebsiteJsonLd siteTitle={title} />
       <Header>
         <h1
-          className={styles.title}
           dangerouslySetInnerHTML={{
             __html: title,
           }}
