@@ -12,7 +12,8 @@
     "format:no-path": "yarn lint:no-path --fix",
     "lint": "eslint .",
     "lint:no-path": "eslint",
-    "start": "next start -p ${PORT:=3000}"
+    "start": "next start -p ${PORT:=3000}",
+    "pre-commit": "next lint"
   },
   "husky": {
     "hooks": {
@@ -51,7 +52,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "4.3.8",
+    "husky": "7.0.2",
     "lint-staged": ">=11.1.2",
     "prettier": "2.3.2"
   },
