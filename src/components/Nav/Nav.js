@@ -184,9 +184,9 @@ const Nav = () => {
             <a>{title}</a>
           </Link>
         </p>
-        <ul className="navMenu">
+        <ul className={styles.navMenu}>
           {navigation?.map((listItem) => {
-            return <NavListItem key={listItem.id} item={listItem} />;
+            return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem} />;
           })}
         </ul>
         <div className={styles.navSearch}>
