@@ -71,6 +71,7 @@ export const parseHierarchicalMenu = (
 ) => {
   const tree = [];
   const childrenOf = {};
+
   data.forEach((item) => {
     const newItem = { ...item };
     const { [idKey]: id, [parentKey]: parentId = 0 } = newItem;
