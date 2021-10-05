@@ -13,11 +13,12 @@
     "lint": "eslint .",
     "lint:no-path": "eslint",
     "start": "next start -p ${PORT:=3000}",
-    "pre-commit": "next lint"
+    "pre-commit": "next lint",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "pre-commit"
     }
   },
   "lint-staged": {
