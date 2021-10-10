@@ -11,6 +11,7 @@ import NextNProgress from 'nextjs-progressbar';
 import { getAllMenus, createMenuFromPages, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
 
 import 'styles/globals.scss';
+import variables from 'styles/_variables.module.scss';
 
 function App({ Component, pageProps = {}, metadata, recentPosts, categories, menus }) {
   const site = useSiteContext({
@@ -23,7 +24,7 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
   return (
     <SiteContext.Provider value={site}>
       <SearchProvider>
-        <NextNProgress height={4} color="#0070F3" />
+        <NextNProgress height={4} color={variables.progressbarColor} />
         <Component {...pageProps} />
       </SearchProvider>
     </SiteContext.Provider>
