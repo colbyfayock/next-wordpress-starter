@@ -168,14 +168,16 @@ export async function getStaticProps({ params = {} } = {}) {
 export async function getStaticPaths() {
   const { posts } = await getAllPosts();
 
-  const paths = posts.map((post) => {
-    const { slug } = post;
-    return {
+  const paths = posts.reduce((arr, { slug }) => {
+    if (typeof slug !== 'string') return arr;
+
+    arr.push({
       params: {
         slug,
       },
-    };
-  });
+    });
+    return arr;
+  }, []);
 
   return {
     paths,
