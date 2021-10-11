@@ -6,6 +6,13 @@ import useSearch from 'hooks/use-search';
 
 import TemplateArchive from 'templates/archive';
 
+// Next.js method to ensure a static page gets rendered
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
+
 export default function Search() {
   const { query, results, search } = useSearch();
   const title = 'Search';
