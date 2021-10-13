@@ -1,7 +1,7 @@
 # Next.js WordPress Starter
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-12-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
@@ -190,6 +190,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://leoloso.com"><img src="https://avatars.githubusercontent.com/u/1981996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Leonardo Losoviz</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=leoloso" title="Code">💻</a></td>
     <td align="center"><a href="https://www.avneesh.tech/"><img src="https://avatars.githubusercontent.com/u/76690419?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Avneesh Agarwal</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=avneesh0612" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/PhattOZ"><img src="https://avatars.githubusercontent.com/u/63938605?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Phattarapol L.</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=PhattOZ" title="Code">💻</a></td>
+    <td align="center"><a href="https://capecod.world"><img src="https://avatars.githubusercontent.com/u/26460352?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Cruckshank</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=petercr" title="Code">💻</a></td>
   </tr>
 </table>
 
