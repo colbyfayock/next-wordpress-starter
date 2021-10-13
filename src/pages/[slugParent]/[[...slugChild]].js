@@ -144,18 +144,18 @@ export async function getStaticPaths() {
   // the top level parent page, where the slugChild will be an array of the
   // remaining segments to make up the path or URI
 
-  const paths = pages.reduce((arr, { uri }) => {
-    if (typeof uri !== 'string') return arr;
-    const segments = uri.split('/').filter((seg) => seg !== '');
+  const paths = pages
+    .filter(({ uri }) => typeof uri === 'string')
+    .map(({ uri }) => {
+      const segments = uri.split('/').filter((seg) => seg !== '');
 
-    arr.push({
-      params: {
-        slugParent: segments.shift(),
-        slugChild: segments,
-      },
+      return {
+        params: {
+          slugParent: segments.shift(),
+          slugChild: segments,
+        },
+      };
     });
-    return arr;
-  }, []);
 
   return {
     paths,
