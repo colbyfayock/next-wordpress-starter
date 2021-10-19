@@ -28,7 +28,7 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 
 ### What is this and what does it include?
 
-The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party services that can be deployed anywhere. 
+The goal of this project is to take WordPress as a headless CMS and use Next.js to create a static experience without any 3rd party services that can be deployed anywhere.
 
 The hope is to build out as many features as we can to support what's typically expected from an out of the box theme on WordPress. Currently, those features include:
 * Blog (https://next-wordpress-starter.spacejelly.dev)
@@ -105,6 +105,18 @@ To set up the [ESLint extension](https://marketplace.visualstudio.com/items?item
 ```
 
 With this file ESLint will automatically fix and validate syntax errors and format the code on save (based on Prettier configuration).
+
+### Deployment
+
+#### Netlify
+
+There are two options as to how you can deploy this project to Netlify:
+* [Essential Next.js Plugin](https://github.com/netlify/netlify-plugin-nextjs) (recommended)
+* [Exporting the project](https://nextjs.org/docs/advanced-features/static-html-export) via `next export`
+
+**Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin.
+
+**Exporting the project** let's Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
 
 ## 🛠 Configuring Your Project
 

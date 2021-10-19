@@ -5,9 +5,10 @@
   "license": "MIT",
   "author": "Colby Fayock <hello@colbyfayock.com>",
   "scripts": {
-    "build": "next build && next export",
+    "build": "next build",
     "wpe-build": "npm run build",
     "dev": "next dev",
+    "export": "next export",
     "format": "yarn lint --fix",
     "format:no-path": "yarn lint:no-path --fix",
     "lint": "eslint .",
