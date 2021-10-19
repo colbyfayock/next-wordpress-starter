@@ -43,3 +43,5 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - run: yarn build && yarn export
+        env:
+          WORDPRESS_GRAPHQL_ENDPOINT: ${{ secrets.WORDPRESS_GRAPHQL_ENDPOINT }}
