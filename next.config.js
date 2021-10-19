@@ -5,6 +5,18 @@ const feed = require('./plugins/feed');
 const sitemap = require('./plugins/sitemap');
 const socialImages = require('./plugins/socialImages');
 
+// Temporary fix for issue with Vercel builds where node-canvas via fabric creates issues
+// @via https://github.com/Automattic/node-canvas/issues/1779#issuecomment-895885846
+
+if (
+  process.env.LD_LIBRARY_PATH === null ||
+  !process.env.LD_LIBRARY_PATH.includes(`${process.env.PWD}/node_modules/canvas/build/Release:`)
+) {
+  process.env.LD_LIBRARY_PATH = `${process.env.PWD}/node_modules/canvas/build/Release:${
+    process.env.LD_LIBRARY_PATH || ''
+  }`;
+}
+
 module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]], {
   // By default, Next.js removes the trailing slash. One reason this would be good
   // to include is by default, the `path` property of the router for the homepage
