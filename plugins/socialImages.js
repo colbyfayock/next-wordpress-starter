@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const fabric = require('fabric').fabric;
+const fabric = require('fabric-pure-browser').fabric;
 const { getAllPosts, mkdirp } = require('./util');
 
 const WebpackPluginCompiler = require('./plugin-compiler');
