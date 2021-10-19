@@ -8,13 +8,11 @@ const socialImages = require('./plugins/socialImages');
 // Temporary fix for issue with Vercel builds where node-canvas via fabric creates issues
 // @via https://github.com/Automattic/node-canvas/issues/1779#issuecomment-895885846
 
-if (
-  process.env.LD_LIBRARY_PATH === null ||
-  !process.env.LD_LIBRARY_PATH.includes(`${process.env.PWD}/node_modules/canvas/build/Release:`)
-) {
-  process.env.LD_LIBRARY_PATH = `${process.env.PWD}/node_modules/canvas/build/Release:${
-    process.env.LD_LIBRARY_PATH || ''
-  }`;
+const LD_LIBRARY_PATH = process.env.LD_LIBRARY_PATH;
+const CANVAS_RELEASE_PATH = `${process.env.PWD}/node_modules/canvas/build/Release`;
+
+if (LD_LIBRARY_PATH === null || (LD_LIBRARY_PATH && !LD_LIBRARY_PATH.includes(CANVAS_RELEASE_PATH))) {
+  process.env.LD_LIBRARY_PATH = `${CANVAS_RELEASE_PATH}:${LD_LIBRARY_PATH || ''}`;
 }
 
 module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]], {
