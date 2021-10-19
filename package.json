@@ -24,12 +24,12 @@
     "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.10",
-    "date-fns": "^2.23.0",
+    "@apollo/client": "^3.4.16",
+    "date-fns": "^2.25.0",
     "dotenv": "^10.0.0",
     "fabric": "^4.6.0",
     "fuse.js": "^6.4.6",
-    "graphql": "^15.5.3",
+    "graphql": "^15.6.1",
     "he": "^1.2.0",
     "loader-utils": "^2.0.0",
     "next": "11.1.2",
@@ -40,9 +40,9 @@
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.2.0",
+    "react-icons": "^4.3.1",
     "rss": "^1.2.2",
-    "sass": "^1.39.0",
+    "sass": "^1.43.2",
     "style.css": "^1.0.0"
   },
   "devDependencies": {
@@ -50,11 +50,11 @@
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "4.3.8",
-    "lint-staged": ">=11.1.2",
-    "prettier": "2.3.2"
+    "lint-staged": ">=11.2.3",
+    "prettier": "2.4.1"
   },
   "repository": {
     "type": "git",
