@@ -114,7 +114,7 @@ There are two options as to how you can deploy this project to Netlify:
 * [Essential Next.js Plugin](https://github.com/netlify/netlify-plugin-nextjs) (recommended)
 * [Exporting the project](https://nextjs.org/docs/advanced-features/static-html-export) via `next export`
 
-**Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow Netlify to take full advantage of the
+**Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin.
 
 **Exporting the project** let's Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
 
