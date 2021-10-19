@@ -4,6 +4,7 @@ on: [push, pull_request]
 
 jobs:
   checks:
+
     name: Linting
     runs-on: ubuntu-latest
     strategy:
@@ -24,3 +25,24 @@ jobs:
 
       # Run linting with yarn
       - run: yarn lint
+
+    name: Verify Static Compatability
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+    steps:
+      # Checkout repo
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # install dependencies from yarn.lock
+      - name: Install dependencies with yarn
+        run: yarn install --frozen-lockfile
+
+      # Run linting with yarn
+      - run: yarn build && yarn export
