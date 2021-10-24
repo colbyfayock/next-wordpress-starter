@@ -102,7 +102,7 @@ export const QUERY_POST_BY_SLUG = gql`
 
 export const QUERY_POSTS_BY_CATEGORY_ID = gql`
   query PostsByCategoryId($categoryId: Int!) {
-    posts(where: { categoryId: $categoryId }) {
+    posts(where: { categoryId: $categoryId, hasPassword: false }) {
       edges {
         node {
           author {
@@ -154,7 +154,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
 
 export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
   query PostByAuthorSlug($slug: String!) {
-    posts(where: { authorName: $slug }) {
+    posts(where: { authorName: $slug, hasPassword: false }) {
       edges {
         node {
           categories {
