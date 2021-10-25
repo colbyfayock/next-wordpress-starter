@@ -122,6 +122,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "shaneog",
+      "name": "Shane O'Grady",
+      "avatar_url": "https://avatars.githubusercontent.com/u/130415?v=4",
+      "profile": "https://ogrady.ie",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
