@@ -168,14 +168,13 @@ export async function getStaticProps({ params = {} } = {}) {
 export async function getStaticPaths() {
   const { posts } = await getAllPosts();
 
-  const paths = posts.map((post) => {
-    const { slug } = post;
-    return {
+  const paths = posts
+    .filter(({ slug }) => typeof slug === 'string')
+    .map(({ slug }) => ({
       params: {
         slug,
       },
-    };
-  });
+    }));
 
   return {
     paths,
