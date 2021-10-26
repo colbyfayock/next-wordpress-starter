@@ -30,8 +30,8 @@
     "graphql": "^15.6.1",
     "he": "^1.2.0",
     "jsdom": "^18.0.0",
-    "loader-utils": "^2.0.0",
-    "next": "11.1.2",
+    "loader-utils": "^3.0.0",
+    "next": "12.0.0",
     "next-compose-plugins": "^2.2.1",
     "nextjs-progressbar": "^0.0.11",
     "parameterize": "^1.0.0",
@@ -41,18 +41,18 @@
     "react-helmet": "^6.1.0",
     "react-icons": "^4.3.1",
     "rss": "^1.2.2",
-    "sass": "^1.43.2",
+    "sass": "^1.43.3",
     "style.css": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
-    "eslint-config-next": "^11.1.2",
+    "eslint-config-next": "^12.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.4",
-    "lint-staged": ">=11.2.3",
+    "lint-staged": ">=11.2.5",
     "prettier": "2.4.1"
   },
   "repository": {
