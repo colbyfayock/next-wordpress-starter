@@ -27,7 +27,7 @@ class WebpackPlugin {
 
       const data = await plugin.getData(apolloClient, plugin.name, verbose);
 
-      const file = plugin.generate(data);
+      const file = await plugin.generate(data);
 
       if (file !== false) {
         await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
