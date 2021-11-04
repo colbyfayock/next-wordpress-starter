@@ -27,7 +27,7 @@
     "dotenv": "^10.0.0",
     "fabric-pure-browser": "^4.6.0",
     "fuse.js": "^6.4.6",
-    "graphql": "^15.6.1",
+    "graphql": "^15.7.2",
     "he": "^1.2.0",
     "jsdom": "^18.0.0",
     "loader-utils": "^3.0.0",
