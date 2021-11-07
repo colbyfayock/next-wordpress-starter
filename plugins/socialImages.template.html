@@ -1,0 +1,66 @@
+<html>
+
+<head>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+    }
+    body {
+      font-family: sans-serif;
+      background-color: magenta;
+    }
+
+    .frame {
+      display: flex;
+      flex-direction: column;
+      width: 1012px;
+      height: 506px;
+      background-color: white;
+    }
+
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+
+    .title {
+      width: 100%;
+      font-size: 60px;
+      text-align: center;
+      padding: 0 80px;
+      margin: 0;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150px;
+      margin-top: -60px;
+    }
+
+    .homepage {
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="frame">
+    <div class="content">
+      <h1 class="title">{{ title }}</h1>
+    </div>
+    <div class="footer">
+      <p class="homepage">{{ homepage }}</p>
+    </div>
+  </div>
+</body>
+
+</html>

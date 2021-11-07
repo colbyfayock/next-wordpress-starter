@@ -1,13 +1,13 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
-const fabric = require('fabric-pure-browser').fabric;
-const { getAllPosts, mkdirp } = require('./util');
+const { chromium } = require('playwright');
 
+const { getAllPosts, mkdirp } = require('./util');
 const WebpackPluginCompiler = require('./plugin-compiler');
 
 const pkg = require('../package.json');
 
-module.exports = function sitemap(nextConfig = {}) {
+module.exports = function socialImages(nextConfig = {}) {
   const {
     env,
     outputDirectory = `./public${nextConfig.env.OG_IMAGE_DIRECTORY}`,
@@ -17,76 +17,37 @@ module.exports = function sitemap(nextConfig = {}) {
 
   const width = 1012;
   const height = 506;
-  const padding = 50;
-
-  const footerHeight = 50;
 
   const plugin = {
     name: 'SocialImages',
     outputDirectory,
     outputName,
     getData: getAllPosts,
-    generate: ({ posts = [] }) => {
-      // Make sure our directory exists before outputting the files
-
+    generate: async ({ posts = [] }) => {
       mkdirp(outputDirectory);
 
-      posts.forEach((post) => {
-        const { title, slug } = post;
+      const homepage = pkg.homepage && pkg.homepage.replace(/http(s)?:\/\//, '');
+      const template = await fs.readFile('./plugins/socialImages.template.html', 'utf8');
 
-        const canvas = new fabric.StaticCanvas(null, {
-          width,
-          height,
-          backgroundColor: 'white',
-        });
+      const browser = await chromium.launch();
 
-        const headlineWidth = (width / 3) * 2;
-        const headlineHeight = height - padding * 2 - footerHeight;
+      await Promise.all(
+        posts.map(async (post) => {
+          const { title, slug } = post;
+          let html = template;
 
-        const headline = new fabric.Textbox(title, {
-          left: (width - headlineWidth) / 2,
-          top: height / 2 - footerHeight,
-          originY: 'center',
-          width: headlineWidth,
-          height: headlineHeight,
-          fill: '#303030',
-          fontFamily: 'Arial',
-          fontWeight: 600,
-          fontSize: 60,
-          lineHeight: 1,
-          textAlign: 'center',
-        });
+          html = html.replace('{{ title }}', title);
+          html = html.replace('{{ homepage }}', homepage);
 
-        canvas.add(headline);
+          const page = await browser.newPage();
+          await page.setViewportSize({ width, height });
+          await page.setContent(html);
+          await page.screenshot({ path: `${outputDirectory}/${slug}.png` });
+          await page.close();
+        })
+      );
 
-        const homepage = pkg.homepage && pkg.homepage.replace(/http(s)?:\/\//, '');
-
-        if (homepage) {
-          const website = new fabric.Textbox(homepage, {
-            left: 0,
-            top: height - padding / 2 - footerHeight,
-            width,
-            height: footerHeight,
-            fill: '#303030',
-            fontFamily: 'Arial',
-            fontWeight: 600,
-            fontSize: 30,
-            textAlign: 'center',
-          });
-
-          canvas.add(website);
-        }
-
-        canvas.renderAll();
-
-        const outputPath = path.join(outputDirectory, outputName.replace('[slug]', slug));
-        const out = fs.createWriteStream(outputPath);
-        const stream = canvas.createPNGStream();
-
-        stream.on('data', function (chunk) {
-          out.write(chunk);
-        });
-      });
+      await browser.close();
 
       return false;
     },
