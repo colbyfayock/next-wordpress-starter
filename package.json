@@ -13,15 +13,14 @@
     "format:no-path": "yarn lint:no-path --fix",
     "lint": "eslint .",
     "lint:no-path": "eslint",
-    "start": "next start -p ${PORT:=3000}",
-    "prepare": "husky install"
+    "start": "next start -p ${PORT:=3000}"
   },
   "lint-staged": {
     "**/*.js": "yarn format:no-path",
     "**/*.scss": "yarn prettier --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "^3.5",
     "date-fns": "^2.25.0",
     "dotenv": "^10.0.0",
     "fuse.js": "^6.4.6",
