@@ -13,7 +13,8 @@
     "format:no-path": "yarn lint:no-path --fix",
     "lint": "eslint .",
     "lint:no-path": "eslint",
-    "start": "next start -p ${PORT:=3000}"
+    "start": "next start -p ${PORT:=3000}",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "**/*.js": "yarn format:no-path",
