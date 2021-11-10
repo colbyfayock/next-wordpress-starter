@@ -131,6 +131,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "gaswirth",
+      "name": "Nick Gaswirth",
+      "avatar_url": "https://avatars.githubusercontent.com/u/665784?v=4",
+      "profile": "https://roundhouse-designs.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
