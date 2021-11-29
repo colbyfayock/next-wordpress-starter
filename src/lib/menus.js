@@ -95,7 +95,8 @@ export function findMenuByLocation(menus, location) {
 
   do {
     menu = menus.find(function ({ locations }) {
-      return locations.map((loc) => loc.toUpperCase()).includes(location.shift()?.toUpperCase());
+      const searchLocations = [...location];
+      return locations.map((loc) => loc.toUpperCase()).includes(searchLocations.shift()?.toUpperCase());
     });
   } while (!menu && location.length > 0);
 
