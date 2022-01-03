@@ -88,14 +88,14 @@ export const parseHierarchicalMenu = (
 
 export function findMenuByLocation(menus, location) {
   let menu;
-
+  
   if (!Array.isArray(location)) {
     location = [location];
   }
-
+  
+  const searchLocations = [...location];
   do {
     menu = menus.find(function ({ locations }) {
-      const searchLocations = [...location];
       return locations.map((loc) => loc.toUpperCase()).includes(searchLocations.shift()?.toUpperCase());
     });
   } while (!menu && location.length > 0);
