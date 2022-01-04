@@ -1,7 +1,7 @@
 # Next.js WordPress Starter
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
@@ -207,6 +207,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   </tr>
   <tr>
     <td align="center"><a href="https://roundhouse-designs.com"><img src="https://avatars.githubusercontent.com/u/665784?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nick Gaswirth</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=gaswirth" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/alexandruvisan19"><img src="https://avatars.githubusercontent.com/u/79447321?v=4?s=100" width="100px;" alt=""/><br /><sub><b>alexandruvisan19</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=alexandruvisan19" title="Code">💻</a></td>
   </tr>
 </table>
 
