@@ -71,14 +71,10 @@ const Footer = () => {
                 </p>
                 <ul className={styles.footerMenuItems}>
                   <li>
-                    <Link href="/feed.xml">
-                      <a>RSS</a>
-                    </Link>
+                    <a href="/feed.xml">RSS</a>
                   </li>
                   <li>
-                    <Link href="/sitemap.xml">
-                      <a>Sitemap</a>
-                    </Link>
+                    <a href="/sitemap.xml">Sitemap</a>
                   </li>
                 </ul>
               </li>
