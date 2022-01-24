@@ -28,6 +28,7 @@ module.exports = function sitemap(nextConfig = {}) {
           url: WORDPRESS_GRAPHQL_ENDPOINT,
           plugin,
           verbose,
+          nextConfig,
         })
       );
 
