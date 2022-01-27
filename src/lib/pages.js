@@ -1,6 +1,12 @@
 import { getApolloClient } from 'lib/apollo-client';
 
-import { QUERY_ALL_PAGES, QUERY_PAGE_BY_URI, QUERY_PAGE_SEO_BY_URI } from 'data/pages';
+import {
+  QUERY_ALL_PAGES_INDEX,
+  QUERY_ALL_PAGES_ARCHIVE,
+  QUERY_ALL_PAGES,
+  QUERY_PAGE_BY_URI,
+  QUERY_PAGE_SEO_BY_URI,
+} from 'data/pages';
 
 /**
  * pagePathBySlug
@@ -99,11 +105,19 @@ export async function getPageByUri(uri) {
  * getAllPages
  */
 
-export async function getAllPages() {
+const allPagesIncludesTypes = {
+  all: QUERY_ALL_PAGES,
+  archive: QUERY_ALL_PAGES_ARCHIVE,
+  index: QUERY_ALL_PAGES_INDEX,
+};
+
+export async function getAllPages(options = {}) {
+  const { queryIncludes = 'index' } = options;
+
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
-    query: QUERY_ALL_PAGES,
+    query: allPagesIncludesTypes[queryIncludes],
   });
 
   const pages = data?.data.pages.edges.map(({ node = {} }) => node).map(mapPageData);
@@ -117,8 +131,8 @@ export async function getAllPages() {
  * getTopLevelPages
  */
 
-export async function getTopLevelPages() {
-  const { pages } = await getAllPages();
+export async function getTopLevelPages(options) {
+  const { pages } = await getAllPages(options);
 
   const navPages = pages.filter(({ parent }) => parent === null);
 

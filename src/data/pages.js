@@ -1,23 +1,71 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_ALL_PAGES = gql`
-  {
+export const PAGE_FIELDS = gql`
+  fragment PageFields on Page {
+    children {
+      edges {
+        node {
+          id
+          slug
+          uri
+          ... on Page {
+            id
+            title
+          }
+        }
+      }
+    }
+    id
+    menuOrder
+    parent {
+      node {
+        id
+        slug
+        uri
+        ... on Page {
+          title
+        }
+      }
+    }
+    slug
+    title
+    uri
+  }
+`;
+
+export const QUERY_ALL_PAGES_INDEX = gql`
+  ${PAGE_FIELDS}
+  query AllPagesIndex {
     pages(first: 10000, where: { hasPassword: false }) {
       edges {
         node {
-          children {
-            edges {
-              node {
-                id
-                slug
-                uri
-                ... on Page {
-                  id
-                  title
-                }
-              }
-            }
-          }
+          ...PageFields
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_ALL_PAGES_ARCHIVE = gql`
+  ${PAGE_FIELDS}
+  query AllPagesIndex {
+    pages(first: 10000, where: { hasPassword: false }) {
+      edges {
+        node {
+          ...PageFields
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_ALL_PAGES = gql`
+  ${PAGE_FIELDS}
+  query AllPagesIndex {
+    pages(first: 10000, where: { hasPassword: false }) {
+      edges {
+        node {
+          ...PageFields
           content
           featuredImage {
             node {
@@ -29,21 +77,6 @@ export const QUERY_ALL_PAGES = gql`
               srcSet
             }
           }
-          id
-          menuOrder
-          parent {
-            node {
-              id
-              slug
-              uri
-              ... on Page {
-                title
-              }
-            }
-          }
-          slug
-          title
-          uri
         }
       }
     }

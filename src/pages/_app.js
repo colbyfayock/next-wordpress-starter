@@ -47,7 +47,9 @@ App.getInitialProps = async function (appContext) {
 
   const defaultNavigation = createMenuFromPages({
     locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
-    pages: await getTopLevelPages(),
+    pages: await getTopLevelPages({
+      queryIncludes: 'index',
+    }),
   });
 
   menus.push(defaultNavigation);

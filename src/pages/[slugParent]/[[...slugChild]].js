@@ -125,7 +125,9 @@ export async function getStaticProps({ params = {} } = {}) {
   // be cached for all pages, so we can grab that and use it to create
   // our trail
 
-  const { pages } = await getAllPages();
+  const { pages } = await getAllPages({
+    queryIncludes: 'index',
+  });
 
   const breadcrumbs = getBreadcrumbsByUri(pageUri, pages);
 
@@ -138,7 +140,9 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { pages } = await getAllPages();
+  const { pages } = await getAllPages({
+    queryIncludes: 'index',
+  });
 
   // Take all the pages and create path params. The slugParent will always be
   // the top level parent page, where the slugChild will be an array of the
