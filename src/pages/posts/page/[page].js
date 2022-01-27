@@ -18,7 +18,10 @@ export default function Posts({ posts, pagination }) {
 }
 
 export async function getStaticProps({ params = {} } = {}) {
-  const { posts, pagination } = await getPaginatedPosts(params?.page);
+  const { posts, pagination } = await getPaginatedPosts({
+    currentPage: params?.page,
+    queryIncludes: 'archive',
+  });
   return {
     props: {
       posts,
@@ -31,7 +34,9 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { posts } = await getAllPosts();
+  const { posts } = await getAllPosts({
+    queryIncludes: 'index',
+  });
   const pagesCount = await getPagesCount(posts);
   const paths = [...new Array(pagesCount)].map((_, i) => {
     return { params: { page: String(i + 1) } };

@@ -166,7 +166,9 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { posts } = await getAllPosts();
+  const { posts } = await getAllPosts({
+    queryIncludes: 'index',
+  });
 
   const paths = posts
     .filter(({ slug }) => typeof slug === 'string')

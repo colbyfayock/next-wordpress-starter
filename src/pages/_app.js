@@ -36,6 +36,7 @@ App.getInitialProps = async function (appContext) {
 
   const { posts: recentPosts } = await getRecentPosts({
     count: 5,
+    queryIncludes: 'index',
   });
 
   const { categories } = await getCategories({

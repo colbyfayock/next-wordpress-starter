@@ -1,6 +1,68 @@
 import { gql } from '@apollo/client';
 
+export const POST_FIELDS = gql`
+  fragment PostFields on Post {
+    id
+    categories {
+      edges {
+        node {
+          databaseId
+          id
+          name
+          slug
+        }
+      }
+    }
+    databaseId
+    date
+    title
+    postId
+    slug
+  }
+`;
+
+export const QUERY_ALL_POSTS_INDEX = gql`
+  ${POST_FIELDS}
+  query AllPostsIndex {
+    posts(first: 10000, where: { hasPassword: false }) {
+      edges {
+        node {
+          ...PostFields
+        }
+      }
+    }
+  }
+`;
+
+export const QUERY_ALL_POSTS_ARCHIVE = gql`
+  ${POST_FIELDS}
+  query AllPostsArchive {
+    posts(first: 10000, where: { hasPassword: false }) {
+      edges {
+        node {
+          ...PostFields
+          author {
+            node {
+              avatar {
+                height
+                url
+                width
+              }
+              id
+              name
+              slug
+            }
+          }
+          excerpt
+          isSticky
+        }
+      }
+    }
+  }
+`;
+
 export const QUERY_ALL_POSTS = gql`
+  ${POST_FIELDS}
   query AllPosts {
     posts(first: 10000, where: { hasPassword: false }) {
       edges {
@@ -17,19 +79,7 @@ export const QUERY_ALL_POSTS = gql`
               slug
             }
           }
-          id
-          categories {
-            edges {
-              node {
-                databaseId
-                id
-                name
-                slug
-              }
-            }
-          }
           content
-          date
           excerpt
           featuredImage {
             node {
@@ -42,9 +92,6 @@ export const QUERY_ALL_POSTS = gql`
             }
           }
           modified
-          databaseId
-          title
-          slug
           isSticky
         }
       }
