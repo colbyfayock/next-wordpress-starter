@@ -38,7 +38,10 @@ export default function Author({ user, posts }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { user } = await getUserByNameSlug(params?.slug);
-  const { posts } = await getPostsByAuthorSlug(user?.slug);
+  const { posts } = await getPostsByAuthorSlug({
+    slug: user?.slug,
+    queryIncludes: 'archive',
+  });
   return {
     props: {
       user,

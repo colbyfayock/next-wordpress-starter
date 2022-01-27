@@ -147,18 +147,18 @@ export async function getStaticProps({ params = {} } = {}) {
   const socialImage = `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`;
 
   const { categories, databaseId: postId } = post;
-  const category = categories.length && categories[0];
-  let { name, slug } = category;
+
+  const { category: relatedCategory, posts: relatedPosts } = await getRelatedPosts(categories, postId);
 
   return {
     props: {
       post,
       socialImage,
       relatedPosts: {
-        posts: await getRelatedPosts(category, postId),
+        posts: relatedPosts,
         title: {
-          name: name || null,
-          link: categoryPathBySlug(slug),
+          name: relatedCategory.name || null,
+          link: categoryPathBySlug(relatedCategory.slug),
         },
       },
     },
