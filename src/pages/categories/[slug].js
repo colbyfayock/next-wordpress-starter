@@ -20,7 +20,11 @@ export default function Category({ category, posts }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { category } = await getCategoryBySlug(params?.slug);
-  const { posts } = await getPostsByCategoryId(category.databaseId);
+
+  const { posts } = await getPostsByCategoryId({
+    categoryId: category.databaseId,
+    queryIncludes: 'archive',
+  });
 
   return {
     props: {

@@ -4,9 +4,15 @@ import { updateUserAvatar } from 'lib/users';
 import { sortObjectsByDate } from 'lib/datetime';
 
 import {
+  QUERY_ALL_POSTS_INDEX,
+  QUERY_ALL_POSTS_ARCHIVE,
   QUERY_ALL_POSTS,
   QUERY_POST_BY_SLUG,
+  QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
+  QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
   QUERY_POSTS_BY_AUTHOR_SLUG,
+  QUERY_POSTS_BY_CATEGORY_ID_INDEX,
+  QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
   QUERY_POSTS_BY_CATEGORY_ID,
   QUERY_POST_SEO_BY_SLUG,
   QUERY_POST_PER_PAGE,
@@ -116,11 +122,19 @@ export async function getPostBySlug(slug) {
  * getAllPosts
  */
 
-export async function getAllPosts() {
+const allPostsIncludesTypes = {
+  all: QUERY_ALL_POSTS,
+  archive: QUERY_ALL_POSTS_ARCHIVE,
+  index: QUERY_ALL_POSTS_INDEX,
+};
+
+export async function getAllPosts(options = {}) {
+  const { queryIncludes = 'index' } = options;
+
   const apolloClient = getApolloClient();
 
   const data = await apolloClient.query({
-    query: QUERY_ALL_POSTS,
+    query: allPostsIncludesTypes[queryIncludes],
   });
 
   const posts = data?.data.posts.edges.map(({ node = {} }) => node);
@@ -134,20 +148,28 @@ export async function getAllPosts() {
  * getPostsByAuthorSlug
  */
 
-export async function getPostsByAuthorSlug(slug) {
+const postsByAuthorSlugIncludesTypes = {
+  all: QUERY_POSTS_BY_AUTHOR_SLUG,
+  archive: QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
+  index: QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
+};
+
+export async function getPostsByAuthorSlug({ slug, ...options }) {
+  const { queryIncludes = 'index' } = options;
+
   const apolloClient = getApolloClient();
 
   let postData;
 
   try {
     postData = await apolloClient.query({
-      query: QUERY_POSTS_BY_AUTHOR_SLUG,
+      query: postsByAuthorSlugIncludesTypes[queryIncludes],
       variables: {
         slug,
       },
     });
   } catch (e) {
-    console.log(`Failed to query post data: ${e.message}`);
+    console.log(`[posts][getPostsByAuthorSlug] Failed to query post data: ${e.message}`);
     throw e;
   }
 
@@ -162,20 +184,28 @@ export async function getPostsByAuthorSlug(slug) {
  * getPostsByCategoryId
  */
 
-export async function getPostsByCategoryId(categoryId) {
+const postsByCategoryIdIncludesTypes = {
+  all: QUERY_POSTS_BY_CATEGORY_ID,
+  archive: QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
+  index: QUERY_POSTS_BY_CATEGORY_ID_INDEX,
+};
+
+export async function getPostsByCategoryId({ categoryId, ...options }) {
+  const { queryIncludes = 'index' } = options;
+
   const apolloClient = getApolloClient();
 
   let postData;
 
   try {
     postData = await apolloClient.query({
-      query: QUERY_POSTS_BY_CATEGORY_ID,
+      query: postsByCategoryIdIncludesTypes[queryIncludes],
       variables: {
         categoryId,
       },
     });
   } catch (e) {
-    console.log(`Failed to query post data: ${e.message}`);
+    console.log(`[posts][getPostsByCategoryId] Failed to query post data: ${e.message}`);
     throw e;
   }
 
@@ -190,8 +220,8 @@ export async function getPostsByCategoryId(categoryId) {
  * getRecentPosts
  */
 
-export async function getRecentPosts({ count }) {
-  const { posts } = await getAllPosts();
+export async function getRecentPosts({ count, ...options }) {
+  const { posts } = await getAllPosts(options);
   const sorted = sortObjectsByDate(posts);
   return {
     posts: sorted.slice(0, count),
@@ -274,20 +304,34 @@ export function mapPostData(post = {}) {
  * getRelatedPosts
  */
 
-export async function getRelatedPosts(category, postId, count = 5) {
-  let relatedPosts = [];
+export async function getRelatedPosts(categories, postId, count = 5) {
+  if (!Array.isArray(categories) || categories.length === 0) return;
 
-  if (category) {
-    const { posts } = await getPostsByCategoryId(category.databaseId);
+  let related = {
+    category: categories && categories.shift(),
+  };
+
+  if (related.category) {
+    const { posts } = await getPostsByCategoryId({
+      categoryId: related.category.databaseId,
+      queryIncludes: 'archive',
+    });
+
     const filtered = posts.filter(({ postId: id }) => id !== postId);
     const sorted = sortObjectsByDate(filtered);
-    relatedPosts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
+
+    related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
   }
 
-  if (relatedPosts.length > count) {
-    return relatedPosts.slice(0, count);
+  if (!Array.isArray(related.posts) || related.posts.length === 0) {
+    related = await getRelatedPosts(categories, postId, count);
   }
-  return relatedPosts;
+
+  if (Array.isArray(related.posts) && related.posts.length > count) {
+    return related.posts.slice(0, count);
+  }
+
+  return related;
 }
 
 /**
@@ -338,8 +382,8 @@ export async function getPagesCount(posts, postsPerPage) {
  * getPaginatedPosts
  */
 
-export async function getPaginatedPosts(currentPage = 1) {
-  const { posts } = await getAllPosts();
+export async function getPaginatedPosts({ currentPage = 1, ...options } = {}) {
+  const { posts } = await getAllPosts(options);
   const postsPerPage = await getPostsPerPage();
   const pagesCount = await getPagesCount(posts, postsPerPage);
   let page = Number(currentPage);
