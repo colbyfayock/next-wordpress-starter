@@ -19,7 +19,7 @@ import FeaturedImage from 'components/FeaturedImage';
 
 import styles from 'styles/pages/Post.module.scss';
 
-export default function Post({ post, socialImage, relatedPosts }) {
+export default function Post({ post, socialImage, related }) {
   const {
     title,
     metaTitle,
@@ -62,7 +62,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
     compactCategories: false,
   };
 
-  const { posts: relatedPostsList, title: relatedPostsTitle } = relatedPosts;
+  const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
 
   const helmetSettings = helmetSettingsFromMetadata(metadata);
 
@@ -112,7 +112,7 @@ export default function Post({ post, socialImage, relatedPosts }) {
       <Section className={styles.postFooter}>
         <Container>
           <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
-          {!!relatedPostsList.length && (
+          {Array.isArray(relatedPostsList) && relatedPostsList.length > 0 && (
             <div className={styles.relatedPosts}>
               {relatedPostsTitle.name ? (
                 <span>
@@ -149,18 +149,22 @@ export async function getStaticProps({ params = {} } = {}) {
   const { categories, databaseId: postId } = post;
 
   const { category: relatedCategory, posts: relatedPosts } = await getRelatedPosts(categories, postId);
-
-  return {
-    props: {
-      post,
-      socialImage,
-      relatedPosts: {
+  const hasRelated = relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length;
+  const related = !hasRelated
+    ? null
+    : {
         posts: relatedPosts,
         title: {
           name: relatedCategory.name || null,
           link: categoryPathBySlug(relatedCategory.slug),
         },
-      },
+      };
+
+  return {
+    props: {
+      post,
+      socialImage,
+      related,
     },
   };
 }
