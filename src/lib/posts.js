@@ -323,11 +323,11 @@ export async function getRelatedPosts(categories, postId, count = 5) {
     related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
   }
 
-  if (!related.posts || related.posts.length === 0) {
+  if (!Array.isArray(related.posts) || related.posts.length === 0) {
     related = await getRelatedPosts(categories, postId, count);
   }
 
-  if (related.posts.length > count) {
+  if (Array.isArray(related.posts) && related.posts.length > count) {
     return related.posts.slice(0, count);
   }
 
