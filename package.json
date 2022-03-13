@@ -50,7 +50,7 @@
     "eslint-plugin-react": "^7.29.3",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
-    "lint-staged": ">=12.3.4",
+    "lint-staged": ">=12.3.5",
     "prettier": "2.4.1"
   },
   "repository": {
