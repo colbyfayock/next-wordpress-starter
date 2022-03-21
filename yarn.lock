@@ -2428,10 +2428,10 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-style.css@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/style.css/-/style.css-1.0.1.tgz#d8e8be5d7acac99c8fe00947c99d19b8c687d8a9"
-  integrity sha512-gieE9a7GuJ+A4kFHnM0ozwma0slZ+o7txTiK6JWWTkSLQwJrQINpMGDRlJ4fDEPIKuDYOJ7E5cz7S7fM10aotw==
+style.css@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/style.css/-/style.css-1.0.3.tgz#0ce485de0ce9974b2a2d1b5d59e58dfbd9b2cd2b"
+  integrity sha512-gek0b2UUoC2u1apcSFlEBdX3VxgKo+iAui/nTtpRBmkUlKbdYgtBU8t4tv0OAIZxNIl50htVGNWyafD1g4dlDg==
 
 styled-jsx@5.0.0:
   version "5.0.0"
