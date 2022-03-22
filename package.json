@@ -40,7 +40,7 @@
     "react-icons": "^4.3.1",
     "rss": "^1.2.2",
     "sass": "^1.49.9",
-    "style.css": "^1.0.1"
+    "style.css": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "7.32.0",
