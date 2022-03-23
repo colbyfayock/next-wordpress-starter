@@ -23,7 +23,7 @@ export async function getSiteMetadata() {
     throw e;
   }
 
-  const { generalSettings } = siteData?.data;
+  const { generalSettings } = siteData?.data || {};
   let { title, description, language } = generalSettings;
 
   const settings = {
@@ -58,7 +58,7 @@ export async function getSiteMetadata() {
       throw e;
     }
 
-    const { webmaster, social } = seoData?.data?.seo;
+    const { webmaster, social } = seoData?.data?.seo || {};
 
     if (social) {
       settings.social = {};

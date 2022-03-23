@@ -70,7 +70,7 @@ export async function getCategoryBySlug(slug) {
       throw e;
     }
 
-    const { seo = {} } = seoData?.data?.category;
+    const { seo = {} } = seoData?.data?.category || {};
 
     category.title = seo.title;
     category.description = seo.metaDesc;

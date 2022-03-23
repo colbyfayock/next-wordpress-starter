@@ -58,7 +58,7 @@ export async function getPageByUri(uri) {
       throw e;
     }
 
-    const { seo = {} } = seoData?.data?.page;
+    const { seo = {} } = seoData?.data?.page || {};
 
     page.metaTitle = seo.title;
     page.description = seo.metaDesc;

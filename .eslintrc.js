@@ -14,6 +14,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:prettier/recommended',
     'plugin:@next/next/recommended',
+    'next/core-web-vitals',
   ],
   parserOptions: {
     ecmaFeatures: {
