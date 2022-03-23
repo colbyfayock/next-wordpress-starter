@@ -40,17 +40,17 @@
     "react-icons": "^4.3.1",
     "rss": "^1.2.2",
     "sass": "^1.49.9",
-    "style.css": "^1.0.1"
+    "style.css": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "^12.1.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.3",
     "eslint-plugin-react-hooks": "^4.3.0",
     "husky": "^7.0.4",
-    "lint-staged": ">=12.3.4",
+    "lint-staged": ">=12.3.5",
     "prettier": "2.4.1"
   },
   "repository": {
