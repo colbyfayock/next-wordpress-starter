@@ -324,7 +324,8 @@ export async function getRelatedPosts(categories, postId, count = 5) {
   }
 
   if (!Array.isArray(related.posts) || related.posts.length === 0) {
-    related = await getRelatedPosts(categories, postId, count);
+    const relatedPosts = await getRelatedPosts(categories, postId, count);
+    related = relatedPosts || related;
   }
 
   if (Array.isArray(related.posts) && related.posts.length > count) {
