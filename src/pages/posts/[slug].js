@@ -143,29 +143,28 @@ export default function Post({ post, socialImage, related }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { post } = await getPostBySlug(params?.slug);
-
-  const socialImage = `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`;
-
   const { categories, databaseId: postId } = post;
+
+  const props = {
+    post,
+    socialImage: `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`,
+  };
 
   const { category: relatedCategory, posts: relatedPosts } = (await getRelatedPosts(categories, postId)) || {};
   const hasRelated = relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length;
-  const related = !hasRelated
-    ? null
-    : {
-        posts: relatedPosts,
-        title: {
-          name: relatedCategory.name || null,
-          link: categoryPathBySlug(relatedCategory.slug),
-        },
-      };
+
+  if (hasRelated) {
+    props.related = {
+      posts: relatedPosts,
+      title: {
+        name: relatedCategory.name || null,
+        link: categoryPathBySlug(relatedCategory.slug),
+      },
+    };
+  }
 
   return {
-    props: {
-      post,
-      socialImage,
-      related,
-    },
+    props,
   };
 }
 
