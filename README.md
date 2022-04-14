@@ -6,6 +6,12 @@
 
 Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
 
+- [⚡️ Quick Start](#%EF%B8%8F-quick-start)
+- [🚀 Getting Started](#-getting-started)
+- [🛠 Configuring Your Project](#-configuring-your-project)
+- [💝 Sponsors](#-sponsors)
+- [✨ Contributors](#-contributors)
+
 ## ⚡️ Quick Start
 
 ### Requirements
