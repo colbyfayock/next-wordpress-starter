@@ -9,10 +9,13 @@ Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the stati
 - [⚡️ Quick Start](#%EF%B8%8F-quick-start)
 - [🚀 Getting Started](#-getting-started)
 - [🛠 Configuring Your Project](#-configuring-your-project)
+- [🔌 Plugins](#-plugins)
 - [💝 Sponsors](#-sponsors)
 - [✨ Contributors](#-contributors)
 
 ## ⚡️ Quick Start
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter) [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcolbyfayock%2Fnext-wordpress-starter)
 
 ### Requirements
 * [WordPress](https://wordpress.org/)
@@ -122,7 +125,17 @@ There are two options as to how you can deploy this project to Netlify:
 
 **Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin.
 
-**Exporting the project** let's Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
+**Exporting the project** lets Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
+
+Regardless of which option you choose, you can configure your [environment variables](#environment) either when creating your new site or by navigating to Site Settings > Build & Deploy > Environment and triggering a new deploy once added.
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter)
+
+#### Vercel
+
+Given Next.js is a Vercel-supported project, you can simply import the project as a new site and configure your [environment variables](#environment) by either adding them during import or by navigating to Settings > Environment Variables and triggering a new build once added.
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcolbyfayock%2Fnext-wordpress-starter)
 
 ## 🛠 Configuring Your Project
 
