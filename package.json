@@ -49,7 +49,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "husky": "^7.0.4",
-    "lint-staged": ">=12.4.1",
+    "lint-staged": ">=12.5.0",
     "prettier": "2.6.0"
   },
   "repository": {
