@@ -6,7 +6,6 @@
   "author": "Colby Fayock <hello@colbyfayock.com>",
   "scripts": {
     "build": "next build",
-    "wpe-build": "npm run build",
     "dev": "next dev",
     "export": "next export",
     "format": "yarn lint --fix",
