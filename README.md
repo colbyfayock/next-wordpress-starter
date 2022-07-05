@@ -87,6 +87,8 @@ Replace the contents of the variable with your WPGraphQL endpoint. By default, i
 | WORDPRESS_MENU_LOCATION_NAVIGATION | No       | PRIMARY | Configures header navigation Menu Location        |
 | WORDPRESS_PLUGIN_SEO               | No       | false   | Enables SEO plugin support (true, false)          |
 
+Please note some themes do not have PRIMARY menu location.
+
 ### Development
 
 To start the project locally, run:
