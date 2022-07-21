@@ -43,16 +43,20 @@ App.getInitialProps = async function (appContext) {
     count: 5,
   });
 
-  const { menus } = await getAllMenus();
+  // Add default menu to the menus array if it doesn't exist
 
-  const defaultNavigation = createMenuFromPages({
-    locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
-    pages: await getTopLevelPages({
-      queryIncludes: 'index',
-    }),
-  });
+  const { menus = [] } = await getAllMenus();
 
-  menus.push(defaultNavigation);
+  if (menus.length === 0) {
+    const defaultNavigation = createMenuFromPages({
+      locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
+      pages: await getTopLevelPages({
+        queryIncludes: 'index',
+      }),
+    });
+
+    menus.push(defaultNavigation);
+  }
 
   return {
     ...appProps,
