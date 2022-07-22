@@ -34,17 +34,17 @@ function App({ Component, pageProps = {}, metadata, recentPosts, categories, men
 App.getInitialProps = async function (appContext) {
   const appProps = await NextApp.getInitialProps(appContext);
 
-  const { posts: recentPosts } = await getRecentPosts({
-    count: 5,
-    queryIncludes: 'index',
-  });
+  // const { posts: recentPosts } = await getRecentPosts({
+  //   count: 5,
+  //   queryIncludes: 'index',
+  // });
 
-  const { categories } = await getCategories({
-    count: 5,
-  });
+  // const { categories } = await getCategories({
+  //   count: 5,
+  // });
 
-  const { menus } = await getAllMenus();
-
+  // const { menus } = await getAllMenus();
+const menus = [];
   const defaultNavigation = createMenuFromPages({
     locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
     pages: await getTopLevelPages({
@@ -56,9 +56,9 @@ App.getInitialProps = async function (appContext) {
 
   return {
     ...appProps,
-    metadata: await getSiteMetadata(),
-    recentPosts,
-    categories,
+    metadata: {}, // await getSiteMetadata(),
+    recentPosts: [],
+    categories: [],
     menus,
   };
 };
