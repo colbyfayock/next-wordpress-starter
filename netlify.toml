@@ -1,3 +1,6 @@
+[build]
+  publish = ".next"
+
 [[redirects]]
   from = "/*"
   to = "/404"
