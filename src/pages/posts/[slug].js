@@ -142,18 +142,13 @@ export default function Post({ post, socialImage, related }) {
 }
 
 export async function getStaticProps({ params = {} } = {}) {
-  console.log('<<getStaticProps');
   const { post } = await getPostBySlug(params?.slug);
-  console.log('post', post);
   const { categories, databaseId: postId } = post;
-  console.log('postId', postId);
 
   const props = {
     post,
     socialImage: `${process.env.OG_IMAGE_DIRECTORY}/${params?.slug}.png`,
   };
-
-  console.log('props', props);
 
   const { category: relatedCategory, posts: relatedPosts } = (await getRelatedPosts(categories, postId)) || {};
   const hasRelated = relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length;
@@ -168,20 +163,15 @@ export async function getStaticProps({ params = {} } = {}) {
     };
   }
 
-  console.log('props', props);
-
   return {
     props,
   };
 }
 
 export async function getStaticPaths() {
-  console.log('<<getStaticPaths');
   const { posts } = await getAllPosts({
     queryIncludes: 'index',
   });
-
-  console.log('posts', posts);
 
   const paths = posts
     .filter(({ slug }) => typeof slug === 'string')
@@ -191,10 +181,8 @@ export async function getStaticPaths() {
       },
     }));
 
-  console.log('paths', paths);
-
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking',
   };
 }
