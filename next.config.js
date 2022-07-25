@@ -17,15 +17,19 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap], [socialImages]],
   // verbose: true,
 
   env: {
-    WORDPRESS_GRAPHQL_ENDPOINT: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
-    WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
-    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
-
     // The image directory for open graph images will be saved at the location above
     // with `public` prepended. By default, images will be saved at /public/images/og
     // and available at /images/og. If changing, make sure to update the .gitignore
 
     OG_IMAGE_DIRECTORY: '/images/og',
+
+    // By default, only render this number of post pages ahead of time, otherwise
+    // the rest will be rendered on-demand
+    POSTS_PRERENDER_COUNT: 5,
+
+    WORDPRESS_GRAPHQL_ENDPOINT: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
+    WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
+    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
   },
 });
 

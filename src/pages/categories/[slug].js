@@ -1,4 +1,4 @@
-import { getAllCategories, getCategoryBySlug } from 'lib/categories';
+import { getCategoryBySlug } from 'lib/categories';
 import { getPostsByCategoryId } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
@@ -35,19 +35,32 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { categories } = await getAllCategories();
+  // By default, we don't render any Category pages as
+  // we're considering them non-critical pages
 
-  const paths = categories.map((category) => {
-    const { slug } = category;
-    return {
-      params: {
-        slug,
-      },
-    };
-  });
+  // To enable pre-rendering of Category pages:
+
+  // 1. Add import to the top of the file
+  //
+  // import { getAllCategories, getCategoryBySlug } from 'lib/categories';
+
+  // 2. Uncomment the below
+  //
+  // const { categories } = await getAllCategories();
+
+  // const paths = categories.map((category) => {
+  //   const { slug } = category;
+  //   return {
+  //     params: {
+  //       slug,
+  //     },
+  //   };
+  // });
+
+  // 3. Update `paths` in the return statement below to reference the `paths` constant above
 
   return {
-    paths,
-    fallback: false,
+    paths: [],
+    fallback: 'blocking',
   };
 }
