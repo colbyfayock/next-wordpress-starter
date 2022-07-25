@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
-import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
+import { getPostBySlug, getRelatedPosts, postPathBySlug } from 'lib/posts';
+// import { getPostBySlug, getAllPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
@@ -169,20 +170,20 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { posts } = await getAllPosts({
-    queryIncludes: 'index',
-  });
+  // const { posts } = await getAllPosts({
+  //   queryIncludes: 'index',
+  // });
 
-  const paths = posts
-    .filter(({ slug }) => typeof slug === 'string')
-    .map(({ slug }) => ({
-      params: {
-        slug,
-      },
-    }));
+  // const paths = posts
+  //   .filter(({ slug }) => typeof slug === 'string')
+  //   .map(({ slug }) => ({
+  //     params: {
+  //       slug,
+  //     },
+  //   }));
 
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 }

@@ -1,4 +1,5 @@
-import { getAllPosts, getPagesCount, getPaginatedPosts } from 'lib/posts';
+import { getPaginatedPosts } from 'lib/posts';
+// import { getAllPosts, getPagesCount, getPaginatedPosts } from 'lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
@@ -34,15 +35,15 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { posts } = await getAllPosts({
-    queryIncludes: 'index',
-  });
-  const pagesCount = await getPagesCount(posts);
-  const paths = [...new Array(pagesCount)].map((_, i) => {
-    return { params: { page: String(i + 1) } };
-  });
+  // const { posts } = await getAllPosts({
+  //   queryIncludes: 'index',
+  // });
+  // const pagesCount = await getPagesCount(posts);
+  // const paths = [...new Array(pagesCount)].map((_, i) => {
+  //   return { params: { page: String(i + 1) } };
+  // });
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 }

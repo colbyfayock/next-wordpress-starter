@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Helmet } from 'react-helmet';
 
 import { getPageByUri, getAllPages, getBreadcrumbsByUri } from 'lib/pages';
+// import { getPageByUri, , getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
 import useSite from 'hooks/use-site';
@@ -140,29 +141,29 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { pages } = await getAllPages({
-    queryIncludes: 'index',
-  });
+  // const { pages } = await getAllPages({
+  //   queryIncludes: 'index',
+  // });
 
-  // Take all the pages and create path params. The slugParent will always be
-  // the top level parent page, where the slugChild will be an array of the
-  // remaining segments to make up the path or URI
+  // // Take all the pages and create path params. The slugParent will always be
+  // // the top level parent page, where the slugChild will be an array of the
+  // // remaining segments to make up the path or URI
 
-  const paths = pages
-    .filter(({ uri }) => typeof uri === 'string')
-    .map(({ uri }) => {
-      const segments = uri.split('/').filter((seg) => seg !== '');
+  // const paths = pages
+  //   .filter(({ uri }) => typeof uri === 'string')
+  //   .map(({ uri }) => {
+  //     const segments = uri.split('/').filter((seg) => seg !== '');
 
-      return {
-        params: {
-          slugParent: segments.shift(),
-          slugChild: segments,
-        },
-      };
-    });
+  //     return {
+  //       params: {
+  //         slugParent: segments.shift(),
+  //         slugChild: segments,
+  //       },
+  //     };
+  //   });
 
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 }

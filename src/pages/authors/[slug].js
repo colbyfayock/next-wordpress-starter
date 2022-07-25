@@ -1,4 +1,5 @@
-import { getAllAuthors, getUserByNameSlug, userSlugByName } from 'lib/users';
+import { getUserByNameSlug } from 'lib/users';
+// import { getAllAuthors, getUserByNameSlug, userSlugByName } from 'lib/users';
 import { getPostsByAuthorSlug } from 'lib/posts';
 import { AuthorJsonLd } from 'lib/json-ld';
 import usePageMetadata from 'hooks/use-page-metadata';
@@ -51,19 +52,19 @@ export async function getStaticProps({ params = {} } = {}) {
 }
 
 export async function getStaticPaths() {
-  const { authors } = await getAllAuthors();
+  // const { authors } = await getAllAuthors();
 
-  const paths = authors.map((author) => {
-    const { name } = author;
-    return {
-      params: {
-        slug: userSlugByName(name),
-      },
-    };
-  });
+  // const paths = authors.map((author) => {
+  //   const { name } = author;
+  //   return {
+  //     params: {
+  //       slug: userSlugByName(name),
+  //     },
+  //   };
+  // });
 
   return {
-    paths,
+    paths: [],
     fallback: 'blocking',
   };
 }
