@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
-    "@netlify/plugin-nextjs": "4.13.1",
+    "@netlify/plugin-nextjs": "4.12.2",
     "date-fns": "^2.28.0",
     "dotenv": "^16.0.1",
     "fuse.js": "^6.6.2",
