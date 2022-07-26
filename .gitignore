@@ -41,3 +41,5 @@ public/images/og
 
 # VSCode settings
 .vscode/
+# Local Netlify folder
+.netlify
