@@ -148,8 +148,11 @@ export async function getStaticPaths() {
   // the top level parent page, where the slugChild will be an array of the
   // remaining segments to make up the path or URI
 
+  // We also filter out the `/` homepage as it will conflict with index.js if
+  // as they have the same path, which will fail the build
+
   const paths = pages
-    .filter(({ uri }) => typeof uri === 'string')
+    .filter(({ uri }) => typeof uri === 'string' && uri !== '/')
     .map(({ uri }) => {
       const segments = uri.split('/').filter((seg) => seg !== '');
 
