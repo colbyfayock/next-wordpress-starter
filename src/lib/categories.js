@@ -51,6 +51,8 @@ export async function getCategoryBySlug(slug) {
     throw e;
   }
 
+  if (!categoryData?.data.category) return { category: undefined };
+
   const category = mapCategoryData(categoryData?.data.category);
 
   // If the SEO plugin is enabled, look up the data

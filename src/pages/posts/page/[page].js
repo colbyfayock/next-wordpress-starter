@@ -22,6 +22,14 @@ export async function getStaticProps({ params = {} } = {}) {
     currentPage: params?.page,
     queryIncludes: 'archive',
   });
+
+  if (!pagination.currentPage) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       posts,

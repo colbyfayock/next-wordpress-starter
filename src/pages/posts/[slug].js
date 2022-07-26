@@ -143,6 +143,14 @@ export default function Post({ post, socialImage, related }) {
 
 export async function getStaticProps({ params = {} } = {}) {
   const { post } = await getPostBySlug(params?.slug);
+
+  if (!post) {
+    return {
+      props: {},
+      notFound: true,
+    };
+  }
+
   const { categories, databaseId: postId } = post;
 
   const props = {

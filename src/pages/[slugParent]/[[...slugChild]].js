@@ -127,8 +127,6 @@ export async function getStaticProps({ params = {} } = {}) {
     };
   }
 
-  console.log('page', page);
-
   // In order to show the proper breadcrumbs, we need to find the entire
   // tree of pages. Rather than querying every segment, the query should
   // be cached for all pages, so we can grab that and use it to create
