@@ -1,5 +1,5 @@
 import { getApolloClient } from 'lib/apollo-client';
-
+import { getTopLevelPages } from 'lib/pages';
 import { QUERY_ALL_MENUS } from 'data/menus';
 
 export const MENU_LOCATION_NAVIGATION_DEFAULT = 'DEFAULT_NAVIGATION';
@@ -16,6 +16,15 @@ export async function getAllMenus() {
   });
 
   const menus = data?.data.menus.edges.map(mapMenuData);
+
+  const defaultNavigation = createMenuFromPages({
+    locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
+    pages: await getTopLevelPages({
+      queryIncludes: 'index',
+    }),
+  });
+
+  menus.push(defaultNavigation);
 
   return {
     menus,
@@ -87,22 +96,13 @@ export const parseHierarchicalMenu = (
  */
 
 export function findMenuByLocation(menus, location) {
-  let menu;
-
-  if (!Array.isArray(location)) {
-    location = [location];
+  if (typeof location !== 'string') {
+    throw new Error('Failed to find menu by location - location is not a string.');
   }
 
-  const searchLocations = [...location];
-  do {
-    menu = menus.find(function ({ locations }) {
-      return locations.map((loc) => loc.toUpperCase()).includes(searchLocations.shift()?.toUpperCase());
-    });
-  } while (!menu && location.length > 0);
+  const menu = menus.find(({ locations }) => {
+    return locations.map((loc) => loc.toUpperCase()).includes(location.toUpperCase());
+  });
 
-  if (!menu) {
-    return null;
-  }
-
-  return parseHierarchicalMenu(menu.menuItems);
+  return menu && parseHierarchicalMenu(menu.menuItems);
 }

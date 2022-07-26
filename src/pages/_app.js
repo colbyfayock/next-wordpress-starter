@@ -5,10 +5,9 @@ import { SearchProvider } from 'hooks/use-search';
 
 import { getSiteMetadata } from 'lib/site';
 import { getRecentPosts } from 'lib/posts';
-import { getTopLevelPages } from 'lib/pages';
 import { getCategories } from 'lib/categories';
 import NextNProgress from 'nextjs-progressbar';
-import { getAllMenus, createMenuFromPages, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
+import { getAllMenus } from 'lib/menus';
 
 import 'styles/globals.scss';
 import variables from 'styles/_variables.module.scss';
@@ -43,20 +42,7 @@ App.getInitialProps = async function (appContext) {
     count: 5,
   });
 
-  // Add default menu to the menus array if it doesn't exist
-
   const { menus = [] } = await getAllMenus();
-
-  if (menus.length === 0) {
-    const defaultNavigation = createMenuFromPages({
-      locations: [MENU_LOCATION_NAVIGATION_DEFAULT],
-      pages: await getTopLevelPages({
-        queryIncludes: 'index',
-      }),
-    });
-
-    menus.push(defaultNavigation);
-  }
 
   return {
     ...appProps,
