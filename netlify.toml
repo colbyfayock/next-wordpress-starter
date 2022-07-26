@@ -2,9 +2,6 @@
   command = "yarn build"
   publish = ".next"
 
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
 [[redirects]]
   from = "/*"
   to = "/404"
