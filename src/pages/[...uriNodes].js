@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { getApolloClient } from 'lib/apollo-client';
 
-import Page from 'templates/Page';
+import Page from 'templates/page';
 
 const templates = {
   Page,
