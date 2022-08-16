@@ -86,6 +86,17 @@ export const QUERY_ALL_PAGES = gql`
 export const QUERY_PAGE_BY_URI = gql`
   query PageByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
+      ancestors {
+        edges {
+          node {
+            uri
+            ... on Page {
+              id
+              title
+            }
+          }
+        }
+      }
       children {
         edges {
           node {
