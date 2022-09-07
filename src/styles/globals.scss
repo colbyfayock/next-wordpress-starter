@@ -27,6 +27,7 @@ a {
 
 img {
   max-width: 100%;
+  height: auto;
 }
 
 input {
@@ -36,6 +37,14 @@ input {
     outline-offset: 0;
     padding: 0.5em 0.8em;
   }
+}
+
+figcaption {
+  color: $color-gray-500;
+  font-size: 0.9em;
+  text-align: center;
+  font-style: italic;
+  margin-top: 0.6em;
 }
 
 .sr-only {
