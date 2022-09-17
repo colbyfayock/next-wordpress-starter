@@ -33,7 +33,7 @@ class WebpackPlugin {
         await createFile(file, plugin.name, plugin.outputDirectory, plugin.outputLocation, verbose);
       }
 
-      //If there is an aditional action to perform
+      //If there is an additional action to perform
       if (plugin.postcreate) {
         plugin.postcreate(plugin);
       }
@@ -53,15 +53,21 @@ class WebpackPlugin {
 
     const { plugin } = this.options;
 
+    // Value to ensure that the plugins only run once and not continuously on every page request
+    let hasRun = false;
+
     compiler.hooks.run.tap(plugin.name, async (compiler) => {
-      if (!compiler.options.entry.main) return;
+      if (!compiler.options.entry.main || hasRun) return;
+
       await this.index(compiler, this.options);
+      hasRun = true;
     });
 
     compiler.hooks.watchRun.tap(plugin.name, async (compiler) => {
       const entries = await compiler.options.entry();
-      if (!entries || !entries.main) return;
+      if (!entries || !entries.main || hasRun) return;
       await this.index(compiler, this.options);
+      hasRun = true;
     });
   }
 }
