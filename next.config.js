@@ -1,11 +1,13 @@
-const withPlugins = require('next-compose-plugins');
-
 const indexSearch = require('./plugins/search-index');
 const feed = require('./plugins/feed');
 const sitemap = require('./plugins/sitemap');
 // const socialImages = require('./plugins/socialImages'); TODO: failing to run on Netlify
 
-module.exports = withPlugins([[indexSearch], [feed], [sitemap]], {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+
   // By default, Next.js removes the trailing slash. One reason this would be good
   // to include is by default, the `path` property of the router for the homepage
   // is `/` and by using that, would instantly create a redirect
@@ -31,7 +33,12 @@ module.exports = withPlugins([[indexSearch], [feed], [sitemap]], {
     WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
     WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
   },
-});
+};
+
+module.exports = () => {
+  const plugins = [indexSearch, feed, sitemap];
+  return plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
+};
 
 /**
  * parseEnv
