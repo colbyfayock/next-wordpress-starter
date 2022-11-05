@@ -1,7 +1,7 @@
 # Next.js WordPress Starter
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-16-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-17-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the static web!
@@ -208,28 +208,31 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://colbyfayock.com/newsletter"><img src="https://avatars2.githubusercontent.com/u/1045274?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Colby Fayock</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=colbyfayock" title="Code">💻</a> <a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=colbyfayock" title="Documentation">📖</a></td>
-    <td align="center"><a href="http://www.kevincunningham.co.uk"><img src="https://avatars3.githubusercontent.com/u/8320213?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kevin Cunningham</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=doingandlearning" title="Code">💻</a></td>
-    <td align="center"><a href="http://guilleangulo.me"><img src="https://avatars0.githubusercontent.com/u/50624358?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Guillermo Angulo</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=GuilleAngulo" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.heinsnyman.co.za"><img src="https://avatars0.githubusercontent.com/u/22816814?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hein Snyman</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=HeinSnyman" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/grische"><img src="https://avatars0.githubusercontent.com/u/2787581?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grische</b></sub></a><br /><a href="#tool-grische" title="Tools">🔧</a></td>
-    <td align="center"><a href="https://github.com/jatin-rathee"><img src="https://avatars0.githubusercontent.com/u/44899844?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jatin Rathee</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=jatin-rathee" title="Code">💻</a></td>
-    <td align="center"><a href="https://highaltitude.io/"><img src="https://avatars.githubusercontent.com/u/2972436?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Dave</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=thedavedavies" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://bradgarropy.com"><img src="https://avatars.githubusercontent.com/u/11336745?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Brad Garropy</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=bradgarropy" title="Code">💻</a></td>
-    <td align="center"><a href="http://ffabiosales.github.io"><img src="https://avatars.githubusercontent.com/u/1392528?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Fábio Sales</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=ffabiosales" title="Code">💻</a></td>
-    <td align="center"><a href="https://leoloso.com"><img src="https://avatars.githubusercontent.com/u/1981996?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Leonardo Losoviz</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=leoloso" title="Code">💻</a></td>
-    <td align="center"><a href="https://www.avneesh.tech/"><img src="https://avatars.githubusercontent.com/u/76690419?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Avneesh Agarwal</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=avneesh0612" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/PhattOZ"><img src="https://avatars.githubusercontent.com/u/63938605?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Phattarapol L.</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=PhattOZ" title="Code">💻</a></td>
-    <td align="center"><a href="https://capecod.world"><img src="https://avatars.githubusercontent.com/u/26460352?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Peter Cruckshank</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=petercr" title="Code">💻</a></td>
-    <td align="center"><a href="https://ogrady.ie"><img src="https://avatars.githubusercontent.com/u/130415?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Shane O'Grady</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=shaneog" title="Code">💻</a></td>
-  </tr>
-  <tr>
-    <td align="center"><a href="https://roundhouse-designs.com"><img src="https://avatars.githubusercontent.com/u/665784?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Nick Gaswirth</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=gaswirth" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/alexandruvisan19"><img src="https://avatars.githubusercontent.com/u/79447321?v=4?s=100" width="100px;" alt=""/><br /><sub><b>alexandruvisan19</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=alexandruvisan19" title="Code">💻</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td align="center"><a href="https://colbyfayock.com/newsletter"><img src="https://avatars2.githubusercontent.com/u/1045274?v=4?s=100" width="100px;" alt="Colby Fayock"/><br /><sub><b>Colby Fayock</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=colbyfayock" title="Code">💻</a> <a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=colbyfayock" title="Documentation">📖</a></td>
+      <td align="center"><a href="http://www.kevincunningham.co.uk"><img src="https://avatars3.githubusercontent.com/u/8320213?v=4?s=100" width="100px;" alt="Kevin Cunningham"/><br /><sub><b>Kevin Cunningham</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=doingandlearning" title="Code">💻</a></td>
+      <td align="center"><a href="http://guilleangulo.me"><img src="https://avatars0.githubusercontent.com/u/50624358?v=4?s=100" width="100px;" alt="Guillermo Angulo"/><br /><sub><b>Guillermo Angulo</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=GuilleAngulo" title="Code">💻</a></td>
+      <td align="center"><a href="http://www.heinsnyman.co.za"><img src="https://avatars0.githubusercontent.com/u/22816814?v=4?s=100" width="100px;" alt="Hein Snyman"/><br /><sub><b>Hein Snyman</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=HeinSnyman" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/grische"><img src="https://avatars0.githubusercontent.com/u/2787581?v=4?s=100" width="100px;" alt="Grische"/><br /><sub><b>Grische</b></sub></a><br /><a href="#tool-grische" title="Tools">🔧</a></td>
+      <td align="center"><a href="https://github.com/jatin-rathee"><img src="https://avatars0.githubusercontent.com/u/44899844?v=4?s=100" width="100px;" alt="Jatin Rathee"/><br /><sub><b>Jatin Rathee</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=jatin-rathee" title="Code">💻</a></td>
+      <td align="center"><a href="https://highaltitude.io/"><img src="https://avatars.githubusercontent.com/u/2972436?v=4?s=100" width="100px;" alt="Dave"/><br /><sub><b>Dave</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=thedavedavies" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://bradgarropy.com"><img src="https://avatars.githubusercontent.com/u/11336745?v=4?s=100" width="100px;" alt="Brad Garropy"/><br /><sub><b>Brad Garropy</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=bradgarropy" title="Code">💻</a></td>
+      <td align="center"><a href="http://ffabiosales.github.io"><img src="https://avatars.githubusercontent.com/u/1392528?v=4?s=100" width="100px;" alt="Fábio Sales"/><br /><sub><b>Fábio Sales</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=ffabiosales" title="Code">💻</a></td>
+      <td align="center"><a href="https://leoloso.com"><img src="https://avatars.githubusercontent.com/u/1981996?v=4?s=100" width="100px;" alt="Leonardo Losoviz"/><br /><sub><b>Leonardo Losoviz</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=leoloso" title="Code">💻</a></td>
+      <td align="center"><a href="https://www.avneesh.tech/"><img src="https://avatars.githubusercontent.com/u/76690419?v=4?s=100" width="100px;" alt="Avneesh Agarwal"/><br /><sub><b>Avneesh Agarwal</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=avneesh0612" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/PhattOZ"><img src="https://avatars.githubusercontent.com/u/63938605?v=4?s=100" width="100px;" alt="Phattarapol L."/><br /><sub><b>Phattarapol L.</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=PhattOZ" title="Code">💻</a></td>
+      <td align="center"><a href="https://capecod.world"><img src="https://avatars.githubusercontent.com/u/26460352?v=4?s=100" width="100px;" alt="Peter Cruckshank"/><br /><sub><b>Peter Cruckshank</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=petercr" title="Code">💻</a></td>
+      <td align="center"><a href="https://ogrady.ie"><img src="https://avatars.githubusercontent.com/u/130415?v=4?s=100" width="100px;" alt="Shane O'Grady"/><br /><sub><b>Shane O'Grady</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=shaneog" title="Code">💻</a></td>
+    </tr>
+    <tr>
+      <td align="center"><a href="https://roundhouse-designs.com"><img src="https://avatars.githubusercontent.com/u/665784?v=4?s=100" width="100px;" alt="Nick Gaswirth"/><br /><sub><b>Nick Gaswirth</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=gaswirth" title="Code">💻</a></td>
+      <td align="center"><a href="https://github.com/alexandruvisan19"><img src="https://avatars.githubusercontent.com/u/79447321?v=4?s=100" width="100px;" alt="alexandruvisan19"/><br /><sub><b>alexandruvisan19</b></sub></a><br /><a href="https://github.com/colbyfayock/next-wordpress-starter/commits?author=alexandruvisan19" title="Code">💻</a></td>
+      <td align="center"><a href="https://linktr.ee/theritikchoure"><img src="https://avatars.githubusercontent.com/u/56495602?v=4?s=100" width="100px;" alt="Ritik Chourasiya"/><br /><sub><b>Ritik Chourasiya</b></sub></a><br /><a href="#tool-theritikchoure" title="Tools">🔧</a></td>
+    </tr>
+  </tbody>
 </table>
 
 <!-- markdownlint-restore -->

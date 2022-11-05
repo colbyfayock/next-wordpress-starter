@@ -149,6 +149,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "theritikchoure",
+      "name": "Ritik Chourasiya",
+      "avatar_url": "https://avatars.githubusercontent.com/u/56495602?v=4",
+      "profile": "https://linktr.ee/theritikchoure",
+      "contributions": [
+        "tool"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -156,5 +165,6 @@
   "projectOwner": "colbyfayock",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }
