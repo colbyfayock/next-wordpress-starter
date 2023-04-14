@@ -47,7 +47,7 @@
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": ">=13.2.1",
-    "playwright": "^1.26.0",
+    "playwright": "^1.32.1",
     "prettier": "2.7.1"
   },
   "repository": {
