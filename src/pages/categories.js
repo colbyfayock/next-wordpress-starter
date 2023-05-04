@@ -44,9 +44,7 @@ export default function Categories({ categories }) {
             {categories.map((category) => {
               return (
                 <li key={category.slug}>
-                  <Link href={categoryPathBySlug(category.slug)}>
-                    <a>{category.name}</a>
-                  </Link>
+                  <Link href={categoryPathBySlug(category.slug)}>{category.name}</Link>
                 </li>
               );
             })}

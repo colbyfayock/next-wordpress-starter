@@ -23,9 +23,7 @@ export default function Custom500() {
             reach out to let us know!
           </p>
           <p>
-            <Link href="/">
-              <a>Go back home</a>
-            </Link>
+            <Link href="/">Go back home</Link>
           </p>
         </Container>
       </Section>

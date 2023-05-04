@@ -8,40 +8,42 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      # install dependencies from yarn.lock
-      - name: Install dependencies with yarn
-        run: yarn install --frozen-lockfile
-
-      # Run linting with yarn
-      - run: yarn lint
+      - run: pnpm install
+      - run: pnpm lint
 
   static-compat:
     name: Static Compatability
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
+        node-version: [16.x, 18.x]
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-      # install dependencies from yarn.lock
-      - name: Install dependencies with yarn
-        run: yarn install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - run: yarn build && yarn export
+      - run: pnpm build && pnpm export
         env:
           WORDPRESS_GRAPHQL_ENDPOINT: ${{ secrets.WORDPRESS_GRAPHQL_ENDPOINT }}
