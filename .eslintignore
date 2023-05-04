@@ -37,6 +37,8 @@ yarn-error.log*
 .vercel
 
 yarn.lock
+pnpm-lock.yaml
+package-lock.json
 .prettierignore
 .gitignore
 .eslintignore

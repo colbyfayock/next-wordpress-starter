@@ -178,9 +178,7 @@ const Nav = () => {
     <nav className={styles.nav}>
       <Section className={styles.navSection}>
         <p className={styles.navName}>
-          <Link href="/">
-            <a>{title}</a>
-          </Link>
+          <Link href="/">{title}</Link>
         </p>
         <ul className={styles.navMenu}>
           {navigation?.map((listItem) => {
@@ -212,7 +210,7 @@ const Nav = () => {
                       return (
                         <li key={slug}>
                           <Link tabIndex={index} href={postPathBySlug(slug)}>
-                            <a>{title}</a>
+                            {title}
                           </Link>
                         </li>
                       );
