@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { getPageByUri, getAllPages, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
-import useSite from 'hooks/use-site';
+import useSite from '@/hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import Layout from 'components/Layout';

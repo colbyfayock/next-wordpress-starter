@@ -1,6 +1,6 @@
 import NextApp from 'next/app';
 
-import { SiteContext, useSiteContext } from 'hooks/use-site';
+import { SiteContext, useSiteContext } from '@/hooks/use-site';
 import { SearchProvider } from 'hooks/use-search';
 
 import { getSiteMetadata } from 'lib/site';
