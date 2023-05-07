@@ -1,7 +1,6 @@
 import Link from 'next/link';
-import { gql } from '@apollo/client';
 
-import { getSiteMetadata } from '@/lib/site';
+import { getAllPages, getBreadcrumbsByUri } from '@/lib/pages';
 
 import Section from '@/components/Section';
 import Container from '@/components/Container';
@@ -11,19 +10,19 @@ import FeaturedImage from '@/components/FeaturedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JSONLD from '@/components/JSONLD';
 
-// import { WebpageJsonLd } from '@/lib/json-ld';
-// import { helmetSettingsFromMetadata } from '@/lib/site';
-// import usePageMetadata from 'hooks/use-page-metadata';
-
 import styles from '@/styles/pages/Page.module.scss';
 
-export default async function Page({ data, breadcrumbs }) {
-  const { children, content, description, featuredImage, metaTitle, title, uri } = data;
+export default async function Page({ data, metadata }) {
+  const { children, content, description, featuredImage, title, uri } = data;
 
-  const metadata = await getSiteMetadata();
+  const [{ pages }] = await Promise.all([
+    getAllPages({
+      queryIncludes: 'index',
+    }),
+  ]);
 
   const hasChildren = Array.isArray(children) && children.length > 0;
-  console.log('data', data)
+  const breadcrumbs = getBreadcrumbsByUri(uri, pages);
 
   // const { metadata } = usePageMetadata({
   //   metadata: {
@@ -41,14 +40,11 @@ export default async function Page({ data, breadcrumbs }) {
   //   metadata.twitter.title = metadata.title;
   // }
 
-  
   return (
     <>
       <Header>
         {Array.isArray(breadcrumbs) && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-        {featuredImage && (
-          <FeaturedImage data={featuredImage} />
-        )}
+        {featuredImage && <FeaturedImage data={featuredImage} />}
         <h1 className={styles.title}>{title}</h1>
       </Header>
 
@@ -75,9 +71,7 @@ export default async function Page({ data, breadcrumbs }) {
                   {children.map((child) => {
                     return (
                       <li key={child.id}>
-                        <Link href={child.uri}>
-                          {child.title}
-                        </Link>
+                        <Link href={child.uri}>{child.title}</Link>
                       </li>
                     );
                   })}
@@ -102,7 +96,7 @@ export default async function Page({ data, breadcrumbs }) {
 }
 
 Page.template = {
-  query: gql`
+  query: `
     query PageByUri($uri: ID!) {
       page(id: $uri, idType: URI) {
         children {

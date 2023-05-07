@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import { getSiteMetadata } from '@/lib/site';
-import { getRecentPosts, postPathBySlug } from '@/lib/posts';
+import { getRecentPosts } from '@/lib/posts';
 import { getCategories, categoryPathBySlug } from '@/lib/categories';
 
 import Section from '@/components/Section';
@@ -15,10 +15,10 @@ async function Footer() {
     getRecentPosts({
       count: 5,
       queryIncludes: 'index',
-    }), 
+    }),
     getCategories({
       count: 5,
-    })
+    }),
   ]);
 
   const { title } = metadata;
@@ -40,10 +40,10 @@ async function Footer() {
                   </Link>
                   <ul className={styles.footerMenuItems}>
                     {recentPosts.map((post) => {
-                      const { id, slug, title } = post;
+                      const { id, uri, title } = post;
                       return (
                         <li key={id}>
-                          <Link href={postPathBySlug(slug)}>{title}</Link>
+                          <Link href={uri}>{title}</Link>
                         </li>
                       );
                     })}
@@ -94,6 +94,6 @@ async function Footer() {
       </Section>
     </footer>
   );
-};
+}
 
 export default Footer;

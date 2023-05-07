@@ -19,14 +19,6 @@ import {
 } from 'data/posts';
 
 /**
- * postPathBySlug
- */
-
-export function postPathBySlug(slug) {
-  return `/posts/${slug}`;
-}
-
-/**
  * getPostBySlug
  */
 
@@ -322,7 +314,7 @@ export async function getRelatedPosts(categories, postId, count = 5) {
     const filtered = posts.filter(({ postId: id }) => id !== postId);
     const sorted = sortObjectsByDate(filtered);
 
-    related.posts = sorted.map((post) => ({ title: post.title, slug: post.slug }));
+    related.posts = sorted.map((post) => ({ title: post.title, uri: post.uri }));
   }
 
   if (!Array.isArray(related.posts) || related.posts.length === 0) {
@@ -333,6 +325,8 @@ export async function getRelatedPosts(categories, postId, count = 5) {
   if (Array.isArray(related.posts) && related.posts.length > count) {
     return related.posts.slice(0, count);
   }
+
+  console.log('related', related);
 
   return related;
 }

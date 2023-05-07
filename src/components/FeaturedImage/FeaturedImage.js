@@ -5,7 +5,7 @@ import styles from './FeaturedImage.module.scss';
 const FeaturedImage = ({ data, ...props }) => {
   let className = styles.featuredImage;
 
-  if ( props.className ) {
+  if (props.className) {
     className = `${className} ${props.className}`;
   }
 

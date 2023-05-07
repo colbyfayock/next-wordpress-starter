@@ -5,8 +5,8 @@ export default async function robots() {
 
   return {
     rules: {
-      userAgent: '*'
+      userAgent: '*',
     },
-    sitemap: `${metadata.url}/sitemap.xml`
+    sitemap: `${metadata.url}/sitemap.xml`,
   };
 }

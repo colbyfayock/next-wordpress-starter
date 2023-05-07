@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const QUERY_SITE_DATA = gql`
+export const QUERY_SITE_DATA = `
   query SiteData {
     generalSettings {
       description
@@ -17,7 +15,7 @@ export const QUERY_SITE_DATA = gql`
   }
 `;
 
-export const QUERY_SEO_DATA = gql`
+export const QUERY_SEO_DATA = `
   query SeoData {
     seo {
       webmaster {

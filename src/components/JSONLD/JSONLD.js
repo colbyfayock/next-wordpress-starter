@@ -1,4 +1,4 @@
-const JSONLD = ({ data, metadata }) => {
+const JSONLD = ({ data = {}, metadata = {} }) => {
   return (
     <script
       type="application/ld+json"
@@ -13,12 +13,11 @@ const JSONLD = ({ data, metadata }) => {
               '@type': 'ImageObject',
               url: `${metadata.url}/icon.png`,
             },
-          }
-        })
+          },
+        }),
       }}
     />
-  )
-  ;
+  );
 };
 
 export default JSONLD;

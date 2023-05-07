@@ -1,4 +1,4 @@
-import { getApolloClient } from '@/lib/apollo-client';
+import { gql } from '@/lib/request';
 
 import { decodeHtmlEntities, removeExtraSpaces } from '@/lib/util';
 
@@ -9,16 +9,13 @@ import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
  */
 
 export async function getSiteMetadata() {
-  const apolloClient = getApolloClient();
-
   let siteData;
   let seoData;
 
   try {
-    siteData = await apolloClient.query({
+    siteData = await gql({
       query: QUERY_SITE_DATA,
     });
-    console.log('siteData', siteData)
   } catch (e) {
     console.log(`[site][getSiteMetadata] Failed to query site data: ${e.message}`);
     throw e;
@@ -29,7 +26,7 @@ export async function getSiteMetadata() {
 
   const settings = {
     ...generalSettings,
-    url: process.env.WORDPRESS_SITE_URL
+    url: process.env.WORDPRESS_SITE_URL,
   };
 
   // It looks like the value of `language` when US English is set
@@ -48,7 +45,7 @@ export async function getSiteMetadata() {
 
   // if (process.env.WORDPRESS_PLUGIN_SEO === true) {
   //   try {
-  //     seoData = await apolloClient.query({
+  //     seoData = await gql({
   //       query: QUERY_SEO_DATA,
   //     });
   //   } catch (e) {

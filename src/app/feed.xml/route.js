@@ -18,7 +18,7 @@ export async function GET() {
     language: metadata.language,
     pubDate: new Date(),
   });
-  
+
   posts.slice(0, MAX_POSTS).map((post) => {
     feed.item({
       title: post.title,
@@ -31,11 +31,9 @@ export async function GET() {
     });
   });
 
-  return new Response(feed.xml({ indent: true }),
-    {
-      headers: {
-        'Content-Type': 'application/atom+xml; charset=utf-8',
-      },
-    }
-  );
+  return new Response(feed.xml({ indent: true }), {
+    headers: {
+      'Content-Type': 'application/atom+xml; charset=utf-8',
+    },
+  });
 }

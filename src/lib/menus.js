@@ -12,7 +12,7 @@ export async function getMenuItemsByLocation(location) {
   const data = await apolloClient.query({
     query: gql`
       query MenuItemsByLocation($location: MenuLocationEnum) {
-        menuItems(where: {location: $location}) {
+        menuItems(where: { location: $location }) {
           nodes {
             key: id
             parentId
@@ -23,20 +23,20 @@ export async function getMenuItemsByLocation(location) {
       }
     `,
     variables: {
-      location
-    }
+      location,
+    },
   });
 
   const { nodes } = data.data.menuItems;
 
-  const topLevelItem = nodes.filter(({ parentId }) => !parentId)
+  const topLevelItem = nodes.filter(({ parentId }) => !parentId);
 
-  const menuItems = topLevelItem.map(item => {
-    const children = nodes.filter(node => node.parentId === item.key);
+  const menuItems = topLevelItem.map((item) => {
+    const children = nodes.filter((node) => node.parentId === item.key);
     return {
       ...item,
-      children
-    }
+      children,
+    };
   });
 
   return menuItems;

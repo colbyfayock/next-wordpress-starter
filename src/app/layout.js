@@ -45,11 +45,8 @@ export default function RootLayout({ children }) {
         </div>
       </body>
     </html>
-  )
+  );
 }
-
-
-
 
 // const helmetSettings = {
 

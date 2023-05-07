@@ -32,7 +32,7 @@ export async function getUserBySlug(slug) {
 
 export function authorPathByName(name) {
   // @TODO
-  console.warn('authorPathByName UPDATE TO NODE URI')
+  console.warn('authorPathByName UPDATE TO NODE URI');
   return `/authors/${name}`;
 }
 
@@ -44,7 +44,7 @@ export async function getUserByNameSlug(name) {
   const { users } = await getAllUsers();
 
   // @TODO
-  console.warn('getUserByNameSlug fix match')
+  console.warn('getUserByNameSlug fix match');
   // const user = users.find((user) => parameterize(user.name) === name);
 
   return {
@@ -58,7 +58,7 @@ export async function getUserByNameSlug(name) {
 
 export function userSlugByName(name) {
   // @TODO
-  console.warn('userSlugByName FIX NODE URI')
+  console.warn('userSlugByName FIX NODE URI');
   return name;
 }
 

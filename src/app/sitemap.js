@@ -10,15 +10,15 @@ export default async function sitemap() {
   const pages = allPages.map(({ modified, uri }) => {
     return {
       url: `${metadata.url}${uri}`,
-      lastModified: modified
-    }
+      lastModified: modified,
+    };
   });
 
   const posts = allPosts.map(({ modified, uri }) => {
     return {
       url: `${metadata.url}${uri}`,
-      lastModified: modified
-    }
+      lastModified: modified,
+    };
   });
 
   return [
@@ -27,6 +27,6 @@ export default async function sitemap() {
       lastModified: new Date(),
     },
     ...pages,
-    ...posts
+    ...posts,
   ];
 }

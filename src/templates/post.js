@@ -1,38 +1,50 @@
-import { gql } from '@apollo/client';
+import Link from 'next/link';
+
+import { getRelatedPosts } from '@/lib/posts';
+import { categoryPathBySlug } from '@/lib/categories';
+import { formatDate } from '@/lib/datetime';
+import { updateUserAvatar } from '@/lib/users';
 
 import Section from '@/components/Section';
 import Container from '@/components/Container';
+import Header from '@/components/Header';
+import Content from '@/components/Content';
+import FeaturedImage from '@/components/FeaturedImage';
+import Metadata from '@/components/Metadata';
+import JSONLD from '@/components/JSONLD';
 
-// import Link from 'next/link';
-// import { Helmet } from 'react-helmet';
+import styles from '@/styles/pages/Post.module.scss';
 
-// import { WebpageJsonLd } from '@/lib/json-ld';
-// import { helmetSettingsFromMetadata } from '@/lib/site';
-// import useSite from 'hooks/use-site';
-// import usePageMetadata from 'hooks/use-page-metadata';
+export default async function Post({ data, metadata }) {
+  const { author, categories, content, date, excerpt, id, isSticky = false, featuredImage, modified, title } = data;
 
-// import Layout from '@/components/Layout';
-// import Header from '@/components/Header';
-// import Content from '@/components/Content';
+  const datePublished = new Date(date);
+  const dateModified = modified ? new Date(modified) : new Date(date);
 
-// import FeaturedImage from '@/components/FeaturedImage';
-// import Breadcrumbs from '@/components/Breadcrumbs';
+  const [{ category: relatedCategory, posts: relatedPosts }] = await Promise.all([getRelatedPosts(categories, id)]);
 
-import { QUERY_PAGE_BY_URI } from '@/data/pages';
+  let related;
 
-import styles from '@/styles/pages/Page.module.scss';
+  if (relatedCategory && Array.isArray(relatedPosts) && relatedPosts.length) {
+    related = {
+      posts: relatedPosts,
+      title: {
+        name: relatedCategory.name || null,
+        link: categoryPathBySlug(relatedCategory.slug),
+      },
+    };
+  }
 
-export default function Page({ data: page, breadcrumbs }) {
-  console.log('page', page)
-  const { children, content, description, featuredImage, metaTitle, slug, title } = page;
-
-  // const { metadata: siteMetadata = {} } = useSite();
+  // post.og.imageUrl = `${homepage}${socialImage}`;
+  // post.og.imageSecureUrl = post.og.imageUrl;
+  // post.og.imageWidth = 2000;
+  // post.og.imageHeight = 1000;
 
   // const { metadata } = usePageMetadata({
   //   metadata: {
-  //     ...page,
+  //     ...post,
   //     title: metaTitle,
-  //     description: description || page.og?.description || `Read more about ${title}`,
+  //     description: description || post.og?.description || `Read more about ${title}`,
   //   },
   // });
 
@@ -42,146 +54,173 @@ export default function Page({ data: page, breadcrumbs }) {
   //   metadata.twitter.title = metadata.title;
   // }
 
-  // const hasChildren = Array.isArray(children) && children.length > 0;
-
-  // const helmetSettings = helmetSettingsFromMetadata(metadata);
-
   return (
-    <Section>
-      <Container>
-        <div
+    <>
+      <Header>
+        {featuredImage && <FeaturedImage featuredImage={featuredImage} />}
+        <h1
+          className={styles.title}
           dangerouslySetInnerHTML={{
-            __html: content,
+            __html: title,
           }}
         />
-      </Container>
-    </Section>
-  )
+        <Metadata
+          className={styles.postMetadata}
+          date={date}
+          author={author}
+          categories={categories}
+          options={{
+            compactCategories: false,
+          }}
+          isSticky={isSticky}
+        />
+      </Header>
 
-  // return (
-  //   <Layout>
-  //     <Helmet {...helmetSettings} />
+      <Content>
+        <Section>
+          <Container>
+            <div
+              className={styles.content}
+              dangerouslySetInnerHTML={{
+                __html: content,
+              }}
+            />
+          </Container>
+        </Section>
+      </Content>
 
-  //     <WebpageJsonLd
-  //       title={metadata.title}
-  //       description={metadata.description}
-  //       siteTitle={siteMetadata.title}
-  //       slug={slug}
-  //     />
+      <Section className={styles.postFooter}>
+        <Container>
+          <p className={styles.postModified}>Last updated on {formatDate(modified)}.</p>
+          {Array.isArray(related?.posts) && related.posts.length > 0 && (
+            <div className={styles.relatedPosts}>
+              {related.title?.name ? (
+                <span>
+                  More from <Link href={related.title.link}>{related.title.name}</Link>
+                </span>
+              ) : (
+                <span>More Posts</span>
+              )}
+              <ul>
+                {related.posts.map((post) => (
+                  <li key={post.title}>
+                    <Link href={post.uri}>{post.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </Container>
+      </Section>
 
-  //     <Header>
-  //       {Array.isArray(breadcrumbs) && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-  //       {featuredImage && (
-  //         <FeaturedImage
-  //           {...featuredImage}
-  //           src={featuredImage.sourceUrl}
-  //           dangerouslySetInnerHTML={featuredImage.caption}
-  //         />
-  //       )}
-  //       <h1 className={styles.title}>{title}</h1>
-  //     </Header>
-
-  //     <Content>
-  //       <Section>
-  //         <Container>
-  //           <div
-  //             className={styles.content}
-  //             dangerouslySetInnerHTML={{
-  //               __html: content,
-  //             }}
-  //           />
-  //         </Container>
-  //       </Section>
-
-  //       {hasChildren && (
-  //         <Section className={styles.sectionChildren}>
-  //           <Container>
-  //             <aside>
-  //               <p className={styles.childrenHeader}>
-  //                 <strong>{title}</strong>
-  //               </p>
-  //               <ul>
-  //                 {children.map((child) => {
-  //                   return (
-  //                     <li key={child.id}>
-  //                       <Link href={child.uri}>
-  //                         <a>{child.title}</a>
-  //                       </Link>
-  //                     </li>
-  //                   );
-  //                 })}
-  //               </ul>
-  //             </aside>
-  //           </Container>
-  //         </Section>
-  //       )}
-  //     </Content>
-  //   </Layout>
-  // );
+      <JSONLD
+        data={{
+          '@type': 'Article',
+          mainEntityOfPage: metadata.url,
+          headline: title,
+          image: [featuredImage?.sourceUrl],
+          datePublished: datePublished.toISOString(),
+          dateModified: dateModified.toISOString(),
+          description: excerpt,
+          keywords: categories.map(({ name }) => `${name}`),
+          copyrightYear: datePublished.getFullYear(),
+          author: {
+            '@type': 'Person',
+            name: author?.name,
+          },
+        }}
+        metadata={metadata}
+      />
+    </>
+  );
 }
 
-Page.template = {
-  query: gql`
-    query PageByUri($uri: ID!) {
-      page(id: $uri, idType: URI) {
-        children {
+Post.template = {
+  query: `
+    query PostByUri($uri: ID!) {
+      post(id: $uri, idType: URI) {
+        author {
+          node {
+            avatar {
+              height
+              url
+              width
+            }
+            id
+            name
+            slug
+          }
+        }
+        id
+        categories {
           edges {
             node {
+              databaseId
               id
+              name
               slug
-              uri
-              ... on Page {
-                id
-                title
-              }
             }
           }
         }
         content
+        date
+        excerpt
         featuredImage {
           node {
             altText
             caption
-            id
-            sizes
+            mediaDetails {
+              height
+              width
+            }
             sourceUrl
             srcSet
-          }
-        }
-        id
-        menuOrder
-        parent {
-          node {
+            sizes
             id
-            slug
-            uri
-            ... on Page {
-              title
-            }
           }
         }
-        slug
+        modified
+        databaseId
         title
-        uri
+        slug
+        isSticky
       }
     }
   `,
   transformer: (data) => {
-    const page = { ...data.page };
+    const post = { ...data.post };
 
-    if (page.featuredImage) {
-      page.featuredImage = page.featuredImage.node;
+    // Clean up the author object to avoid someone having to look an extra
+    // level deeper into the node
+
+    if (post.author) {
+      post.author = {
+        ...post.author.node,
+      };
     }
 
-    if (page.parent) {
-      page.parent = page.parent.node;
+    // The URL by default that comes from Gravatar / WordPress is not a secure
+    // URL. This ends up redirecting to https, but it gives mixed content warnings
+    // as the HTML shows it as http. Replace the url to avoid those warnings
+    // and provide a secure URL by default
+
+    if (post.author?.avatar) {
+      post.author.avatar = updateUserAvatar(post.author.avatar);
     }
 
-    if (page.children) {
-      page.children = page.children.edges.map(({ node }) => node);
+    // Clean up the categories to make them more easy to access
+
+    if (post.categories) {
+      post.categories = post.categories.edges.map(({ node }) => node);
     }
 
-    return page;
+    // Clean up the featured image to make them more easy to access
+
+    if (post.featuredImage) {
+      post.featuredImage = post.featuredImage.node;
+    }
+
+    return post;
   },
   variables: ({ uri }) => {
     return {

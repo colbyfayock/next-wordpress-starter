@@ -10,16 +10,16 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/pages/Home.module.scss';
 
-export default async function Home() {  
+export default async function Home() {
   const [metadata, { posts, pagination }] = await Promise.all([
     getSiteMetadata(),
     getPaginatedPosts({
       queryIncludes: 'archive',
-    })
+    }),
   ]);
 
   pagination.basePath = '/posts';
-  
+
   return (
     <>
       <Header>
@@ -40,7 +40,7 @@ export default async function Home() {
       <Section>
         <Container>
           <h2 className="sr-only">Posts</h2>
-          
+
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (
@@ -62,18 +62,21 @@ export default async function Home() {
         </Container>
       </Section>
 
-      <JSONLD data={{
-        '@context': 'https://schema.org',
-        '@type': 'WebSite',
-        copyrightYear: new Date().getFullYear(),
-        name: metadata.title,
-        url: metadata.url,
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: `${metadata.url}/search/?q={search_term_string}`,
-          'query-input': 'required name=search_term_string',
-        }
-      }} />
+      <JSONLD
+        data={{
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          copyrightYear: new Date().getFullYear(),
+          name: metadata.title,
+          url: metadata.url,
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `${metadata.url}/search/?q={search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+        }}
+        metadata={metadata}
+      />
     </>
-  )
+  );
 }

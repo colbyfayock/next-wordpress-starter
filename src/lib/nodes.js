@@ -1,16 +1,12 @@
-import { gql } from '@apollo/client';
-
-import { getApolloClient } from '@/lib/apollo-client';
+import { gql } from '@/lib/request';
 
 /**
  * getNodeByUri
  */
 
 export async function getNodeByUri(uri) {
-  const apolloClient = await getApolloClient();
-
-  const data = await apolloClient.query({
-    query: gql`
+  const data = await gql({
+    query: `
       query GetNode($uri: String!) {
         nodeByUri(uri: $uri) {
           __typename
@@ -75,9 +71,6 @@ export async function getNodeByUri(uri) {
     variables: {
       uri,
     },
-    possibleTypes: {
-      Node: ['Category', 'ContentType', 'Page', 'Post', 'User'],
-    },
   });
 
   return data.data.nodeByUri;
@@ -88,10 +81,8 @@ export async function getNodeByUri(uri) {
  */
 
 export async function getTemplateDataByNode({ node, template }) {
-  const apolloClient = await getApolloClient();
-  return apolloClient.query({
+  return gql({
     query: template.query,
     variables: template.variables(node),
   });
 }
-
