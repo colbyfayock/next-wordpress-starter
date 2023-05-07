@@ -1,6 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
-
-import parameterize from 'parameterize';
+import { getApolloClient } from '@/lib/apollo-client';
 
 import { QUERY_ALL_USERS, QUERY_ALL_USERS_SEO } from 'data/users';
 
@@ -33,7 +31,9 @@ export async function getUserBySlug(slug) {
  */
 
 export function authorPathByName(name) {
-  return `/authors/${parameterize(name)}`;
+  // @TODO
+  console.warn('authorPathByName UPDATE TO NODE URI')
+  return `/authors/${name}`;
 }
 
 /**
@@ -43,10 +43,12 @@ export function authorPathByName(name) {
 export async function getUserByNameSlug(name) {
   const { users } = await getAllUsers();
 
-  const user = users.find((user) => parameterize(user.name) === name);
+  // @TODO
+  console.warn('getUserByNameSlug fix match')
+  // const user = users.find((user) => parameterize(user.name) === name);
 
   return {
-    user,
+    user: {},
   };
 }
 
@@ -55,7 +57,9 @@ export async function getUserByNameSlug(name) {
  */
 
 export function userSlugByName(name) {
-  return parameterize(name);
+  // @TODO
+  console.warn('userSlugByName FIX NODE URI')
+  return name;
 }
 
 /**

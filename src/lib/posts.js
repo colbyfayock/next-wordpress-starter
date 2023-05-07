@@ -1,7 +1,7 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getApolloClient } from '@/lib/apollo-client';
 
-import { updateUserAvatar } from 'lib/users';
-import { sortObjectsByDate } from 'lib/datetime';
+import { updateUserAvatar } from '@/lib/users';
+import { sortObjectsByDate } from '@/lib/datetime';
 
 import {
   QUERY_ALL_POSTS_INDEX,

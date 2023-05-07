@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet';
 
-import { authorPathByName } from 'lib/users';
-import { postPathBySlug } from 'lib/posts';
-import { pagePathBySlug } from 'lib/pages';
+import { authorPathByName } from '@/lib/users';
+import { postPathBySlug } from '@/lib/posts';
+import { pagePathBySlug } from '@/lib/pages';
 
 import config from '../../package.json';
 

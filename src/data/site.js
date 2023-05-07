@@ -6,6 +6,13 @@ export const QUERY_SITE_DATA = gql`
       description
       language
       title
+      url
+    }
+    readingSettings {
+      pageForPosts
+      pageOnFront
+      postsPerPage
+      showOnFront
     }
   }
 `;

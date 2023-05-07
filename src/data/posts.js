@@ -16,9 +16,11 @@ export const POST_FIELDS = gql`
     databaseId
     date
     isSticky
+    modified
     postId
     slug
     title
+    uri
   }
 `;
 

@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
-import { getSearchData } from 'lib/search';
+import { getSearchData } from '@/lib/search';
 
 const SEARCH_KEYS = ['slug', 'title'];
 
@@ -60,7 +60,7 @@ export function useSearchState() {
 
 export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   const search = useContext(SearchContext);
-  const { client } = search;
+  const { client } = search || {};
 
   const [query, setQuery] = useState(defaultQuery);
 

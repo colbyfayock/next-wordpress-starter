@@ -1,4 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getApolloClient } from '@/lib/apollo-client';
 
 import {
   QUERY_ALL_PAGES_INDEX,
@@ -127,21 +127,6 @@ export async function getAllPages(options = {}) {
   return {
     pages,
   };
-}
-
-/**
- * getTopLevelPages
- */
-
-export async function getTopLevelPages(options) {
-  const { pages } = await getAllPages(options);
-
-  const navPages = pages.filter(({ parent }) => parent === null);
-
-  // Order pages by menuOrder
-  navPages.sort((a, b) => parseFloat(a.menuOrder) - parseFloat(b.menuOrder));
-
-  return navPages;
 }
 
 /**

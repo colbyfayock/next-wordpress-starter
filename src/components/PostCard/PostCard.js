@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
+import { postPathBySlug, sanitizeExcerpt } from '@/lib/posts';
 
-import Metadata from 'components/Metadata';
+import Metadata from '@/components/Metadata';
 
 import { FaMapPin } from 'react-icons/fa';
 import styles from './PostCard.module.scss';

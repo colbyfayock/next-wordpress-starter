@@ -6,18 +6,17 @@ import Container from '@/components/Container';
 // import Link from 'next/link';
 // import { Helmet } from 'react-helmet';
 
-import { mapPageData } from '@/lib/pages';
-// import { WebpageJsonLd } from 'lib/json-ld';
-// import { helmetSettingsFromMetadata } from 'lib/site';
+// import { WebpageJsonLd } from '@/lib/json-ld';
+// import { helmetSettingsFromMetadata } from '@/lib/site';
 // import useSite from 'hooks/use-site';
 // import usePageMetadata from 'hooks/use-page-metadata';
 
-// import Layout from 'components/Layout';
-// import Header from 'components/Header';
-// import Content from 'components/Content';
+// import Layout from '@/components/Layout';
+// import Header from '@/components/Header';
+// import Content from '@/components/Content';
 
-// import FeaturedImage from 'components/FeaturedImage';
-// import Breadcrumbs from 'components/Breadcrumbs';
+// import FeaturedImage from '@/components/FeaturedImage';
+// import Breadcrumbs from '@/components/Breadcrumbs';
 
 import { QUERY_PAGE_BY_URI } from '@/data/pages';
 

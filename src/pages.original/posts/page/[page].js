@@ -1,4 +1,4 @@
-import { getPaginatedPosts } from 'lib/posts';
+import { getPaginatedPosts } from '@/lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
 
   // 1. Add import to the top of the file
   //
-  // import { getAllPosts, getPagesCount } from 'lib/posts';
+  // import { getAllPosts, getPagesCount } from '@/lib/posts';
 
   // 2. Uncomment the below
   //

@@ -1,16 +1,26 @@
 import Link from 'next/link';
 
-import useSite from '@/hooks/use-site';
-import { postPathBySlug } from 'lib/posts';
-import { categoryPathBySlug } from 'lib/categories';
+import { getSiteMetadata } from '@/lib/site';
+import { getRecentPosts, postPathBySlug } from '@/lib/posts';
+import { getCategories, categoryPathBySlug } from '@/lib/categories';
 
-import Section from 'components/Section';
-import Container from 'components/Container';
+import Section from '@/components/Section';
+import Container from '@/components/Container';
 
 import styles from './Footer.module.scss';
 
-const Footer = () => {
-  const { metadata = {}, recentPosts = [], categories = [] } = useSite();
+async function Footer() {
+  const metadata = await getSiteMetadata();
+
+  const { posts: recentPosts } = await getRecentPosts({
+    count: 5,
+    queryIncludes: 'index',
+  });
+
+  const { categories } = await getCategories({
+    count: 5,
+  });
+
   const { title } = metadata;
 
   const hasRecentPosts = Array.isArray(recentPosts) && recentPosts.length > 0;

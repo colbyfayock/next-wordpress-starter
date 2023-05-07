@@ -153,6 +153,7 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
 
   try {
     const data = await apolloClient.query({ query });
+    console.log('data', data)
     metadata = { ...data.data.generalSettings };
 
     if (!metadata.language || metadata.language === '') {

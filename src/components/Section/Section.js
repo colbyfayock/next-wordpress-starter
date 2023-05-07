@@ -2,13 +2,15 @@ import ClassName from 'models/classname';
 
 import styles from './Section.module.scss';
 
-const Section = ({ children, className, ...rest }) => {
-  const sectionClassName = new ClassName(styles.section);
+const Section = ({ children, ...props }) => {
+  let className = styles.section;
 
-  sectionClassName.addIf(className, className);
+  if ( props.className ) {
+    className.concat(' ', props.className);
+  }
 
   return (
-    <section className={sectionClassName.toString()} {...rest}>
+    <section className={styles.section} {...props}>
       {children}
     </section>
   );

@@ -17,6 +17,7 @@ export const PAGE_FIELDS = gql`
     }
     id
     menuOrder
+    modified
     parent {
       node {
         id

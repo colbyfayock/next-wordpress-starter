@@ -1,6 +1,6 @@
 import ClassName from 'models/classname';
 
-import Image from 'components/Image';
+import Image from '@/components/Image';
 
 import styles from './FeaturedImage.module.scss';
 

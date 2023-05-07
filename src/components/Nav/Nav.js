@@ -1,66 +1,70 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { FaSearch } from 'react-icons/fa';
 
-import useSite from '@/hooks/use-site';
-import useSearch, { SEARCH_STATE_LOADED } from 'hooks/use-search';
-import { postPathBySlug } from 'lib/posts';
-import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus';
+import { postPathBySlug } from '@/lib/posts';
+import { getMenuItemsByLocation } from '@/lib/menus';
+import { getSiteMetadata } from '@/lib/site';
 
-import Section from 'components/Section';
+import Section from '@/components/Section';
+import NavListItem from '@/components/NavListItem';
 
 import styles from './Nav.module.scss';
-import NavListItem from 'components/NavListItem';
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
+const NAVIGATION_LOCATION = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION;
 
-const Nav = () => {
-  const formRef = useRef();
+async function Nav() {
+  const [metadata, menuItems] = await Promise.all([
+    getSiteMetadata(), 
+    getMenuItemsByLocation(NAVIGATION_LOCATION)
+  ]);
 
-  const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
-
-  const { metadata = {}, menus } = useSite();
   const { title } = metadata;
 
-  const navigationLocation = process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || MENU_LOCATION_NAVIGATION_DEFAULT;
-  const navigation = findMenuByLocation(menus, navigationLocation);
 
-  const { query, results, search, clearSearch, state } = useSearch({
-    maxResults: 5,
-  });
 
-  const searchIsLoaded = state === SEARCH_STATE_LOADED;
+  // const formRef = useRef();
+
+  // const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
+  const searchVisibility = SEARCH_HIDDEN;
+
+  const { query, results, search, clearSearch, state } = {};
+  // useSearch({
+  //   maxResults: 5,
+  // });
+
+  const searchIsLoaded = false; // state === SEARCH_STATE_LOADED;
 
   // When the search visibility changes, we want to add an event listener that allows us to
   // detect when someone clicks outside of the search box, allowing us to close the results
   // when focus is drawn away from search
 
-  useEffect(() => {
-    // If we don't have a query, don't need to bother adding an event listener
-    // but run the cleanup in case the previous state instance exists
+  // useEffect(() => {
+  //   // If we don't have a query, don't need to bother adding an event listener
+  //   // but run the cleanup in case the previous state instance exists
 
-    if (searchVisibility === SEARCH_HIDDEN) {
-      removeDocumentOnClick();
-      return;
-    }
+  //   if (searchVisibility === SEARCH_HIDDEN) {
+  //     removeDocumentOnClick();
+  //     return;
+  //   }
 
-    addDocumentOnClick();
-    addResultsRoving();
+  //   addDocumentOnClick();
+  //   addResultsRoving();
 
-    // When the search box opens up, additionall find the search input and focus
-    // on the element so someone can start typing right away
+  //   // When the search box opens up, additionall find the search input and focus
+  //   // on the element so someone can start typing right away
 
-    const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search');
+  //   const searchInput = Array.from(formRef.current.elements).find((input) => input.type === 'search');
 
-    searchInput.focus();
+  //   searchInput.focus();
 
-    return () => {
-      removeResultsRoving();
-      removeDocumentOnClick();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchVisibility]);
+  //   return () => {
+  //     removeResultsRoving();
+  //     removeDocumentOnClick();
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [searchVisibility]);
 
   /**
    * addDocumentOnClick
@@ -157,22 +161,22 @@ const Nav = () => {
 
   // pressing esc while search is focused will close it
 
-  const escFunction = useCallback((event) => {
-    if (event.keyCode === 27) {
-      clearSearch();
-      setSearchVisibility(SEARCH_HIDDEN);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // const escFunction = useCallback((event) => {
+  //   if (event.keyCode === 27) {
+  //     clearSearch();
+  //     setSearchVisibility(SEARCH_HIDDEN);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
-  useEffect(() => {
-    document.addEventListener('keydown', escFunction, false);
+  // useEffect(() => {
+  //   document.addEventListener('keydown', escFunction, false);
 
-    return () => {
-      document.removeEventListener('keydown', escFunction, false);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //   return () => {
+  //     document.removeEventListener('keydown', escFunction, false);
+  //   };
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <nav className={styles.nav}>
@@ -181,17 +185,17 @@ const Nav = () => {
           <Link href="/">{title}</Link>
         </p>
         <ul className={styles.navMenu}>
-          {navigation?.map((listItem) => {
-            return <NavListItem key={listItem.id} className={styles.navSubMenu} item={listItem} />;
+          {menuItems?.map((item) => {
+            return <NavListItem key={item.key} className={styles.navSubMenu} item={item} />;
           })}
         </ul>
         <div className={styles.navSearch}>
-          {searchVisibility === SEARCH_HIDDEN && (
+          {/* {searchVisibility === SEARCH_HIDDEN && (
             <button onClick={handleOnToggleSearch} disabled={!searchIsLoaded}>
               <span className="sr-only">Toggle Search</span>
               <FaSearch />
             </button>
-          )}
+          )} */}
           {searchVisibility === SEARCH_VISIBLE && (
             <form ref={formRef} action="/search" data-search-is-active={!!query}>
               <input

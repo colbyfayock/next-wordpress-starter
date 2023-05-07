@@ -1,10 +1,10 @@
-import { getUserByNameSlug } from 'lib/users';
-import { getPostsByAuthorSlug } from 'lib/posts';
-import { AuthorJsonLd } from 'lib/json-ld';
+import { getUserByNameSlug } from '@/lib/users';
+import { getPostsByAuthorSlug } from '@/lib/posts';
+import { AuthorJsonLd } from '@/lib/json-ld';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
-import Title from 'components/Title';
+import Title from '@/components/Title';
 
 export default function Author({ user, posts }) {
   const { title, name, avatar, description, slug } = user;
@@ -67,7 +67,7 @@ export async function getStaticPaths() {
 
   // 1. Add import to the top of the file
   //
-  // import { getAllAuthors, userSlugByName } from 'lib/users';
+  // import { getAllAuthors, userSlugByName } from '@/lib/users';
 
   // 2. Uncomment the below
   //

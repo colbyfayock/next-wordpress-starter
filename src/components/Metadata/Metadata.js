@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-import { categoryPathBySlug } from 'lib/categories';
-import { authorPathByName } from 'lib/users';
-import { formatDate } from 'lib/datetime';
+import { categoryPathBySlug } from '@/lib/categories';
+import { authorPathByName } from '@/lib/users';
+import { formatDate } from '@/lib/datetime';
 import ClassName from 'models/classname';
 
 import { FaMapPin } from 'react-icons/fa';

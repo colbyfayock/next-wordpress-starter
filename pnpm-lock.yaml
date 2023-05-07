@@ -18,7 +18,6 @@ specifiers:
   lint-staged: ^13.2.2
   loader-utils: ^3.2.1
   next: 13.4.0
-  nextjs-progressbar: ^0.0.16
   parameterize: ^1.0.0
   path: ^0.12.7
   playwright: ^1.33.0
@@ -29,7 +28,6 @@ specifiers:
   react-icons: ^4.8.0
   rss: ^1.2.2
   sass: ^1.62.1
-  style.css: ^1.0.3
   typescript: 5.0.4
 
 dependencies:
@@ -41,7 +39,6 @@ dependencies:
   he: 1.2.0
   loader-utils: 3.2.1
   next: 13.4.0_txdvpvppf2ilsh27xadmwrzlmm
-  nextjs-progressbar: 0.0.16_next@13.4.0+react@18.2.0
   parameterize: 1.0.0
   path: 0.12.7
   react: 18.2.0
@@ -50,7 +47,6 @@ dependencies:
   react-icons: 4.8.0_react@18.2.0
   rss: 1.2.2
   sass: 1.62.1
-  style.css: 1.0.3
 
 devDependencies:
   '@types/node': 20.0.0
@@ -316,10 +312,6 @@ packages:
   /@types/node/20.0.0:
     resolution: {integrity: sha512-cD2uPTDnQQCVpmRefonO98/PPijuOnnEy5oytWJFPY1N9aJCz2wJ5kSGWO+zJoed2cY2JxQh6yBuUq4vIn61hw==}
     dev: true
-
-  /@types/nprogress/0.2.0:
-    resolution: {integrity: sha512-1cYJrqq9GezNFPsWTZpFut/d4CjpZqA0vhqDUPFWYKF1oIyBz5qnoYMzR+0C/T96t3ebLAC1SSnwrVOm5/j74A==}
-    dev: false
 
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -2098,19 +2090,6 @@ packages:
       - babel-plugin-macros
     dev: false
 
-  /nextjs-progressbar/0.0.16_next@13.4.0+react@18.2.0:
-    resolution: {integrity: sha512-GV0fD38EMD3vSDCmkq+tObmoup6QA91a6a9MxGuhJZuRk/9TNsrHGnIQQQ/sggkMkXuT4fBgF6jRjFwScDT3zA==}
-    peerDependencies:
-      next: '>= 6.0.0'
-      react: '>= 16.0.0'
-    dependencies:
-      '@types/nprogress': 0.2.0
-      next: 13.4.0_txdvpvppf2ilsh27xadmwrzlmm
-      nprogress: 0.2.0
-      prop-types: 15.8.1
-      react: 18.2.0
-    dev: false
-
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -2128,10 +2107,6 @@ packages:
     dependencies:
       path-key: 4.0.0
     dev: true
-
-  /nprogress/0.2.0:
-    resolution: {integrity: sha512-I19aIingLgR1fmhftnbWWO3dXc0hSxqHQHQb3H8m+K3TnEn/iSeTZZOyvKXWqQESMwuUVnatlCnZdLBZZt2VSA==}
-    dev: false
 
   /object-assign/4.1.1:
     resolution: {integrity: sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==}
@@ -2748,10 +2723,6 @@ packages:
     resolution: {integrity: sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==}
     engines: {node: '>=8'}
     dev: true
-
-  /style.css/1.0.3:
-    resolution: {integrity: sha512-gek0b2UUoC2u1apcSFlEBdX3VxgKo+iAui/nTtpRBmkUlKbdYgtBU8t4tv0OAIZxNIl50htVGNWyafD1g4dlDg==}
-    dev: false
 
   /styled-jsx/5.1.1_react@18.2.0:
     resolution: {integrity: sha512-pW7uC1l4mBZ8ugbiZrcIsiIvVx1UmTfw7UkC3Um2tmfUq9Bhk8IiyEIPl6F8agHgjzku6j0xQEZbfA5uSgSaCw==}

@@ -1,9 +1,9 @@
-import { getCategoryBySlug } from 'lib/categories';
-import { getPostsByCategoryId } from 'lib/posts';
+import { getCategoryBySlug } from '@/lib/categories';
+import { getPostsByCategoryId } from '@/lib/posts';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
-import Title from 'components/Title';
+import Title from '@/components/Title';
 
 export default function Category({ category, posts }) {
   const { name, description, slug } = category;
@@ -49,7 +49,7 @@ export async function getStaticPaths() {
 
   // 1. Add import to the top of the file
   //
-  // import { getAllCategories, getCategoryBySlug } from 'lib/categories';
+  // import { getAllCategories, getCategoryBySlug } from '@/lib/categories';
 
   // 2. Uncomment the below
   //
