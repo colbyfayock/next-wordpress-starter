@@ -73,6 +73,10 @@ export const QUERY_ALL_PAGES = gql`
               altText
               caption
               id
+              mediaDetails {
+                height
+                width
+              }
               sizes
               sourceUrl
               srcSet
@@ -106,6 +110,10 @@ export const QUERY_PAGE_BY_URI = gql`
           altText
           caption
           id
+          mediaDetails {
+            height
+            width
+          }
           sizes
           sourceUrl
           srcSet

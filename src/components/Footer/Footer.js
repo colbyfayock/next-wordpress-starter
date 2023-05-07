@@ -10,16 +10,16 @@ import Container from '@/components/Container';
 import styles from './Footer.module.scss';
 
 async function Footer() {
-  const metadata = await getSiteMetadata();
-
-  const { posts: recentPosts } = await getRecentPosts({
-    count: 5,
-    queryIncludes: 'index',
-  });
-
-  const { categories } = await getCategories({
-    count: 5,
-  });
+  const [metadata, { posts: recentPosts }, { categories }] = await Promise.all([
+    getSiteMetadata(),
+    getRecentPosts({
+      count: 5,
+      queryIncludes: 'index',
+    }), 
+    getCategories({
+      count: 5,
+    })
+  ]);
 
   const { title } = metadata;
 

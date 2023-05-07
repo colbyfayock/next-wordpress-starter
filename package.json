@@ -22,17 +22,14 @@
   "dependencies": {
     "@apollo/client": "^3.7.14",
     "date-fns": "^2.30.0",
-    "dotenv": "^16.0.3",
     "fuse.js": "^6.6.2",
     "graphql": "^16.6.0",
     "he": "^1.2.0",
-    "loader-utils": "^3.2.1",
     "next": "13.4.0",
     "parameterize": "^1.0.0",
     "path": "^0.12.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-helmet": "^6.1.0",
     "react-icons": "^4.8.0",
     "rss": "^1.2.2",
     "sass": "^1.62.1"
@@ -40,6 +37,7 @@
   "devDependencies": {
     "@types/node": "20.0.0",
     "@types/react": "18.2.5",
+    "dotenv": "^16.0.3",
     "eslint": "8.39.0",
     "eslint-config-next": "^13.4.0",
     "eslint-config-prettier": "^8.8.0",
@@ -47,9 +45,7 @@
     "eslint-plugin-react": "^7.32.2",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.2",
-    "playwright": "^1.33.0",
-    "prettier": "2.8.8",
-    "typescript": "5.0.4"
+    "prettier": "2.8.8"
   },
   "repository": {
     "type": "git",

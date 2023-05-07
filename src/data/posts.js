@@ -88,6 +88,10 @@ export const QUERY_ALL_POSTS = gql`
             node {
               altText
               caption
+              mediaDetails {
+                height
+                width
+              }
               sourceUrl
               srcSet
               sizes
@@ -134,6 +138,10 @@ export const QUERY_POST_BY_SLUG = gql`
         node {
           altText
           caption
+          mediaDetails {
+            height
+            width
+          }
           sourceUrl
           srcSet
           sizes
@@ -214,6 +222,10 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
               altText
               caption
               id
+              mediaDetails {
+                height
+                width
+              }
               sizes
               sourceUrl
               srcSet
@@ -266,6 +278,10 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
               altText
               caption
               id
+              mediaDetails {
+                height
+                width
+              }
               sizes
               sourceUrl
               srcSet

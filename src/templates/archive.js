@@ -12,7 +12,7 @@
 // import PostCard from '@/components/PostCard';
 // import Pagination from '@/components/Pagination/Pagination';
 
-// import styles from 'styles/templates/Archive.module.scss';
+// import styles from '@/styles/templates/Archive.module.scss';
 
 // const DEFAULT_POST_OPTIONS = {};
 

@@ -11,7 +11,7 @@ import Section from '@/components/Section';
 import Container from '@/components/Container';
 import SectionTitle from '@/components/SectionTitle';
 
-import styles from 'styles/pages/Categories.module.scss';
+import styles from '@/styles/pages/Categories.module.scss';
 
 export default function Categories({ categories }) {
   const { metadata = {} } = useSite();

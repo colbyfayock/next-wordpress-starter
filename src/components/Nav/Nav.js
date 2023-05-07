@@ -184,11 +184,13 @@ async function Nav() {
         <p className={styles.navName}>
           <Link href="/">{title}</Link>
         </p>
+
         <ul className={styles.navMenu}>
           {menuItems?.map((item) => {
             return <NavListItem key={item.key} className={styles.navSubMenu} item={item} />;
           })}
         </ul>
+        
         <div className={styles.navSearch}>
           {/* {searchVisibility === SEARCH_HIDDEN && (
             <button onClick={handleOnToggleSearch} disabled={!searchIsLoaded}>

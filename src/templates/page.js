@@ -1,32 +1,29 @@
+import Link from 'next/link';
 import { gql } from '@apollo/client';
+
+import { getSiteMetadata } from '@/lib/site';
 
 import Section from '@/components/Section';
 import Container from '@/components/Container';
-
-// import Link from 'next/link';
-// import { Helmet } from 'react-helmet';
+import Header from '@/components/Header';
+import Content from '@/components/Content';
+import FeaturedImage from '@/components/FeaturedImage';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import JSONLD from '@/components/JSONLD';
 
 // import { WebpageJsonLd } from '@/lib/json-ld';
 // import { helmetSettingsFromMetadata } from '@/lib/site';
-// import useSite from 'hooks/use-site';
 // import usePageMetadata from 'hooks/use-page-metadata';
 
-// import Layout from '@/components/Layout';
-// import Header from '@/components/Header';
-// import Content from '@/components/Content';
+import styles from '@/styles/pages/Page.module.scss';
 
-// import FeaturedImage from '@/components/FeaturedImage';
-// import Breadcrumbs from '@/components/Breadcrumbs';
+export default async function Page({ data, breadcrumbs }) {
+  const { children, content, description, featuredImage, metaTitle, title, uri } = data;
 
-import { QUERY_PAGE_BY_URI } from '@/data/pages';
+  const metadata = await getSiteMetadata();
 
-// import styles from 'styles/pages/Page.module.scss';
-
-export default function Page({ data: page, breadcrumbs }) {
-  console.log('page', page)
-  const { children, content, description, featuredImage, metaTitle, slug, title } = page;
-
-  // const { metadata: siteMetadata = {} } = useSite();
+  const hasChildren = Array.isArray(children) && children.length > 0;
+  console.log('data', data)
 
   // const { metadata } = usePageMetadata({
   //   metadata: {
@@ -36,88 +33,72 @@ export default function Page({ data: page, breadcrumbs }) {
   //   },
   // });
 
+  // console.log('metadata', metadata)
+
   // if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
   //   metadata.title = `${title} - ${siteMetadata.title}`;
   //   metadata.og.title = metadata.title;
   //   metadata.twitter.title = metadata.title;
   // }
 
-  // const hasChildren = Array.isArray(children) && children.length > 0;
-
-  // const helmetSettings = helmetSettingsFromMetadata(metadata);
-
+  
   return (
-    <Section>
-      <Container>
-        <div
-          dangerouslySetInnerHTML={{
-            __html: content,
-          }}
-        />
-      </Container>
-    </Section>
-  )
+    <>
+      <Header>
+        {Array.isArray(breadcrumbs) && <Breadcrumbs breadcrumbs={breadcrumbs} />}
+        {featuredImage && (
+          <FeaturedImage data={featuredImage} />
+        )}
+        <h1 className={styles.title}>{title}</h1>
+      </Header>
 
-  // return (
-  //   <Layout>
-  //     <Helmet {...helmetSettings} />
+      <Content>
+        <Section>
+          <Container>
+            <div
+              className={styles.content}
+              dangerouslySetInnerHTML={{
+                __html: content,
+              }}
+            />
+          </Container>
+        </Section>
 
-  //     <WebpageJsonLd
-  //       title={metadata.title}
-  //       description={metadata.description}
-  //       siteTitle={siteMetadata.title}
-  //       slug={slug}
-  //     />
+        {hasChildren && (
+          <Section className={styles.sectionChildren}>
+            <Container>
+              <aside>
+                <p className={styles.childrenHeader}>
+                  <strong>{title}</strong>
+                </p>
+                <ul>
+                  {children.map((child) => {
+                    return (
+                      <li key={child.id}>
+                        <Link href={child.uri}>
+                          {child.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </aside>
+            </Container>
+          </Section>
+        )}
+      </Content>
 
-  //     <Header>
-  //       {Array.isArray(breadcrumbs) && <Breadcrumbs breadcrumbs={breadcrumbs} />}
-  //       {featuredImage && (
-  //         <FeaturedImage
-  //           {...featuredImage}
-  //           src={featuredImage.sourceUrl}
-  //           dangerouslySetInnerHTML={featuredImage.caption}
-  //         />
-  //       )}
-  //       <h1 className={styles.title}>{title}</h1>
-  //     </Header>
-
-  //     <Content>
-  //       <Section>
-  //         <Container>
-  //           <div
-  //             className={styles.content}
-  //             dangerouslySetInnerHTML={{
-  //               __html: content,
-  //             }}
-  //           />
-  //         </Container>
-  //       </Section>
-
-  //       {hasChildren && (
-  //         <Section className={styles.sectionChildren}>
-  //           <Container>
-  //             <aside>
-  //               <p className={styles.childrenHeader}>
-  //                 <strong>{title}</strong>
-  //               </p>
-  //               <ul>
-  //                 {children.map((child) => {
-  //                   return (
-  //                     <li key={child.id}>
-  //                       <Link href={child.uri}>
-  //                         <a>{child.title}</a>
-  //                       </Link>
-  //                     </li>
-  //                   );
-  //                 })}
-  //               </ul>
-  //             </aside>
-  //           </Container>
-  //         </Section>
-  //       )}
-  //     </Content>
-  //   </Layout>
-  // );
+      <JSONLD
+        data={{
+          '@type': 'WebPage',
+          name: title,
+          description,
+          url: `${metadata.url}${uri}`,
+        }}
+        metadata={metadata}
+      />
+    </>
+  );
 }
 
 Page.template = {
@@ -128,7 +109,6 @@ Page.template = {
           edges {
             node {
               id
-              slug
               uri
               ... on Page {
                 id
@@ -143,6 +123,10 @@ Page.template = {
             altText
             caption
             id
+            mediaDetails {
+              height
+              width
+            }
             sizes
             sourceUrl
             srcSet
@@ -153,14 +137,12 @@ Page.template = {
         parent {
           node {
             id
-            slug
             uri
             ... on Page {
               title
             }
           }
         }
-        slug
         title
         uri
       }

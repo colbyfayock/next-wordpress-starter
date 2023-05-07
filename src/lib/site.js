@@ -25,10 +25,11 @@ export async function getSiteMetadata() {
   }
 
   const { generalSettings } = siteData?.data || {};
-  let { title, description, language, url } = generalSettings;
+  let { title, description, language } = generalSettings;
 
   const settings = {
     ...generalSettings,
+    url: process.env.WORDPRESS_SITE_URL
   };
 
   // It looks like the value of `language` when US English is set

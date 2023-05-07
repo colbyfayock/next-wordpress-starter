@@ -1,9 +1,13 @@
+import { notFound } from 'next/navigation';
+
 import { getNodeByUri, getTemplateDataByNode } from '@/lib/nodes';
 
 import { default as TemplatePage } from '@/templates/page';
+import { default as TemplatePost } from '@/templates/post';
 
 const templates = {
   Page: TemplatePage,
+  Post: TemplatePost,
 };
 
 export default async function Page({ params = {} }) {
@@ -17,6 +21,10 @@ export default async function Page({ params = {} }) {
 
   const node = await getNodeByUri(resolvedUri)
 
+  if (!node || node.isRestricted) {
+    notFound();
+  }
+
   const Component = templates[node.__typename] || templates.Page;
   const { template } = Component;
   
@@ -27,21 +35,9 @@ export default async function Page({ params = {} }) {
 
   const data = typeof template.transformer === 'function' ? template.transformer(nodeData?.data) : nodeData?.data;
 
-  return <Component data={data} />;
+  const breadcrumbs = Array.isArray(data.ancestors) ? [...data.ancestors] : [];
+  
+  breadcrumbs.reverse();
+
+  return <Component data={data} breadcrumbs={breadcrumbs} />;
 }
-
-  // if (!node || node.isRestricted) {
-  //   return {
-  //     notFound: true,
-  //   };
-  // }
-
-  // const breadcrumbs = Array.isArray(data.ancestors) ? [...data.ancestors] : [];
-  // breadcrumbs.reverse();
-
-  // return {
-  //   props: {
-  //     data,
-  //     breadcrumbs,
-  //   },
-  // };

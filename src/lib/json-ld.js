@@ -53,29 +53,6 @@ export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
   );
 }
 
-export function WebsiteJsonLd({ siteTitle = '' }) {
-  const { homepage = '' } = config;
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'WebSite',
-    name: siteTitle,
-    url: homepage,
-    copyrightYear: new Date().getFullYear(),
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${homepage}/search/?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
-    },
-  };
-
-  return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
-  );
-}
-
 export function WebpageJsonLd({ title = '', description = '', siteTitle = '', slug = '' }) {
   const { homepage = '' } = config;
   const path = pagePathBySlug(slug);
@@ -111,23 +88,6 @@ export function AuthorJsonLd({ author = {} }) {
     image: avatar?.url,
     url: `${homepage}${path}`,
     description: description,
-  };
-
-  return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
-  );
-}
-
-export function LogoJsonLd() {
-  const { homepage = '', faviconPath = '/favicon.ico' } = config;
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    url: `${homepage}`,
-    logo: `${homepage}${faviconPath}`,
   };
 
   return (
