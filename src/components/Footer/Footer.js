@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { getSiteMetadata } from '@/lib/site';
 import { getRecentPosts } from '@/lib/posts';
-import { getCategories, categoryPathBySlug } from '@/lib/categories';
+import { getCategories } from '@/lib/categories';
 
 import Section from '@/components/Section';
 import Container from '@/components/Container';
@@ -57,10 +57,10 @@ async function Footer() {
                   </Link>
                   <ul className={styles.footerMenuItems}>
                     {categories.map((category) => {
-                      const { id, slug, name } = category;
+                      const { id, name, uri } = category;
                       return (
                         <li key={id}>
-                          <Link href={categoryPathBySlug(slug)}>{name}</Link>
+                          <Link href={uri}>{name}</Link>
                         </li>
                       );
                     })}

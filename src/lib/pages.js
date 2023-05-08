@@ -9,14 +9,6 @@ import {
 } from 'data/pages';
 
 /**
- * pagePathBySlug
- */
-
-export function pagePathBySlug(slug) {
-  return `/${slug}`;
-}
-
-/**
  * getPageByUri
  */
 

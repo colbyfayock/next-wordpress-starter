@@ -6,7 +6,6 @@ export const PAGE_FIELDS = gql`
       edges {
         node {
           id
-          slug
           uri
           ... on Page {
             id
@@ -21,14 +20,12 @@ export const PAGE_FIELDS = gql`
     parent {
       node {
         id
-        slug
         uri
         ... on Page {
           title
         }
       }
     }
-    slug
     title
     uri
   }
@@ -95,7 +92,6 @@ export const QUERY_PAGE_BY_URI = gql`
         edges {
           node {
             id
-            slug
             uri
             ... on Page {
               id
@@ -124,14 +120,12 @@ export const QUERY_PAGE_BY_URI = gql`
       parent {
         node {
           id
-          slug
           uri
           ... on Page {
             title
           }
         }
       }
-      slug
       title
       uri
     }

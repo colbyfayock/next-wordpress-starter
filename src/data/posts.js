@@ -9,16 +9,14 @@ export const POST_FIELDS = gql`
           databaseId
           id
           name
-          slug
+          uri
         }
       }
     }
-    databaseId
     date
     isSticky
     modified
     postId
-    slug
     title
     uri
   }
@@ -105,58 +103,6 @@ export const QUERY_ALL_POSTS = gql`
   }
 `;
 
-export const QUERY_POST_BY_SLUG = gql`
-  query PostBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      author {
-        node {
-          avatar {
-            height
-            url
-            width
-          }
-          id
-          name
-          slug
-        }
-      }
-      id
-      categories {
-        edges {
-          node {
-            databaseId
-            id
-            name
-            slug
-          }
-        }
-      }
-      content
-      date
-      excerpt
-      featuredImage {
-        node {
-          altText
-          caption
-          mediaDetails {
-            height
-            width
-          }
-          sourceUrl
-          srcSet
-          sizes
-          id
-        }
-      }
-      modified
-      databaseId
-      title
-      slug
-      isSticky
-    }
-  }
-`;
-
 export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
@@ -232,47 +178,6 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
             }
           }
           modified
-        }
-      }
-    }
-  }
-`;
-
-export const QUERY_POST_SEO_BY_SLUG = gql`
-  query PostSEOBySlug($slug: ID!) {
-    post(id: $slug, idType: SLUG) {
-      id
-      seo {
-        canonical
-        metaDesc
-        metaRobotsNofollow
-        metaRobotsNoindex
-        opengraphAuthor
-        opengraphDescription
-        opengraphModifiedTime
-        opengraphPublishedTime
-        opengraphPublisher
-        opengraphTitle
-        opengraphType
-        readingTime
-        title
-        twitterDescription
-        twitterTitle
-        twitterImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            width
-            height
-          }
-        }
-        opengraphImage {
-          altText
-          sourceUrl
-          mediaDetails {
-            height
-            width
-          }
         }
       }
     }

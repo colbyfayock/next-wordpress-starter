@@ -22,8 +22,8 @@ export async function GET() {
   posts.slice(0, MAX_POSTS).map((post) => {
     feed.item({
       title: post.title,
-      guid: `${metadata.url}/posts/${post.slug}`,
-      url: `${metadata.url}/posts/${post.slug}`,
+      guid: `${metadata.url}${post.uri}`,
+      url: `${metadata.url}${post.uri}`,
       date: post.date,
       description: post.excerpt,
       author: post.author.name,

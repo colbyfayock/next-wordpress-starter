@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import { categoryPathBySlug } from '@/lib/categories';
 import { formatDate } from '@/lib/datetime';
 import ClassName from 'models/classname';
 
@@ -49,7 +48,7 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
         <li className={styles.metadataCategories}>
           {compactCategories && (
             <p title={categories.map(({ name }) => name).join(', ')}>
-              <Link href={categoryPathBySlug(categories[0].slug)}>{categories[0].name}</Link>
+              <Link href={categories[0].uri}>{categories[0].name}</Link>
               {categories.length > 1 && ' and more'}
             </p>
           )}
@@ -57,8 +56,8 @@ const Metadata = ({ className, author, date, categories, options = DEFAULT_METAD
             <ul>
               {categories.map((category) => {
                 return (
-                  <li key={category.slug}>
-                    <Link href={categoryPathBySlug(category.slug)}>{category.name}</Link>
+                  <li key={category.uri}>
+                    <Link href={category.uri}>{category.name}</Link>
                   </li>
                 );
               })}

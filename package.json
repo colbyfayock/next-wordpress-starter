@@ -31,7 +31,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "rss": "^1.2.2",
-    "sass": "^1.62.1"
+    "sass": "^1.62.1",
+    "swr": "^2.1.5"
   },
   "devDependencies": {
     "@types/node": "20.0.0",

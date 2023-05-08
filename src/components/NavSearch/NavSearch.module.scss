@@ -1,6 +1,8 @@
 @import "styles/settings/__settings";
 
 .navSearch {
+  height: 100%;
+
   form {
     display: flex;
     align-items: center;
@@ -12,7 +14,7 @@
 
     @media (min-width: 480px) {
       justify-content: flex-end;
-      margin-right: -1rem;
+      padding: 0;
     }
   }
 
@@ -21,12 +23,17 @@
   }
 
   button {
+    height: 100%;
     font-size: 1.2em;
     background: none;
-    padding: 1.045em;
     border: none;
+    padding: 1em;
     outline: none;
     cursor: pointer;
+
+    @media (min-width: 480px) {
+      padding: 0 0.5em;
+    }
 
     &[disabled] {
       svg {

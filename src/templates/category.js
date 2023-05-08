@@ -1,5 +1,3 @@
-import { updateUserAvatar } from '@/lib/users';
-
 import Section from '@/components/Section';
 import Container from '@/components/Container';
 import Header from '@/components/Header';
@@ -9,7 +7,7 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/templates/Author.module.scss';
 
-export default async function Author({ data, metadata }) {
+export default async function Category({ data, metadata }) {
   const { avatar, description, name, posts, uri } = data;
 
   // const { metadata } = usePageMetadata({
@@ -51,12 +49,7 @@ export default async function Author({ data, metadata }) {
                 {posts.map((post) => {
                   return (
                     <li key={post.uri}>
-                      <PostCard
-                        post={post}
-                        options={{
-                          excludeMetadata: ['author'],
-                        }}
-                      />
+                      <PostCard post={post} />
                     </li>
                   );
                 })}
@@ -87,21 +80,28 @@ export default async function Author({ data, metadata }) {
   );
 }
 
-Author.template = {
+Category.template = {
   query: `
-    query UserByUri($uri: ID!) {
-      user(id: $uri, idType: URI) {
-        avatar {
-          height
-          width
-          url
-        }
+    query CategoryByUri($uri: ID!) {
+      category(id: $uri, idType: URI) {
         description
         id
         name
         posts {
           edges {
             node {
+              author {
+                node {
+                  avatar {
+                    height
+                    url
+                    width
+                  }
+                  id
+                  name
+                  uri
+                }
+              }
               categories {
                 edges {
                   node {
@@ -123,22 +123,17 @@ Author.template = {
             }
           }
         }
-        roles {
-          nodes {
-            name
-          }
-        }
         uri
       }
     }
   `,
   transformer: (data) => {
     return {
-      ...data.user,
-      avatar: data.user.avatar && updateUserAvatar(data.user.avatar),
-      posts: data.user.posts.edges.map(({ node: post }) => {
+      ...data.category,
+      posts: data.category.posts.edges.map(({ node: post }) => {
         return {
           ...post,
+          author: post.author.node,
           categories: post.categories.edges.map(({ node }) => {
             return {
               ...node,
@@ -146,7 +141,6 @@ Author.template = {
           }),
         };
       }),
-      roles: [...data.user.roles.nodes],
     };
   },
   variables: ({ uri }) => {

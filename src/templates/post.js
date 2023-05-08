@@ -1,7 +1,6 @@
 import Link from 'next/link';
 
 import { getRelatedPosts } from '@/lib/posts';
-import { categoryPathBySlug } from '@/lib/categories';
 import { formatDate } from '@/lib/datetime';
 import { updateUserAvatar } from '@/lib/users';
 
@@ -30,7 +29,7 @@ export default async function Post({ data, metadata }) {
       posts: relatedPosts,
       title: {
         name: relatedCategory.name || null,
-        link: categoryPathBySlug(relatedCategory.slug),
+        link: relatedCategory.uri,
       },
     };
   }
@@ -158,7 +157,7 @@ Post.template = {
               databaseId
               id
               name
-              slug
+              uri
             }
           }
         }
@@ -182,7 +181,7 @@ Post.template = {
         modified
         databaseId
         title
-        slug
+        uri
         isSticky
       }
     }

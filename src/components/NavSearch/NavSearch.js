@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { FaSearch } from 'react-icons/fa';
 
-import useSearch, { SEARCH_STATE_LOADED } from '@/hooks/use-search';
+import useSearch from '@/hooks/use-search';
 
 const SEARCH_VISIBLE = 'visible';
 const SEARCH_HIDDEN = 'hidden';
@@ -16,11 +16,11 @@ const NavSearch = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  const { query, results, search, clearSearch, state } = useSearch({
+  const { isLoading, error, query, results, clearSearch, search } = useSearch({
     maxResults: 5,
   });
 
-  const searchIsLoaded = state === SEARCH_STATE_LOADED;
+  const searchIsLoaded = results && !isLoading && !error;
 
   // When the search visibility changes, we want to add an event listener that allows us to
   // detect when someone clicks outside of the search box, allowing us to close the results

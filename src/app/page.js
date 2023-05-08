@@ -44,7 +44,7 @@ export default async function Home() {
           <ul className={styles.posts}>
             {posts.map((post) => {
               return (
-                <li key={post.slug}>
+                <li key={post.uri}>
                   <PostCard post={post} />
                 </li>
               );
