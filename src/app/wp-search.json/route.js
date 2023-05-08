@@ -15,7 +15,7 @@ export async function GET() {
     return {
       title,
       date: post.date,
-      url: post.uri,
+      uri: post.uri,
     };
   });
 

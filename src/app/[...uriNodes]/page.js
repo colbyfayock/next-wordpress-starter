@@ -3,26 +3,29 @@ import { notFound } from 'next/navigation';
 import { getNodeByUri, getTemplateDataByNode } from '@/lib/nodes';
 import { getSiteMetadata } from '@/lib/site';
 
+import { default as TemplateAuthor } from '@/templates/author';
 import { default as TemplatePage } from '@/templates/page';
 import { default as TemplatePost } from '@/templates/post';
 
 const templates = {
+  User: TemplateAuthor,
   Page: TemplatePage,
   Post: TemplatePost,
 };
 
+// By default, certain pages like the User type pages restrict
+// public access, but for the use case, users are authors
+// and without custom functionality, wouldn't be able to
+// display, hence the bypass option for types
+// @TODO add section to readme explaining, add to nextconfig?
+
+const bypassRestricted = ['User'];
+
 export default async function Page({ params = {} }) {
-  const { uriNodes } = params;
-
-  let resolvedUri = null;
-
-  if (uriNodes) {
-    resolvedUri = uriNodes.join('/');
-  }
-
+  const resolvedUri = params.uriNodes ? params.uriNodes.join('/') : null;
   const node = await getNodeByUri(resolvedUri);
 
-  if (!node || node.isRestricted) {
+  if (!node || (node.isRestricted && !bypassRestricted.includes(node.__typename))) {
     notFound();
   }
 

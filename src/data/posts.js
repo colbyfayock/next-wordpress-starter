@@ -53,7 +53,7 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
               }
               id
               name
-              slug
+              uri
             }
           }
           excerpt
@@ -79,7 +79,7 @@ export const QUERY_ALL_POSTS = gql`
               }
               id
               name
-              slug
+              uri
             }
           }
           content
@@ -186,7 +186,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
               }
               id
               name
-              slug
+              uri
             }
           }
           excerpt
@@ -212,66 +212,10 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
               }
               id
               name
-              slug
+              uri
             }
           }
           content
-          excerpt
-          featuredImage {
-            node {
-              altText
-              caption
-              id
-              mediaDetails {
-                height
-                width
-              }
-              sizes
-              sourceUrl
-              srcSet
-            }
-          }
-          modified
-        }
-      }
-    }
-  }
-`;
-
-export const QUERY_POSTS_BY_AUTHOR_SLUG_INDEX = gql`
-  ${POST_FIELDS}
-  query PostByAuthorSlugIndex($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
-      edges {
-        node {
-          ...PostFields
-        }
-      }
-    }
-  }
-`;
-
-export const QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE = gql`
-  ${POST_FIELDS}
-  query PostByAuthorSlugArchive($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
-      edges {
-        node {
-          ...PostFields
-          excerpt
-        }
-      }
-    }
-  }
-`;
-
-export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
-  ${POST_FIELDS}
-  query PostByAuthorSlug($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
-      edges {
-        node {
-          ...PostFields
           excerpt
           featuredImage {
             node {

@@ -1,4 +1,6 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
 
 import { getSearchData } from '@/lib/search';
@@ -10,16 +12,10 @@ export const SEARCH_STATE_READY = 'READY';
 export const SEARCH_STATE_ERROR = 'ERROR';
 export const SEARCH_STATE_LOADED = 'LOADED';
 
-export const SearchContext = createContext();
-
-export const SearchProvider = (props) => {
-  const search = useSearchState();
-  return <SearchContext.Provider value={search} {...props} />;
-};
-
-export function useSearchState() {
+export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   const [state, setState] = useState(SEARCH_STATE_READY);
   const [data, setData] = useState(null);
+  const [query, setQuery] = useState(defaultQuery);
 
   let client;
 
@@ -29,40 +25,6 @@ export function useSearchState() {
       isCaseSensitive: false,
     });
   }
-
-  // On load, we want to immediately pull in the search index, which we're
-  // storing clientside and gets built at compile time
-
-  useEffect(() => {
-    (async function getData() {
-      setState(SEARCH_STATE_LOADING);
-
-      let searchData;
-
-      try {
-        searchData = await getSearchData();
-      } catch (e) {
-        setState(SEARCH_STATE_ERROR);
-        return;
-      }
-
-      setData(searchData);
-      setState(SEARCH_STATE_LOADED);
-    })();
-  }, []);
-
-  return {
-    state,
-    data,
-    client,
-  };
-}
-
-export default function useSearch({ defaultQuery = null, maxResults } = {}) {
-  const search = useContext(SearchContext);
-  const { client } = search || {};
-
-  const [query, setQuery] = useState(defaultQuery);
 
   let results = [];
 
@@ -76,6 +38,27 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   if (maxResults && results.length > maxResults) {
     results = results.slice(0, maxResults);
   }
+
+  // On load, we want to immediately pull in the search index, which we're
+  // storing clientside and gets built at compile time
+
+  useEffect(() => {
+    (async function getData() {
+      setState(SEARCH_STATE_LOADING);
+      try {
+        const searchData = await getSearchData();
+        setData(searchData);
+        setState(SEARCH_STATE_LOADED);
+      } catch (e) {
+        setState(SEARCH_STATE_ERROR);
+        return;
+      }
+    })();
+    return () => {
+      setData(undefined);
+      setState(SEARCH_STATE_READY);
+    };
+  }, []);
 
   // If the defaultQuery argument changes, the hook should reflect
   // that update and set that as the new state
@@ -99,7 +82,8 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   }
 
   return {
-    ...search,
+    state,
+    data,
     query,
     results,
     search: handleSearch,

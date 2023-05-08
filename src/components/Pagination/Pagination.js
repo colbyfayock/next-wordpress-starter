@@ -6,7 +6,7 @@ import styles from './Pagination.module.scss';
 
 const MAX_NUM_PAGES = 9;
 
-const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) => {
+const Pagination = ({ pagesCount, currentPage, basePath }) => {
   const path = `${basePath}/page/`;
 
   const hasPreviousPage = pagesCount > 1 && currentPage > 1;

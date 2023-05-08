@@ -2,7 +2,7 @@ import { gql } from '@/lib/request';
 
 import { decodeHtmlEntities, removeExtraSpaces } from '@/lib/util';
 
-import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
+import { QUERY_SITE_DATA } from 'data/site';
 
 /**
  * getSiteMetadata
@@ -10,7 +10,6 @@ import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
 
 export async function getSiteMetadata() {
   let siteData;
-  let seoData;
 
   try {
     siteData = await gql({
@@ -22,7 +21,7 @@ export async function getSiteMetadata() {
   }
 
   const { generalSettings } = siteData?.data || {};
-  let { title, description, language } = generalSettings;
+  let { language } = generalSettings;
 
   const settings = {
     ...generalSettings,

@@ -7,7 +7,8 @@ import Footer from '@/components/Footer';
 import '@/styles/globals.scss';
 import styles from '@/styles/layout.module.scss';
 
-export async function generateMetadata({ params, searchParams }, parent) {
+// export async function generateMetadata({ params, searchParams }, parent) {
+export async function generateMetadata() {
   const metadata = await getSiteMetadata();
 
   return {

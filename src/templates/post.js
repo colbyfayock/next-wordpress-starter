@@ -13,7 +13,7 @@ import FeaturedImage from '@/components/FeaturedImage';
 import Metadata from '@/components/Metadata';
 import JSONLD from '@/components/JSONLD';
 
-import styles from '@/styles/pages/Post.module.scss';
+import styles from '@/styles/templates/Post.module.scss';
 
 export default async function Post({ data, metadata }) {
   const { author, categories, content, date, excerpt, id, isSticky = false, featuredImage, modified, title } = data;
@@ -148,7 +148,7 @@ Post.template = {
             }
             id
             name
-            slug
+            uri
           }
         }
         id

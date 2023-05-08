@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import Link from 'next/link';
 import { FaSearch } from 'react-icons/fa';
 
 import useSearch, { SEARCH_STATE_LOADED } from '@/hooks/use-search';
@@ -15,11 +16,7 @@ const NavSearch = () => {
 
   const [searchVisibility, setSearchVisibility] = useState(SEARCH_HIDDEN);
 
-  console.log('searchVisibility', searchVisibility);
-
-  const { query, results, search, clearSearch, state } = {};
-
-  useSearch({
+  const { query, results, search, clearSearch, state } = useSearch({
     maxResults: 5,
   });
 
@@ -191,7 +188,7 @@ const NavSearch = () => {
               <ul>
                 {results.map(({ uri, title }, index) => {
                   return (
-                    <li key={slug}>
+                    <li key={uri}>
                       <Link tabIndex={index} href={uri}>
                         {title}
                       </Link>

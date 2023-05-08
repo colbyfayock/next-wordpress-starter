@@ -10,7 +10,7 @@ import FeaturedImage from '@/components/FeaturedImage';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import JSONLD from '@/components/JSONLD';
 
-import styles from '@/styles/pages/Page.module.scss';
+import styles from '@/styles/templates/Page.module.scss';
 
 export default async function Page({ data, metadata }) {
   const { children, content, description, featuredImage, title, uri } = data;

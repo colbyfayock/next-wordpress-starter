@@ -8,9 +8,6 @@ import {
   QUERY_ALL_POSTS_ARCHIVE,
   QUERY_ALL_POSTS,
   QUERY_POST_BY_SLUG,
-  QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
-  QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
-  QUERY_POSTS_BY_AUTHOR_SLUG,
   QUERY_POSTS_BY_CATEGORY_ID_INDEX,
   QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
   QUERY_POSTS_BY_CATEGORY_ID,
@@ -139,42 +136,6 @@ export async function getAllPosts(options = {}) {
 }
 
 /**
- * getPostsByAuthorSlug
- */
-
-const postsByAuthorSlugIncludesTypes = {
-  all: QUERY_POSTS_BY_AUTHOR_SLUG,
-  archive: QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE,
-  index: QUERY_POSTS_BY_AUTHOR_SLUG_INDEX,
-};
-
-export async function getPostsByAuthorSlug({ slug, ...options }) {
-  const { queryIncludes = 'index' } = options;
-
-  const apolloClient = getApolloClient();
-
-  let postData;
-
-  try {
-    postData = await apolloClient.query({
-      query: postsByAuthorSlugIncludesTypes[queryIncludes],
-      variables: {
-        slug,
-      },
-    });
-  } catch (e) {
-    console.log(`[posts][getPostsByAuthorSlug] Failed to query post data: ${e.message}`);
-    throw e;
-  }
-
-  const posts = postData?.data.posts.edges.map(({ node = {} }) => node);
-
-  return {
-    posts: Array.isArray(posts) && posts.map(mapPostData),
-  };
-}
-
-/**
  * getPostsByCategoryId
  */
 
@@ -259,7 +220,7 @@ export function mapPostData(post = {}) {
 
   // Clean up the author object to avoid someone having to look an extra
   // level deeper into the node
-
+  console.log('data.author', data.author);
   if (data.author) {
     data.author = {
       ...data.author.node,
@@ -325,8 +286,6 @@ export async function getRelatedPosts(categories, postId, count = 5) {
   if (Array.isArray(related.posts) && related.posts.length > count) {
     return related.posts.slice(0, count);
   }
-
-  console.log('related', related);
 
   return related;
 }
