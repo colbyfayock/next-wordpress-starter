@@ -27,7 +27,7 @@
     "graphql": "^16.6.0",
     "he": "^1.2.0",
     "loader-utils": "^3.2.1",
-    "next": "13.4.0",
+    "next": "13.4.3",
     "nextjs-progressbar": "^0.0.16",
     "parameterize": "^1.0.0",
     "path": "^0.12.7",
