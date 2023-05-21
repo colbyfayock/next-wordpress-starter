@@ -1,9 +1,6 @@
 @import "styles/settings/__settings";
 
 .center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   text-align: center;
 }
 
@@ -15,4 +12,10 @@
 
 .errorMessage {
   max-width: 40em;
+  margin: 1.2em auto;
+}
+
+.errorRefresh {
+  font-size: 0.8em;
+  margin-top: 3em;
 }
