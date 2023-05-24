@@ -13,15 +13,15 @@ export const size = {
 
 export const contentType = 'image/png';
 
-export default async function Image({ params }) {
+export default async function Image() {
   const metadata = await getSiteMetadata();
 
   let website = metadata.url.replace(/https?:\/\//, '');
 
-  if ( website[website.length - 1] === '/' ) {
+  if (website[website.length - 1] === '/') {
     website = website.slice(0, website.length - 1);
   }
-  
+
   return new ImageResponse(
     (
       <div
@@ -34,14 +34,14 @@ export default async function Image({ params }) {
           justifyContent: 'center',
           backgroundColor: '#fff',
         }}
-        >
+      >
         <div
           style={{
             display: 'flex',
             flexGrow: 1,
             paddingRight: 50,
             paddingLeft: 50,
-            marginTop: 40
+            marginTop: 40,
           }}
         >
           <div
@@ -50,7 +50,7 @@ export default async function Image({ params }) {
               justifyContent: 'center',
               alignItems: 'center',
               fontSize: 50,
-              textAlign: 'center'
+              textAlign: 'center',
             }}
           >
             Post Title Post Title Post Title Post TitlePost Title Post Title Post Title Post Title Post Title
@@ -63,15 +63,14 @@ export default async function Image({ params }) {
             paddingBottom: 40,
           }}
         >
-          { website }
+          {website}
         </div>
       </div>
-
     ),
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageReponse's width and height.
       ...size,
-    },
+    }
   );
 }
