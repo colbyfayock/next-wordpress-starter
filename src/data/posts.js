@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const POST_FIELDS = gql`
+export const POST_FIELDS = `
   fragment PostFields on Post {
     id
     categories {
@@ -22,7 +20,7 @@ export const POST_FIELDS = gql`
   }
 `;
 
-export const QUERY_ALL_POSTS_INDEX = gql`
+export const QUERY_ALL_POSTS_INDEX = `
   ${POST_FIELDS}
   query AllPostsIndex {
     posts(first: 10000, where: { hasPassword: false }) {
@@ -35,7 +33,7 @@ export const QUERY_ALL_POSTS_INDEX = gql`
   }
 `;
 
-export const QUERY_ALL_POSTS_ARCHIVE = gql`
+export const QUERY_ALL_POSTS_ARCHIVE = `
   ${POST_FIELDS}
   query AllPostsArchive {
     posts(first: 10000, where: { hasPassword: false }) {
@@ -61,7 +59,7 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
   }
 `;
 
-export const QUERY_ALL_POSTS = gql`
+export const QUERY_ALL_POSTS = `
   ${POST_FIELDS}
   query AllPosts {
     posts(first: 10000, where: { hasPassword: false }) {
@@ -103,7 +101,7 @@ export const QUERY_ALL_POSTS = gql`
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
     posts(where: { categoryId: $categoryId, hasPassword: false }) {
@@ -116,7 +114,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
     posts(where: { categoryId: $categoryId, hasPassword: false }) {
@@ -142,7 +140,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
     posts(where: { categoryId: $categoryId, hasPassword: false }) {
@@ -184,7 +182,7 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
   }
 `;
 
-export const QUERY_POST_PER_PAGE = gql`
+export const QUERY_POST_PER_PAGE = `
   query PostPerPage {
     allSettings {
       readingSettingsPostsPerPage

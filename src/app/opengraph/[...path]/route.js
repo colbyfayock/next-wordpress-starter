@@ -1,6 +1,9 @@
 import { ImageResponse } from 'next/server';
 
 import { getSiteMetadata } from '@/lib/site';
+import { getNodeByUri, getTemplateDataByNode } from '@/lib/nodes';
+
+import { templates } from '@/app/[...uriNodes]/page';
 
 export const runtime = 'edge';
 
@@ -13,8 +16,22 @@ export const size = {
 
 export const contentType = 'image/png';
 
-export default async function Image() {
-  const metadata = await getSiteMetadata();
+export async function GET(request, { params }) {
+  const resolvedUri = `/${params.path.join('/')}`;
+  const node = await getNodeByUri(resolvedUri);
+
+  const Component = templates[node.__typename] || templates.Page;
+  const { template } = Component;
+
+  const [nodeData, metadata] = await Promise.all([
+    getTemplateDataByNode({
+      template,
+      node,
+    }),
+    getSiteMetadata(),
+  ]);
+
+  const data = typeof template.transformer === 'function' ? template.transformer(nodeData?.data) : nodeData?.data;
 
   let website = metadata.url.replace(/https?:\/\//, '');
 
@@ -53,7 +70,7 @@ export default async function Image() {
               textAlign: 'center',
             }}
           >
-            Post Title Post Title Post Title Post TitlePost Title Post Title Post Title Post Title Post Title
+            {data.title}
           </div>
         </div>
         <div

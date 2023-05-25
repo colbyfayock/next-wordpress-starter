@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const PAGE_FIELDS = gql`
+export const PAGE_FIELDS = `
   fragment PageFields on Page {
     children {
       edges {
@@ -31,7 +29,7 @@ export const PAGE_FIELDS = gql`
   }
 `;
 
-export const QUERY_ALL_PAGES_INDEX = gql`
+export const QUERY_ALL_PAGES_INDEX = `
   ${PAGE_FIELDS}
   query AllPagesIndex {
     pages(first: 10000, where: { hasPassword: false }) {
@@ -44,7 +42,7 @@ export const QUERY_ALL_PAGES_INDEX = gql`
   }
 `;
 
-export const QUERY_ALL_PAGES_ARCHIVE = gql`
+export const QUERY_ALL_PAGES_ARCHIVE = `
   ${PAGE_FIELDS}
   query AllPagesIndex {
     pages(first: 10000, where: { hasPassword: false }) {
@@ -57,7 +55,7 @@ export const QUERY_ALL_PAGES_ARCHIVE = gql`
   }
 `;
 
-export const QUERY_ALL_PAGES = gql`
+export const QUERY_ALL_PAGES = `
   ${PAGE_FIELDS}
   query AllPagesIndex {
     pages(first: 10000, where: { hasPassword: false }) {
@@ -85,7 +83,7 @@ export const QUERY_ALL_PAGES = gql`
   }
 `;
 
-export const QUERY_PAGE_BY_URI = gql`
+export const QUERY_PAGE_BY_URI = `
   query PageByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
       children {
@@ -132,7 +130,7 @@ export const QUERY_PAGE_BY_URI = gql`
   }
 `;
 
-export const QUERY_PAGE_SEO_BY_URI = gql`
+export const QUERY_PAGE_SEO_BY_URI = `
   query PageSEOByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
       id

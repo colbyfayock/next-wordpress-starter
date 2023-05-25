@@ -1,4 +1,4 @@
-import { getApolloClient } from '@/lib/apollo-client';
+import { gql } from '@/lib/request';
 
 import { updateUserAvatar } from '@/lib/users';
 import { sortObjectsByDate } from '@/lib/datetime';
@@ -26,9 +26,7 @@ const allPostsIncludesTypes = {
 export async function getAllPosts(options = {}) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
-
-  const data = await apolloClient.query({
+  const data = await gql({
     query: allPostsIncludesTypes[queryIncludes],
   });
 
@@ -52,12 +50,10 @@ const postsByCategoryIdIncludesTypes = {
 export async function getPostsByCategoryId({ categoryId, ...options }) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
-
   let postData;
 
   try {
-    postData = await apolloClient.query({
+    postData = await gql({
       query: postsByCategoryIdIncludesTypes[queryIncludes],
       variables: {
         categoryId,
@@ -216,9 +212,7 @@ export async function getPostsPerPage() {
   }
 
   try {
-    const apolloClient = getApolloClient();
-
-    const { data } = await apolloClient.query({
+    const { data } = await gql({
       query: QUERY_POST_PER_PAGE,
     });
 
