@@ -1,6 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 
-import { removeLastTrailingSlash } from 'lib/util';
+import { removeLastTrailingSlash } from '@/lib/util';
 let client;
 
 /**

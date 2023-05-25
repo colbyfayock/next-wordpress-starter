@@ -1,17 +1,12 @@
 import Link from 'next/link';
 
-import config from '../../../package.json';
-import { Helmet } from 'react-helmet';
-
 import { GrPrevious as PreviousIcon, GrNext as NextIcon } from 'react-icons/gr';
 import { HiOutlineDotsHorizontal as Dots } from 'react-icons/hi';
 import styles from './Pagination.module.scss';
 
 const MAX_NUM_PAGES = 9;
 
-const { homepage = '' } = config;
-
-const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) => {
+const Pagination = ({ pagesCount, currentPage, basePath }) => {
   const path = `${basePath}/page/`;
 
   const hasPreviousPage = pagesCount > 1 && currentPage > 1;
@@ -47,11 +42,11 @@ const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) 
 
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         {addCanonical && !hasPreviousPage && <link rel="canonical" href={`${homepage}${basePath}`} />}
         {hasPreviousPage && <link rel="prev" href={`${homepage}${path}${currentPage - 1}`} />}
         {hasNextPage && <link rel="next" href={`${homepage}${path}${currentPage + 1}`} />}
-      </Helmet>
+      </Helmet> */}
 
       <nav className={styles.nav} role="navigation" aria-label="Pagination Navigation">
         {hasPreviousPage && (

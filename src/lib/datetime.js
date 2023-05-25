@@ -1,11 +1,17 @@
-import { format } from 'date-fns';
-
 /**
  * formatDate
  */
 
-export function formatDate(date, pattern = 'PPP') {
-  return format(new Date(date), pattern);
+export function formatDate(date) {
+  if (!(date instanceof Date)) {
+    date = new Date(date);
+  }
+
+  return date.toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  });
 }
 
 /**

@@ -1,21 +1,18 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { gql } from '@/lib/request';
 
-import { decodeHtmlEntities, removeExtraSpaces } from 'lib/util';
+import { decodeHtmlEntities, removeExtraSpaces } from '@/lib/util';
 
-import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
+import { QUERY_SITE_DATA } from 'data/site';
 
 /**
  * getSiteMetadata
  */
 
 export async function getSiteMetadata() {
-  const apolloClient = getApolloClient();
-
   let siteData;
-  let seoData;
 
   try {
-    siteData = await apolloClient.query({
+    siteData = await gql({
       query: QUERY_SITE_DATA,
     });
   } catch (e) {
@@ -24,72 +21,70 @@ export async function getSiteMetadata() {
   }
 
   const { generalSettings } = siteData?.data || {};
-  let { title, description, language } = generalSettings;
+  let { language } = generalSettings;
 
   const settings = {
-    title,
-    siteTitle: title,
-    description,
+    ...generalSettings,
+    url: process.env.WORDPRESS_SITE_URL,
   };
 
   // It looks like the value of `language` when US English is set
   // in WordPress is empty or "", meaning, we have to infer that
-  // if there's no value, it's English. On the other hand, if there
-  // is a code, we need to grab the 2char version of it to use ofr
-  // the HTML lang attribute
+  // if there's no value, it's English. On the other hand,
+  // normalize the value for what's expected in Next.js
 
   if (!language || language === '') {
-    settings.language = 'en';
+    settings.language = 'en-US';
   } else {
-    settings.language = language.split('_')[0];
+    settings.language = language.replace('_', '-');
   }
 
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
 
-  if (process.env.WORDPRESS_PLUGIN_SEO === true) {
-    try {
-      seoData = await apolloClient.query({
-        query: QUERY_SEO_DATA,
-      });
-    } catch (e) {
-      console.log(`[site][getSiteMetadata] Failed to query SEO plugin: ${e.message}`);
-      console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
-      throw e;
-    }
+  // if (process.env.WORDPRESS_PLUGIN_SEO === true) {
+  //   try {
+  //     seoData = await gql({
+  //       query: QUERY_SEO_DATA,
+  //     });
+  //   } catch (e) {
+  //     console.log(`[site][getSiteMetadata] Failed to query SEO plugin: ${e.message}`);
+  //     console.log('Is the SEO Plugin installed? If not, disable WORDPRESS_PLUGIN_SEO in next.config.js.');
+  //     throw e;
+  //   }
 
-    const { webmaster, social } = seoData?.data?.seo || {};
+  //   const { webmaster, social } = seoData?.data?.seo || {};
 
-    if (social) {
-      settings.social = {};
+  //   if (social) {
+  //     settings.social = {};
 
-      Object.keys(social).forEach((key) => {
-        const { url } = social[key];
-        if (!url || key === '__typename') return;
-        settings.social[key] = url;
-      });
-    }
+  //     Object.keys(social).forEach((key) => {
+  //       const { url } = social[key];
+  //       if (!url || key === '__typename') return;
+  //       settings.social[key] = url;
+  //     });
+  //   }
 
-    if (webmaster) {
-      settings.webmaster = {};
+  //   if (webmaster) {
+  //     settings.webmaster = {};
 
-      Object.keys(webmaster).forEach((key) => {
-        if (!webmaster[key] || key === '__typename') return;
-        settings.webmaster[key] = webmaster[key];
-      });
-    }
+  //     Object.keys(webmaster).forEach((key) => {
+  //       if (!webmaster[key] || key === '__typename') return;
+  //       settings.webmaster[key] = webmaster[key];
+  //     });
+  //   }
 
-    if (social.twitter) {
-      settings.twitter = {
-        username: social.twitter.username,
-        cardType: social.twitter.cardType,
-      };
+  //   if (social.twitter) {
+  //     settings.twitter = {
+  //       username: social.twitter.username,
+  //       cardType: social.twitter.cardType,
+  //     };
 
-      settings.social.twitter = {
-        url: `https://twitter.com/${settings.twitter.username}`,
-      };
-    }
-  }
+  //     settings.social.twitter = {
+  //       url: `https://twitter.com/${settings.twitter.username}`,
+  //     };
+  //   }
+  // }
 
   settings.title = decodeHtmlEntities(settings.title);
 

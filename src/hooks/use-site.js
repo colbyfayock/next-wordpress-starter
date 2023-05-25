@@ -1,8 +1,10 @@
+'use client';
+
 import { useContext, createContext } from 'react';
 
 import config from '../../package.json';
 
-import { removeLastTrailingSlash } from 'lib/util';
+import { removeLastTrailingSlash } from '@/lib/util';
 
 export const SiteContext = createContext();
 

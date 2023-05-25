@@ -1,25 +1,17 @@
-import { useState, createContext, useContext, useEffect } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
+import useSWR from 'swr';
 import Fuse from 'fuse.js';
 
-import { getSearchData } from 'lib/search';
+const SEARCH_KEYS = ['uri', 'title'];
 
-const SEARCH_KEYS = ['slug', 'title'];
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export const SEARCH_STATE_LOADING = 'LOADING';
-export const SEARCH_STATE_READY = 'READY';
-export const SEARCH_STATE_ERROR = 'ERROR';
-export const SEARCH_STATE_LOADED = 'LOADED';
+export default function useSearch({ defaultQuery = null, maxResults } = {}) {
+  const [query, setQuery] = useState(defaultQuery);
 
-export const SearchContext = createContext();
-
-export const SearchProvider = (props) => {
-  const search = useSearchState();
-  return <SearchContext.Provider value={search} {...props} />;
-};
-
-export function useSearchState() {
-  const [state, setState] = useState(SEARCH_STATE_READY);
-  const [data, setData] = useState(null);
+  const { data, error, isLoading } = useSWR('/wp-search.json', fetcher);
 
   let client;
 
@@ -29,40 +21,6 @@ export function useSearchState() {
       isCaseSensitive: false,
     });
   }
-
-  // On load, we want to immediately pull in the search index, which we're
-  // storing clientside and gets built at compile time
-
-  useEffect(() => {
-    (async function getData() {
-      setState(SEARCH_STATE_LOADING);
-
-      let searchData;
-
-      try {
-        searchData = await getSearchData();
-      } catch (e) {
-        setState(SEARCH_STATE_ERROR);
-        return;
-      }
-
-      setData(searchData);
-      setState(SEARCH_STATE_LOADED);
-    })();
-  }, []);
-
-  return {
-    state,
-    data,
-    client,
-  };
-}
-
-export default function useSearch({ defaultQuery = null, maxResults } = {}) {
-  const search = useContext(SearchContext);
-  const { client } = search;
-
-  const [query, setQuery] = useState(defaultQuery);
 
   let results = [];
 
@@ -99,7 +57,8 @@ export default function useSearch({ defaultQuery = null, maxResults } = {}) {
   }
 
   return {
-    ...search,
+    error,
+    isLoading,
     query,
     results,
     search: handleSearch,

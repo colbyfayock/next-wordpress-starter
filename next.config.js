@@ -1,10 +1,23 @@
-const indexSearch = require('./plugins/search-index');
-const feed = require('./plugins/feed');
-const sitemap = require('./plugins/sitemap');
-// const socialImages = require('./plugins/socialImages'); TODO: failing to run on Netlify
+const pkg = require('./package.json');
+
+const wordpressHost = process.env.WORDPRESS_GRAPHQL_ENDPOINT.replace(/https?:\/\//, '').split('/')[0];
+const wordpressProtocol = process.env.WORDPRESS_GRAPHQL_ENDPOINT.split('://')[0];
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    appDir: true,
+  },
+
+  images: {
+    remotePatterns: [
+      {
+        protocol: wordpressProtocol,
+        hostname: wordpressHost,
+      },
+    ],
+  },
+
   reactStrictMode: true,
   swcMinify: true,
 
@@ -32,13 +45,11 @@ const nextConfig = {
     WORDPRESS_GRAPHQL_ENDPOINT: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
     WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
     WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
+    WORDPRESS_SITE_URL: pkg.homepage,
   },
 };
 
-module.exports = () => {
-  const plugins = [indexSearch, feed, sitemap];
-  return plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
-};
+module.exports = nextConfig;
 
 /**
  * parseEnv

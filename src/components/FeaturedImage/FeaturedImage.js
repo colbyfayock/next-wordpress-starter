@@ -1,15 +1,26 @@
-import ClassName from 'models/classname';
-
-import Image from 'components/Image';
+import Image from 'next/image';
 
 import styles from './FeaturedImage.module.scss';
 
-const FeaturedImage = ({ className, alt, ...rest }) => {
-  const featuredImageClassName = new ClassName(styles.featuredImage);
+const FeaturedImage = ({ data, ...props }) => {
+  let className = styles.featuredImage;
 
-  featuredImageClassName.addIf(className, className);
+  if (props.className) {
+    className = `${className} ${props.className}`;
+  }
 
-  return <Image className={featuredImageClassName} alt={alt} {...rest} />;
+  return (
+    <span className={className}>
+      <Image
+        width={data.mediaDetails.width}
+        height={data.mediaDetails.height}
+        alt={data.altText}
+        src={data.sourceUrl}
+        sizes={data.sizes}
+        {...props}
+      />
+    </span>
+  );
 };
 
 export default FeaturedImage;

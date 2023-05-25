@@ -1,12 +1,19 @@
 @import "styles/settings/__settings";
 
 .footer {
+  
   width: 100%;
   border-top: 1px solid $color-gray-100;
+
+  // Requires greater specificity
+  
+  .footerMenu {
+    margin: 2rem 0;
+  }
+
 }
 
 .footerMenu {
-  margin: 2rem 0;
 
   ul {
     list-style: none;

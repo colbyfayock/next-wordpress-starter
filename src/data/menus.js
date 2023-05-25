@@ -20,7 +20,7 @@ export const QUERY_ALL_MENUS = gql`
             }
           }
           name
-          slug
+          uri
           locations
         }
       }

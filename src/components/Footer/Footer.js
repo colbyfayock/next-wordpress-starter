@@ -1,16 +1,26 @@
 import Link from 'next/link';
 
-import useSite from 'hooks/use-site';
-import { postPathBySlug } from 'lib/posts';
-import { categoryPathBySlug } from 'lib/categories';
+import { getSiteMetadata } from '@/lib/site';
+import { getRecentPosts } from '@/lib/posts';
+import { getCategories } from '@/lib/categories';
 
-import Section from 'components/Section';
-import Container from 'components/Container';
+import Section from '@/components/Section';
+import Container from '@/components/Container';
 
 import styles from './Footer.module.scss';
 
-const Footer = () => {
-  const { metadata = {}, recentPosts = [], categories = [] } = useSite();
+async function Footer() {
+  const [metadata, { posts: recentPosts }, { categories }] = await Promise.all([
+    getSiteMetadata(),
+    getRecentPosts({
+      count: 5,
+      queryIncludes: 'index',
+    }),
+    getCategories({
+      count: 5,
+    }),
+  ]);
+
   const { title } = metadata;
 
   const hasRecentPosts = Array.isArray(recentPosts) && recentPosts.length > 0;
@@ -30,10 +40,10 @@ const Footer = () => {
                   </Link>
                   <ul className={styles.footerMenuItems}>
                     {recentPosts.map((post) => {
-                      const { id, slug, title } = post;
+                      const { id, uri, title } = post;
                       return (
                         <li key={id}>
-                          <Link href={postPathBySlug(slug)}>{title}</Link>
+                          <Link href={uri}>{title}</Link>
                         </li>
                       );
                     })}
@@ -47,10 +57,10 @@ const Footer = () => {
                   </Link>
                   <ul className={styles.footerMenuItems}>
                     {categories.map((category) => {
-                      const { id, slug, name } = category;
+                      const { id, name, uri } = category;
                       return (
                         <li key={id}>
-                          <Link href={categoryPathBySlug(slug)}>{name}</Link>
+                          <Link href={uri}>{name}</Link>
                         </li>
                       );
                     })}
@@ -84,6 +94,6 @@ const Footer = () => {
       </Section>
     </footer>
   );
-};
+}
 
 export default Footer;
