@@ -34,7 +34,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-helmet": "^6.1.0",
-    "react-icons": "^4.8.0",
+    "react-icons": "4.9.0",
     "rss": "^1.2.2",
     "sass": "^1.62.1",
     "style.css": "^1.0.3"
