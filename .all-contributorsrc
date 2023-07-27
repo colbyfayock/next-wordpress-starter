@@ -158,6 +158,15 @@
       "contributions": [
         "tool"
       ]
+    },
+    {
+      "login": "rickknowlton",
+      "name": "Rick Knowlton",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10679138?v=4",
+      "profile": "https://rickknowlton.io",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -166,5 +175,6 @@
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true,
-  "commitConvention": "angular"
+  "commitConvention": "angular",
+  "commitType": "docs"
 }
