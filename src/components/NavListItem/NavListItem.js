@@ -9,12 +9,20 @@ const NavListItem = ({ className, item }) => {
 
   return (
     <li key={item.id}>
-      {!item.path.includes('http') && !item.target && (
+      {/* 
+        Before rendering the Link component, we first check if `item.path` exists
+        and if it does not include 'http'. This prevents a TypeError when `item.path` is null.
+      */}
+      {item.path && !item.path.includes('http') && !item.target && (
         <Link href={item.path} title={item.title}>
           {item.label}
         </Link>
       )}
-      {item.path.includes('http') && (
+      {/* 
+        Before rendering the `a` tag, we first check if `item.path` exists
+        and if it includes 'http'. This prevents a TypeError when `item.path` is null.
+      */}
+      {item.path && item.path.includes('http') && (
         <a href={item.path} title={item.title} target={item.target}>
           {item.label}
         </a>
