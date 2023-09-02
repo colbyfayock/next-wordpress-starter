@@ -43,3 +43,6 @@ public/images/og
 .vscode/
 # Local Netlify folder
 .netlify
+
+/yarn
+yarn.lock

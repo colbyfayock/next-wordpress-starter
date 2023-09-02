@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';

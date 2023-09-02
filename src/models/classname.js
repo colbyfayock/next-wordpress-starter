@@ -13,7 +13,7 @@ class ClassName {
     }
 
     this.base = [...this.base, ...className];
-
+    // console.log(this);
     return this;
   }
 
