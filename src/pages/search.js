@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import useSearch from 'hooks/use-search';

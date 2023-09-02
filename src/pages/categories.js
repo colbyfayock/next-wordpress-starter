@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import useSite from 'hooks/use-site';
 import { getAllCategories, categoryPathBySlug } from 'lib/categories';

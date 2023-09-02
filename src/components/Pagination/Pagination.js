@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 import config from '../../../package.json';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 import { GrPrevious as PreviousIcon, GrNext as NextIcon } from 'react-icons/gr';
 import { HiOutlineDotsHorizontal as Dots } from 'react-icons/hi';

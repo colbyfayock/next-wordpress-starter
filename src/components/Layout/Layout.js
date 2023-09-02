@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
 import styles from './Layout.module.scss';
 
 import useSite from 'hooks/use-site';
@@ -61,15 +62,17 @@ const Layout = ({ children }) => {
   };
 
   return (
-    <div className={styles.layoutContainer}>
-      <Helmet {...helmetSettings} />
+    <HelmetProvider>
+      <div className={styles.layoutContainer}>
+        <Helmet {...helmetSettings} />
 
-      <Nav />
+        <Nav />
 
-      <Main>{children}</Main>
+        <Main>{children}</Main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </HelmetProvider>
   );
 };
 
