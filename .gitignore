@@ -45,3 +45,4 @@ public/images/og
 .netlify
 
 /yarn
+yarn.lock
