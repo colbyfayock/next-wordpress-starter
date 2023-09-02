@@ -44,4 +44,4 @@ public/images/og
 # Local Netlify folder
 .netlify
 
-yarn
+/yarn
