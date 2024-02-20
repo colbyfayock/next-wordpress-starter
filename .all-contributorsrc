@@ -167,6 +167,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "amjedidiah",
+      "name": "Jedidiah Amaraegbu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/17021436?v=4",
+      "profile": "https://github.com/amjedidiah",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
