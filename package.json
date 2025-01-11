@@ -20,7 +20,7 @@
     "**/*.scss": "pnpm prettier --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.7.14",
+    "@apollo/client": "3.12.5",
     "date-fns": "^2.30.0",
     "dotenv": "^16.0.3",
     "fuse.js": "^6.6.2",
