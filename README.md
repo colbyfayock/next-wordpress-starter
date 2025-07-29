@@ -36,7 +36,7 @@ WORDPRESS_GRAPHQL_ENDPOINT="http://wordpressite.com/graphql"
 In some cases, the above may not work.
 Change it as follows:
 ```
-WORDPRESS_GRAPHQL_ENDPOINT="http://yourhost.com/index.php?graphql
+WORDPRESS_GRAPHQL_ENDPOINT="http://yourhost.com/index.php?graphql"
 ```
 
 ## 🚀 Getting Started
