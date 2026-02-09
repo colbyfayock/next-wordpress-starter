@@ -7,7 +7,6 @@ import Footer from '@/components/Footer';
 import '@/styles/globals.scss';
 import styles from '@/styles/layout.module.scss';
 
-// export async function generateMetadata({ params, searchParams }, parent) {
 export async function generateMetadata() {
   const metadata = await getSiteMetadata();
 
@@ -23,13 +22,7 @@ export async function generateMetadata() {
       description: metadata.description,
       url: metadata.url,
       siteName: metadata.title,
-      images: [
-        // {
-        //   url: 'https://nextjs.org/og.png',
-        //   width: 800,
-        //   height: 600,
-        // },
-      ],
+      images: [],
       locale: metadata.language,
       type: 'website',
     },
@@ -49,41 +42,3 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
-
-// const helmetSettings = {
-
-//   ...helmetSettingsFromMetadata(metadata, {
-//     setTitle: false,
-//     link: [
-//       {
-//         rel: 'alternate',
-//         type: 'application/rss+xml',
-//         href: '/feed.xml',
-//       },
-
-//       // Favicon sizes and manifest generated via https://favicon.io/
-
-//       {
-//         rel: 'apple-touch-icon',
-//         sizes: '180x180',
-//         href: '/apple-touch-icon.png',
-//       },
-//       {
-//         rel: 'icon',
-//         type: 'image/png',
-//         sizes: '16x16',
-//         href: '/favicon-16x16.png',
-//       },
-//       {
-//         rel: 'icon',
-//         type: 'image/png',
-//         sizes: '32x32',
-//         href: '/favicon-32x32.png',
-//       },
-//       {
-//         rel: 'manifest',
-//         href: '/site.webmanifest',
-//       },
-//     ],
-//   }),
-// };

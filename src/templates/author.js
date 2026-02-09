@@ -12,20 +12,6 @@ import styles from '@/styles/templates/Author.module.scss';
 export default async function Author({ data, metadata }) {
   const { avatar, description, name, posts, uri } = data;
 
-  // const { metadata } = usePageMetadata({
-  //   metadata: {
-  //     ...user,
-  //     title,
-  //     description: description || user.og?.description || `Read ${posts.length} posts from ${name}`,
-  //   },
-  // });
-
-  // if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-  //   metadata.title = `${title} - ${siteMetadata.title}`;
-  //   metadata.og.title = metadata.title;
-  //   metadata.twitter.title = metadata.title;
-  // }
-
   return (
     <>
       <Header>
@@ -61,13 +47,6 @@ export default async function Author({ data, metadata }) {
                   );
                 })}
               </ul>
-              {/* {pagination && (
-                <Pagination
-                  currentPage={pagination?.currentPage}
-                  pagesCount={pagination?.pagesCount}
-                  basePath={pagination?.basePath}
-                />
-              )} */}
             </>
           )}
         </Container>

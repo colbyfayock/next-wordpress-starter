@@ -8,21 +8,7 @@ import JSONLD from '@/components/JSONLD';
 import styles from '@/styles/templates/Author.module.scss';
 
 export default async function Category({ data, metadata }) {
-  const { avatar, description, name, posts, uri } = data;
-
-  // const { metadata } = usePageMetadata({
-  //   metadata: {
-  //     ...user,
-  //     title,
-  //     description: description || user.og?.description || `Read ${posts.length} posts from ${name}`,
-  //   },
-  // });
-
-  // if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-  //   metadata.title = `${title} - ${siteMetadata.title}`;
-  //   metadata.og.title = metadata.title;
-  //   metadata.twitter.title = metadata.title;
-  // }
+  const { description, name, posts, uri } = data;
 
   return (
     <>
@@ -54,13 +40,6 @@ export default async function Category({ data, metadata }) {
                   );
                 })}
               </ul>
-              {/* {pagination && (
-                <Pagination
-                  currentPage={pagination?.currentPage}
-                  pagesCount={pagination?.pagesCount}
-                  basePath={pagination?.basePath}
-                />
-              )} */}
             </>
           )}
         </Container>
@@ -68,9 +47,8 @@ export default async function Category({ data, metadata }) {
 
       <JSONLD
         data={{
-          '@type': 'Person',
+          '@type': 'CollectionPage',
           name,
-          image: avatar?.url,
           url: `${metadata.url}${uri}`,
           description,
         }}

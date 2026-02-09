@@ -34,25 +34,6 @@ export default async function Post({ data, metadata }) {
     };
   }
 
-  // post.og.imageUrl = `${homepage}${socialImage}`;
-  // post.og.imageSecureUrl = post.og.imageUrl;
-  // post.og.imageWidth = 2000;
-  // post.og.imageHeight = 1000;
-
-  // const { metadata } = usePageMetadata({
-  //   metadata: {
-  //     ...post,
-  //     title: metaTitle,
-  //     description: description || post.og?.description || `Read more about ${title}`,
-  //   },
-  // });
-
-  // if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-  //   metadata.title = `${title} - ${siteMetadata.title}`;
-  //   metadata.og.title = metadata.title;
-  //   metadata.twitter.title = metadata.title;
-  // }
-
   return (
     <>
       <Header>

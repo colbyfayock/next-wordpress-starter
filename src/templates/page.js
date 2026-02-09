@@ -24,22 +24,6 @@ export default async function Page({ data, metadata }) {
   const hasChildren = Array.isArray(children) && children.length > 0;
   const breadcrumbs = getBreadcrumbsByUri(uri, pages);
 
-  // const { metadata } = usePageMetadata({
-  //   metadata: {
-  //     ...page,
-  //     title: metaTitle,
-  //     description: description || page.og?.description || `Read more about ${title}`,
-  //   },
-  // });
-
-  // console.log('metadata', metadata)
-
-  // if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
-  //   metadata.title = `${title} - ${siteMetadata.title}`;
-  //   metadata.og.title = metadata.title;
-  //   metadata.twitter.title = metadata.title;
-  // }
-
   return (
     <>
       <Header>
