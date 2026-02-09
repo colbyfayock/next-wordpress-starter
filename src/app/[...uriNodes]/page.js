@@ -25,12 +25,13 @@ export const templates = {
 const bypassRestricted = ['User'];
 
 export async function generateMetadata({ params }) {
+  const { uriNodes } = await params;
   return {
     title: 'test',
     openGraph: {
       images: [
         {
-          url: `/opengraph/${params.uriNodes.join('/')}`,
+          url: `/opengraph/${uriNodes.join('/')}`,
           width: 1200,
           height: 630,
           type: 'image/png',
@@ -42,7 +43,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function Page({ params = {} }) {
-  const resolvedUri = params.uriNodes ? params.uriNodes.join('/') : null;
+  const { uriNodes } = await params;
+  const resolvedUri = uriNodes ? uriNodes.join('/') : null;
   const node = await getNodeByUri(resolvedUri);
 
   if (!node || (node.isRestricted && !bypassRestricted.includes(node.__typename))) {

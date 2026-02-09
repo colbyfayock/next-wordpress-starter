@@ -1,4 +1,4 @@
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from 'next/og';
 
 import { getSiteMetadata } from '@/lib/site';
 import { getNodeByUri, getTemplateDataByNode } from '@/lib/nodes';
@@ -17,7 +17,8 @@ export const size = {
 export const contentType = 'image/png';
 
 export async function GET(request, { params }) {
-  const resolvedUri = `/${params.path.join('/')}`;
+  const { path } = await params;
+  const resolvedUri = `/${path.join('/')}`;
   const node = await getNodeByUri(resolvedUri);
 
   const Component = templates[node.__typename] || templates.Page;
