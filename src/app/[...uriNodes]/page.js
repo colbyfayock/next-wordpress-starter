@@ -26,16 +26,29 @@ const bypassRestricted = ['User'];
 
 export async function generateMetadata({ params }) {
   const { uriNodes } = await params;
+  const resolvedUri = uriNodes ? uriNodes.join('/') : null;
+  const node = await getNodeByUri(resolvedUri);
+
+  if (!node) {
+    return {
+      title: 'Not Found',
+    };
+  }
+
+  // Posts and Pages use 'title', Categories and Users use 'name'
+  const title = node.title || node.name || 'Untitled';
+
   return {
-    title: 'test',
+    title,
     openGraph: {
+      title,
       images: [
         {
           url: `/opengraph/${uriNodes.join('/')}`,
           width: 1200,
           height: 630,
           type: 'image/png',
-          alt: 'test',
+          alt: title,
         },
       ],
     },
