@@ -15,13 +15,12 @@ import styles from '@/styles/templates/Archive.module.scss';
 
 export async function generateMetadata({ params }) {
   const { page } = await params;
-  const metadata = await getSiteMetadata();
-  const title = 'All Posts';
+  const title = `All Posts - Page ${page}`;
   return {
-    title: `${title} - Page ${page} - ${metadata.title}`,
+    title,
     description: `Page ${page} of all posts`,
     openGraph: {
-      title: `${title} - Page ${page} - ${metadata.title}`,
+      title,
       description: `Page ${page} of all posts`,
     },
   };

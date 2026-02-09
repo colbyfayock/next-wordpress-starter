@@ -16,10 +16,10 @@ export async function generateMetadata() {
   const metadata = await getSiteMetadata();
   const title = 'Authors';
   return {
-    title: `${title} - ${metadata.title}`,
+    title,
     description: `Meet the authors and contributors on ${metadata.title}`,
     openGraph: {
-      title: `${title} - ${metadata.title}`,
+      title,
       description: `Meet the authors and contributors on ${metadata.title}`,
     },
   };

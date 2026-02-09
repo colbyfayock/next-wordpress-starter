@@ -15,10 +15,10 @@ export async function generateMetadata() {
   const metadata = await getSiteMetadata();
   const title = 'Categories';
   return {
-    title: `${title} - ${metadata.title}`,
+    title,
     description: `Browse all categories on ${metadata.title}`,
     openGraph: {
-      title: `${title} - ${metadata.title}`,
+      title,
       description: `Browse all categories on ${metadata.title}`,
     },
   };

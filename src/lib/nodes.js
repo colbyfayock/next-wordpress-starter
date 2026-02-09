@@ -18,6 +18,7 @@ export async function getNodeByUri(uri) {
           ...ContentType
           ...Page
           ...Post
+          ...Tag
           ...User
         }
       }
@@ -43,6 +44,13 @@ export async function getNodeByUri(uri) {
         name
       }
       fragment Category on Category {
+        id
+        isContentNode
+        isRestricted
+        isTermNode
+        name
+      }
+      fragment Tag on Tag {
         id
         isContentNode
         isRestricted
