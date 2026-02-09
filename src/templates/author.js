@@ -146,7 +146,7 @@ Author.template = {
           }),
         };
       }),
-      roles: [...data.user.roles.nodes],
+      roles: data.user.roles?.nodes ? [...data.user.roles.nodes] : [],
     };
   },
   variables: ({ uri }) => {
