@@ -5,17 +5,20 @@ import { getSiteMetadata } from '@/lib/site';
 import { getAllPosts } from '@/lib/posts';
 import { getAllPages } from '@/lib/pages';
 import { getAllCategories } from '@/lib/categories';
+import { getAllTags } from '@/lib/tags';
 import { getAllUsers } from '@/lib/users';
 
 import { default as TemplateAuthor } from '@/templates/author';
 import { default as TemplateCategory } from '@/templates/category';
 import { default as TemplatePage } from '@/templates/page';
 import { default as TemplatePost } from '@/templates/post';
+import { default as TemplateTag } from '@/templates/tag';
 
 export const templates = {
   Category: TemplateCategory,
   Page: TemplatePage,
   Post: TemplatePost,
+  Tag: TemplateTag,
   User: TemplateAuthor,
 };
 
@@ -34,10 +37,11 @@ const bypassRestricted = ['User'];
  */
 
 export async function generateStaticParams() {
-  const [{ posts }, { pages }, { categories }, { users }] = await Promise.all([
+  const [{ posts }, { pages }, { categories }, { tags }, { users }] = await Promise.all([
     getAllPosts({ queryIncludes: 'index' }),
     getAllPages({ queryIncludes: 'index' }),
     getAllCategories(),
+    getAllTags(),
     getAllUsers(),
   ]);
 
@@ -53,6 +57,7 @@ export async function generateStaticParams() {
     ...(posts || []).map((post) => uriToParams(post.uri)),
     ...(pages || []).map((page) => uriToParams(page.uri)),
     ...(categories || []).map((category) => uriToParams(category.uri)),
+    ...(tags || []).map((tag) => uriToParams(tag.uri)),
     ...(users || []).map((user) => uriToParams(user.uri)),
   ].filter(Boolean);
 
