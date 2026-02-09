@@ -1,8 +1,5 @@
 import Link from 'next/link';
 
-import Section from '@/components/Section';
-import Container from '@/components/Container';
-
 import styles from '@/styles/pages/Error.module.scss';
 
 export const metadata = {
@@ -11,15 +8,19 @@ export const metadata = {
 
 export default function NotFound() {
   return (
-    <Section>
-      <Container className={styles.center}>
-        <h1>Page Not Found</h1>
+    <div className={styles.errorPage}>
+      <div className={styles.errorContent}>
         <p className={styles.errorCode}>404</p>
-        <p className={styles.errorMessage}>The page you were looking for could not be found.</p>
-        <p>
-          <Link href="/">Back to home</Link>
+        <h1 className={styles.errorTitle}>Page not found</h1>
+        <p className={styles.errorMessage}>
+          Sorry, we couldn&apos;t find the page you&apos;re looking for. It may have been moved or deleted.
         </p>
-      </Container>
-    </Section>
+        <div className={styles.errorActions}>
+          <Link href="/" className={styles.errorLink}>
+            Back to homepage
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }

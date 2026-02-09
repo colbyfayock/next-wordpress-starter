@@ -1,0 +1,108 @@
+@use "styles/settings/__settings" as *;
+
+.loading {
+  padding: 2rem 0;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, $color-gray-100 25%, $color-gray-50 50%, $color-gray-100 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: $border-radius-small;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeletonHeader {
+  composes: skeleton;
+  height: 3rem;
+  max-width: 60%;
+  margin: 0 auto 2rem;
+}
+
+.skeletonContent {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.skeletonTitle {
+  composes: skeleton;
+  height: 1.5rem;
+  max-width: 40%;
+  margin-bottom: 1rem;
+}
+
+.skeletonCards {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.skeletonCard {
+  border: 1px solid $color-gray-100;
+  border-radius: $border-radius-small;
+  padding: 1.5rem;
+}
+
+.skeletonCardTitle {
+  composes: skeleton;
+  height: 1.25rem;
+  width: 80%;
+  margin-bottom: 0.75rem;
+}
+
+.skeletonCardMeta {
+  composes: skeleton;
+  height: 0.875rem;
+  width: 40%;
+  margin-bottom: 1rem;
+}
+
+.skeletonCardExcerpt {
+  composes: skeleton;
+  height: 0.875rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  &:last-child {
+    width: 60%;
+  }
+}
+
+.skeletonText {
+  composes: skeleton;
+  height: 1rem;
+  margin-bottom: 0.75rem;
+
+  &:nth-child(1) {
+    width: 100%;
+  }
+
+  &:nth-child(2) {
+    width: 95%;
+  }
+
+  &:nth-child(3) {
+    width: 85%;
+  }
+
+  &:nth-child(4) {
+    width: 90%;
+  }
+
+  &:nth-child(5) {
+    width: 70%;
+  }
+}
