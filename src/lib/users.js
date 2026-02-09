@@ -11,7 +11,10 @@ export async function getAllUsers() {
     query: QUERY_ALL_USERS,
   });
 
-  const users = data?.data.users.edges.map(({ node = {} }) => node);
+  const users = data?.data.users.edges.map(({ node = {} }) => ({
+    ...node,
+    avatar: node.avatar && updateUserAvatar(node.avatar),
+  }));
 
   return {
     users,

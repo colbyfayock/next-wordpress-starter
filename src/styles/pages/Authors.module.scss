@@ -1,0 +1,65 @@
+@use "styles/settings/__settings" as *;
+
+.authors {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5rem;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.author {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: $border-radius-small;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: $color-gray-50;
+
+      .authorName {
+        color: $color-primary;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.authorAvatar {
+  flex-shrink: 0;
+
+  img {
+    border-radius: 50%;
+    display: block;
+  }
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.authorName {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+
+.authorDescription {
+  font-size: 0.9em;
+  color: $color-gray-600;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -5,7 +5,14 @@ export const QUERY_ALL_USERS = `
         node {
           id
           name
+          slug
           uri
+          avatar {
+            height
+            width
+            url
+          }
+          description
         }
       }
     }
