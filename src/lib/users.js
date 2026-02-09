@@ -1,3 +1,23 @@
+import { gql } from '@/lib/request';
+
+import { QUERY_ALL_USERS } from '@/data/users';
+
+/**
+ * getAllUsers
+ */
+
+export async function getAllUsers() {
+  const data = await gql({
+    query: QUERY_ALL_USERS,
+  });
+
+  const users = data?.data.users.edges.map(({ node = {} }) => node);
+
+  return {
+    users,
+  };
+}
+
 /**
  * updateUserAvatar
  */

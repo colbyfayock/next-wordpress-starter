@@ -2,6 +2,10 @@ import { notFound } from 'next/navigation';
 
 import { getNodeByUri, getTemplateDataByNode } from '@/lib/nodes';
 import { getSiteMetadata } from '@/lib/site';
+import { getAllPosts } from '@/lib/posts';
+import { getAllPages } from '@/lib/pages';
+import { getAllCategories } from '@/lib/categories';
+import { getAllUsers } from '@/lib/users';
 
 import { default as TemplateAuthor } from '@/templates/author';
 import { default as TemplateCategory } from '@/templates/category';
@@ -23,6 +27,37 @@ export const templates = {
 // @TODO add section to readme explaining, add to nextconfig?
 
 const bypassRestricted = ['User'];
+
+/**
+ * generateStaticParams
+ * Pre-generate all post, page, category, and author routes at build time
+ */
+
+export async function generateStaticParams() {
+  const [{ posts }, { pages }, { categories }, { users }] = await Promise.all([
+    getAllPosts({ queryIncludes: 'index' }),
+    getAllPages({ queryIncludes: 'index' }),
+    getAllCategories(),
+    getAllUsers(),
+  ]);
+
+  // Helper to convert URI to path segments array
+  // URIs come as "/path/to/page/" and we need ["path", "to", "page"]
+  const uriToParams = (uri) => {
+    if (!uri) return null;
+    const segments = uri.split('/').filter(Boolean);
+    return segments.length > 0 ? { uriNodes: segments } : null;
+  };
+
+  const allParams = [
+    ...(posts || []).map((post) => uriToParams(post.uri)),
+    ...(pages || []).map((page) => uriToParams(page.uri)),
+    ...(categories || []).map((category) => uriToParams(category.uri)),
+    ...(users || []).map((user) => uriToParams(user.uri)),
+  ].filter(Boolean);
+
+  return allParams;
+}
 
 export async function generateMetadata({ params }) {
   const { uriNodes } = await params;
