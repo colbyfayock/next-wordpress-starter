@@ -11,7 +11,7 @@ import {
   QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE,
   QUERY_POSTS_BY_CATEGORY_ID,
   QUERY_POST_PER_PAGE,
-} from 'data/posts';
+} from '@/data/posts';
 
 /**
  * getAllPosts
@@ -206,7 +206,7 @@ export async function getPostsPerPage() {
   //If POST_PER_PAGE is defined at next.config.js
   if (process.env.POSTS_PER_PAGE) {
     console.warn(
-      'You are using the deprecated POST_PER_PAGE variable. Use your WordPress instance instead to set this value ("Settings" > "Reading" > "Blog pages show at most").'
+      'You are using the deprecated POST_PER_PAGE variable. Use your WordPress instance instead to set this value ("Settings" > "Reading" > "Blog pages show at most").',
     );
     return Number(process.env.POSTS_PER_PAGE);
   }

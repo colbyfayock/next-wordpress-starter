@@ -1,33 +1,48 @@
-import { gql } from '@apollo/client';
-
-import { getApolloClient } from '@/lib/apollo-client';
+import { gql } from '@/lib/request';
 
 /**
  * getMenuItemsByLocation
  */
 
 export async function getMenuItemsByLocation(location) {
-  const apolloClient = getApolloClient();
+  let data;
 
-  const data = await apolloClient.query({
-    query: gql`
-      query MenuItemsByLocation($location: MenuLocationEnum) {
-        menuItems(where: { location: $location }) {
-          nodes {
-            key: id
-            parentId
-            title: label
-            uri
+  try {
+    data = await gql({
+      query: `
+        query MenuItemsByLocation($location: MenuLocationEnum) {
+          menuItems(where: { location: $location }) {
+            nodes {
+              key: id
+              parentId
+              title: label
+              uri
+            }
           }
         }
-      }
-    `,
-    variables: {
-      location,
-    },
-  });
+      `,
+      variables: {
+        location,
+      },
+    });
+  } catch (e) {
+    console.log(`[menus][getMenuItemsByLocation] Failed to query menu: ${e.message}`);
+    throw e;
+  }
 
-  const { nodes } = data.data.menuItems;
+  // Handle case where menu items are not found or response is malformed
+  if (!data?.data?.menuItems) {
+    if (data?.errors) {
+      console.warn(`[menus][getMenuItemsByLocation] GraphQL errors for location "${location}":`, data.errors);
+    }
+    return [];
+  }
+
+  const { nodes = [] } = data.data.menuItems;
+
+  if (!nodes.length) {
+    return [];
+  }
 
   const topLevelItem = nodes.filter(({ parentId }) => !parentId);
 

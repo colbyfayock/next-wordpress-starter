@@ -1,5 +1,9 @@
 import { removeLastTrailingSlash } from '@/lib/util';
 
+/**
+ * gql
+ */
+
 export async function gql({ query, variables }) {
   const url = removeLastTrailingSlash(process.env.WORDPRESS_GRAPHQL_ENDPOINT);
 

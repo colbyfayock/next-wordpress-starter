@@ -2,7 +2,7 @@ import { gql } from '@/lib/request';
 
 import { decodeHtmlEntities, removeExtraSpaces } from '@/lib/util';
 
-import { QUERY_SITE_DATA } from 'data/site';
+import { QUERY_SITE_DATA } from '@/data/site';
 
 /**
  * getSiteMetadata

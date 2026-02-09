@@ -88,6 +88,6 @@ export async function GET(request, { params }) {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageReponse's width and height.
       ...size,
-    }
+    },
   );
 }

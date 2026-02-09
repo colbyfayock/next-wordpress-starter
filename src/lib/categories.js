@@ -1,6 +1,6 @@
 import { gql } from '@/lib/request';
 
-import { QUERY_ALL_CATEGORIES } from 'data/categories';
+import { QUERY_ALL_CATEGORIES } from '@/data/categories';
 
 /**
  * getAllCategories

@@ -1,15 +1,15 @@
 export const QUERY_SITE_DATA = `
   query SiteData {
     generalSettings {
-      description
-      language
-      title
+      description,
+      language,
+      title,
       url
-    }
+    },
     readingSettings {
-      pageForPosts
-      pageOnFront
-      postsPerPage
+      pageForPosts,
+      pageOnFront,
+      postsPerPage,
       showOnFront
     }
   }
@@ -19,42 +19,42 @@ export const QUERY_SEO_DATA = `
   query SeoData {
     seo {
       webmaster {
-        yandexVerify
-        msVerify
-        googleVerify
+        yandexVerify,
+        msVerify,
+        googleVerify,
         baiduVerify
-      }
+      },
       social {
         youTube {
-          url
-        }
+          url,
+        },
         wikipedia {
-          url
-        }
+          url,
+        },
         twitter {
-          username
+          username,
           cardType
-        }
+        },
         pinterest {
-          metaTag
+          metaTag,
           url
-        }
+        },
         mySpace {
           url
-        }
+        },
         linkedIn {
           url
-        }
+        },
         instagram {
           url
-        }
+        },
         facebook {
-          url
+          url,
           defaultImage {
-            altText
-            sourceUrl
+            altText,
+            sourceUrl,
             mediaDetails {
-              height
+              height,
               width
             }
           }
