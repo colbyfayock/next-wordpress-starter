@@ -1,6 +1,5 @@
-@import "styles/settings/__settings";
-
-@import "styles/components/_container";
+@use "styles/settings/__settings" as *;
+@use "styles/components/_container";
 
 .header {
   margin: 5rem 0;

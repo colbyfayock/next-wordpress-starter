@@ -5,6 +5,9 @@ const wordpressProtocol = process.env.WORDPRESS_GRAPHQL_ENDPOINT.split('://')[0]
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Prevent lockfile detection warning when running in a monorepo-like structure
+  outputFileTracingRoot: __dirname,
+
   images: {
     remotePatterns: [
       {

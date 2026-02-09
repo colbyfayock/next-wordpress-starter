@@ -12,6 +12,7 @@ export async function generateMetadata() {
   const metadata = await getSiteMetadata();
 
   return {
+    metadataBase: new URL(metadata.url || 'http://localhost:3000'),
     title: {
       default: metadata.title,
       template: process.env.WORDPRESS_PLUGIN_SEO === true ? '%s' : `%s - ${metadata.title}`,

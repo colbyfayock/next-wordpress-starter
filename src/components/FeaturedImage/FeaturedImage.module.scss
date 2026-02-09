@@ -1,8 +1,7 @@
 @use "sass:math";
-@import "styles/settings/__settings";
+@use "styles/settings/__settings" as *;
 
 .featuredImage {
-
   display: block;
   overflow: hidden;
   position: relative;
@@ -20,5 +19,4 @@
     padding: 0;
     margin: auto;
   }
-  
 }

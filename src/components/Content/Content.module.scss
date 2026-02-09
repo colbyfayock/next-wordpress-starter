@@ -1,4 +1,4 @@
-@import "styles/settings/__settings";
+@use "styles/settings/__settings" as *;
 
 .content {
   font-size: 1.5rem;

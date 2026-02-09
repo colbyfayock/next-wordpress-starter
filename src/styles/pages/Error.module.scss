@@ -1,4 +1,4 @@
-@import "styles/settings/__settings";
+@use "styles/settings/__settings" as *;
 
 .center {
   text-align: center;
