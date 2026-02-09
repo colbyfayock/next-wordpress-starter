@@ -41,50 +41,48 @@ export async function GET(request, { params }) {
   }
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+      }}
+    >
       <div
         style={{
-          height: '100%',
-          width: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: '#fff',
+          flexGrow: 1,
+          paddingRight: 50,
+          paddingLeft: 50,
+          marginTop: 40,
         }}
       >
         <div
           style={{
             display: 'flex',
-            flexGrow: 1,
-            paddingRight: 50,
-            paddingLeft: 50,
-            marginTop: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 50,
+            textAlign: 'center',
           }}
         >
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: 50,
-              textAlign: 'center',
-            }}
-          >
-            {data.title}
-          </div>
-        </div>
-        <div
-          style={{
-            fontSize: 30,
-            paddingTop: 40,
-            paddingBottom: 40,
-          }}
-        >
-          {website}
+          {data.title}
         </div>
       </div>
-    ),
+      <div
+        style={{
+          fontSize: 30,
+          paddingTop: 40,
+          paddingBottom: 40,
+        }}
+      >
+        {website}
+      </div>
+    </div>,
     {
       // For convenience, we can re-use the exported opengraph-image
       // size config to also set the ImageReponse's width and height.
