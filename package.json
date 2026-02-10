@@ -42,6 +42,9 @@
     "lint-staged": "^16.2.7",
     "prettier": "^3.8.1"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/colbyfayock/next-wordpress-starter"
