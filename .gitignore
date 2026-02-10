@@ -46,3 +46,4 @@ public/images/og
 
 # Scratch/planning folder
 scratch/
+.env*.local
