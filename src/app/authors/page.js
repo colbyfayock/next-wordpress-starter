@@ -12,6 +12,8 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/pages/Authors.module.scss';
 
+export const revalidate = 3600;
+
 export async function generateMetadata() {
   const metadata = await getSiteMetadata();
   const title = 'Authors';

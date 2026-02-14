@@ -10,6 +10,8 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/pages/Home.module.scss';
 
+export const revalidate = 3600;
+
 export default async function Home() {
   const [metadata, { posts, pagination }] = await Promise.all([
     getSiteMetadata(),

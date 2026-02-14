@@ -22,6 +22,9 @@ export const templates = {
   User: TemplateAuthor,
 };
 
+// Revalidate every hour (3600 seconds) as fallback
+export const revalidate = 3600;
+
 // By default, certain pages like the User type pages restrict
 // public access, but for the use case, users are authors
 // and without custom functionality, wouldn't be able to

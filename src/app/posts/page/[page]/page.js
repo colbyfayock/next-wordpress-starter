@@ -13,6 +13,8 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/templates/Archive.module.scss';
 
+export const revalidate = 3600;
+
 export async function generateMetadata({ params }) {
   const { page } = await params;
   const title = `All Posts - Page ${page}`;

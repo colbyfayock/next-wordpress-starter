@@ -11,6 +11,8 @@ import JSONLD from '@/components/JSONLD';
 
 import styles from '@/styles/pages/Categories.module.scss';
 
+export const revalidate = 3600;
+
 export async function generateMetadata() {
   const metadata = await getSiteMetadata();
   const title = 'Categories';
