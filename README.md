@@ -18,6 +18,7 @@ Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the stati
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter) [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcolbyfayock%2Fnext-wordpress-starter)
 
 ### Requirements
+* [Node.js](https://nodejs.org/) 26.x and [pnpm](https://pnpm.io/) 7.33.7
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
 * Environment variables (see below)
@@ -67,6 +68,7 @@ Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/iss
 *Want something a little more **basic**? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter*
 
 ### Requirements
+* [Node.js](https://nodejs.org/) 26.x and [pnpm](https://pnpm.io/) 7.33.7
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
 * Environment variables (see below)
@@ -96,6 +98,8 @@ Replace the contents of the variable with your WPGraphQL endpoint. By default, i
 Please note some themes do not have PRIMARY menu location.
 
 ### Development
+
+Use Node.js 26 (`nvm use` reads `.nvmrc`) and install dependencies with `pnpm install --frozen-lockfile`. Use pnpm 7.33.7 to preserve the checked-in lockfile format.
 
 To start the project locally, run:
 
@@ -140,6 +144,8 @@ Regardless of which option you choose, you can configure your [environment varia
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter)
 
 #### Vercel
+
+The `engines.node` setting in `package.json` pins builds and functions to Node.js 26.x, overriding the Node.js version selected in Vercel Project Settings.
 
 Given Next.js is a Vercel-supported project, you can simply import the project as a new site and configure your [environment variables](#environment) by either adding them during import or by navigating to Settings > Environment Variables and triggering a new build once added.
 

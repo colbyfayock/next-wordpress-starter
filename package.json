@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "license": "MIT",
   "author": "Colby Fayock <hello@colbyfayock.com>",
+  "engines": {
+    "node": "26.x"
+  },
   "scripts": {
     "build": "next build",
     "dev": "next dev",
