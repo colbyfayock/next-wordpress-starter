@@ -2,5 +2,7 @@
   command = "yarn build"
   publish = ".next"
   
+# Next 13.4 requires the Netlify Next.js Runtime v4 (v5 requires Next 13.5+).
+# The version is pinned in devDependencies; v4.12.2 fails with ENOENT on .next/serverless/pages.
 [[plugins]]
 package = "@netlify/plugin-nextjs"
