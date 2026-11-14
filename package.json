@@ -39,7 +39,7 @@
     "react-helmet": "^6.1.0",
     "react-icons": "5.7.0",
     "rss": "^1.2.2",
-    "sass": "1.99.0",
+    "sass": "1.108.2",
     "style.css": "^1.0.3"
   },
   "devDependencies": {
