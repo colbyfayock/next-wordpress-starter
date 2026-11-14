@@ -47,7 +47,7 @@
     "@netlify/functions": "1.6.0",
     "@netlify/ipx": "1.4.6",
     "@netlify/plugin-nextjs": "4.41.6",
-    "eslint": "8.57.1",
+    "eslint": "10.15.0",
     "eslint-config-next": "13.4.8",
     "eslint-config-prettier": "10.1.8",
     "eslint-plugin-prettier": "^4.2.1",
