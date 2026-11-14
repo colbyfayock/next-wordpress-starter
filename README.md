@@ -18,6 +18,7 @@ Scaling WordPress with the power of [Next.js](https://nextjs.org/) and the stati
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter) [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcolbyfayock%2Fnext-wordpress-starter)
 
 ### Requirements
+* [Node.js](https://nodejs.org/) 26.x and [pnpm](https://pnpm.io/) 7.33.7
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
 * Environment variables (see below)
@@ -67,6 +68,7 @@ Check out the [Issues](https://github.com/colbyfayock/next-wordpress-starter/iss
 *Want something a little more **basic**? Check out my other starter with an MVP setup to get up and running with WPGraphQL in WordPress: https://github.com/colbyfayock/next-wpgraphql-basic-starter*
 
 ### Requirements
+* [Node.js](https://nodejs.org/) 26.x and [pnpm](https://pnpm.io/) 7.33.7
 * [WordPress](https://wordpress.org/)
 * [WPGraphQL](https://www.wpgraphql.com/)
 * Environment variables (see below)
@@ -96,6 +98,8 @@ Replace the contents of the variable with your WPGraphQL endpoint. By default, i
 Please note some themes do not have PRIMARY menu location.
 
 ### Development
+
+Use Node.js 26 (`nvm use` reads `.nvmrc`) and install dependencies with `pnpm install --frozen-lockfile`. Use pnpm 7.33.7 to preserve the checked-in lockfile format.
 
 To start the project locally, run:
 
@@ -131,7 +135,9 @@ There are two options as to how you can deploy this project to Netlify:
 * [Essential Next.js Plugin](https://github.com/netlify/netlify-plugin-nextjs) (recommended)
 * [Exporting the project](https://nextjs.org/docs/advanced-features/static-html-export) via `next export`
 
-**Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin.
+**Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin. This project pins `@netlify/plugin-nextjs` to v4 in `devDependencies` because Next.js 13.4 is not supported by v5 (which requires Next.js 13.5+). Its runtime dependencies are also declared directly so pnpm makes them available to Netlify's generated functions.
+
+For the plugin deployment, set `AWS_LAMBDA_JS_RUNTIME=nodejs22.x` in Netlify's environment settings with Builds and Functions scopes. Runtime v4 generates callback-based handlers, which AWS Lambda no longer supports on Node.js 24 or later. This override must be set through the Netlify UI, CLI, or API, not `netlify.toml`. Builds still use Node.js 26 from `.nvmrc`; Vercel builds and functions remain on Node.js 26.
 
 **Exporting the project** lets Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
 
@@ -140,6 +146,8 @@ Regardless of which option you choose, you can configure your [environment varia
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/colbyfayock/next-wordpress-starter)
 
 #### Vercel
+
+The `engines.node` setting in `package.json` pins builds and functions to Node.js 26.x, overriding the Node.js version selected in Vercel Project Settings.
 
 Given Next.js is a Vercel-supported project, you can simply import the project as a new site and configure your [environment variables](#environment) by either adding them during import or by navigating to Settings > Environment Variables and triggering a new build once added.
 
