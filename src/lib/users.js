@@ -144,7 +144,7 @@ export async function getAllAuthors() {
 export function mapUserData(user) {
   return {
     ...user,
-    roles: [...user.roles.nodes],
+    roles: [...(user.roles?.nodes ?? [])],
     avatar: user.avatar && updateUserAvatar(user.avatar),
   };
 }
