@@ -137,6 +137,8 @@ There are two options as to how you can deploy this project to Netlify:
 
 **Essential Next.js Plugin** should be provided as an option when you're first importing a project based on this starter. If it's not, you can install this plugin using the Netlify Plugins directory. This will allow the project to take full advantage of all native Next.js features that Netlify supports with this plugin. This project pins `@netlify/plugin-nextjs` to v4 in `devDependencies` because Next.js 13.4 is not supported by v5 (which requires Next.js 13.5+). Its runtime dependencies are also declared directly so pnpm makes them available to Netlify's generated functions.
 
+For the plugin deployment, set `AWS_LAMBDA_JS_RUNTIME=nodejs22.x` in Netlify's environment settings with Builds and Functions scopes. Runtime v4 generates callback-based handlers, which AWS Lambda no longer supports on Node.js 24 or later. This override must be set through the Netlify UI, CLI, or API, not `netlify.toml`. Builds still use Node.js 26 from `.nvmrc`; Vercel builds and functions remain on Node.js 26.
+
 **Exporting the project** lets Next.js compile the project into static assets including HTML files. This allows you to deploy the project as a static site directly to Netlify just like any other site. You can do this by adding `next export` to the end of the `build` command inside `package.json` (ex: `next build && next export`).
 
 Regardless of which option you choose, you can configure your [environment variables](#environment) either when creating your new site or by navigating to Site Settings > Build & Deploy > Environment and triggering a new deploy once added.
