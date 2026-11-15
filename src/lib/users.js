@@ -102,7 +102,7 @@ export async function getAllUsers() {
       return {
         ...data,
         title: seo.title,
-        description: seo.metaDesc,
+        description: seo.metaDesc || user.description,
         robots: {
           nofollow: seo.metaRobotsNofollow,
           noindex: seo.metaRobotsNoindex,
