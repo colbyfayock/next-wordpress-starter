@@ -39,8 +39,7 @@
   "devDependencies": {
     "@netlify/plugin-nextjs": "5.16.6",
     "oxfmt": "0.78.0",
-    "oxlint": "1.93.0",
-    "playwright": "1.44.1"
+    "oxlint": "1.93.0"
   },
   "repository": {
     "type": "git",

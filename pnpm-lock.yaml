@@ -15,7 +15,6 @@ specifiers:
   oxlint: 1.93.0
   parameterize: ^1.0.0
   path: ^0.12.7
-  playwright: 1.44.1
   react: 19.3.1
   react-dom: 19.3.1
   react-icons: 5.7.0
@@ -46,7 +45,6 @@ devDependencies:
   '@netlify/plugin-nextjs': 5.16.6
   oxfmt: 0.78.0
   oxlint: 1.93.0
-  playwright: 1.44.1
 
 packages:
 
@@ -987,14 +985,6 @@ packages:
     hasBin: true
     dev: false
 
-  /fsevents/2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
   /fuse.js/7.5.0:
     resolution: {integrity: sha512-sQtrEfA+ez/3G0cCZecF70oqpCRttCexYUG4mUrtWL49ULUzUyxokt5kyqwtKzj1270RaKih+hcP3qLcumccow==}
     engines: {node: '>=10'}
@@ -1257,22 +1247,6 @@ packages:
     engines: {node: '>=12'}
     dev: false
     optional: true
-
-  /playwright-core/1.44.1:
-    resolution: {integrity: sha512-wh0JWtYTrhv1+OSsLPgFzGzt67Y7BE/ZS3jEqgGBlp2ppp1ZDj8c+9IARNW4dwf1poq5MgHreEM2KV/GuR4cFA==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dev: true
-
-  /playwright/1.44.1:
-    resolution: {integrity: sha512-qr/0UJ5CFAtloI3avF95Y0L1xQo6r3LQArLIg/z/PoGJ6xa+EwzrwO5lpNr/09STxdHuUoP2mvuELJS+hLdtgg==}
-    engines: {node: '>=16'}
-    hasBin: true
-    dependencies:
-      playwright-core: 1.44.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
 
   /postcss/8.5.23:
     resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}

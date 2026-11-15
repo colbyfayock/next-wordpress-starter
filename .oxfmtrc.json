@@ -12,13 +12,5 @@
       }
     }
   ],
-  "ignorePatterns": [
-    "**/*.md",
-    "LICENSE",
-    "netlify.toml",
-    "plugins/socialImages.template.html",
-    "public",
-    ".all-contributorsrc",
-    "pnpm-lock.yaml"
-  ]
+  "ignorePatterns": ["**/*.md", "LICENSE", "netlify.toml", "public", ".all-contributorsrc", "pnpm-lock.yaml"]
 }
