@@ -115,7 +115,7 @@ The project should now be available at [http://localhost:3000](http://localhost:
 
 #### Styling
 
-Component and page styles use plain CSS Modules (`*.module.css`), with no Sass compiler. Shared colors, fonts, border radii, and the navigation progress-bar color are CSS custom properties in `src/styles/tokens.css`.
+Component and page styles use CSS Modules (`*.module.css`). Shared colors, fonts, border radii, and the navigation progress-bar color are CSS custom properties in `src/styles/tokens.css`.
 
 To customize the theme, update those properties or override them on a component. Use `var(--color-primary)` and the other shared properties in stylesheets. Global styles live in `src/styles/globals.css`, and WordPress content styles live in `src/styles/wordpress.css`.
 
