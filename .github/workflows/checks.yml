@@ -20,6 +20,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
+      - run: pnpm format:check
 
   static-compat:
     name: Static Compatability

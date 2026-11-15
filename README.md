@@ -113,21 +113,27 @@ npm run dev
 
 The project should now be available at [http://localhost:3000](http://localhost:3000)!
 
-#### ESLint extension for Visual Studio Code
+#### Linting and formatting
 
-It is possible to take advantage of this extension to improve the development experience.
-To set up the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) in Visual Studio Code add a new folder to the root `.vscode`. Inside add a file `settings.json` with the following content:
+This project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting. Their settings live in `.oxlintrc.json` and `.oxfmtrc.json`.
+
+```bash
+pnpm lint          # check for problems
+pnpm lint:fix      # apply safe fixes
+pnpm format        # format files
+pnpm format:check  # check formatting without writing (also run in CI)
+```
+
+To format on save in Visual Studio Code, install the [Oxc extension](https://marketplace.visualstudio.com/items?itemName=oxc.oxc-vscode) and add a `.vscode/settings.json` file:
 
 ```json
 {
-  "editor.formatOnSave": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "editor.formatOnSave": true
 }
 ```
 
-With this file ESLint will automatically fix and validate syntax errors and format the code on save (based on Prettier configuration).
+See the Oxc docs for [other editors](https://oxc.rs/docs/guide/usage/formatter/editors.html) and [linter integration](https://oxc.rs/docs/guide/usage/linter/editors.html).
 
 ### Deployment
 

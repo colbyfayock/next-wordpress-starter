@@ -11,16 +11,11 @@
     "build": "next build --webpack",
     "dev": "next dev --webpack",
     "export": "NEXT_EXPORT=true next build --webpack",
-    "format": "pnpm lint --fix",
-    "format:no-path": "pnpm lint:no-path --fix",
-    "lint": "eslint .",
-    "lint:no-path": "eslint",
-    "start": "next start -p ${PORT:=3000}",
-    "prepare": "husky install"
-  },
-  "lint-staged": {
-    "**/*.js": "pnpm format:no-path",
-    "**/*.scss": "pnpm prettier --write"
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "lint": "oxlint .",
+    "lint:fix": "oxlint --fix .",
+    "start": "next start -p ${PORT:=3000}"
   },
   "dependencies": {
     "@apollo/client": "3.14.1",
@@ -42,19 +37,10 @@
     "style.css": "^1.0.3"
   },
   "devDependencies": {
-    "@eslint/js": "9.39.5",
     "@netlify/plugin-nextjs": "5.16.6",
-    "eslint": "9.39.5",
-    "eslint-config-next": "16.4.6",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-react": "7.37.5",
-    "globals": "16.4.0",
-    "husky": "^8.0.3",
-    "lint-staged": "14.0.1",
-    "playwright": "1.44.1",
-    "prettier": "2.8.8",
-    "typescript": "5.9.3"
+    "oxfmt": "0.78.0",
+    "oxlint": "1.93.0",
+    "playwright": "1.44.1"
   },
   "repository": {
     "type": "git",

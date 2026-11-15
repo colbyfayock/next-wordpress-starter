@@ -2,7 +2,6 @@ const fs = require('fs');
 const he = require('he');
 const { gql, ApolloClient, InMemoryCache } = require('@apollo/client');
 const RSS = require('rss');
-const prettier = require('prettier');
 
 const config = require('../package.json');
 
@@ -305,40 +304,26 @@ function generateSitemap({ posts = [], pages = [] }, nextConfig = {}) {
   const { homepage = '' } = config;
   const { trailingSlash } = nextConfig;
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      <url>
-        <loc>${homepage}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-      </url>
-        ${pages
-          .map((page) => {
-            return `<url>
-                      <loc>${homepage}/${page.slug}${trailingSlash ? '/' : ''}</loc>
-                      <priority>0.3</priority>
-                      <lastmod>${new Date(page.modified).toISOString()}</lastmod>
-                    </url>
-                `;
-          })
-          .join('')}
-          ${posts
-            .map((post) => {
-              return `<url>
-                        <loc>${homepage}/posts/${post.slug}${trailingSlash ? '/' : ''}</loc>
-                        <lastmod>${new Date(post.modified).toISOString()}</lastmod>
-                      </url>
-                  `;
-            })
-            .join('')}
-    </urlset>
-    `;
+  const slash = trailingSlash ? '/' : '';
+  const entry = (loc, lastmod, priority) =>
+    [
+      '  <url>',
+      `    <loc>${loc}</loc>`,
+      ...(priority ? [`    <priority>${priority}</priority>`] : []),
+      `    <lastmod>${new Date(lastmod).toISOString()}</lastmod>`,
+      '  </url>',
+    ].join('\n');
 
-  const sitemapFormatted = prettier.format(sitemap, {
-    printWidth: 120,
-    parser: 'html',
-  });
-
-  return sitemapFormatted;
+  // Written with fixed indentation instead of running an HTML formatter over the XML
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    entry(homepage, Date.now()),
+    ...pages.map((page) => entry(`${homepage}/${page.slug}${slash}`, page.modified, '0.3')),
+    ...posts.map((post) => entry(`${homepage}/posts/${post.slug}${slash}`, post.modified)),
+    '</urlset>',
+    '',
+  ].join('\n');
 }
 
 /**
