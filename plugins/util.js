@@ -1,6 +1,6 @@
 const fs = require('fs');
 const he = require('he');
-const { gql, ApolloClient, InMemoryCache } = require('@apollo/client');
+const { createGraphQLClient } = require('../src/lib/graphql-client');
 const RSS = require('rss');
 
 const config = require('../package.json');
@@ -54,22 +54,11 @@ function mkdirp(directory) {
 }
 
 /**
- * createApolloClient
- */
-
-function createApolloClient(url) {
-  return new ApolloClient({
-    uri: url,
-    cache: new InMemoryCache(),
-  });
-}
-
-/**
  * getAllPosts
  */
 
-async function getAllPosts(apolloClient, process, verbose = false) {
-  const query = gql`
+async function getAllPosts(graphqlClient, process, verbose = false) {
+  const query = `
     {
       posts(first: 10000) {
         edges {
@@ -83,17 +72,25 @@ async function getAllPosts(apolloClient, process, verbose = false) {
             author {
               node {
                 name
+                __typename
               }
+              __typename
             }
             categories {
               edges {
                 node {
                   name
+                  __typename
                 }
+                __typename
               }
+              __typename
             }
+            __typename
           }
+          __typename
         }
+        __typename
       }
     }
   `;
@@ -101,7 +98,7 @@ async function getAllPosts(apolloClient, process, verbose = false) {
   let posts = [];
 
   try {
-    const data = await apolloClient.query({ query });
+    const data = await graphqlClient.query({ query });
     const nodes = [...data.data.posts.edges.map(({ node = {} }) => node)];
 
     posts = nodes.map((post) => {
@@ -124,12 +121,12 @@ async function getAllPosts(apolloClient, process, verbose = false) {
       return data;
     });
 
-    verbose && console.log(`[${process}] Successfully fetched posts from ${apolloClient.link.options.uri}`);
+    verbose && console.log(`[${process}] Successfully fetched posts from WordPress`);
     return {
       posts,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch posts from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`[${process}] Failed to fetch posts from WordPress: ${e.message}`);
   }
 }
 
@@ -137,13 +134,14 @@ async function getAllPosts(apolloClient, process, verbose = false) {
  * getSiteMetadata
  */
 
-async function getSiteMetadata(apolloClient, process, verbose = false) {
-  const query = gql`
+async function getSiteMetadata(graphqlClient, process, verbose = false) {
+  const query = `
     {
       generalSettings {
         description
         language
         title
+        __typename
       }
     }
   `;
@@ -151,7 +149,7 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
   let metadata = {};
 
   try {
-    const data = await apolloClient.query({ query });
+    const data = await graphqlClient.query({ query });
     metadata = { ...data.data.generalSettings };
 
     if (!metadata.language || metadata.language === '') {
@@ -160,12 +158,12 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
       metadata.language = metadata.language.split('_')[0];
     }
 
-    verbose && console.log(`[${process}] Successfully fetched metadata from ${apolloClient.link.options.uri}`);
+    verbose && console.log(`[${process}] Successfully fetched metadata from WordPress`);
     return {
       metadata,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch metadata from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`[${process}] Failed to fetch metadata from WordPress: ${e.message}`);
   }
 }
 
@@ -173,16 +171,19 @@ async function getSiteMetadata(apolloClient, process, verbose = false) {
  * getSitePages
  */
 
-async function getPages(apolloClient, process, verbose = false) {
-  const query = gql`
+async function getPages(graphqlClient, process, verbose = false) {
+  const query = `
     {
       pages(first: 10000) {
         edges {
           node {
             slug
             modified
+            __typename
           }
+          __typename
         }
+        __typename
       }
     }
   `;
@@ -190,7 +191,7 @@ async function getPages(apolloClient, process, verbose = false) {
   let pages = [];
 
   try {
-    const data = await apolloClient.query({ query });
+    const data = await graphqlClient.query({ query });
     pages = [
       ...data.data.pages.edges.map(({ node = {} }) => {
         return {
@@ -200,12 +201,12 @@ async function getPages(apolloClient, process, verbose = false) {
       }),
     ];
 
-    verbose && console.log(`[${process}] Successfully fetched page slugs from ${apolloClient.link.options.uri}`);
+    verbose && console.log(`[${process}] Successfully fetched page slugs from WordPress`);
     return {
       pages,
     };
   } catch (e) {
-    throw new Error(`[${process}] Failed to fetch page slugs from ${apolloClient.link.options.uri}: ${e.message}`);
+    throw new Error(`[${process}] Failed to fetch page slugs from WordPress: ${e.message}`);
   }
 }
 
@@ -213,9 +214,9 @@ async function getPages(apolloClient, process, verbose = false) {
  * getFeedData
  */
 
-async function getFeedData(apolloClient, process, verbose = false) {
-  const metadata = await getSiteMetadata(apolloClient, process, verbose);
-  const posts = await getAllPosts(apolloClient, process, verbose);
+async function getFeedData(graphqlClient, process, verbose = false) {
+  const metadata = await getSiteMetadata(graphqlClient, process, verbose);
+  const posts = await getAllPosts(graphqlClient, process, verbose);
 
   return {
     ...metadata,
@@ -227,9 +228,9 @@ async function getFeedData(apolloClient, process, verbose = false) {
  * getFeedData
  */
 
-async function getSitemapData(apolloClient, process, verbose = false) {
-  const posts = await getAllPosts(apolloClient, process, verbose);
-  const pages = await getPages(apolloClient, process, verbose);
+async function getSitemapData(graphqlClient, process, verbose = false) {
+  const posts = await getAllPosts(graphqlClient, process, verbose);
+  const pages = await getPages(graphqlClient, process, verbose);
 
   return {
     ...posts,
@@ -409,7 +410,7 @@ module.exports = {
   createFile,
   promiseToWriteFile,
   mkdirp,
-  createApolloClient,
+  createGraphQLClient,
   getAllPosts,
   getSiteMetadata,
   getFeedData,

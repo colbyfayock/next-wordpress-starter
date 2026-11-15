@@ -119,6 +119,16 @@ Component and page styles use CSS Modules (`*.module.css`). Shared colors, fonts
 
 To customize the theme, update those properties or override them on a component. Use `var(--color-primary)` and the other shared properties in stylesheets. Global styles live in `src/styles/globals.css`, and WordPress content styles live in `src/styles/wordpress.css`.
 
+#### WordPress requests and caching
+
+WordPress queries use native `fetch` with a 30-second timeout. Network, HTTP, JSON, and GraphQL errors fail the request; failures are not cached and a subsequent caller can retry. Search, RSS, sitemap, and robots generation are awaited during builds, and generation errors fail the build.
+
+Each application process has a shared request cache; build plugins share an endpoint-specific cache within their compiler. Identical pending requests are deduplicated. Successful, read-only response snapshots are retained in a least-recently-used cache bounded to 256 entries and 32 MiB of serialized responses and keys. Oversized responses are returned without retention. Compatible post/page `all` and `archive` queries can satisfy smaller selections for the same arguments without adding extra fields to page data.
+
+Next.js also caches prerendered HTML and page data, and its router handles client navigation and prefetching. Content updates require rebuilding and redeploying: there is no timed revalidation or shared cache across workers, serverless instances, or deployments. The request cache is for this public WordPress endpoint, not authenticated or user-specific data.
+
+Run `pnpm test` for request-cache, selection, and build-plugin behavior tests.
+
 #### Linting and formatting
 
 This project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting. Their settings live in `.oxlintrc.json` and `.oxfmtrc.json`.

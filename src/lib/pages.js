@@ -1,4 +1,5 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
+import { pagesSelection } from 'lib/graphql-selections';
 
 import {
   QUERY_ALL_PAGES_INDEX,
@@ -21,14 +22,14 @@ export function pagePathBySlug(slug) {
  */
 
 export async function getPageByUri(uri) {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
   const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let pageData;
   let seoData;
 
   try {
-    pageData = await apolloClient.query({
+    pageData = await graphqlClient.query({
       query: QUERY_PAGE_BY_URI,
       variables: {
         uri,
@@ -48,7 +49,7 @@ export async function getPageByUri(uri) {
 
   if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
-      seoData = await apolloClient.query({
+      seoData = await graphqlClient.query({
         query: QUERY_PAGE_SEO_BY_URI,
         variables: {
           uri,
@@ -116,10 +117,11 @@ const allPagesIncludesTypes = {
 export async function getAllPages(options = {}) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
-  const data = await apolloClient.query({
+  const data = await graphqlClient.query({
     query: allPagesIncludesTypes[queryIncludes],
+    reuse: pagesSelection(queryIncludes),
   });
 
   const pages = data?.data.pages.edges.map(({ node = {} }) => node).map(mapPageData);

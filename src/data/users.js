@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const QUERY_ALL_USERS = gql`
+export const QUERY_ALL_USERS = `
   query AllUsers {
     users(first: 10000) {
       edges {
@@ -9,6 +7,7 @@ export const QUERY_ALL_USERS = gql`
             height
             width
             url
+            __typename
           }
           description
           id
@@ -16,16 +15,21 @@ export const QUERY_ALL_USERS = gql`
           roles {
             nodes {
               name
+              __typename
             }
+            __typename
           }
           slug
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_ALL_USERS_SEO = gql`
+export const QUERY_ALL_USERS_SEO = `
   query AllUsersSeo {
     users(first: 10000) {
       edges {
@@ -46,10 +50,15 @@ export const QUERY_ALL_USERS_SEO = gql`
               linkedIn
               instagram
               facebook
+              __typename
             }
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;

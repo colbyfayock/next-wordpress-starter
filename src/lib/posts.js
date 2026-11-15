@@ -1,4 +1,5 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
+import { postsSelection } from 'lib/graphql-selections';
 
 import { updateUserAvatar } from 'lib/users';
 import { sortObjectsByDate } from 'lib/datetime';
@@ -31,14 +32,14 @@ export function postPathBySlug(slug) {
  */
 
 export async function getPostBySlug(slug) {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
   const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let postData;
   let seoData;
 
   try {
-    postData = await apolloClient.query({
+    postData = await graphqlClient.query({
       query: QUERY_POST_BY_SLUG,
       variables: {
         slug,
@@ -58,7 +59,7 @@ export async function getPostBySlug(slug) {
 
   if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
-      seoData = await apolloClient.query({
+      seoData = await graphqlClient.query({
         query: QUERY_POST_SEO_BY_SLUG,
         variables: {
           slug,
@@ -133,10 +134,11 @@ const allPostsIncludesTypes = {
 export async function getAllPosts(options = {}) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
-  const data = await apolloClient.query({
+  const data = await graphqlClient.query({
     query: allPostsIncludesTypes[queryIncludes],
+    reuse: postsSelection('all', queryIncludes),
   });
 
   const posts = data?.data.posts.edges.map(({ node = {} }) => node);
@@ -159,13 +161,14 @@ const postsByAuthorSlugIncludesTypes = {
 export async function getPostsByAuthorSlug({ slug, ...options }) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
   let postData;
 
   try {
-    postData = await apolloClient.query({
+    postData = await graphqlClient.query({
       query: postsByAuthorSlugIncludesTypes[queryIncludes],
+      reuse: postsSelection('author', queryIncludes),
       variables: {
         slug,
       },
@@ -195,13 +198,14 @@ const postsByCategoryIdIncludesTypes = {
 export async function getPostsByCategoryId({ categoryId, ...options }) {
   const { queryIncludes = 'index' } = options;
 
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
   let postData;
 
   try {
-    postData = await apolloClient.query({
+    postData = await graphqlClient.query({
       query: postsByCategoryIdIncludesTypes[queryIncludes],
+      reuse: postsSelection('category', queryIncludes),
       variables: {
         categoryId,
       },
@@ -359,9 +363,9 @@ export async function getPostsPerPage() {
   }
 
   try {
-    const apolloClient = getApolloClient();
+    const graphqlClient = getGraphQLClient();
 
-    const { data } = await apolloClient.query({
+    const { data } = await graphqlClient.query({
       query: QUERY_POST_PER_PAGE,
     });
 

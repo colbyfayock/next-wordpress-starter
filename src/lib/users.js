@@ -1,4 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
 
 import parameterize from 'parameterize';
 
@@ -63,13 +63,13 @@ export function userSlugByName(name) {
  */
 
 export async function getAllUsers() {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
   let usersData;
   let seoData;
 
   try {
-    usersData = await apolloClient.query({
+    usersData = await graphqlClient.query({
       query: QUERY_ALL_USERS,
     });
   } catch (e) {
@@ -84,7 +84,7 @@ export async function getAllUsers() {
 
   if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
-      seoData = await apolloClient.query({
+      seoData = await graphqlClient.query({
         query: QUERY_ALL_USERS_SEO,
       });
     } catch (e) {

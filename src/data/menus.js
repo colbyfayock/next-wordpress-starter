@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const QUERY_ALL_MENUS = gql`
+export const QUERY_ALL_MENUS = `
   query AllMenus {
     menus {
       edges {
@@ -16,14 +14,20 @@ export const QUERY_ALL_MENUS = gql`
                 title
                 target
                 path
+                __typename
               }
+              __typename
             }
+            __typename
           }
           name
           slug
           locations
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
