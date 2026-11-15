@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 
 import { getPostBySlug, getRecentPosts, getRelatedPosts, postPathBySlug } from 'lib/posts';
 import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
-import { helmetSettingsFromMetadata } from 'lib/site';
+import { headElementsFromMetadata } from 'lib/site';
 import { getStaticPathsFallback } from 'lib/util';
 import useSite from 'hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
@@ -65,11 +65,11 @@ export default function Post({ post, socialImage, related }) {
 
   const { posts: relatedPostsList, title: relatedPostsTitle } = related || {};
 
-  const helmetSettings = helmetSettingsFromMetadata(metadata);
+  const headElements = headElementsFromMetadata(metadata, { siteTitle: siteMetadata.title });
 
   return (
     <Layout>
-      <Helmet {...helmetSettings} />
+      <Head>{headElements}</Head>
 
       <ArticleJsonLd post={post} siteTitle={siteMetadata.title} />
 

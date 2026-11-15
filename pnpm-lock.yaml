@@ -26,7 +26,6 @@ specifiers:
   prettier: 2.8.8
   react: 18.3.1
   react-dom: 18.3.1
-  react-helmet: ^6.1.0
   react-icons: 5.7.0
   rss: ^1.2.2
   sass: 1.99.0
@@ -47,7 +46,6 @@ dependencies:
   path: 0.12.7
   react: 18.3.1
   react-dom: 18.3.1_react@18.3.1
-  react-helmet: 6.1.0_react@18.3.1
   react-icons: 5.7.0_react@18.3.1
   rss: 1.2.2
   sass: 1.99.0
@@ -3724,22 +3722,6 @@ packages:
       scheduler: 0.23.2
     dev: false
 
-  /react-fast-compare/3.2.1:
-    resolution: {integrity: sha512-xTYf9zFim2pEif/Fw16dBiXpe0hoy5PxcD8+OwBnTtNLfIm3g6WxhKNurY+6OmdH1u6Ta/W/Vl6vjbYP1MFnDg==}
-    dev: false
-
-  /react-helmet/6.1.0_react@18.3.1:
-    resolution: {integrity: sha512-4uMzEY9nlDlgxr61NL3XbKRy1hEkXmKNXhjbAIOVw5vcFrsdYbH2FEwcNyWvWinl103nXgzYNlns9ca+8kFiWw==}
-    peerDependencies:
-      react: '>=16.3.0'
-    dependencies:
-      object-assign: 4.1.1
-      prop-types: 15.8.1
-      react: 18.3.1
-      react-fast-compare: 3.2.1
-      react-side-effect: 2.1.2_react@18.3.1
-    dev: false
-
   /react-icons/5.7.0_react@18.3.1:
     resolution: {integrity: sha512-LBLy340Rzqy6+/yVhZKT3B/QpP1BZaesGqasf09HPOBzRarcDIFH0WwXlXQfE7q7ipxK4MSiC5DIBWURCny6fw==}
     peerDependencies:
@@ -3750,14 +3732,6 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-
-  /react-side-effect/2.1.2_react@18.3.1:
-    resolution: {integrity: sha512-PVjOcvVOyIILrYoyGEpDN3vmYNLdy1CajSFNt4TDsVQC5KpTijDvWVoR+/7Rz2xT978D8/ZtFceXxzsPwZEDvw==}
-    peerDependencies:
-      react: ^16.3.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      react: 18.3.1
-    dev: false
 
   /react/18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}

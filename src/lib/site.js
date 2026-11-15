@@ -97,7 +97,7 @@ export async function getSiteMetadata() {
 }
 
 /**
- * constructHelmetData
+ * constructPageMetadata
  */
 
 export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, options = {}) {
@@ -186,25 +186,32 @@ export function constructPageMetadata(defaultMetadata = {}, pageMetadata = {}, o
 }
 
 /**
- * helmetSettingsFromMetadata
+ * formatPageTitle
+ * @description Applies the site title suffix unless the SEO plugin already provides a full title
  */
 
-export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
-  const { link = [], meta = [], setTitle = true } = options;
+export function formatPageTitle(title, siteTitle) {
+  return process.env.WORDPRESS_PLUGIN_SEO === 'true' ? title : `${title} - ${siteTitle}`;
+}
+
+/**
+ * headElementsFromMetadata
+ * @description Returns keyed elements to render inside next/head. When `siteTitle` is passed,
+ * the page title is included with the site title template applied.
+ */
+
+export function headElementsFromMetadata(metadata = {}, options = {}) {
+  const { link = [], meta = [], siteTitle } = options;
 
   const sanitizedDescription = removeExtraSpaces(metadata.description);
 
-  const settings = {
-    htmlAttributes: {
-      lang: metadata.language,
-    },
-  };
+  const elements = [];
 
-  if (setTitle) {
-    settings.title = metadata.title;
+  if ('siteTitle' in options && metadata.title) {
+    elements.push(<title key="title">{formatPageTitle(metadata.title, siteTitle)}</title>);
   }
 
-  settings.link = [
+  const links = [
     ...link,
     {
       rel: 'canonical',
@@ -212,7 +219,13 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     },
   ].filter(({ href } = {}) => !!href);
 
-  settings.meta = [
+  links.forEach((attributes) => {
+    const { rel, sizes, href } = attributes;
+    const key = rel === 'canonical' ? rel : `${rel}:${sizes || href}`;
+    elements.push(<link key={key} {...attributes} />);
+  });
+
+  const metas = [
     ...meta,
     {
       name: 'description',
@@ -284,5 +297,9 @@ export function helmetSettingsFromMetadata(metadata = {}, options = {}) {
     },
   ].filter(({ content } = {}) => !!content);
 
-  return settings;
+  metas.forEach((attributes) => {
+    elements.push(<meta key={attributes.name || attributes.property} {...attributes} />);
+  });
+
+  return elements;
 }

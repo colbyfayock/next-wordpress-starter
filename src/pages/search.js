@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import useSearch from 'hooks/use-search';
@@ -28,9 +28,9 @@ export default function Search() {
 
   return (
     <>
-      <Helmet>
-        <meta name="robots" content="noindex" />
-      </Helmet>
+      <Head>
+        <meta key="robots" name="robots" content="noindex" />
+      </Head>
       <TemplateArchive title={title} posts={results} slug={slug} metadata={metadata} />
     </>
   );

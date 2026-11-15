@@ -1,5 +1,8 @@
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
+
+import useSite from 'hooks/use-site';
+import { formatPageTitle } from 'lib/site';
 
 import Layout from 'components/Layout';
 import Section from 'components/Section';
@@ -8,12 +11,14 @@ import Container from 'components/Container';
 import styles from 'styles/pages/Error.module.scss';
 
 export default function Custom404() {
+  const { metadata = {} } = useSite();
+
   return (
     <Layout>
-      <Helmet>
-        <title>404 - Page Not Found</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      <Head>
+        <title>{formatPageTitle('404 - Page Not Found', metadata.title)}</title>
+        <meta key="robots" name="robots" content="noindex, nofollow" />
+      </Head>
       <Section>
         <Container className={styles.center}>
           <h1>Page Not Found</h1>

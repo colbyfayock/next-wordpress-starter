@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 
 import { authorPathByName } from 'lib/users';
 import { postPathBySlug } from 'lib/posts';
@@ -48,9 +48,13 @@ export function ArticleJsonLd({ post = {}, siteTitle = '' }) {
   };
 
   return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <Head>
+      <script
+        key="jsonld-article"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 }
 
@@ -71,9 +75,13 @@ export function WebsiteJsonLd({ siteTitle = '' }) {
   };
 
   return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <Head>
+      <script
+        key="jsonld-website"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 }
 
@@ -94,9 +102,13 @@ export function WebpageJsonLd({ title = '', description = '', siteTitle = '', sl
   };
 
   return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <Head>
+      <script
+        key="jsonld-webpage"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 }
 
@@ -115,9 +127,13 @@ export function AuthorJsonLd({ author = {} }) {
   };
 
   return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <Head>
+      <script
+        key="jsonld-author"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 }
 
@@ -133,8 +149,12 @@ export function LogoJsonLd() {
   };
 
   return (
-    <Helmet encodeSpecialCharacters={false}>
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-    </Helmet>
+    <Head>
+      <script
+        key="jsonld-logo"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+    </Head>
   );
 }
