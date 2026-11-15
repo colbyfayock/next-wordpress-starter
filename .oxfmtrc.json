@@ -1,0 +1,16 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "printWidth": 120,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "sortPackageJson": false,
+  "overrides": [
+    {
+      "files": ["*.scss"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ],
+  "ignorePatterns": ["**/*.md", "LICENSE", "netlify.toml", "public", ".all-contributorsrc", "pnpm-lock.yaml"]
+}

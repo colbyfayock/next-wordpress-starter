@@ -1,7 +1,6 @@
 const indexSearch = require('./plugins/search-index');
 const feed = require('./plugins/feed');
 const sitemap = require('./plugins/sitemap');
-// const socialImages = require('./plugins/socialImages'); TODO: failing to run on Netlify
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -23,10 +22,7 @@ const nextConfig = {
   // verbose: true,
 
   env: {
-    // The image directory for open graph images will be saved at the location above
-    // with `public` prepended. By default, images will be saved at /public/images/og
-    // and available at /images/og. If changing, make sure to update the .gitignore
-
+    // URL path prefix for post open graph images (see src/pages/posts/[slug].js)
     OG_IMAGE_DIRECTORY: '/images/og',
 
     // By default, only render this number of post pages ahead of time, otherwise

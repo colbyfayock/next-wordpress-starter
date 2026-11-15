@@ -63,9 +63,11 @@ const Footer = () => {
                 </p>
                 <ul className={styles.footerMenuItems}>
                   <li>
+                    {/* oxlint-disable-next-line nextjs/no-html-link-for-pages -- static file, not a page */}
                     <a href="/feed.xml">RSS</a>
                   </li>
                   <li>
+                    {/* oxlint-disable-next-line nextjs/no-html-link-for-pages -- static file, not a page */}
                     <a href="/sitemap.xml">Sitemap</a>
                   </li>
                 </ul>

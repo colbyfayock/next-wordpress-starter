@@ -59,7 +59,7 @@ const Nav = () => {
       removeResultsRoving();
       removeDocumentOnClick();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, [searchVisibility]);
 
   /**
@@ -162,7 +162,7 @@ const Nav = () => {
       clearSearch();
       setSearchVisibility(SEARCH_HIDDEN);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -171,7 +171,7 @@ const Nav = () => {
     return () => {
       document.removeEventListener('keydown', escFunction, false);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // oxlint-disable-next-line react/exhaustive-deps
   }, []);
 
   return (

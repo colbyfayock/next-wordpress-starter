@@ -37,7 +37,6 @@ public/wp-search.json
 public/feed.xml
 public/sitemap.xml
 public/robots.txt
-public/images/og
 
 # VSCode settings
 .vscode/

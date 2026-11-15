@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 
 import useSite from 'hooks/use-site';
+import { formatPageTitle } from 'lib/site';
 import { getAllCategories, categoryPathBySlug } from 'lib/categories';
 import { WebpageJsonLd } from 'lib/json-ld';
 
@@ -22,12 +23,12 @@ export default function Categories({ categories }) {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Categories</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={metaDescription} />
-      </Helmet>
+      <Head>
+        <title>{formatPageTitle(title, siteTitle)}</title>
+        <meta key="description" name="description" content={metaDescription} />
+        <meta key="og:title" property="og:title" content={title} />
+        <meta key="og:description" property="og:description" content={metaDescription} />
+      </Head>
 
       <WebpageJsonLd title={title} description={metaDescription} siteTitle={siteTitle} slug={slug} />
 
