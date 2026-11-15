@@ -9,7 +9,7 @@ import styles from './Pagination.module.scss';
 
 const MAX_NUM_PAGES = 9;
 
-const { homepage = '' } = config;
+const homepage = config.homepage ?? '';
 
 const Pagination = ({ pagesCount, currentPage, basePath, addCanonical = true }) => {
   const path = `${basePath}/page/`;

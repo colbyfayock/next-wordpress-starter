@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { getPageByUri, getAllPages, getBreadcrumbsByUri } from 'lib/pages';
 import { WebpageJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
+import { getStaticPathsFallback } from 'lib/util';
 import useSite from 'hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
 
@@ -30,7 +31,7 @@ export default function Page({ page, breadcrumbs }) {
     },
   });
 
-  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+  if (process.env.WORDPRESS_PLUGIN_SEO !== 'true') {
     metadata.title = `${title} - ${siteMetadata.title}`;
     metadata.og.title = metadata.title;
     metadata.twitter.title = metadata.title;
@@ -171,6 +172,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: getStaticPathsFallback(),
   };
 }

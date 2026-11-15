@@ -19,7 +19,10 @@ module.exports = function feed(nextConfig = {}) {
   return Object.assign({}, nextConfig, {
     webpack(config, options) {
       if (config.watchOptions) {
-        config.watchOptions.ignored.push(path.join('**', plugin.outputDirectory, plugin.outputName));
+        config.watchOptions.ignored = [].concat(
+          config.watchOptions.ignored ?? [],
+          path.join('**', plugin.outputDirectory, plugin.outputName)
+        );
       }
 
       config.plugins.push(

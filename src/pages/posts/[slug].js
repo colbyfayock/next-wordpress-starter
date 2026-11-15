@@ -6,6 +6,7 @@ import { categoryPathBySlug } from 'lib/categories';
 import { formatDate } from 'lib/datetime';
 import { ArticleJsonLd } from 'lib/json-ld';
 import { helmetSettingsFromMetadata } from 'lib/site';
+import { getStaticPathsFallback } from 'lib/util';
 import useSite from 'hooks/use-site';
 import usePageMetadata from 'hooks/use-page-metadata';
 
@@ -52,7 +53,7 @@ export default function Post({ post, socialImage, related }) {
     },
   });
 
-  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+  if (process.env.WORDPRESS_PLUGIN_SEO !== 'true') {
     metadata.title = `${title} - ${siteMetadata.title}`;
     metadata.og.title = metadata.title;
     metadata.twitter.title = metadata.title;
@@ -179,7 +180,7 @@ export async function getStaticPaths() {
   // most popular posts and render those instead
 
   const { posts } = await getRecentPosts({
-    count: process.env.POSTS_PRERENDER_COUNT, // Update this value in next.config.js!
+    count: Number(process.env.POSTS_PRERENDER_COUNT), // Update this value in next.config.js!
     queryIncludes: 'index',
   });
 
@@ -193,6 +194,6 @@ export async function getStaticPaths() {
 
   return {
     paths,
-    fallback: 'blocking',
+    fallback: getStaticPathsFallback(),
   };
 }

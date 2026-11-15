@@ -6,7 +6,11 @@ const sitemap = require('./plugins/sitemap');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
+
+  // `next export` was removed in Next.js 14. The `pnpm export` script sets NEXT_EXPORT
+  // to opt in to a static export (`out/`), which doesn't support on-demand
+  // fallback pages. Regular builds keep the default server output.
+  ...(process.env.NEXT_EXPORT === 'true' && { output: 'export' }),
 
   // By default, Next.js removes the trailing slash. One reason this would be good
   // to include is by default, the `path` property of the router for the homepage
@@ -27,11 +31,11 @@ const nextConfig = {
 
     // By default, only render this number of post pages ahead of time, otherwise
     // the rest will be rendered on-demand
-    POSTS_PRERENDER_COUNT: 5,
+    POSTS_PRERENDER_COUNT: '5',
 
     WORDPRESS_GRAPHQL_ENDPOINT: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
     WORDPRESS_MENU_LOCATION_NAVIGATION: process.env.WORDPRESS_MENU_LOCATION_NAVIGATION || 'PRIMARY',
-    WORDPRESS_PLUGIN_SEO: parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false),
+    WORDPRESS_PLUGIN_SEO: String(parseEnvValue(process.env.WORDPRESS_PLUGIN_SEO, false)),
   },
 };
 
@@ -49,5 +53,5 @@ function parseEnvValue(value, defaultValue) {
   if (typeof value === 'undefined') return defaultValue;
   if (value === true || value === 'true') return true;
   if (value === false || value === 'false') return false;
-  return value;
+  throw new Error(`Invalid value "${value}": expected true or false`);
 }

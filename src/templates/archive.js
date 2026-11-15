@@ -27,7 +27,7 @@ export default function TemplateArchive({
 }) {
   const { metadata: siteMetadata = {} } = useSite();
 
-  if (process.env.WORDPRESS_PLUGIN_SEO !== true) {
+  if (process.env.WORDPRESS_PLUGIN_SEO !== 'true') {
     metadata.title = `${title} - ${siteMetadata.title}`;
     metadata.og.title = metadata.title;
     metadata.twitter.title = metadata.title;

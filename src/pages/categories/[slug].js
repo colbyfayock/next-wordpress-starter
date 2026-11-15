@@ -1,5 +1,6 @@
 import { getCategoryBySlug } from 'lib/categories';
 import { getPostsByCategoryId } from 'lib/posts';
+import { getStaticPathsFallback } from 'lib/util';
 import usePageMetadata from 'hooks/use-page-metadata';
 
 import TemplateArchive from 'templates/archive';
@@ -68,6 +69,6 @@ export async function getStaticPaths() {
 
   return {
     paths: [],
-    fallback: 'blocking',
+    fallback: getStaticPathsFallback(),
   };
 }
