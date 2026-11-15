@@ -1,6 +1,6 @@
 import ClassName from 'models/classname';
 
-import styles from './Title.module.scss';
+import styles from './Title.module.css';
 
 const Title = ({ className, title, thumbnail }) => {
   const titleClassName = new ClassName(styles.title);

@@ -1,0 +1,25 @@
+.categories {
+  font-size: 1.2em;
+  list-style: none;
+  padding-left: 0;
+  margin: -1rem 0;
+}
+.categories > li {
+  margin: 1.5em 0;
+}
+.categories > li:first-child {
+  margin-top: 0;
+}
+.categories > li:last-child {
+  margin-bottom: 0;
+}
+.categories a {
+  color: inherit;
+  text-decoration: none;
+}
+@media (hover: hover) {
+  .categories a:hover {
+    color: var(--color-primary);
+    text-decoration: underline;
+  }
+}

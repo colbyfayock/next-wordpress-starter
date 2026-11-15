@@ -1,5 +1,3 @@
-@import "styles/settings/__settings";
-
 .center {
   display: flex;
   flex-direction: column;
@@ -8,7 +6,7 @@
 }
 
 .errorCode {
-  color: $color-gray-500;
+  color: var(--color-gray-500);
   font-size: 1.5em;
   margin: -0.2em 0 0.8em;
 }

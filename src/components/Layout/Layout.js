@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import styles from './Layout.module.scss';
+import styles from './Layout.module.css';
 
 import useSite from 'hooks/use-site';
 import { headElementsFromMetadata } from 'lib/site';

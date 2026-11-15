@@ -1,6 +1,6 @@
 import ClassName from 'models/classname';
 
-import styles from './Section.module.scss';
+import styles from './Section.module.css';
 
 const Section = ({ children, className, ...rest }) => {
   const sectionClassName = new ClassName(styles.section);

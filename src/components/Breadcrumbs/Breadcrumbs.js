@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import ClassName from 'models/classname';
 
-import styles from './Breadcrumbs.module.scss';
+import styles from './Breadcrumbs.module.css';
 
 const Breadcrumbs = ({ className, breadcrumbs }) => {
   const breadcrumbsClassName = new ClassName(styles.breadcrumbs);

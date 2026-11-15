@@ -1,0 +1,59 @@
+.metadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  color: var(--color-gray-600);
+  list-style: none;
+  padding: 0;
+  margin: 0 -0.8em;
+}
+.metadata ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.metadata > li {
+  margin: 0.8em;
+}
+.metadata p {
+  margin: 0;
+}
+.metadata a {
+  color: inherit;
+  text-decoration: none;
+}
+.metadata a:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.metadataAuthor a {
+  margin-left: 0.2em;
+}
+.metadataAuthor address {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+}
+.metadataAuthor img {
+  width: 1.4em;
+  height: auto;
+  border-radius: 50%;
+  margin-right: 0.5em;
+}
+
+.metadataCategories li {
+  display: inline-block;
+}
+.metadataCategories li:after {
+  content: ", ";
+  margin-right: 0.4em;
+}
+.metadataCategories li:last-child:after {
+  content: none;
+}
+
+.metadataSticky {
+  font-size: 1.15em;
+  color: var(--color-gray-300);
+}

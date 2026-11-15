@@ -2,7 +2,7 @@ import ClassName from 'models/classname';
 
 import Image from 'components/Image';
 
-import styles from './FeaturedImage.module.scss';
+import styles from './FeaturedImage.module.css';
 
 const FeaturedImage = ({ className, alt, ...rest }) => {
   const featuredImageClassName = new ClassName(styles.featuredImage);

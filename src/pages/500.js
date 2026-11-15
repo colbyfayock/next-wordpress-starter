@@ -8,7 +8,7 @@ import Layout from 'components/Layout';
 import Section from 'components/Section';
 import Container from 'components/Container';
 
-import styles from 'styles/pages/Error.module.scss';
+import styles from 'styles/pages/Error.module.css';
 
 export default function Custom500() {
   const { metadata = {} } = useSite();

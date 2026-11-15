@@ -1,0 +1,21 @@
+.content {
+  font-size: 1.5rem;
+}
+.content h2:first-child,
+.content h3:first-child,
+.content h4:first-child,
+.content p:first-child,
+.content ul:first-child {
+  margin-top: 0;
+}
+.content h2:last-child,
+.content h3:last-child,
+.content h4:last-child,
+.content p:last-child,
+.content ul:last-child {
+  margin-bottom: 0;
+}
+.content img {
+  display: block;
+  margin: 0 auto;
+}

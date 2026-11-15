@@ -18,7 +18,7 @@ import Content from 'components/Content';
 import Metadata from 'components/Metadata';
 import FeaturedImage from 'components/FeaturedImage';
 
-import styles from 'styles/pages/Post.module.scss';
+import styles from 'styles/pages/Post.module.css';
 
 export default function Post({ post, socialImage, related }) {
   const {

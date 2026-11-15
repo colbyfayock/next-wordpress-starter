@@ -6,7 +6,7 @@ import { formatDate } from 'lib/datetime';
 import ClassName from 'models/classname';
 
 import { FaMapPin } from 'react-icons/fa';
-import styles from './Metadata.module.scss';
+import styles from './Metadata.module.css';
 
 const DEFAULT_METADATA_OPTIONS = {
   compactCategories: true,

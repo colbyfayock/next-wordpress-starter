@@ -7,7 +7,7 @@ import { categoryPathBySlug } from 'lib/categories';
 import Section from 'components/Section';
 import Container from 'components/Container';
 
-import styles from './Footer.module.scss';
+import styles from './Footer.module.css';
 
 const Footer = () => {
   const { metadata = {}, recentPosts = [], categories = [] } = useSite();

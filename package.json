@@ -33,7 +33,6 @@
     "react-dom": "19.3.1",
     "react-icons": "5.7.0",
     "rss": "^1.2.2",
-    "sass": "1.99.0",
     "style.css": "^1.0.3"
   },
   "devDependencies": {
