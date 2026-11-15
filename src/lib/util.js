@@ -31,3 +31,12 @@ export function removeExtraSpaces(text) {
   if (typeof text !== 'string') return;
   return text.replace(/\s+/g, ' ').trim();
 }
+
+/**
+ * getStaticPathsFallback
+ * @description Static exports (see `pnpm export`) don't support on-demand fallback pages
+ */
+
+export function getStaticPathsFallback() {
+  return process.env.NEXT_EXPORT === 'true' ? false : 'blocking';
+}

@@ -46,7 +46,7 @@ export async function getPageByUri(uri) {
   // If the SEO plugin is enabled, look up the data
   // and apply it to the default settings
 
-  if (process.env.WORDPRESS_PLUGIN_SEO === true) {
+  if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
       seoData = await apolloClient.query({
         query: QUERY_PAGE_SEO_BY_URI,

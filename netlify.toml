@@ -2,8 +2,6 @@
   command = "yarn build"
   publish = ".next"
   
-# Next 13.4 requires Runtime v4, pinned in package.json.
-# Its runtime dependencies are declared directly so pnpm links them for generated functions.
-# Set AWS_LAMBDA_JS_RUNTIME=nodejs22.x in Netlify's environment settings, not this file.
+# Next 16 uses Runtime v5, pinned in package.json.
 [[plugins]]
 package = "@netlify/plugin-nextjs"
