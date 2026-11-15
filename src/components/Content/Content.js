@@ -1,6 +1,6 @@
 import ClassName from 'models/classname';
 
-import styles from './Content.module.scss';
+import styles from './Content.module.css';
 
 const Content = ({ children, className }) => {
   const contentClassName = new ClassName(styles.content);

@@ -9,7 +9,7 @@ import Container from 'components/Container';
 import PostCard from 'components/PostCard';
 import Pagination from 'components/Pagination';
 
-import styles from 'styles/pages/Home.module.scss';
+import styles from 'styles/pages/Home.module.css';
 
 export default function Home({ posts, pagination }) {
   const { metadata = {} } = useSite();

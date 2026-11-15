@@ -1,5 +1,4 @@
 // import ClassName from 'models/classname';
-// import styles from './NavListItem.module.scss';
 import Link from 'next/link';
 
 const NavListItem = ({ className, item }) => {

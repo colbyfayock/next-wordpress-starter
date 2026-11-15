@@ -1,6 +1,6 @@
 import ClassName from 'models/classname';
 
-import styles from './Image.module.scss';
+import styles from './Image.module.css';
 
 const Image = ({
   children,

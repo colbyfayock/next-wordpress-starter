@@ -1,0 +1,58 @@
+.nav {
+  position: relative;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6em;
+}
+.nav > * {
+  display: flex;
+  gap: 0.3em;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+}
+.nav a {
+  color: var(--color-gray-800);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid var(--color-gray-200);
+  border-radius: 0.4em;
+  padding: 0.2em 0.8em;
+}
+.nav a:hover {
+  color: var(--color-primary);
+  background-color: var(--color-gray-50);
+}
+.nav a svg {
+  width: 0.8rem;
+}
+.nav ul {
+  list-style-type: none;
+}
+
+.active {
+  font-weight: 600;
+  padding: 0.2em 0.8em;
+}
+
+.pages {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+@media (max-width: 768px) {
+  .pages {
+    display: none;
+  }
+}
+
+.prev {
+  margin-right: auto;
+}
+
+.dots {
+  display: flex;
+  align-self: flex-end;
+  margin: 0 0.2rem -0.2rem 0.2rem;
+}

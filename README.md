@@ -113,6 +113,12 @@ npm run dev
 
 The project should now be available at [http://localhost:3000](http://localhost:3000)!
 
+#### Styling
+
+Component and page styles use plain CSS Modules (`*.module.css`), with no Sass compiler. Shared colors, fonts, border radii, and the navigation progress-bar color are CSS custom properties in `src/styles/tokens.css`.
+
+To customize the theme, update those properties or override them on a component. Use `var(--color-primary)` and the other shared properties in stylesheets. Global styles live in `src/styles/globals.css`, and WordPress content styles live in `src/styles/wordpress.css`.
+
 #### Linting and formatting
 
 This project uses [Oxlint](https://oxc.rs/docs/guide/usage/linter) for linting and [Oxfmt](https://oxc.rs/docs/guide/usage/formatter) for formatting. Their settings live in `.oxlintrc.json` and `.oxfmtrc.json`.

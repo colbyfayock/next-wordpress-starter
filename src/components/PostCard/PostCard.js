@@ -5,7 +5,7 @@ import { postPathBySlug, sanitizeExcerpt } from 'lib/posts';
 import Metadata from 'components/Metadata';
 
 import { FaMapPin } from 'react-icons/fa';
-import styles from './PostCard.module.scss';
+import styles from './PostCard.module.css';
 
 const PostCard = ({ post, options = {} }) => {
   const { title, excerpt, slug, date, author, categories, isSticky = false } = post;

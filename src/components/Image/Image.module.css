@@ -1,0 +1,10 @@
+.image div {
+  overflow: hidden;
+  margin: 0;
+}
+.image p:first-child {
+  margin-top: 0;
+}
+.image p:last-child {
+  margin-top: 0;
+}

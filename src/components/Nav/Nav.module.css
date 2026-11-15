@@ -1,0 +1,204 @@
+.nav {
+  width: 100%;
+  border-bottom: 1px solid var(--color-gray-100);
+  padding: 0 1rem;
+}
+
+.navSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+}
+@media (min-width: 480px) {
+  .navSection {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+.navName {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  flex-grow: 1;
+  margin: 0.8em 0 0;
+}
+@media (min-width: 480px) {
+  .navName {
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+}
+.navName a {
+  color: var(--color-gray-500);
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-bottom: solid 2px transparent;
+}
+@media (min-width: 480px) {
+  .navName a {
+    padding: 0.5em;
+    margin-left: -0.5em;
+  }
+}
+.navName a:hover {
+  color: var(--color-primary);
+}
+
+.navSearch {
+  flex-grow: 0;
+  margin-left: 1em;
+}
+.navSearch form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+}
+@media (min-width: 480px) {
+  .navSearch form {
+    justify-content: flex-end;
+    margin-right: -1rem;
+  }
+}
+.navSearch input {
+  font-size: 0.845em;
+}
+.navSearch button {
+  font-size: 1.2em;
+  background: none;
+  padding: 1.045em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.navSearch button[disabled] svg {
+  fill: var(--color-gray-200);
+  transition: fill 0.5s;
+}
+.navSearch button svg {
+  fill: var(--color-gray-400);
+  transform: translateY(2px);
+}
+.navSearch button:focus svg {
+  fill: var(--color-primary);
+}
+
+.navSearchResults {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100vw;
+  background-color: white;
+  padding: 1.5em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  border-top: solid 5px var(--color-primary);
+  margin-right: -1rem;
+  z-index: 999;
+}
+@media (min-width: 480px) {
+  .navSearchResults {
+    width: 30em;
+    margin-right: 0;
+  }
+}
+[data-search-is-active="true"] .navSearchResults {
+  display: block;
+}
+.navSearchResults p {
+  line-height: 1.15;
+  margin: 0;
+}
+.navSearchResults ul {
+  list-style: none;
+  padding: 0;
+  margin: -0.5em 0;
+}
+.navSearchResults a {
+  display: block;
+  color: var(--color-gray-800);
+  text-decoration: none;
+  padding: 0.5em;
+  margin: 0 -0.5em;
+}
+.navSearchResults a:focus {
+  outline: 2px solid var(--color-blue-500);
+}
+@media (hover: hover) {
+  .navSearchResults a:hover {
+    color: var(--color-primary);
+  }
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+  flex-grow: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.navMenu li {
+  position: relative;
+  z-index: 1;
+  margin: 0 0.25em;
+}
+.navMenu li:first-child {
+  margin-left: 0;
+}
+.navMenu li:last-child {
+  margin-right: 0;
+}
+.navMenu li:hover > a {
+  color: var(--color-primary);
+}
+.navMenu li:hover > .navSubMenu {
+  display: block;
+}
+.navMenu li > .navSubMenu {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  padding: 0.5em 0.8em;
+}
+.navMenu li .navSubMenu ul {
+  top: 0;
+  left: 100%;
+}
+.navMenu a {
+  display: block;
+  text-decoration: none;
+  color: var(--color-gray-600);
+  font-size: 1.1em;
+  padding: 0.5em;
+}
+@media (hover: hover) {
+  .navMenu a:hover {
+    color: var(--color-primary);
+  }
+}
+.navMenu .navSubMenu {
+  display: none;
+  position: absolute;
+  white-space: nowrap;
+  list-style: none;
+  background-color: #fff;
+  padding: 0;
+}
+.navMenu .navSubMenu li {
+  background-color: white;
+  margin: 0;
+}
+.navMenu .navSubMenu li a {
+  font-size: 1rem;
+  padding: 0.3em;
+}

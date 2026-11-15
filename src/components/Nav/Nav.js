@@ -9,7 +9,7 @@ import { findMenuByLocation, MENU_LOCATION_NAVIGATION_DEFAULT } from 'lib/menus'
 
 import Section from 'components/Section';
 
-import styles from './Nav.module.scss';
+import styles from './Nav.module.css';
 import NavListItem from 'components/NavListItem';
 
 const SEARCH_VISIBLE = 'visible';
