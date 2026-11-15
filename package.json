@@ -15,14 +15,13 @@
     "format:check": "oxfmt --check",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
+    "test": "node --test tests/*.test.cjs",
     "start": "next start -p ${PORT:=3000}"
   },
   "dependencies": {
-    "@apollo/client": "3.14.1",
     "date-fns": "4.4.0",
     "dotenv": "18.0.10",
     "fuse.js": "7.5.0",
-    "graphql": "16.15.0",
     "he": "^1.2.0",
     "loader-utils": "3.3.1",
     "next": "16.4.6",

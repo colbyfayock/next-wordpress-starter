@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const PAGE_FIELDS = gql`
+export const PAGE_FIELDS = `
   fragment PageFields on Page {
     children {
       edges {
@@ -11,9 +9,13 @@ export const PAGE_FIELDS = gql`
           ... on Page {
             id
             title
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
     id
     menuOrder
@@ -24,45 +26,41 @@ export const PAGE_FIELDS = gql`
         uri
         ... on Page {
           title
+          __typename
         }
+        __typename
       }
+      __typename
     }
     slug
     title
     uri
+    __typename
   }
 `;
 
-export const QUERY_ALL_PAGES_INDEX = gql`
+export const QUERY_ALL_PAGES_INDEX = `
   ${PAGE_FIELDS}
   query AllPagesIndex {
-    pages(first: 10000, where: { hasPassword: false }) {
+    pages(first: 10000, where: {hasPassword: false}) {
       edges {
         node {
           ...PageFields
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_ALL_PAGES_ARCHIVE = gql`
-  ${PAGE_FIELDS}
-  query AllPagesIndex {
-    pages(first: 10000, where: { hasPassword: false }) {
-      edges {
-        node {
-          ...PageFields
-        }
-      }
-    }
-  }
-`;
+export const QUERY_ALL_PAGES_ARCHIVE = QUERY_ALL_PAGES_INDEX;
 
-export const QUERY_ALL_PAGES = gql`
+export const QUERY_ALL_PAGES = `
   ${PAGE_FIELDS}
   query AllPagesIndex {
-    pages(first: 10000, where: { hasPassword: false }) {
+    pages(first: 10000, where: {hasPassword: false}) {
       edges {
         node {
           ...PageFields
@@ -75,15 +73,20 @@ export const QUERY_ALL_PAGES = gql`
               sizes
               sourceUrl
               srcSet
+              __typename
             }
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_PAGE_BY_URI = gql`
+export const QUERY_PAGE_BY_URI = `
   query PageByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
       children {
@@ -95,9 +98,13 @@ export const QUERY_PAGE_BY_URI = gql`
             ... on Page {
               id
               title
+              __typename
             }
+            __typename
           }
+          __typename
         }
+        __typename
       }
       content
       featuredImage {
@@ -108,7 +115,9 @@ export const QUERY_PAGE_BY_URI = gql`
           sizes
           sourceUrl
           srcSet
+          __typename
         }
+        __typename
       }
       id
       menuOrder
@@ -119,17 +128,21 @@ export const QUERY_PAGE_BY_URI = gql`
           uri
           ... on Page {
             title
+            __typename
           }
+          __typename
         }
+        __typename
       }
       slug
       title
       uri
+      __typename
     }
   }
 `;
 
-export const QUERY_PAGE_SEO_BY_URI = gql`
+export const QUERY_PAGE_SEO_BY_URI = `
   query PageSEOByUri($uri: ID!) {
     page(id: $uri, idType: URI) {
       id
@@ -155,7 +168,9 @@ export const QUERY_PAGE_SEO_BY_URI = gql`
           mediaDetails {
             width
             height
+            __typename
           }
+          __typename
         }
         opengraphImage {
           altText
@@ -163,9 +178,13 @@ export const QUERY_PAGE_SEO_BY_URI = gql`
           mediaDetails {
             height
             width
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;

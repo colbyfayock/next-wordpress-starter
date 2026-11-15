@@ -1,4 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
 
 import { QUERY_ALL_CATEGORIES, QUERY_CATEGORY_BY_SLUG, QUERY_CATEGORY_SEO_BY_SLUG } from 'data/categories';
 
@@ -15,9 +15,9 @@ export function categoryPathBySlug(slug) {
  */
 
 export async function getAllCategories() {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
-  const data = await apolloClient.query({
+  const data = await graphqlClient.query({
     query: QUERY_ALL_CATEGORIES,
   });
 
@@ -33,14 +33,14 @@ export async function getAllCategories() {
  */
 
 export async function getCategoryBySlug(slug) {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
   const apiHost = new URL(process.env.WORDPRESS_GRAPHQL_ENDPOINT).host;
 
   let categoryData;
   let seoData;
 
   try {
-    categoryData = await apolloClient.query({
+    categoryData = await graphqlClient.query({
       query: QUERY_CATEGORY_BY_SLUG,
       variables: {
         slug,
@@ -60,7 +60,7 @@ export async function getCategoryBySlug(slug) {
 
   if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
-      seoData = await apolloClient.query({
+      seoData = await graphqlClient.query({
         query: QUERY_CATEGORY_SEO_BY_SLUG,
         variables: {
           slug,

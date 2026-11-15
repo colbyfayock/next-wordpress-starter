@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const QUERY_ALL_CATEGORIES = gql`
+export const QUERY_ALL_CATEGORIES = `
   query AllCategories {
     categories(first: 10000) {
       edges {
@@ -10,13 +8,16 @@ export const QUERY_ALL_CATEGORIES = gql`
           id
           name
           slug
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_CATEGORY_BY_SLUG = gql`
+export const QUERY_CATEGORY_BY_SLUG = `
   query CategoryBySlug($slug: ID!) {
     category(id: $slug, idType: SLUG) {
       databaseId
@@ -24,11 +25,12 @@ export const QUERY_CATEGORY_BY_SLUG = gql`
       id
       name
       slug
+      __typename
     }
   }
 `;
 
-export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
+export const QUERY_CATEGORY_SEO_BY_SLUG = `
   query CategorySEOBySlug($slug: ID!) {
     category(id: $slug, idType: SLUG) {
       id
@@ -53,7 +55,9 @@ export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
           mediaDetails {
             width
             height
+            __typename
           }
+          __typename
         }
         opengraphImage {
           altText
@@ -61,9 +65,13 @@ export const QUERY_CATEGORY_SEO_BY_SLUG = gql`
           mediaDetails {
             height
             width
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;

@@ -1,4 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
 import { getTopLevelPages } from 'lib/pages';
 import { QUERY_ALL_MENUS } from 'data/menus';
 
@@ -9,9 +9,9 @@ export const MENU_LOCATION_NAVIGATION_DEFAULT = 'DEFAULT_NAVIGATION';
  */
 
 export async function getAllMenus() {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
-  const data = await apolloClient.query({
+  const data = await graphqlClient.query({
     query: QUERY_ALL_MENUS,
   });
 

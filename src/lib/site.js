@@ -1,4 +1,4 @@
-import { getApolloClient } from 'lib/apollo-client';
+import { getGraphQLClient } from 'lib/graphql';
 
 import { decodeHtmlEntities, removeExtraSpaces } from 'lib/util';
 
@@ -9,13 +9,13 @@ import { QUERY_SITE_DATA, QUERY_SEO_DATA } from 'data/site';
  */
 
 export async function getSiteMetadata() {
-  const apolloClient = getApolloClient();
+  const graphqlClient = getGraphQLClient();
 
   let siteData;
   let seoData;
 
   try {
-    siteData = await apolloClient.query({
+    siteData = await graphqlClient.query({
       query: QUERY_SITE_DATA,
     });
   } catch (e) {
@@ -49,7 +49,7 @@ export async function getSiteMetadata() {
 
   if (process.env.WORDPRESS_PLUGIN_SEO === 'true') {
     try {
-      seoData = await apolloClient.query({
+      seoData = await graphqlClient.query({
         query: QUERY_SEO_DATA,
       });
     } catch (e) {

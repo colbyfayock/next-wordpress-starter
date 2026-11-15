@@ -1,6 +1,4 @@
-import { gql } from '@apollo/client';
-
-export const POST_FIELDS = gql`
+export const POST_FIELDS = `
   fragment PostFields on Post {
     id
     categories {
@@ -10,8 +8,11 @@ export const POST_FIELDS = gql`
           id
           name
           slug
+          __typename
         }
+        __typename
       }
+      __typename
     }
     databaseId
     date
@@ -19,26 +20,30 @@ export const POST_FIELDS = gql`
     postId
     slug
     title
+    __typename
   }
 `;
 
-export const QUERY_ALL_POSTS_INDEX = gql`
+export const QUERY_ALL_POSTS_INDEX = `
   ${POST_FIELDS}
   query AllPostsIndex {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(first: 10000, where: {hasPassword: false}) {
       edges {
         node {
           ...PostFields
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_ALL_POSTS_ARCHIVE = gql`
+export const QUERY_ALL_POSTS_ARCHIVE = `
   ${POST_FIELDS}
   query AllPostsArchive {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(first: 10000, where: {hasPassword: false}) {
       edges {
         node {
           ...PostFields
@@ -48,23 +53,29 @@ export const QUERY_ALL_POSTS_ARCHIVE = gql`
                 height
                 url
                 width
+                __typename
               }
               id
               name
               slug
+              __typename
             }
+            __typename
           }
           excerpt
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_ALL_POSTS = gql`
+export const QUERY_ALL_POSTS = `
   ${POST_FIELDS}
   query AllPosts {
-    posts(first: 10000, where: { hasPassword: false }) {
+    posts(first: 10000, where: {hasPassword: false}) {
       edges {
         node {
           ...PostFields
@@ -74,11 +85,14 @@ export const QUERY_ALL_POSTS = gql`
                 height
                 url
                 width
+                __typename
               }
               id
               name
               slug
+              __typename
             }
+            __typename
           }
           content
           excerpt
@@ -90,16 +104,21 @@ export const QUERY_ALL_POSTS = gql`
               srcSet
               sizes
               id
+              __typename
             }
+            __typename
           }
           modified
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POST_BY_SLUG = gql`
+export const QUERY_POST_BY_SLUG = `
   query PostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       author {
@@ -108,11 +127,14 @@ export const QUERY_POST_BY_SLUG = gql`
             height
             url
             width
+            __typename
           }
           id
           name
           slug
+          __typename
         }
+        __typename
       }
       id
       categories {
@@ -122,8 +144,11 @@ export const QUERY_POST_BY_SLUG = gql`
             id
             name
             slug
+            __typename
           }
+          __typename
         }
+        __typename
       }
       content
       date
@@ -136,34 +161,40 @@ export const QUERY_POST_BY_SLUG = gql`
           srcSet
           sizes
           id
+          __typename
         }
+        __typename
       }
       modified
       databaseId
       title
       slug
       isSticky
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID_INDEX = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
-    posts(where: { categoryId: $categoryId, hasPassword: false }) {
+    posts(where: {categoryId: $categoryId, hasPassword: false}) {
       edges {
         node {
           ...PostFields
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
-    posts(where: { categoryId: $categoryId, hasPassword: false }) {
+    posts(where: {categoryId: $categoryId, hasPassword: false}) {
       edges {
         node {
           ...PostFields
@@ -173,23 +204,29 @@ export const QUERY_POSTS_BY_CATEGORY_ID_ARCHIVE = gql`
                 height
                 url
                 width
+                __typename
               }
               id
               name
               slug
+              __typename
             }
+            __typename
           }
           excerpt
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_CATEGORY_ID = gql`
+export const QUERY_POSTS_BY_CATEGORY_ID = `
   ${POST_FIELDS}
   query PostsByCategoryId($categoryId: Int!) {
-    posts(where: { categoryId: $categoryId, hasPassword: false }) {
+    posts(where: {categoryId: $categoryId, hasPassword: false}) {
       edges {
         node {
           ...PostFields
@@ -199,11 +236,14 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
                 height
                 url
                 width
+                __typename
               }
               id
               name
               slug
+              __typename
             }
+            __typename
           }
           content
           excerpt
@@ -215,46 +255,57 @@ export const QUERY_POSTS_BY_CATEGORY_ID = gql`
               sizes
               sourceUrl
               srcSet
+              __typename
             }
+            __typename
           }
           modified
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_AUTHOR_SLUG_INDEX = gql`
+export const QUERY_POSTS_BY_AUTHOR_SLUG_INDEX = `
   ${POST_FIELDS}
   query PostByAuthorSlugIndex($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
+    posts(where: {authorName: $slug, hasPassword: false}) {
       edges {
         node {
           ...PostFields
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE = gql`
+export const QUERY_POSTS_BY_AUTHOR_SLUG_ARCHIVE = `
   ${POST_FIELDS}
   query PostByAuthorSlugArchive($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
+    posts(where: {authorName: $slug, hasPassword: false}) {
       edges {
         node {
           ...PostFields
           excerpt
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
+export const QUERY_POSTS_BY_AUTHOR_SLUG = `
   ${POST_FIELDS}
   query PostByAuthorSlug($slug: String!) {
-    posts(where: { authorName: $slug, hasPassword: false }) {
+    posts(where: {authorName: $slug, hasPassword: false}) {
       edges {
         node {
           ...PostFields
@@ -267,16 +318,21 @@ export const QUERY_POSTS_BY_AUTHOR_SLUG = gql`
               sizes
               sourceUrl
               srcSet
+              __typename
             }
+            __typename
           }
           modified
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POST_SEO_BY_SLUG = gql`
+export const QUERY_POST_SEO_BY_SLUG = `
   query PostSEOBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       id
@@ -302,7 +358,9 @@ export const QUERY_POST_SEO_BY_SLUG = gql`
           mediaDetails {
             width
             height
+            __typename
           }
+          __typename
         }
         opengraphImage {
           altText
@@ -310,17 +368,22 @@ export const QUERY_POST_SEO_BY_SLUG = gql`
           mediaDetails {
             height
             width
+            __typename
           }
+          __typename
         }
+        __typename
       }
+      __typename
     }
   }
 `;
 
-export const QUERY_POST_PER_PAGE = gql`
+export const QUERY_POST_PER_PAGE = `
   query PostPerPage {
     allSettings {
       readingSettingsPostsPerPage
+      __typename
     }
   }
 `;

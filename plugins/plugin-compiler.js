@@ -1,6 +1,16 @@
 const path = require('path');
 
-const { createApolloClient, createFile, terminalColor, removeLastTrailingSlash } = require('./util');
+const { createGraphQLClient, createFile, terminalColor, removeLastTrailingSlash } = require('./util');
+
+const compilerClients = new WeakMap();
+
+function getCompilerClient(compiler, url) {
+  const endpoint = removeLastTrailingSlash(url);
+  if (!compilerClients.has(compiler)) compilerClients.set(compiler, new Map());
+  const clients = compilerClients.get(compiler);
+  if (!clients.has(endpoint)) clients.set(endpoint, createGraphQLClient(endpoint));
+  return clients.get(endpoint);
+}
 
 class WebpackPlugin {
   constructor(options = {}) {
@@ -23,9 +33,9 @@ class WebpackPlugin {
         );
       }
 
-      const apolloClient = createApolloClient(removeLastTrailingSlash(url));
+      const graphqlClient = getCompilerClient(compilation, url);
 
-      const data = await plugin.getData(apolloClient, plugin.name, verbose);
+      const data = await plugin.getData(graphqlClient, plugin.name, verbose);
 
       const file = await plugin.generate(data, nextConfig);
 
@@ -35,12 +45,13 @@ class WebpackPlugin {
 
       //If there is an additional action to perform
       if (plugin.postcreate) {
-        plugin.postcreate(plugin);
+        await plugin.postcreate(plugin);
       }
 
       !verbose && console.log(`Successfully created: ${terminalColor(plugin.outputName, 'info')}`);
     } catch (e) {
       console.error(`${terminalColor(e.message, 'error')}`);
+      throw e;
     }
   }
 
@@ -56,14 +67,14 @@ class WebpackPlugin {
     // Value to ensure that the plugins only run once and not continuously on every page request
     let hasRun = false;
 
-    compiler.hooks.run.tap(plugin.name, async (compiler) => {
+    compiler.hooks.run.tapPromise(plugin.name, async (compiler) => {
       if (!compiler.options.entry.main || hasRun) return;
 
       await this.index(compiler, this.options);
       hasRun = true;
     });
 
-    compiler.hooks.watchRun.tap(plugin.name, async (compiler) => {
+    compiler.hooks.watchRun.tapPromise(plugin.name, async (compiler) => {
       const entries = await compiler.options.entry();
       if (!entries || !entries.main || hasRun) return;
       await this.index(compiler, this.options);
