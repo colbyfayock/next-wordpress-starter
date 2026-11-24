@@ -36,7 +36,7 @@
     "style.css": "^1.0.3"
   },
   "devDependencies": {
-    "@netlify/plugin-nextjs": "5.16.6",
+    "@netlify/plugin-nextjs": "5.16.9",
     "oxfmt": "0.78.0",
     "oxlint": "1.93.0"
   },
